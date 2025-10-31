@@ -194,7 +194,10 @@ var gameState = {
     score: { red: 0, blue: 0 },
     consecutivePoints: { red: 0, blue: 0 },
     onFire: { red: false, blue: false },
-    timeRemaining: 180,
+    timeRemaining: 360, // 6 minutes total for two halves (3 minutes per half)
+    totalGameTime: 360, // 6 minutes total (3 minutes per half)
+    currentHalf: 1,     // Track which half we're in (1 or 2)
+    isHalftime: false,  // Flag for halftime state
     shotClock: 24,  // 24-second shot clock
     currentTeam: "red",
     ballX: 0,
@@ -251,7 +254,16 @@ var gameState = {
     shotInProgress: false,  // True during shot animation
     shotStartX: 0,
     shotStartY: 0,
-    potentialAssist: null
+    potentialAssist: null,
+    // Player roster tracking for substitutions
+    availablePlayers: {
+        red: [], // Array of all available player indices for red team
+        blue: [] // Array of all available player indices for blue team
+    },
+    activePlayerIndices: {
+        red: [0, 1], // Currently active player indices
+        blue: [0, 1]
+    }
 };
 
 // Frames
@@ -266,9 +278,10 @@ var bluePlayer1;  // AI opponent
 var bluePlayer2;  // AI opponent
 
 // Player class to hold attributes and state
-function Player(name, jersey, attributes, sprite) {
+function Player(name, jersey, attributes, sprite, shortNick) {
     this.name = name;
     this.jersey = jersey;
+    this.shortNick = shortNick; // Short nickname for display
     this.attributes = attributes; // [speed, 3pt, dunk, power, steal, block]
     this.sprite = sprite;
     this.turbo = MAX_TURBO;
@@ -347,7 +360,9 @@ function parseRostersINI(file) {
     var playerData = {};
 
     while (!file.eof) {
-        var line = file.readln().trim();
+        var line = file.readln();
+        if (line === null) break; // End of file reached
+        line = line.trim();
 
         // Skip empty lines and comments
         if (line === "" || line[0] === "#") continue;
@@ -393,9 +408,19 @@ function parseRostersINI(file) {
                 var player = playerData[playerKey];
 
                 if (player) {
+                    // Parse short_nicks - get first nickname from comma-separated list
+                    var shortNick = null;
+                    if (player.short_nicks && player.short_nicks.trim() !== "") {
+                        var nicks = player.short_nicks.split(",");
+                        if (nicks.length > 0 && nicks[0].trim() !== "") {
+                            shortNick = nicks[0].trim();
+                        }
+                    }
+
                     roster.push({
                         name: player.player_name || "Unknown",
                         jersey: parseInt(player.player_number) || 0,
+                        shortNick: shortNick, // Add short nickname property
                         attributes: [
                             parseInt(player.speed) || 5,
                             parseInt(player["3point"]) || 5,
@@ -782,8 +807,15 @@ function drawJerseyNumbers() {
     for (var i = 0; i < players.length; i++) {
         var player = players[i];
         if (player && player.playerData && player.x && player.y) {
-            var jersey = String(player.playerData.jersey);
-            var xPos = Math.floor(player.x + 2 - (jersey.length / 2)); // Center above sprite
+            // Use short nickname if available, otherwise use jersey number
+            var displayText;
+            if (player.playerData.shortNick && player.playerData.shortNick.length > 0) {
+                displayText = player.playerData.shortNick;
+            } else {
+                displayText = String(player.playerData.jersey);
+            }
+
+            var xPos = Math.floor(player.x + 2 - (displayText.length / 2)); // Center above sprite
             var yPos = player.y - 1; // One row above sprite
 
             // Clamp to court boundaries
@@ -791,7 +823,7 @@ function drawJerseyNumbers() {
                 courtFrame.gotoxy(xPos, yPos);
                 // Use team colors from game state (indices 0-1 are red, 2-3 are blue)
                 var color = (i < 2) ? gameState.teamColors.red.fg : gameState.teamColors.blue.fg;
-                courtFrame.putmsg(jersey, color | WAS_BROWN);
+                courtFrame.putmsg(displayText, color | WAS_BROWN);
             }
         }
     }
@@ -855,11 +887,24 @@ function drawScore() {
         scoreFrame.putmsg(" ON FIRE!", YELLOW | gameState.teamColors.blue.bg);
     }
 
-    // Timer (center)
-    var mins = Math.floor(gameState.timeRemaining / 60);
-    var secs = gameState.timeRemaining % 60;
-    scoreFrame.gotoxy(32, 1);
-    scoreFrame.putmsg("TIME: " + String(mins) + ":" + padStart(secs, 2, '0'), LIGHTGREEN | BG_BLACK);
+    // Timer (center) - show half information
+    // Calculate time remaining in current half
+    var halfTime = gameState.totalGameTime / 2; // 180 seconds per half
+    var timeInCurrentHalf;
+
+    if (gameState.currentHalf === 1) {
+        // First half: show time counting down from 3:00 to 0:00
+        timeInCurrentHalf = gameState.timeRemaining - halfTime;
+    } else {
+        // Second half: show time counting down from 3:00 to 0:00
+        timeInCurrentHalf = gameState.timeRemaining;
+    }
+
+    var mins = Math.floor(timeInCurrentHalf / 60);
+    var secs = timeInCurrentHalf % 60;
+    var halfText = gameState.currentHalf === 1 ? "1ST" : "2ND";
+    scoreFrame.gotoxy(30, 1);
+    scoreFrame.putmsg(halfText + " " + String(mins) + ":" + padStart(secs, 2, '0'), LIGHTGREEN | BG_BLACK);
 
     // Shot clock (below timer)
     var shotClockColor = gameState.shotClock <= 5 ? LIGHTRED : WHITE;
@@ -1007,6 +1052,21 @@ function initFrames() {
     ballFrame.open();
 }
 
+// Cleanup function for sprites
+function cleanupSprites() {
+    if (redPlayer1 && redPlayer1.frame) redPlayer1.frame.close();
+    if (redPlayer2 && redPlayer2.frame) redPlayer2.frame.close();
+    if (bluePlayer1 && bluePlayer1.frame) bluePlayer1.frame.close();
+    if (bluePlayer2 && bluePlayer2.frame) bluePlayer2.frame.close();
+    if (ball && ball.frame) ball.frame.close();
+
+    redPlayer1 = null;
+    redPlayer2 = null;
+    bluePlayer1 = null;
+    bluePlayer2 = null;
+    ball = null;
+}
+
 function initSprites(redTeamName, blueTeamName, redPlayerIndices, bluePlayerIndices, allCPUMode) {
     // Get team rosters
     redTeamName = redTeamName || "lakers";
@@ -1070,7 +1130,8 @@ function initSprites(redTeamName, blueTeamName, redPlayerIndices, bluePlayerIndi
         redTeam.players[redPlayerIndices.player1].name,
         redTeam.players[redPlayerIndices.player1].jersey,
         redTeam.players[redPlayerIndices.player1].attributes,
-        redPlayer1
+        redPlayer1,
+        redTeam.players[redPlayerIndices.player1].shortNick
     );
 
     redPlayer2 = new Sprite.Aerial(
@@ -1087,7 +1148,8 @@ function initSprites(redTeamName, blueTeamName, redPlayerIndices, bluePlayerIndi
         redTeam.players[redPlayerIndices.player2].name,
         redTeam.players[redPlayerIndices.player2].jersey,
         redTeam.players[redPlayerIndices.player2].attributes,
-        redPlayer2
+        redPlayer2,
+        redTeam.players[redPlayerIndices.player2].shortNick
     );
 
     // Create BLUE TEAM (right side)
@@ -1105,7 +1167,8 @@ function initSprites(redTeamName, blueTeamName, redPlayerIndices, bluePlayerIndi
         blueTeam.players[bluePlayerIndices.player1].name,
         blueTeam.players[bluePlayerIndices.player1].jersey,
         blueTeam.players[bluePlayerIndices.player1].attributes,
-        bluePlayer1
+        bluePlayer1,
+        blueTeam.players[bluePlayerIndices.player1].shortNick
     );
 
     bluePlayer2 = new Sprite.Aerial(
@@ -1122,7 +1185,8 @@ function initSprites(redTeamName, blueTeamName, redPlayerIndices, bluePlayerIndi
         blueTeam.players[bluePlayerIndices.player2].name,
         blueTeam.players[bluePlayerIndices.player2].jersey,
         blueTeam.players[bluePlayerIndices.player2].attributes,
-        bluePlayer2
+        bluePlayer2,
+        blueTeam.players[bluePlayerIndices.player2].shortNick
     );
 
     // Red team starts with ball - player 1 has it
@@ -2870,6 +2934,136 @@ function moveAITowards(sprite, targetX, targetY) {
     }
 }
 
+function showHalftimeScreen() {
+    gameState.isHalftime = true;
+    courtFrame.clear();
+    courtFrame.gotoxy(1, 1);
+
+    var redName = gameState.teamNames.red;
+    var blueName = gameState.teamNames.blue;
+    var redColorCode = gameState.teamColors.red.fg_accent_code || gameState.teamColors.red.fg_code || "\1h\1w";
+    var blueColorCode = gameState.teamColors.blue.fg_accent_code || gameState.teamColors.blue.fg_code || "\1h\1w";
+    var whiteCode = "\1h\1w";
+
+    courtFrame.center("\r\n\r\n");
+    courtFrame.center("\1h\1y HALFTIME \1n\r\n\r\n");
+
+    // Show current score
+    courtFrame.center(
+        whiteCode + "Halftime Score: " +
+        redColorCode + redName + " " + gameState.score.red +
+        whiteCode + " - " +
+        blueColorCode + blueName + " " + gameState.score.blue +
+        "\1n\r\n\r\n"
+    );
+
+    // Show halftime stats
+    courtFrame.center(redColorCode + redName.toUpperCase() + " STATS\1n\r\n");
+    renderHalftimeStats("red");
+    courtFrame.center("\r\n");
+
+    courtFrame.center(blueColorCode + blueName.toUpperCase() + " STATS\1n\r\n");
+    renderHalftimeStats("blue");
+
+    courtFrame.center("\r\n\1h[S]\1n Substitutions  \1h[SPACE]\1n Continue to 2nd Half\r\n");
+
+    if (typeof Sprite !== "undefined" && typeof Sprite.cycle === "function") {
+        Sprite.cycle();
+    }
+    courtFrame.cycle();
+
+    // Wait for user input
+    while (true) {
+        var key = console.getkey();
+        if (!key) continue;
+
+        var keyUpper = key.toUpperCase();
+        if (keyUpper === 'S') {
+            // Show substitution screen
+            if (showSubstitutionScreen()) {
+                break; // User made substitutions and wants to continue
+            }
+        } else if (key === ' ') {
+            break; // Continue to second half
+        } else if (keyUpper === 'Q') {
+            gameState.gameRunning = false;
+            return;
+        }
+    }
+
+    // Prepare for second half
+    gameState.isHalftime = false;
+    // Don't reset timeRemaining - let it continue counting down from current time
+
+    // CPU substitutions (simple random)
+    performCPUSubstitutions();
+
+    announce("SECOND HALF!", YELLOW);
+    mswait(1500);
+}
+
+function renderHalftimeStats(teamKey) {
+    var players = teamKey === "red" ? getRedTeam() : getBlueTeam();
+    var teamColorInfo = gameState.teamColors[teamKey] || {};
+    var jerseyColor = teamColorInfo.fg_code || "\1h\1w";
+    var whiteCode = "\1h\1w";
+
+    for (var i = 0; i < players.length; i++) {
+        var player = players[i];
+        if (!player || !player.playerData) continue;
+
+        var data = player.playerData;
+        var stats = data.stats || {};
+        var name = getLastName(data.name || "");
+        var nameDisplay = jerseyColor + "#" + data.jersey + " " + name + whiteCode;
+
+        var statLine = nameDisplay + ": " + (stats.points || 0) + "pts, " +
+            (stats.assists || 0) + "ast, " + (stats.rebounds || 0) + "reb";
+
+        courtFrame.center(statLine + "\1n\r\n");
+    }
+}
+
+function showSubstitutionScreen() {
+    // For now, just show a simple message - player substitution coming in future enhancement
+    courtFrame.clear();
+    courtFrame.center("\r\n\r\n\r\n");
+    courtFrame.center("\1h\1y SUBSTITUTIONS \1n\r\n\r\n");
+    courtFrame.center("Player substitutions will be available\r\n");
+    courtFrame.center("in a future update!\r\n\r\n");
+    courtFrame.center("\1h[SPACE]\1n Continue to 2nd Half\r\n");
+    courtFrame.cycle();
+
+    while (true) {
+        var key = console.getkey();
+        if (key === ' ') {
+            return true;
+        } else if (key.toUpperCase() === 'Q') {
+            gameState.gameRunning = false;
+            return false;
+        }
+    }
+}
+
+function performCPUSubstitutions() {
+    // Simple CPU substitution logic - randomly substitute players with low performance
+    var blueTeam = getBlueTeam();
+    for (var i = 0; i < blueTeam.length; i++) {
+        var player = blueTeam[i];
+        if (player && player.playerData && player.playerData.stats) {
+            var stats = player.playerData.stats;
+            var performance = (stats.points || 0) + (stats.assists || 0) + (stats.rebounds || 0);
+
+            // 30% chance to substitute if performance is low
+            if (performance < 5 && Math.random() < 0.3) {
+                // For now, just reset their turbo (simulation of fresh legs)
+                player.playerData.turbo = MAX_TURBO;
+                player.playerData.heatStreak = 0;
+            }
+        }
+    }
+}
+
 function gameLoop() {
     gameState.gameRunning = true;
     clearPotentialAssist();
@@ -2890,6 +3084,21 @@ function gameLoop() {
             gameState.timeRemaining--;
             gameState.shotClock--;
             lastSecond = now;
+
+            // Check for halftime (when first half time expires)
+            if (gameState.currentHalf === 1 && gameState.timeRemaining <= gameState.totalGameTime / 2) {
+                gameState.currentHalf = 2;
+                showHalftimeScreen();
+                if (!gameState.gameRunning) break; // User quit during halftime
+
+                // Reset for second half
+                drawCourt();
+                drawScore();
+                lastUpdate = Date.now();
+                lastSecond = Date.now();
+                lastAI = Date.now();
+                continue;
+            }
 
             // Shot clock violation
             if (gameState.shotClock <= 0) {
@@ -4050,7 +4259,7 @@ function positionSpritesForBoxScore() {
     }
 }
 
-function showGameOver() {
+function showGameOver(isDemoMode) {
     courtFrame.clear();
     positionSpritesForBoxScore();
     courtFrame.gotoxy(1, 1);
@@ -4085,15 +4294,46 @@ function showGameOver() {
     renderTeamBoxScore("red", redName);
     courtFrame.center("\r\n");
     renderTeamBoxScore("blue", blueName);
-    courtFrame.center("\r\n\1hPress any key to exit...\1n\r\n");
+
+    if (isDemoMode) {
+        courtFrame.center("\r\n\1hStarting new demo in 15 seconds...\1n\r\n");
+        courtFrame.center("\1h[Q]\1n Quit to Menu\r\n");
+    } else {
+        courtFrame.center("\r\n\1h[SPACE]\1n Play Again  \1h[T]\1n New Teams  \1h[Q]\1n Quit to Menu\r\n");
+    }
 
     if (typeof Sprite !== "undefined" && typeof Sprite.cycle === "function") {
         Sprite.cycle();
     }
     courtFrame.cycle();
 
-    if (typeof console !== 'undefined' && typeof console.getkey === 'function') {
-        console.getkey();
+    if (isDemoMode) {
+        // Demo mode: wait 15 seconds or until user presses Q
+        var startTime = Date.now();
+        var timeoutMs = 15000; // 15 seconds
+
+        while (Date.now() - startTime < timeoutMs) {
+            var key = console.inkey(K_NONE, 100);
+            if (key && key.toUpperCase() === 'Q') {
+                return "quit";
+            }
+        }
+        return "newdemo"; // Start new demo
+    } else {
+        // Player mode: wait for choice
+        while (true) {
+            var key = console.getkey();
+            if (!key) continue;
+
+            var keyUpper = key.toUpperCase();
+            if (key === ' ') {
+                return "playagain"; // Same teams, play again
+            } else if (keyUpper === 'T') {
+                return "newteams"; // Select new teams
+            } else if (keyUpper === 'Q') {
+                return "quit"; // Quit to main menu
+            }
+        }
     }
 }
 
@@ -4191,29 +4431,46 @@ function mainMenu() {
     }
 }
 
-function playerSelectionScreen(teamKey, teamColor) {
+function playerSelectionScreen(teamKey, teamColor, selectionType, excludeIndices) {
     var team = NBATeams[teamKey];
     if (!team || !team.players || team.players.length === 0) {
         return null;
     }
 
     var currentSelection = 0;
+    selectionType = selectionType || "main"; // "main" or "teammate"
+    excludeIndices = excludeIndices || [];
+
+    // Skip excluded players for initial selection
+    while (excludeIndices.indexOf(currentSelection) !== -1 && currentSelection < team.players.length - 1) {
+        currentSelection++;
+    }
 
     while (true) {
         console.clear();
         var colorCode = teamColor === "RED" ? "\1h\1r" : "\1h\1c";
         console.putmsg("\1h\1y=== NBA JAM - PLAYER SELECTION ===\1n\r\n\r\n");
         console.putmsg(colorCode + teamColor + " TEAM: " + team.name + "\1n\r\n\r\n");
-        console.putmsg("Select your player:\r\n\r\n");
+
+        if (selectionType === "main") {
+            console.putmsg("Select your main player:\r\n\r\n");
+        } else {
+            console.putmsg("Select your teammate:\r\n\r\n");
+        }
 
         // Display players with stats
         for (var i = 0; i < team.players.length; i++) {
             var player = team.players[i];
-            var prefix = (i === currentSelection) ? "\1h\1w> " : "  ";
+            var isExcluded = excludeIndices.indexOf(i) !== -1;
+            var prefix;
 
-            console.putmsg(prefix + "#" + player.jersey + " " + player.name + "\1n\r\n");
+            if (isExcluded) {
+                prefix = "\1h\1k  [SELECTED] ";
+                console.putmsg(prefix + "#" + player.jersey + " " + player.name + "\1n\r\n");
+            } else if (i === currentSelection) {
+                prefix = "\1h\1w> ";
+                console.putmsg(prefix + "#" + player.jersey + " " + player.name + "\1n\r\n");
 
-            if (i === currentSelection) {
                 // Show detailed stats for selected player
                 console.putmsg("     SPD: " + player.attributes[ATTR_SPEED] + "/10  ");
                 console.putmsg("3PT: " + player.attributes[ATTR_3PT] + "/10  ");
@@ -4221,6 +4478,9 @@ function playerSelectionScreen(teamKey, teamColor) {
                 console.putmsg("     PWR: " + player.attributes[ATTR_POWER] + "/10  ");
                 console.putmsg("STL: " + player.attributes[ATTR_STEAL] + "/10  ");
                 console.putmsg("BLK: " + player.attributes[ATTR_BLOCK] + "/10\r\n");
+            } else {
+                prefix = "  ";
+                console.putmsg(prefix + "#" + player.jersey + " " + player.name + "\1n\r\n");
             }
             console.putmsg("\r\n");
         }
@@ -4232,14 +4492,43 @@ function playerSelectionScreen(teamKey, teamColor) {
 
         if (key.toUpperCase() === 'Q') {
             return null;
-        } else if (key === KEY_UP && currentSelection > 0) {
-            currentSelection--;
-        } else if (key === KEY_DOWN && currentSelection < team.players.length - 1) {
-            currentSelection++;
+        } else if (key === KEY_UP) {
+            do {
+                currentSelection--;
+                if (currentSelection < 0) currentSelection = team.players.length - 1;
+            } while (excludeIndices.indexOf(currentSelection) !== -1);
+        } else if (key === KEY_DOWN) {
+            do {
+                currentSelection++;
+                if (currentSelection >= team.players.length) currentSelection = 0;
+            } while (excludeIndices.indexOf(currentSelection) !== -1);
         } else if (key === '\r' || key === '\n') {
-            return currentSelection; // Return selected player index
+            if (excludeIndices.indexOf(currentSelection) === -1) {
+                return currentSelection; // Return selected player index
+            }
         }
     }
+}
+
+function teammateSelectionScreen(teamKey, teamColor, mainPlayerIndex) {
+    var team = NBATeams[teamKey];
+    if (!team || !team.players || team.players.length < 2) {
+        return [mainPlayerIndex]; // Fallback to just main player
+    }
+
+    console.clear();
+    var colorCode = teamColor === "RED" ? "\1h\1r" : "\1h\1c";
+    console.putmsg("\1h\1y=== NBA JAM - TEAMMATE SELECTION ===\1n\r\n\r\n");
+    console.putmsg(colorCode + teamColor + " TEAM: " + team.name + "\1n\r\n\r\n");
+    console.putmsg("Your main player: #" + team.players[mainPlayerIndex].jersey + " " + team.players[mainPlayerIndex].name + "\r\n\r\n");
+    console.putmsg("Select your teammate to play alongside you:\r\n\r\n");
+
+    var teammateIndex = playerSelectionScreen(teamKey, teamColor, "teammate", [mainPlayerIndex]);
+    if (teammateIndex === null) {
+        return null; // User quit
+    }
+
+    return [mainPlayerIndex, teammateIndex];
 }
 
 function teamSelectionScreen() {
@@ -4298,9 +4587,13 @@ function teamSelectionScreen() {
         }
     }
 
-    // STEP 2: Select YOUR player from your team
-    var userPlayerIndex = playerSelectionScreen(userTeamKey, "RED");
+    // STEP 2: Select YOUR main player from your team
+    var userPlayerIndex = playerSelectionScreen(userTeamKey, "RED", "main");
     if (userPlayerIndex === null) return null;
+
+    // STEP 2.5: Select YOUR teammate(s) from your team  
+    var userTeamPlayers = teammateSelectionScreen(userTeamKey, "RED", userPlayerIndex);
+    if (userTeamPlayers === null) return null;
 
     // STEP 3: Select OPPONENT team
     currentSelection = 0;
@@ -4341,63 +4634,115 @@ function teamSelectionScreen() {
         }
     }
 
-    // Determine teammate index (the OTHER player on user's team)
-    var userTeam = NBATeams[userTeamKey];
-    var teammateIndex = (userPlayerIndex === 0) ? 1 : 0;
+    // Opponent uses their first two players by default
+    var opponentPlayers = [0, 1];
 
-    // Make sure teammate exists
-    if (teammateIndex >= userTeam.players.length) {
-        teammateIndex = 0; // Fallback
+    // Make sure opponent has enough players
+    var opponentTeam = NBATeams[opponentTeamKey];
+    if (opponentTeam.players.length < 2) {
+        opponentPlayers = [0, 0]; // Fallback to duplicate first player
     }
 
-    // Opponent uses both their players (indices 0 and 1)
     return {
         redTeam: userTeamKey,
         blueTeam: opponentTeamKey,
         redPlayers: {
-            player1: userPlayerIndex,    // Human controlled
-            player2: teammateIndex        // AI teammate
+            player1: userTeamPlayers[0],    // Human controlled (main player)
+            player2: userTeamPlayers[1]     // AI teammate (selected teammate)
         },
         bluePlayers: {
-            player1: 0,  // AI opponent 1
-            player2: 1   // AI opponent 2
+            player1: opponentPlayers[0],  // AI opponent 1
+            player2: opponentPlayers[1]   // AI opponent 2
         }
     };
 }
 
 function runCPUDemo() {
-    // Pick random or fixed teams for demo
-    var teamKeys = Object.keys(NBATeams);
-    var randomTeam1 = teamKeys[Math.floor(Math.random() * teamKeys.length)];
-    var randomTeam2 = teamKeys[Math.floor(Math.random() * teamKeys.length)];
+    while (true) {
+        // Pick random teams for demo
+        var teamKeys = Object.keys(NBATeams);
+        var randomTeam1 = teamKeys[Math.floor(Math.random() * teamKeys.length)];
+        var randomTeam2 = teamKeys[Math.floor(Math.random() * teamKeys.length)];
 
-    // Make sure they're different teams
-    while (randomTeam1 === randomTeam2) {
-        randomTeam2 = teamKeys[Math.floor(Math.random() * teamKeys.length)];
+        // Make sure they're different teams
+        while (randomTeam1 === randomTeam2) {
+            randomTeam2 = teamKeys[Math.floor(Math.random() * teamKeys.length)];
+        }
+
+        var redTeamKey = randomTeam1;
+        var blueTeamKey = randomTeam2;
+
+        // Use random player indices (pick 2 random players from each 6-player roster)
+        var redTeam = NBATeams[redTeamKey];
+        var blueTeam = NBATeams[blueTeamKey];
+
+        var redAvailablePlayers = [];
+        var blueAvailablePlayers = [];
+
+        // Get available players for each team using actual players array
+        for (var i = 0; i < redTeam.players.length; i++) {
+            redAvailablePlayers.push(i);
+        }
+        for (var i = 0; i < blueTeam.players.length; i++) {
+            blueAvailablePlayers.push(i);
+        }
+
+        // Safety check - ensure we have at least 2 players per team
+        if (redAvailablePlayers.length < 2) {
+            // Fallback to default players (0 and 1, or 0 and 0 if only 1 player)
+            redAvailablePlayers = [0, redTeam.players.length > 1 ? 1 : 0];
+        }
+        if (blueAvailablePlayers.length < 2) {
+            blueAvailablePlayers = [0, blueTeam.players.length > 1 ? 1 : 0];
+        }
+
+        // Randomly select 2 players from each team
+        var redPlayerIndices = {
+            player1: redAvailablePlayers[Math.floor(Math.random() * redAvailablePlayers.length)],
+            player2: redAvailablePlayers[Math.floor(Math.random() * redAvailablePlayers.length)]
+        };
+
+        // Make sure red players are different
+        while (redPlayerIndices.player1 === redPlayerIndices.player2 && redAvailablePlayers.length > 1) {
+            redPlayerIndices.player2 = redAvailablePlayers[Math.floor(Math.random() * redAvailablePlayers.length)];
+        }
+
+        var bluePlayerIndices = {
+            player1: blueAvailablePlayers[Math.floor(Math.random() * blueAvailablePlayers.length)],
+            player2: blueAvailablePlayers[Math.floor(Math.random() * blueAvailablePlayers.length)]
+        };
+
+        // Make sure blue players are different
+        while (bluePlayerIndices.player1 === bluePlayerIndices.player2 && blueAvailablePlayers.length > 1) {
+            bluePlayerIndices.player2 = blueAvailablePlayers[Math.floor(Math.random() * blueAvailablePlayers.length)];
+        }
+
+        // Initialize sprites with ALL CPU mode
+        initSprites(redTeamKey, blueTeamKey, redPlayerIndices, bluePlayerIndices, true);
+
+        // Set game time (shorter for demo - 120 seconds total)
+        gameState.timeRemaining = 120;
+        gameState.totalGameTime = 120;
+        gameState.currentHalf = 1;
+
+        // Display "DEMO MODE" message
+        announce("DEMO MODE - Press Q to exit", YELLOW);
+        mswait(1500);
+
+        // Run the game loop (all AI controlled)
+        gameLoop();
+
+        // After game ends, check what user wants to do
+        var choice = showGameOver(true); // Pass true for demo mode
+
+        if (choice === "quit") {
+            break; // Exit demo loop
+        }
+        // choice === "newdemo" continues the loop for a new demo
+
+        // Clean up sprites before starting new demo
+        cleanupSprites();
     }
-
-    var redTeamKey = randomTeam1;
-    var blueTeamKey = randomTeam2;
-
-    // Use default player indices (first two players from each team)
-    var redPlayerIndices = { player1: 0, player2: 1 };
-    var bluePlayerIndices = { player1: 0, player2: 1 };
-
-    // Initialize sprites with ALL CPU mode
-    initSprites(redTeamKey, blueTeamKey, redPlayerIndices, bluePlayerIndices, true);
-
-    // Set game time (shorter for demo - 60 seconds)
-    gameState.timeRemaining = 60;
-
-    // Display "DEMO MODE" message
-    announce("DEMO MODE - Press Q to exit", YELLOW);
-    mswait(1500);
-
-    // Run the game loop (all AI controlled)
-    gameLoop();
-
-    // After game ends, show score briefly
-    showGameOver();
 }
 
 function showSplashScreen() {
@@ -4440,26 +4785,55 @@ function main() {
         // Run CPU vs CPU demo
         runCPUDemo();
     } else if (menuChoice === "play") {
-        // Team selection screen
-        var selection = teamSelectionScreen();
-        if (!selection) {
-            // User quit during selection
-            return;
+        var playAgain = true;
+        var useNewTeams = false;
+        var selection = null;
+
+        while (playAgain) {
+            if (!selection || useNewTeams) {
+                // Team selection screen
+                selection = teamSelectionScreen();
+                if (!selection) {
+                    // User quit during selection
+                    return;
+                }
+                useNewTeams = false;
+            }
+
+            // Clear screen before starting game to remove selection artifacts
+            console.clear();
+
+            initSprites(
+                selection.redTeam,
+                selection.blueTeam,
+                selection.redPlayers,
+                selection.bluePlayers,
+                false  // Not demo mode - player1 is human
+            );
+
+            // Reset game state for new game
+            gameState.score.red = 0;
+            gameState.score.blue = 0;
+            gameState.timeRemaining = gameState.totalGameTime; // Start with full game time
+            gameState.currentHalf = 1;
+            gameState.isHalftime = false;
+            gameState.consecutivePoints.red = 0;
+            gameState.consecutivePoints.blue = 0;
+            gameState.onFire.red = false;
+            gameState.onFire.blue = false;
+
+            gameLoop();
+            var choice = showGameOver(false); // Pass false for player mode
+
+            if (choice === "quit") {
+                playAgain = false;
+            } else if (choice === "newteams") {
+                useNewTeams = true;
+                cleanupSprites(); // Clean up before new team selection
+            } else if (choice === "playagain") {
+                cleanupSprites(); // Clean up before restarting
+            }
         }
-
-        // Clear screen before starting game to remove selection artifacts
-        console.clear();
-
-        initSprites(
-            selection.redTeam,
-            selection.blueTeam,
-            selection.redPlayers,
-            selection.bluePlayers,
-            false  // Not demo mode - player1 is human
-        );
-
-        gameLoop();
-        showGameOver();
     }
 
     // Cleanup
