@@ -111,9 +111,9 @@ Frame.prototype.drawBorder = function (color) {
 // Game constants
 var COURT_WIDTH = 78;
 var COURT_HEIGHT = 18;
-var BASKET_LEFT_X = 3;
+var BASKET_LEFT_X = 5;
 var BASKET_LEFT_Y = 9;
-var BASKET_RIGHT_X = 74;
+var BASKET_RIGHT_X = 72;
 var BASKET_RIGHT_Y = 9;
 
 // Player attribute constants (NBA Jam style)
@@ -417,9 +417,21 @@ function parseRostersINI(file) {
                         }
                     }
 
+                    var jerseyNumberString = "";
+                    if (player.player_number !== undefined && player.player_number !== null) {
+                        jerseyNumberString = String(player.player_number).trim();
+                    }
+
+                    var skinTone = null;
+                    if (player.skin && player.skin.trim() !== "") {
+                        skinTone = player.skin.trim().toLowerCase();
+                    }
+
                     roster.push({
                         name: player.player_name || "Unknown",
                         jersey: parseInt(player.player_number) || 0,
+                        jerseyString: jerseyNumberString,
+                        skin: skinTone,
                         shortNick: shortNick, // Add short nickname property
                         attributes: [
                             parseInt(player.speed) || 5,
@@ -494,9 +506,12 @@ function generateRandomRoster(teamName) {
                 playerName = "Player";
         }
 
+        var jerseyNumber = Math.floor(Math.random() * 99) + 1;
         roster.push({
             name: playerName + " " + (i + 1),
-            jersey: Math.floor(Math.random() * 99) + 1,
+            jersey: jerseyNumber,
+            jerseyString: String(jerseyNumber),
+            skin: "brown",
             attributes: attributes
         });
     }
@@ -561,17 +576,28 @@ function getColorValue(colorStr) {
         "LIGHTMAGENTA": LIGHTMAGENTA,
         "LIGHTCYAN": LIGHTCYAN,
         "WHITE": WHITE,
-        "BG_BLACK": BG_BLACK,
-        "BG_RED": BG_RED,
-        "BG_GREEN": BG_GREEN,
-        "WAS_BROWN": WAS_BROWN,
-        "BG_BLUE": BG_BLUE,
-        "BG_MAGENTA": BG_MAGENTA,
-        "BG_CYAN": BG_CYAN,
-        "BG_LIGHTGRAY": BG_LIGHTGRAY
+        "WAS_BROWN": WAS_BROWN
     };
 
-    return colorMap[colorStr] || WHITE;
+    if (!colorStr) return WHITE;
+    var upper = colorStr.toUpperCase();
+
+    if (upper === "BG_BLACK") return BG_BLACK;
+
+    if (upper.indexOf("BG_") === 0 && upper.length > 3) {
+        var fgValue = getColorValue(upper.substring(3));
+        if (fgValue === undefined || fgValue === null) {
+            return BG_BLACK;
+        }
+        return (fgValue & 0x0F) << 4;
+    }
+
+    var direct = colorMap[upper];
+    if (typeof direct === "number") {
+        return direct;
+    }
+
+    return WHITE;
 }
 
 // Convert color string to Synchronet CTRL-A color code for console.putmsg
@@ -596,6 +622,118 @@ function getColorCode(colorStr) {
     };
 
     return codeMap[colorStr] || "\1w";
+}
+
+function resolveSpriteBaseBySkin(skin) {
+    var fallback = "player-brown";
+    if (typeof skin !== "string" || skin.trim() === "") {
+        return fallback;
+    }
+    var cleaned = skin.toLowerCase();
+    var candidate = "player-" + cleaned;
+    try {
+        var testFile = new File(js.exec_dir + "sprites/" + candidate + ".bin");
+        if (testFile.exists) {
+            return candidate;
+        }
+    } catch (e) {
+        // Ignore and fall back
+    }
+    return fallback;
+}
+
+function applyUniformMask(sprite, options) {
+    if (!sprite || !sprite.frame || !sprite.ini || !sprite.ini.width || !sprite.ini.height) {
+        return;
+    }
+
+    var jerseyBg = options.jerseyBg || BG_RED;
+    var accentFg = (options.accentFg !== undefined && options.accentFg !== null) ? options.accentFg : WHITE;
+    var jerseyNumber = "";
+    if (options.jerseyNumber !== undefined && options.jerseyNumber !== null) {
+        jerseyNumber = String(options.jerseyNumber);
+    }
+    var digits = jerseyNumber.replace(/[^0-9]/g, "");
+    var leftDigit;
+    var rightDigit;
+
+    if (digits.length >= 2) {
+        leftDigit = digits.charAt(0);
+        rightDigit = digits.charAt(1);
+    } else if (digits.length === 1) {
+        leftDigit = "#";
+        rightDigit = digits.charAt(0);
+    } else {
+        leftDigit = "#";
+        rightDigit = "#";
+    }
+
+    var topNeckChar = ascii(223); // ▀
+    var shortsChar = ascii(220);  // ▄
+    var digitsAttr = accentFg | jerseyBg;
+    var width = parseInt(sprite.ini.width);
+    var height = parseInt(sprite.ini.height);
+    var bearingCount = (sprite.ini.bearings && sprite.ini.bearings.length) ? sprite.ini.bearings.length : 1;
+    var positionCount = (sprite.ini.positions && sprite.ini.positions.length) ? sprite.ini.positions.length : 1;
+
+    var FG_MASK = 0x0F;
+    var BG_MASK = 0x70;
+
+    function getAttrValue(cell, fallback) {
+        if (cell && typeof cell.attr === "number") {
+            return cell.attr;
+        }
+        return fallback;
+    }
+
+    function composeAttr(originalAttr, newFg, newBg) {
+        var attr = originalAttr || 0;
+        var preserved = attr & ~(FG_MASK | BG_MASK);
+        var fgPart = (newFg !== undefined && newFg !== null) ? (newFg & FG_MASK) : (attr & FG_MASK);
+        var bgPart;
+        if (newBg !== undefined && newBg !== null) {
+            bgPart = newBg;
+        } else {
+            bgPart = attr & BG_MASK;
+        }
+        return preserved | fgPart | bgPart;
+    }
+
+    for (var bearingIndex = 0; bearingIndex < bearingCount; bearingIndex++) {
+        var yOffset = height * bearingIndex;
+        for (var positionIndex = 0; positionIndex < positionCount; positionIndex++) {
+            var xOffset = width * positionIndex;
+
+            // Row 3, col 2 (1-based)
+            sprite.frame.setData(xOffset + 1, yOffset + 2, leftDigit, digitsAttr);
+
+            // Row 3, col 3 neckline
+            var neckData = sprite.frame.getData(xOffset + 2, yOffset + 2, false);
+            var neckAttrRaw = getAttrValue(neckData, digitsAttr);
+            var skinFg = neckAttrRaw & FG_MASK;
+            var neckAttr = composeAttr(neckAttrRaw, skinFg, jerseyBg);
+            sprite.frame.setData(xOffset + 2, yOffset + 2, topNeckChar, neckAttr);
+
+            // Row 3, col 4 (second digit)
+            sprite.frame.setData(xOffset + 3, yOffset + 2, rightDigit, digitsAttr);
+
+            // Row 4, col 2 (left leg/shorts)
+            var leftLegData = sprite.frame.getData(xOffset + 1, yOffset + 3, false);
+            var leftLegAttrRaw = getAttrValue(leftLegData, jerseyBg);
+            var leftLegFg = leftLegAttrRaw & FG_MASK;
+            var leftLegAttr = composeAttr(leftLegAttrRaw, leftLegFg, jerseyBg);
+            sprite.frame.setData(xOffset + 1, yOffset + 3, shortsChar, leftLegAttr);
+
+            // Row 4, col 4 (right leg/shorts)
+            var rightLegData = sprite.frame.getData(xOffset + 3, yOffset + 3, false);
+            var rightLegAttrRaw = getAttrValue(rightLegData, jerseyBg);
+            var rightLegFg = rightLegAttrRaw & FG_MASK;
+            var rightLegAttr = composeAttr(rightLegAttrRaw, rightLegFg, jerseyBg);
+            sprite.frame.setData(xOffset + 3, yOffset + 3, shortsChar, rightLegAttr);
+        }
+    }
+
+    sprite.frame.invalidate();
 }
 
 // Announcer system
@@ -627,49 +765,55 @@ function drawBaselineTeamNames() {
     var blueTeamName = gameState.teamNames.blue || "BLUE";
     var redTeamName = gameState.teamNames.red || "RED";
 
-    // Get team colors
-    var blueColor = gameState.teamColors.blue.fg || LIGHTBLUE;
-    var redColor = gameState.teamColors.red.fg || LIGHTRED;
+    var baselineTop = 2;
+    var baselineBottom = COURT_HEIGHT - 1;
+    var baselineSpan = baselineBottom - baselineTop + 1;
+
+    function resolveBaselineBackground(teamColor, fallback) {
+        if (teamColor && teamColor.bg && teamColor.bg !== BG_BLACK) {
+            return teamColor.bg;
+        }
+        if (teamColor && teamColor.bg_alt && teamColor.bg_alt !== BG_BLACK) {
+            return teamColor.bg_alt;
+        }
+        return fallback;
+    }
+
+    // Fill entire column with team background color before placing characters
+    function paintBaselineColumn(x, attr) {
+        for (var y = baselineTop; y <= baselineBottom; y++) {
+            courtFrame.gotoxy(x, y);
+            courtFrame.putmsg(" ", attr);
+        }
+    }
+
+    function paintTeamNameVertically(x, name, fgColor, bgColor) {
+        if (!name || name.length === 0) return;
+        var attr = fgColor | bgColor;
+        var startY = baselineTop;
+        if (name.length < baselineSpan) {
+            startY += Math.floor((baselineSpan - name.length) / 2);
+        }
+        for (var i = 0; i < name.length; i++) {
+            var currentY = startY + i;
+            if (currentY > baselineBottom) break;
+            courtFrame.gotoxy(x, currentY);
+            courtFrame.putmsg(name.charAt(i), attr);
+        }
+    }
+
+    var blueFg = gameState.teamColors.blue.fg || LIGHTBLUE;
+    var blueBg = resolveBaselineBackground(gameState.teamColors.blue, BG_BLUE);
+    var redFg = gameState.teamColors.red.fg || LIGHTRED;
+    var redBg = resolveBaselineBackground(gameState.teamColors.red, BG_RED);
 
     // Left baseline (BLUE team) - vertical text at X=1
-    var leftX = 1;
-    var startY = 2;  // Start below top border
-    var endY = BASKET_LEFT_Y - 2;  // Stop before basket backboard
-
-    for (var i = 0; i < blueTeamName.length && (startY + i) < endY; i++) {
-        courtFrame.gotoxy(leftX, startY + i);
-        courtFrame.putmsg(blueTeamName.charAt(i), blueColor | WAS_BROWN);
-    }
-
-    // Continue below basket if space allows
-    var belowStartY = BASKET_LEFT_Y + 2;  // Start after net
-    var belowEndY = COURT_HEIGHT - 1;  // Stop before bottom border
-    var remainingChars = blueTeamName.substring(endY - startY);
-
-    for (var i = 0; i < remainingChars.length && (belowStartY + i) < belowEndY; i++) {
-        courtFrame.gotoxy(leftX, belowStartY + i);
-        courtFrame.putmsg(remainingChars.charAt(i), blueColor | WAS_BROWN);
-    }
+    paintBaselineColumn(1, blueBg);
+    paintTeamNameVertically(1, blueTeamName, blueFg, blueBg);
 
     // Right baseline (RED team) - vertical text at X=COURT_WIDTH
-    var rightX = COURT_WIDTH;
-    startY = 2;
-    endY = BASKET_RIGHT_Y - 2;
-
-    for (var i = 0; i < redTeamName.length && (startY + i) < endY; i++) {
-        courtFrame.gotoxy(rightX, startY + i);
-        courtFrame.putmsg(redTeamName.charAt(i), redColor | WAS_BROWN);
-    }
-
-    // Continue below basket if space allows
-    belowStartY = BASKET_RIGHT_Y + 2;
-    belowEndY = COURT_HEIGHT - 1;
-    remainingChars = redTeamName.substring(endY - startY);
-
-    for (var i = 0; i < remainingChars.length && (belowStartY + i) < belowEndY; i++) {
-        courtFrame.gotoxy(rightX, belowStartY + i);
-        courtFrame.putmsg(remainingChars.charAt(i), redColor | WAS_BROWN);
-    }
+    paintBaselineColumn(COURT_WIDTH, redBg);
+    paintTeamNameVertically(COURT_WIDTH, redTeamName, redFg, redBg);
 }
 
 function drawCourt() {
@@ -740,13 +884,13 @@ function drawCourt() {
         courtFrame.putmsg("-", LIGHTGRAY | WAS_BROWN);
     }
 
-    // Draw hoops (backboard + rim + net) - 2x3 design
+    // Draw hoops (backboard + rim + net)
     // Left hoop (opens to right)
-    // Backboard row (Y-1)
-    courtFrame.gotoxy(BASKET_LEFT_X, BASKET_LEFT_Y - 1);
-    courtFrame.putmsg(ascii(219), LIGHTGRAY | WAS_BROWN);  // Left backboard block
-    courtFrame.gotoxy(BASKET_LEFT_X + 1, BASKET_LEFT_Y - 1);
-    courtFrame.putmsg(ascii(219), LIGHTGRAY | WAS_BROWN);  // Right backboard block
+    var leftBackboardX = BASKET_LEFT_X - 1;
+    for (var bbY = BASKET_LEFT_Y - 1; bbY <= BASKET_LEFT_Y; bbY++) {
+        courtFrame.gotoxy(leftBackboardX, bbY);
+        courtFrame.putmsg(ascii(219), LIGHTGRAY | WAS_BROWN);  // Slim backboard
+    }
 
     // Rim row (Y)
     courtFrame.gotoxy(BASKET_LEFT_X, BASKET_LEFT_Y);
@@ -754,18 +898,18 @@ function drawCourt() {
     courtFrame.gotoxy(BASKET_LEFT_X + 1, BASKET_LEFT_Y);
     courtFrame.putmsg(ascii(205), RED | WAS_BROWN);  // Rim horizontal ═
 
-    // Net row (Y+1)
+    // Net row (Y+1) hangs below backboard
     courtFrame.gotoxy(BASKET_LEFT_X, BASKET_LEFT_Y + 1);
     courtFrame.putmsg("\\", WHITE | WAS_BROWN);  // Net left
     courtFrame.gotoxy(BASKET_LEFT_X + 1, BASKET_LEFT_Y + 1);
     courtFrame.putmsg("/", WHITE | WAS_BROWN);  // Net right
 
     // Right hoop (opens to left)
-    // Backboard row (Y-1)
-    courtFrame.gotoxy(BASKET_RIGHT_X, BASKET_RIGHT_Y - 1);
-    courtFrame.putmsg(ascii(219), LIGHTGRAY | WAS_BROWN);  // Left backboard block
-    courtFrame.gotoxy(BASKET_RIGHT_X + 1, BASKET_RIGHT_Y - 1);
-    courtFrame.putmsg(ascii(219), LIGHTGRAY | WAS_BROWN);  // Right backboard block
+    var rightBackboardX = BASKET_RIGHT_X + 1;
+    for (var bbY = BASKET_RIGHT_Y - 1; bbY <= BASKET_RIGHT_Y; bbY++) {
+        courtFrame.gotoxy(rightBackboardX, bbY);
+        courtFrame.putmsg(ascii(219), LIGHTGRAY | WAS_BROWN);  // Slim backboard
+    }
 
     // Rim row (Y)
     courtFrame.gotoxy(BASKET_RIGHT_X, BASKET_RIGHT_Y);
@@ -773,7 +917,7 @@ function drawCourt() {
     courtFrame.gotoxy(BASKET_RIGHT_X + 1, BASKET_RIGHT_Y);
     courtFrame.putmsg(ascii(187), RED | WAS_BROWN);  // Rim right opening ╗
 
-    // Net row (Y+1)
+    // Net row (Y+1) hangs below backboard
     courtFrame.gotoxy(BASKET_RIGHT_X, BASKET_RIGHT_Y + 1);
     courtFrame.putmsg("\\", WHITE | WAS_BROWN);  // Net left
     courtFrame.gotoxy(BASKET_RIGHT_X + 1, BASKET_RIGHT_Y + 1);
@@ -1114,80 +1258,121 @@ function initSprites(redTeamName, blueTeamName, redPlayerIndices, bluePlayerIndi
         bluePlayerIndices = { player1: 0, player2: 1 };
     }
 
-    // Create RED TEAM (left side)
-    redPlayer1 = new Sprite.Aerial(
-        "player-red",
-        courtFrame,
-        18,
-        7,
-        "e",
-        "normal"
-    );
-    redPlayer1.frame.open();
-    redPlayer1.isHuman = !allCPUMode; // If demo mode, all players are CPU
-    // Attach player data
-    new Player(
-        redTeam.players[redPlayerIndices.player1].name,
-        redTeam.players[redPlayerIndices.player1].jersey,
-        redTeam.players[redPlayerIndices.player1].attributes,
-        redPlayer1,
-        redTeam.players[redPlayerIndices.player1].shortNick
-    );
+    function getPlayerInfo(players, index) {
+        if (players && players[index]) {
+            return players[index];
+        }
+        return {
+            name: "Player",
+            jersey: 0,
+            jerseyString: "0",
+            skin: "brown",
+            shortNick: null,
+            attributes: [6, 6, 6, 6, 6, 6]
+        };
+    }
 
-    redPlayer2 = new Sprite.Aerial(
-        "player-red",
-        courtFrame,
-        18,
-        12,
-        "e",
-        "normal"
+    function sanitizeAccentColor(color) {
+        if (color === undefined || color === null) {
+            return WHITE;
+        }
+        var masked = color & 0x8F; // Keep blink/high bits plus foreground nibble
+        if (masked === 0) {
+            return WHITE;
+        }
+        return masked;
+    }
+
+    function resolveJerseyBackground(teamColors, fallback) {
+        if (teamColors && typeof teamColors.bg_alt === "number") {
+            return teamColors.bg_alt;
+        }
+        if (teamColors && typeof teamColors.bg === "number") {
+            return teamColors.bg;
+        }
+        return fallback;
+    }
+
+    function createSpriteForPlayer(playerInfo, startX, startY, bearing, teamColors, isHuman, fallbackBg) {
+        var spriteBase = resolveSpriteBaseBySkin(playerInfo.skin);
+        var sprite = new Sprite.Aerial(
+            spriteBase,
+            courtFrame,
+            startX,
+            startY,
+            bearing,
+            "normal"
+        );
+
+        var jerseyBgColor = resolveJerseyBackground(teamColors, fallbackBg);
+        var accentColor = sanitizeAccentColor(teamColors && teamColors.fg_accent);
+        var jerseyDigits = "";
+        if (playerInfo.jerseyString !== undefined && playerInfo.jerseyString !== null && String(playerInfo.jerseyString).trim() !== "") {
+            jerseyDigits = String(playerInfo.jerseyString);
+        } else if (playerInfo.jersey !== undefined && playerInfo.jersey !== null) {
+            jerseyDigits = String(playerInfo.jersey);
+        }
+
+        applyUniformMask(sprite, {
+            jerseyBg: jerseyBgColor,
+            accentFg: accentColor,
+            jerseyNumber: jerseyDigits
+        });
+
+        sprite.frame.open();
+        sprite.isHuman = !!isHuman;
+        return sprite;
+    }
+
+    // Create RED TEAM (left side)
+    var redInfo1 = getPlayerInfo(redTeam.players, redPlayerIndices.player1);
+    redPlayer1 = createSpriteForPlayer(redInfo1, 18, 7, "e", gameState.teamColors.red, !allCPUMode, BG_RED);
+    var redPlayer1Data = new Player(
+        redInfo1.name,
+        redInfo1.jersey,
+        redInfo1.attributes,
+        redPlayer1,
+        redInfo1.shortNick
     );
-    redPlayer2.frame.open();
-    redPlayer2.isHuman = false;
-    new Player(
-        redTeam.players[redPlayerIndices.player2].name,
-        redTeam.players[redPlayerIndices.player2].jersey,
-        redTeam.players[redPlayerIndices.player2].attributes,
+    redPlayer1Data.skin = redInfo1.skin || "brown";
+    redPlayer1Data.jerseyString = redInfo1.jerseyString !== undefined ? String(redInfo1.jerseyString) : String(redPlayer1Data.jersey);
+
+    var redInfo2 = getPlayerInfo(redTeam.players, redPlayerIndices.player2);
+    redPlayer2 = createSpriteForPlayer(redInfo2, 18, 12, "e", gameState.teamColors.red, false, BG_RED);
+    var redPlayer2Data = new Player(
+        redInfo2.name,
+        redInfo2.jersey,
+        redInfo2.attributes,
         redPlayer2,
-        redTeam.players[redPlayerIndices.player2].shortNick
+        redInfo2.shortNick
     );
+    redPlayer2Data.skin = redInfo2.skin || "brown";
+    redPlayer2Data.jerseyString = redInfo2.jerseyString !== undefined ? String(redInfo2.jerseyString) : String(redPlayer2Data.jersey);
 
     // Create BLUE TEAM (right side)
-    bluePlayer1 = new Sprite.Aerial(
-        "player-blue",
-        courtFrame,
-        58,
-        7,
-        "w",
-        "normal"
-    );
-    bluePlayer1.frame.open();
-    bluePlayer1.isHuman = false;
-    new Player(
-        blueTeam.players[bluePlayerIndices.player1].name,
-        blueTeam.players[bluePlayerIndices.player1].jersey,
-        blueTeam.players[bluePlayerIndices.player1].attributes,
+    var blueInfo1 = getPlayerInfo(blueTeam.players, bluePlayerIndices.player1);
+    bluePlayer1 = createSpriteForPlayer(blueInfo1, 58, 7, "w", gameState.teamColors.blue, false, BG_BLUE);
+    var bluePlayer1Data = new Player(
+        blueInfo1.name,
+        blueInfo1.jersey,
+        blueInfo1.attributes,
         bluePlayer1,
-        blueTeam.players[bluePlayerIndices.player1].shortNick
+        blueInfo1.shortNick
     );
+    bluePlayer1Data.skin = blueInfo1.skin || "brown";
+    bluePlayer1Data.jerseyString = blueInfo1.jerseyString !== undefined ? String(blueInfo1.jerseyString) : String(bluePlayer1Data.jersey);
 
-    bluePlayer2 = new Sprite.Aerial(
-        "player-blue",
-        courtFrame,
-        58,
-        12,
-        "w",
-        "normal"
-    );
-    bluePlayer2.frame.open();
-    bluePlayer2.isHuman = false;
-    new Player(
-        blueTeam.players[bluePlayerIndices.player2].name,
-        blueTeam.players[bluePlayerIndices.player2].jersey,
-        blueTeam.players[bluePlayerIndices.player2].attributes,
+    var blueInfo2 = getPlayerInfo(blueTeam.players, bluePlayerIndices.player2);
+    bluePlayer2 = createSpriteForPlayer(blueInfo2, 58, 12, "w", gameState.teamColors.blue, false, BG_BLUE);
+    var bluePlayer2Data = new Player(
+        blueInfo2.name,
+        blueInfo2.jersey,
+        blueInfo2.attributes,
         bluePlayer2,
-        blueTeam.players[bluePlayerIndices.player2].shortNick
+        blueInfo2.shortNick
     );
+    bluePlayer2Data.skin = blueInfo2.skin || "brown";
+    bluePlayer2Data.jerseyString = blueInfo2.jerseyString !== undefined ? String(blueInfo2.jerseyString) : String(bluePlayer2Data.jersey);
 
     // Red team starts with ball - player 1 has it
     gameState.ballCarrier = redPlayer1;
@@ -3230,8 +3415,11 @@ function gameLoop() {
             checkBoundaries(allPlayers[p]);
         }
 
-        // Redraw
-        if (now - lastUpdate >= 80) {
+        // Cycle sprites more frequently for smoother animation
+        Sprite.cycle();
+
+        // Redraw court and score less frequently to balance performance
+        if (now - lastUpdate >= 60) {
             drawCourt();
             drawScore();
             lastUpdate = now;
