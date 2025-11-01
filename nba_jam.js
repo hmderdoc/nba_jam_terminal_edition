@@ -109,11 +109,11 @@ Frame.prototype.drawBorder = function (color) {
 }
 
 // Game constants
-var COURT_WIDTH = 78;
+var COURT_WIDTH = 80;
 var COURT_HEIGHT = 18;
-var BASKET_LEFT_X = 5;
+var BASKET_LEFT_X = 4;   // Rim center (left basket)
 var BASKET_LEFT_Y = 9;
-var BASKET_RIGHT_X = 72;
+var BASKET_RIGHT_X = COURT_WIDTH - (BASKET_LEFT_X - 1); // Rim center (right basket)
 var BASKET_RIGHT_Y = 9;
 
 // Player attribute constants (NBA Jam style)
@@ -130,6 +130,10 @@ var TURBO_DRAIN_RATE = 2;
 var TURBO_RECHARGE_RATE = 3; // Increased from 1 to 3 for faster recharge
 var TURBO_SPEED_MULTIPLIER = 3;
 var TURBO_ACTIVATION_THRESHOLD = 200; // ms between same key presses
+
+// Block animation constants
+var BLOCK_JUMP_DURATION = 12;
+var BLOCK_JUMP_HEIGHT = 4;
 
 // AI Decision Constants - Tunable for game balancing
 var SHOT_PROBABILITY_THRESHOLD = 40; // Percent - AI shoots if probability > this
@@ -188,88 +192,148 @@ var AI_STATE = {
 };
 
 // Game state
-var gameState = {
-    gameRunning: false,
-    ballCarrier: null,  // Who has the ball
-    score: { red: 0, blue: 0 },
-    consecutivePoints: { red: 0, blue: 0 },
-    onFire: { red: false, blue: false },
-    timeRemaining: 360, // 6 minutes total for two halves (3 minutes per half)
-    totalGameTime: 360, // 6 minutes total (3 minutes per half)
-    currentHalf: 1,     // Track which half we're in (1 or 2)
-    isHalftime: false,  // Flag for halftime state
-    shotClock: 24,  // 24-second shot clock
-    currentTeam: "red",
-    ballX: 0,
-    ballY: 0,
-    reboundActive: false,
-    reboundX: 0,
-    reboundY: 0,
-    inbounding: false,  // True when setting up after a made basket
-    inboundPasser: null,  // Player passing the ball in
-    teamNames: { red: "RED", blue: "BLUE" },  // Actual team names from rosters
-    teamColors: {
-        red: {
-            fg: WHITE,
-            bg: BG_BLACK,
-            fg_accent: WHITE,
-            bg_alt: BG_BLACK,
-            fg_code: "\1h\1w",
-            fg_accent_code: "\1h\1w"
+var gameState = {};
+
+function createDefaultGameState() {
+    return {
+        gameRunning: false,
+        ballCarrier: null,  // Who has the ball
+        score: { red: 0, blue: 0 },
+        consecutivePoints: { red: 0, blue: 0 },
+        onFire: { red: false, blue: false },
+        timeRemaining: 360, // 6 minutes total for two halves (3 minutes per half)
+        totalGameTime: 360, // 6 minutes total (3 minutes per half)
+        currentHalf: 1,     // Track which half we're in (1 or 2)
+        isHalftime: false,  // Flag for halftime state
+        shotClock: 24,  // 24-second shot clock
+        currentTeam: "red",
+        ballX: 0,
+        ballY: 0,
+        reboundActive: false,
+        reboundX: 0,
+        reboundY: 0,
+        inbounding: false,  // True when setting up after a made basket
+        inboundPasser: null,  // Player passing the ball in
+        teamNames: { red: "RED", blue: "BLUE" },  // Actual team names from rosters
+        teamColors: {
+            red: {
+                fg: WHITE,
+                bg: BG_BLACK,
+                fg_accent: WHITE,
+                bg_alt: BG_BLACK,
+                fg_code: "\1h\1w",
+                fg_accent_code: "\1h\1w"
+            },
+            blue: {
+                fg: WHITE,
+                bg: BG_BLACK,
+                fg_accent: WHITE,
+                bg_alt: BG_BLACK,
+                fg_code: "\1h\1w",
+                fg_accent_code: "\1h\1w"
+            }
         },
-        blue: {
-            fg: WHITE,
-            bg: BG_BLACK,
-            fg_accent: WHITE,
-            bg_alt: BG_BLACK,
-            fg_code: "\1h\1w",
-            fg_accent_code: "\1h\1w"
-        }
-    },
-    announcer: {
-        text: "",
-        color: WHITE,
-        timer: 0
-    },
-    lastKeyTime: 0,
-    lastKey: "",
-    // 5-second violation tracking
-    ballHandlerStuckTimer: 0,
-    ballHandlerLastX: 0,
-    ballHandlerLastY: 0,
-    backcourtTimer: 0,
-    frontcourtEstablished: false,
-    debugOverlay: {
-        enabled: false,
-        last: {}
-    },
-    // Defensive assignments (man-to-man)
-    defensiveAssignments: {
-        // Maps defender to offensive player they're guarding
-        // Will be set during switchPossession/setupInbound
-    },
-    // Block tracking
-    activeBlock: null,  // Player currently attempting a block
-    blockJumpTimer: 0,  // Frames remaining in jump animation
-    shotInProgress: false,  // True during shot animation
-    shotStartX: 0,
-    shotStartY: 0,
-    potentialAssist: null,
-    // Player roster tracking for substitutions
-    availablePlayers: {
-        red: [], // Array of all available player indices for red team
-        blue: [] // Array of all available player indices for blue team
-    },
-    activePlayerIndices: {
-        red: [0, 1], // Currently active player indices
-        blue: [0, 1]
+        announcer: {
+            text: "",
+            color: WHITE,
+            timer: 0
+        },
+        lastKeyTime: 0,
+        lastKey: "",
+        // 5-second violation tracking
+        ballHandlerStuckTimer: 0,
+        ballHandlerLastX: 0,
+        ballHandlerLastY: 0,
+        ballHandlerAdvanceTimer: 0,
+        ballHandlerFrontcourtStartX: 0,
+        ballHandlerProgressOwner: null,
+        inboundAlternateIndex: { red: 0, blue: 0 },
+        backcourtTimer: 0,
+        frontcourtEstablished: false,
+        debugOverlay: {
+            enabled: false,
+            last: {}
+        },
+        // Defensive assignments (man-to-man)
+        defensiveAssignments: {
+            // Maps defender to offensive player they're guarding
+            // Will be set during switchPossession/setupInbound
+        },
+        // Block tracking
+        activeBlock: null,  // Player currently attempting a block
+        blockJumpTimer: 0,  // Frames remaining in jump animation
+        shotInProgress: false,  // True during shot animation
+        shotStartX: 0,
+        shotStartY: 0,
+        potentialAssist: null,
+        // Player roster tracking for substitutions
+        availablePlayers: {
+            red: [], // Array of all available player indices for red team
+            blue: [] // Array of all available player indices for blue team
+        },
+        activePlayerIndices: {
+            red: [0, 1], // Currently active player indices
+            blue: [0, 1]
+        },
+        allCPUMode: false
+    };
+}
+
+function resetGameState(options) {
+    var prevTeams = gameState.teamNames || {};
+    var prevColors = gameState.teamColors || {};
+    var prevCPU = typeof gameState.allCPUMode === "boolean" ? gameState.allCPUMode : false;
+
+    gameState = createDefaultGameState();
+
+    if (options && options.teamNames) {
+        gameState.teamNames = JSON.parse(JSON.stringify(options.teamNames));
+    } else if (prevTeams.red || prevTeams.blue) {
+        gameState.teamNames = JSON.parse(JSON.stringify(prevTeams));
     }
-};
+
+    if (options && options.teamColors) {
+        gameState.teamColors = JSON.parse(JSON.stringify(options.teamColors));
+    } else if (prevColors.red || prevColors.blue) {
+        gameState.teamColors = JSON.parse(JSON.stringify(prevColors));
+    }
+
+    gameState.allCPUMode = (options && typeof options.allCPUMode === "boolean")
+        ? options.allCPUMode
+        : prevCPU;
+}
 
 // Frames
 var courtFrame;
 var scoreFrame;
 var ballFrame;
+
+function ensureBallFrame(x, y) {
+    if (!courtFrame) return;
+    var startX = (typeof x === "number") ? x : Math.floor(COURT_WIDTH / 2);
+    var startY = (typeof y === "number") ? y : Math.floor(COURT_HEIGHT / 2);
+
+    if (ballFrame && ballFrame.is_open && typeof ballFrame.moveTo === "function") {
+        ballFrame.moveTo(startX, startY);
+        ballFrame.putmsg("o");
+        return;
+    }
+
+    if (ballFrame && typeof ballFrame.close === "function") {
+        try { ballFrame.close(); } catch (e) { }
+    }
+    ballFrame = new Frame(startX, startY, 1, 1, YELLOW | WAS_BROWN, courtFrame);
+    ballFrame.putmsg("o");
+    ballFrame.open();
+}
+
+function moveBallFrameTo(x, y) {
+    if (!ballFrame || !ballFrame.is_open) {
+        ensureBallFrame(x, y);
+    } else if (ballFrame.moveTo) {
+        ballFrame.moveTo(x, y);
+    }
+}
 
 // Player sprites (2v2)
 var redPlayer1;   // Human controlled
@@ -624,6 +688,35 @@ function getColorCode(colorStr) {
     return codeMap[colorStr] || "\1w";
 }
 
+function getBackgroundCode(bgStr) {
+    var ctrl = "\1";
+    var map = {
+        "BG_BLACK": ctrl + "0",
+        "BG_RED": ctrl + "1",
+        "BG_GREEN": ctrl + "2",
+        "BG_BROWN": ctrl + "3",
+        "BG_BLUE": ctrl + "4",
+        "BG_MAGENTA": ctrl + "5",
+        "BG_CYAN": ctrl + "6",
+        "BG_LIGHTGRAY": ctrl + "7"
+    };
+    return map[bgStr] || "";
+}
+
+function getMenuColorCodes(team, highlight) {
+    var colors = team && team.colors ? team.colors : {};
+    var fgName = highlight
+        ? (colors.fg_accent || colors.fg || "WHITE")
+        : (colors.fg || "WHITE");
+    var bgName = colors.bg_alt || colors.bg || "BG_BLACK";
+
+    var fgCode = getColorCode(fgName);
+    var bgCode = getBackgroundCode(bgName);
+    var intensity = highlight ? "\1h" : "";
+
+    return bgCode + intensity + fgCode;
+}
+
 function resolveSpriteBaseBySkin(skin) {
     var fallback = "player-brown";
     if (typeof skin !== "string" || skin.trim() === "") {
@@ -837,16 +930,22 @@ function drawCourt() {
         courtFrame.putmsg(ascii(196), WHITE | WAS_BROWN);
     }
 
-    // Center court line
-    var centerX = Math.floor(COURT_WIDTH / 2);
+    // Center court divider (two-column half blocks for even split)
+    var centerLeft = Math.floor(COURT_WIDTH / 2);
+    var useDoubleCenter = (COURT_WIDTH % 2 === 0);
+    var centerRight = useDoubleCenter ? centerLeft + 1 : centerLeft;
     for (var y = 2; y < COURT_HEIGHT; y++) {
-        courtFrame.gotoxy(centerX, y);
-        courtFrame.putmsg(ascii(179), WHITE | WAS_BROWN);
+        courtFrame.gotoxy(centerLeft, y);
+        courtFrame.putmsg(useDoubleCenter ? ascii(222) : ascii(179), WHITE | WAS_BROWN); // Right half block or single line
+        if (useDoubleCenter) {
+            courtFrame.gotoxy(centerRight, y);
+            courtFrame.putmsg(ascii(221), WHITE | WAS_BROWN); // Left half block
+        }
     }
 
     // Center circle
     var centerY = Math.floor(COURT_HEIGHT / 2);
-    courtFrame.gotoxy(centerX - 3, centerY);
+    courtFrame.gotoxy(centerLeft - 3, centerY);
     courtFrame.putmsg("(   )", WHITE | WAS_BROWN);
 
     // 3-point arcs (semicircle around each basket)
@@ -886,42 +985,59 @@ function drawCourt() {
 
     // Draw hoops (backboard + rim + net)
     // Left hoop (opens to right)
-    var leftBackboardX = BASKET_LEFT_X - 1;
-    for (var bbY = BASKET_LEFT_Y - 1; bbY <= BASKET_LEFT_Y; bbY++) {
+    var nba = ["N", "B", "A"];
+    var letterPos = 0;
+    var leftBackboardX = BASKET_LEFT_X - 2;
+    for (var bbY = BASKET_LEFT_Y - 1; bbY <= BASKET_LEFT_Y + 1; bbY++) {
         courtFrame.gotoxy(leftBackboardX, bbY);
-        courtFrame.putmsg(ascii(219), LIGHTGRAY | WAS_BROWN);  // Slim backboard
+        courtFrame.putmsg(nba[letterPos], BLUE | BG_LIGHTGRAY);  // Slim backboard
+        letterPos++;
     }
 
     // Rim row (Y)
-    courtFrame.gotoxy(BASKET_LEFT_X, BASKET_LEFT_Y);
+    courtFrame.gotoxy(BASKET_LEFT_X - 1, BASKET_LEFT_Y);
     courtFrame.putmsg(ascii(201), RED | WAS_BROWN);  // Rim left opening ╔
-    courtFrame.gotoxy(BASKET_LEFT_X + 1, BASKET_LEFT_Y);
+    courtFrame.gotoxy(BASKET_LEFT_X, BASKET_LEFT_Y);
     courtFrame.putmsg(ascii(205), RED | WAS_BROWN);  // Rim horizontal ═
+    courtFrame.gotoxy(BASKET_LEFT_X + 1, BASKET_LEFT_Y);
+    courtFrame.putmsg(ascii(187), RED | WAS_BROWN);  // Rim right opening ╗
 
     // Net row (Y+1) hangs below backboard
-    courtFrame.gotoxy(BASKET_LEFT_X, BASKET_LEFT_Y + 1);
-    courtFrame.putmsg("\\", WHITE | WAS_BROWN);  // Net left
-    courtFrame.gotoxy(BASKET_LEFT_X + 1, BASKET_LEFT_Y + 1);
+    courtFrame.gotoxy(BASKET_LEFT_X - 1, BASKET_LEFT_Y + 1);
+    courtFrame.putmsg("\/", WHITE | WAS_BROWN);  // Net left
+    courtFrame.gotoxy(BASKET_LEFT_X - 1, BASKET_LEFT_Y + 1);
     courtFrame.putmsg("/", WHITE | WAS_BROWN);  // Net right
+    courtFrame.gotoxy(BASKET_LEFT_X, BASKET_LEFT_Y + 1);
+    courtFrame.putmsg("/", WHITE | WAS_BROWN);  // Net outer right
+    courtFrame.gotoxy(BASKET_LEFT_X + 1, BASKET_LEFT_Y + 1);
+    courtFrame.putmsg("/", WHITE | WAS_BROWN);  // Net far outer right
 
     // Right hoop (opens to left)
-    var rightBackboardX = BASKET_RIGHT_X + 1;
+    var rightBackboardX = BASKET_RIGHT_X + 2;
     for (var bbY = BASKET_RIGHT_Y - 1; bbY <= BASKET_RIGHT_Y; bbY++) {
         courtFrame.gotoxy(rightBackboardX, bbY);
         courtFrame.putmsg(ascii(219), LIGHTGRAY | WAS_BROWN);  // Slim backboard
     }
 
     // Rim row (Y)
+    courtFrame.gotoxy(BASKET_RIGHT_X - 1, BASKET_RIGHT_Y);
+    courtFrame.putmsg(ascii(201), RED | WAS_BROWN);  // Rim left opening ╔
     courtFrame.gotoxy(BASKET_RIGHT_X, BASKET_RIGHT_Y);
     courtFrame.putmsg(ascii(205), RED | WAS_BROWN);  // Rim horizontal ═
     courtFrame.gotoxy(BASKET_RIGHT_X + 1, BASKET_RIGHT_Y);
     courtFrame.putmsg(ascii(187), RED | WAS_BROWN);  // Rim right opening ╗
 
     // Net row (Y+1) hangs below backboard
-    courtFrame.gotoxy(BASKET_RIGHT_X, BASKET_RIGHT_Y + 1);
+    courtFrame.gotoxy(BASKET_RIGHT_X - 2, BASKET_RIGHT_Y + 1);
+    courtFrame.putmsg("\\", WHITE | WAS_BROWN);  // Net outer left
+    courtFrame.gotoxy(BASKET_RIGHT_X - 1, BASKET_RIGHT_Y + 1);
     courtFrame.putmsg("\\", WHITE | WAS_BROWN);  // Net left
-    courtFrame.gotoxy(BASKET_RIGHT_X + 1, BASKET_RIGHT_Y + 1);
+    courtFrame.gotoxy(BASKET_RIGHT_X, BASKET_RIGHT_Y + 1);
     courtFrame.putmsg("/", WHITE | WAS_BROWN);  // Net right
+    courtFrame.gotoxy(BASKET_RIGHT_X + 1, BASKET_RIGHT_Y + 1);
+    courtFrame.putmsg("/", WHITE | WAS_BROWN);  // Net outer right
+    courtFrame.gotoxy(BASKET_RIGHT_X + 2, BASKET_RIGHT_Y + 1);
+    courtFrame.putmsg("/", WHITE | WAS_BROWN);  // Net far outer right
 
     // Draw team names vertically on baselines
     drawBaselineTeamNames();
@@ -976,8 +1092,8 @@ function drawJerseyNumbers() {
 function updateBallPosition() {
     // If rebound is active, show ball at rebound position
     if (gameState.reboundActive) {
-        if (ballFrame && ballFrame.moveTo) {
-            ballFrame.moveTo(gameState.reboundX, gameState.reboundY);
+        if (ballFrame && moveBallFrameTo) {
+            moveBallFrameTo(gameState.reboundX, gameState.reboundY);
         }
         return;
     }
@@ -1011,8 +1127,8 @@ function updateBallPosition() {
     gameState.ballX = player.x + ballOffsetX;
     gameState.ballY = player.y + ballOffsetY + 2;
 
-    if (ballFrame && ballFrame.moveTo) {
-        ballFrame.moveTo(gameState.ballX, gameState.ballY);
+    if (ballFrame && moveBallFrameTo) {
+        moveBallFrameTo(gameState.ballX, gameState.ballY);
     }
 }
 
@@ -1190,10 +1306,7 @@ function initFrames() {
     courtFrame.open();
     scoreFrame.open();
 
-    // Create ball frame (1x1 animated ball)
-    ballFrame = new Frame(40, 10, 1, 1, YELLOW | WAS_BROWN, courtFrame);
-    ballFrame.putmsg("o");
-    ballFrame.open();
+    ensureBallFrame(40, 10);
 }
 
 // Cleanup function for sprites
@@ -1202,13 +1315,13 @@ function cleanupSprites() {
     if (redPlayer2 && redPlayer2.frame) redPlayer2.frame.close();
     if (bluePlayer1 && bluePlayer1.frame) bluePlayer1.frame.close();
     if (bluePlayer2 && bluePlayer2.frame) bluePlayer2.frame.close();
-    if (ball && ball.frame) ball.frame.close();
+    if (ballFrame) ballFrame.close();
 
     redPlayer1 = null;
     redPlayer2 = null;
     bluePlayer1 = null;
     bluePlayer2 = null;
-    ball = null;
+    ballFrame = null;
 }
 
 function initSprites(redTeamName, blueTeamName, redPlayerIndices, bluePlayerIndices, allCPUMode) {
@@ -1216,6 +1329,7 @@ function initSprites(redTeamName, blueTeamName, redPlayerIndices, bluePlayerIndi
     redTeamName = redTeamName || "lakers";
     blueTeamName = blueTeamName || "celtics";
     allCPUMode = allCPUMode || false;
+    gameState.allCPUMode = allCPUMode;
 
     var redTeam = NBATeams[redTeamName];
     var blueTeam = NBATeams[blueTeamName];
@@ -1373,6 +1487,8 @@ function initSprites(redTeamName, blueTeamName, redPlayerIndices, bluePlayerIndi
     );
     bluePlayer2Data.skin = blueInfo2.skin || "brown";
     bluePlayer2Data.jerseyString = blueInfo2.jerseyString !== undefined ? String(blueInfo2.jerseyString) : String(bluePlayer2Data.jersey);
+
+    ensureBallFrame();
 
     // Red team starts with ball - player 1 has it
     gameState.ballCarrier = redPlayer1;
@@ -1849,6 +1965,9 @@ function activateAITurbo(player, drainMultiplier, distanceToTarget) {
 function resetBackcourtState() {
     gameState.backcourtTimer = 0;
     gameState.frontcourtEstablished = false;
+    gameState.ballHandlerAdvanceTimer = 0;
+    gameState.ballHandlerFrontcourtStartX = gameState.ballCarrier ? gameState.ballCarrier.x : 0;
+    gameState.ballHandlerProgressOwner = gameState.ballCarrier || null;
 }
 
 function isInBackcourt(player, teamName) {
@@ -1866,9 +1985,12 @@ function enforceBackcourtViolation(message) {
     resetBackcourtState();
     switchPossession();
     gameState.ballHandlerStuckTimer = 0;
+    gameState.ballHandlerAdvanceTimer = 0;
     if (gameState.ballCarrier) {
         gameState.ballHandlerLastX = gameState.ballCarrier.x;
         gameState.ballHandlerLastY = gameState.ballCarrier.y;
+        gameState.ballHandlerFrontcourtStartX = gameState.ballCarrier.x;
+        gameState.ballHandlerProgressOwner = gameState.ballCarrier;
     }
 }
 
@@ -2600,6 +2722,12 @@ function handleAIBallCarrier(player, teamName) {
                 }
             }
 
+            // REASON 4: Half-court offense has stalled (no forward progress)
+            if (!shouldPass && !inBackcourt && gameState.ballHandlerAdvanceTimer >= 3 && teammateDefDist > 4) {
+                shouldPass = true;
+                passIntent = "RESET_OFFENSE";
+            }
+
             // REASON 4: Backcourt urgency - must advance
             if (!shouldPass && backcourtUrgent && !teammateInBackcourt) {
                 shouldPass = true;
@@ -3157,22 +3285,27 @@ function showHalftimeScreen() {
     }
     courtFrame.cycle();
 
-    // Wait for user input
+    // Wait for user input (auto-advance for CPU-only games)
+    var halftimeStart = Date.now();
+    var autoAdvance = !!gameState.allCPUMode;
     while (true) {
-        var key = console.getkey();
-        if (!key) continue;
+        var key = console.inkey(K_NONE, 100);
 
-        var keyUpper = key.toUpperCase();
-        if (keyUpper === 'S') {
-            // Show substitution screen
-            if (showSubstitutionScreen()) {
-                break; // User made substitutions and wants to continue
+        if (key && key.length > 0) {
+            var keyUpper = key.toUpperCase();
+            if (keyUpper === 'S') {
+                // Show substitution screen
+                if (showSubstitutionScreen()) {
+                    break; // User made substitutions and wants to continue
+                }
+            } else if (key === ' ') {
+                break; // Continue to second half
+            } else if (keyUpper === 'Q') {
+                gameState.gameRunning = false;
+                return;
             }
-        } else if (key === ' ') {
-            break; // Continue to second half
-        } else if (keyUpper === 'Q') {
-            gameState.gameRunning = false;
-            return;
+        } else if (autoAdvance && (Date.now() - halftimeStart) >= 10000) {
+            break; // Auto-continue for CPU games after 10 seconds
         }
     }
 
@@ -3312,6 +3445,36 @@ function gameLoop() {
                 // Update last position
                 gameState.ballHandlerLastX = ballHandler.x;
                 gameState.ballHandlerLastY = ballHandler.y;
+
+                // Track frontcourt progress for smarter passing
+                var attackDir = (gameState.currentTeam === "red") ? 1 : -1;
+                if (gameState.ballHandlerProgressOwner !== ballHandler) {
+                    gameState.ballHandlerProgressOwner = ballHandler;
+                    gameState.ballHandlerFrontcourtStartX = ballHandler.x;
+                    gameState.ballHandlerAdvanceTimer = 0;
+                }
+
+                var handlerInBackcourt = isInBackcourt(ballHandler, gameState.currentTeam);
+
+                if (!gameState.frontcourtEstablished || handlerInBackcourt) {
+                    gameState.ballHandlerFrontcourtStartX = ballHandler.x;
+                    gameState.ballHandlerAdvanceTimer = 0;
+                } else {
+                    var forwardDelta = (ballHandler.x - gameState.ballHandlerFrontcourtStartX) * attackDir;
+                    if (forwardDelta < -1) {
+                        gameState.ballHandlerFrontcourtStartX = ballHandler.x;
+                        forwardDelta = 0;
+                    }
+                    if (forwardDelta < 4) {
+                        gameState.ballHandlerAdvanceTimer++;
+                    } else {
+                        gameState.ballHandlerFrontcourtStartX = ballHandler.x;
+                        gameState.ballHandlerAdvanceTimer = 0;
+                    }
+                }
+            } else {
+                gameState.ballHandlerAdvanceTimer = 0;
+                gameState.ballHandlerProgressOwner = null;
             }
 
             if (gameState.ballCarrier && !gameState.inbounding) {
@@ -3345,27 +3508,50 @@ function gameLoop() {
         // Handle block jump animation
         if (gameState.blockJumpTimer > 0) {
             var blocker = gameState.activeBlock;
-            if (blocker) {
-                // Jump animation - move up quickly then back down
-                var jumpProgress = (8 - gameState.blockJumpTimer) / 8; // 0 to 1
+            if (blocker && blocker.frame) {
+                clearBlockTrail(blocker);
 
-                if (jumpProgress < 0.5) {
-                    // Going up
-                    var jumpY = blocker.blockOriginalY - Math.round(jumpProgress * 6); // Jump up 3 units
-                    blocker.moveTo(blocker.x, jumpY);
-                } else {
-                    // Coming down
-                    var jumpY = blocker.blockOriginalY - Math.round((1 - jumpProgress) * 6);
-                    blocker.moveTo(blocker.x, jumpY);
+                var elapsed = BLOCK_JUMP_DURATION - gameState.blockJumpTimer;
+                if (elapsed < 0) elapsed = 0;
+                var progress = elapsed / BLOCK_JUMP_DURATION;
+                if (progress > 1) progress = 1;
+                var height = Math.sin(progress * Math.PI) * BLOCK_JUMP_HEIGHT;
+                var jumpY = blocker.blockOriginalY - Math.round(height);
+                blocker.moveTo(blocker.x, jumpY);
+
+                // Draw a brief trail beneath the blocker
+                var footX = blocker.x + Math.floor(blocker.frame.width / 2);
+                var baseY = blocker.blockOriginalY + blocker.frame.height;
+                var trailChar = ascii(249);
+                var trailColor = LIGHTGRAY | WAS_BROWN;
+                blocker.blockTrailRestore = [];
+
+                for (var t = 0; t < 2; t++) {
+                    var trailY = baseY + t;
+                    if (footX < 1 || footX > COURT_WIDTH || trailY < 1 || trailY > COURT_HEIGHT) continue;
+                    var cell = courtFrame.getData(footX - 1, trailY - 1, false) || {};
+                    blocker.blockTrailRestore.push({
+                        x: footX,
+                        y: trailY,
+                        ch: cell.ch,
+                        attr: cell.attr
+                    });
+                    courtFrame.gotoxy(footX, trailY);
+                    courtFrame.putmsg(trailChar, trailColor);
                 }
 
                 gameState.blockJumpTimer--;
 
                 // Reset when done
                 if (gameState.blockJumpTimer === 0) {
+                    clearBlockTrail(blocker);
                     blocker.moveTo(blocker.x, blocker.blockOriginalY);
+                    blocker.blockTrailRestore = [];
                     gameState.activeBlock = null;
                 }
+            } else {
+                gameState.blockJumpTimer = 0;
+                gameState.activeBlock = null;
             }
         }
 
@@ -3439,17 +3625,12 @@ function handleInput(key) {
 
     var keyUpper = key.toUpperCase();
 
-    // Space bar - shoot or steal OR command teammate to shoot
+    // Space bar - shoot on offense, block on defense
     if (key === ' ') {
-        if (gameState.currentTeam === "red" && gameState.ballCarrier === redPlayer1) {
-            // Human has ball - shoot
+        if (gameState.currentTeam === "red" && (gameState.ballCarrier === redPlayer1 || gameState.ballCarrier === redPlayer2)) {
             attemptShot();
-        } else if (gameState.currentTeam === "red" && gameState.ballCarrier === redPlayer2) {
-            // Teammate has ball - command them to shoot
-            attemptShot();
-        } else if (gameState.currentTeam !== "red") {
-            // On defense - attempt steal
-            attemptSteal();
+        } else {
+            attemptBlock(redPlayer1);
         }
         return;
     }
@@ -3476,12 +3657,6 @@ function handleInput(key) {
         } else {
             announce("DEBUG HUD OFF", LIGHTGRAY);
         }
-        return;
-    }
-
-    // Spacebar - attempt block
-    if (key === ' ') {
-        attemptBlock(redPlayer1);
         return;
     }
 
@@ -3570,8 +3745,8 @@ function animatePass(passer, receiver) {
         var y = Math.round(startY + (dy * t));
 
         // Move ball to this position
-        if (ballFrame && ballFrame.moveTo) {
-            ballFrame.moveTo(x, y);
+        if (ballFrame && moveBallFrameTo) {
+            moveBallFrameTo(x, y);
         }
 
         // Draw trail (using CP437 middle dot character 250)
@@ -3600,12 +3775,15 @@ function animatePass(passer, receiver) {
         gameState.currentTeam = interceptorTeam;
         resetBackcourtState();
         gameState.ballHandlerStuckTimer = 0;
+        gameState.ballHandlerAdvanceTimer = 0;
         gameState.shotClock = 24;
         var otherTeam = interceptorTeam === "red" ? "blue" : "red";
         gameState.consecutivePoints[otherTeam] = 0;
         gameState.onFire[otherTeam] = false;
         gameState.ballHandlerLastX = interceptor.x;
         gameState.ballHandlerLastY = interceptor.y;
+        gameState.ballHandlerFrontcourtStartX = interceptor.x;
+        gameState.ballHandlerProgressOwner = interceptor;
 
         if (interceptor.playerData && interceptor.playerData.stats) {
             interceptor.playerData.stats.steals++;
@@ -3617,12 +3795,21 @@ function animatePass(passer, receiver) {
     } else {
         // Pass completed successfully
         gameState.ballCarrier = receiver;
+        gameState.ballHandlerAdvanceTimer = 0;
+        gameState.ballHandlerFrontcourtStartX = receiver.x;
+        gameState.ballHandlerProgressOwner = receiver;
         setPotentialAssist(passer, receiver);
     }
 
     // Ensure ball carrier is ALWAYS set
     if (!gameState.ballCarrier) {
         gameState.ballCarrier = receiver; // Fallback to receiver
+    }
+    if (gameState.ballCarrier) {
+        gameState.ballHandlerLastX = gameState.ballCarrier.x;
+        gameState.ballHandlerLastY = gameState.ballCarrier.y;
+        gameState.ballHandlerFrontcourtStartX = gameState.ballCarrier.x;
+        gameState.ballHandlerProgressOwner = gameState.ballCarrier;
     }
 }
 
@@ -3715,11 +3902,14 @@ function attemptSteal() {
             gameState.currentTeam = "red";
             resetBackcourtState();
             gameState.ballHandlerStuckTimer = 0;
+            gameState.ballHandlerAdvanceTimer = 0;
             gameState.consecutivePoints.blue = 0;
             gameState.onFire.blue = false;
             gameState.shotClock = 24; // Reset shot clock on steal
             gameState.ballHandlerLastX = redPlayer1.x;
             gameState.ballHandlerLastY = redPlayer1.y;
+            gameState.ballHandlerFrontcourtStartX = redPlayer1.x;
+            gameState.ballHandlerProgressOwner = redPlayer1;
             assignDefensiveMatchups();
 
             if (defenderData.stats) {
@@ -3733,23 +3923,40 @@ function attemptSteal() {
     }
 }
 
+function clearBlockTrail(blocker) {
+    if (!blocker || !blocker.blockTrailRestore || !courtFrame) return;
+    for (var i = 0; i < blocker.blockTrailRestore.length; i++) {
+        var restore = blocker.blockTrailRestore[i];
+        if (!restore) continue;
+        var rx = restore.x;
+        var ry = restore.y;
+        if (rx < 1 || rx > COURT_WIDTH || ry < 1 || ry > COURT_HEIGHT) continue;
+        var ch = (restore.ch !== undefined && restore.ch !== null) ? restore.ch : " ";
+        var attr = (restore.attr !== undefined && restore.attr !== null) ? restore.attr : (WHITE | WAS_BROWN);
+        courtFrame.gotoxy(rx, ry);
+        courtFrame.putmsg(ch, attr);
+    }
+    blocker.blockTrailRestore = [];
+}
+
 function attemptBlock(blocker) {
     if (!blocker || !blocker.playerData) return;
 
     // Can only block on defense or during a shot
-    if (gameState.currentTeam === "red" && !gameState.shotInProgress) {
+    var blockerTeam = getPlayerTeamName(blocker);
+    if (!blockerTeam) return;
+
+    if (blockerTeam === gameState.currentTeam && !gameState.shotInProgress) {
         announce("CAN'T BLOCK NOW!", LIGHTGRAY);
         return;
     }
 
     // Start block animation
     gameState.activeBlock = blocker;
-    gameState.blockJumpTimer = 8; // Jump lasts 8 frames (~250ms)
-
-    // Store original position
-    if (!blocker.blockOriginalY) {
-        blocker.blockOriginalY = blocker.y;
-    }
+    gameState.blockJumpTimer = BLOCK_JUMP_DURATION;
+    blocker.blockOriginalY = blocker.y;
+    clearBlockTrail(blocker);
+    blocker.blockTrailRestore = [];
 }
 
 function attemptUserSteal(defender) {
@@ -3787,6 +3994,7 @@ function attemptUserSteal(defender) {
         gameState.ballCarrier = defender;
         resetBackcourtState();
         gameState.ballHandlerStuckTimer = 0;
+        gameState.ballHandlerAdvanceTimer = 0;
 
         // Reset opponent's streak
         gameState.consecutivePoints.blue = 0;
@@ -3796,6 +4004,8 @@ function attemptUserSteal(defender) {
         assignDefensiveMatchups();
         gameState.ballHandlerLastX = defender.x;
         gameState.ballHandlerLastY = defender.y;
+        gameState.ballHandlerFrontcourtStartX = defender.x;
+        gameState.ballHandlerProgressOwner = defender;
 
         if (defenderData.stats) {
             defenderData.stats.steals++;
@@ -3841,8 +4051,11 @@ function attemptAISteal(defender, ballCarrier) {
         gameState.ballCarrier = defender;
         resetBackcourtState();
         gameState.ballHandlerStuckTimer = 0;
+        gameState.ballHandlerAdvanceTimer = 0;
         gameState.ballHandlerLastX = defender.x;
         gameState.ballHandlerLastY = defender.y;
+        gameState.ballHandlerFrontcourtStartX = defender.x;
+        gameState.ballHandlerProgressOwner = defender;
         assignDefensiveMatchups();
 
         // Reset opponent's streak
@@ -3888,8 +4101,8 @@ function createRebound(x, y) {
             var by = Math.round(currentY + (dy * t) - (Math.sin(t * Math.PI) * arcHeight));
 
             // Move ball
-            if (ballFrame && ballFrame.moveTo) {
-                ballFrame.moveTo(bx, by);
+            if (ballFrame && moveBallFrameTo) {
+                moveBallFrameTo(bx, by);
             }
 
             Sprite.cycle();
@@ -3913,8 +4126,8 @@ function createRebound(x, y) {
     if (gameState.reboundY > COURT_HEIGHT - 2) gameState.reboundY = COURT_HEIGHT - 2;
 
     // Move ball to final rebound position
-    if (ballFrame && ballFrame.moveTo) {
-        ballFrame.moveTo(gameState.reboundX, gameState.reboundY);
+    if (ballFrame && moveBallFrameTo) {
+        moveBallFrameTo(gameState.reboundX, gameState.reboundY);
     }
 
     announce("REBOUND!", LIGHTMAGENTA);
@@ -4011,8 +4224,11 @@ function secureRebound(player) {
     gameState.shotClock = 24; // Reset shot clock
     resetBackcourtState();
     gameState.ballHandlerStuckTimer = 0;
+    gameState.ballHandlerAdvanceTimer = 0;
     gameState.ballHandlerLastX = player.x;
     gameState.ballHandlerLastY = player.y;
+    gameState.ballHandlerFrontcourtStartX = player.x;
+    gameState.ballHandlerProgressOwner = player;
 
     // Announce who got it
     announce(player.playerData.name + " WITH THE REBOUND!", LIGHTCYAN);
@@ -4089,7 +4305,7 @@ function animateShot(startX, startY, targetX, targetY, made) {
         }
 
         // Draw ball at this position
-        ballFrame.moveTo(x, y);
+        moveBallFrameTo(x, y);
 
         // Draw trail
         if (i > 0) {
@@ -4112,7 +4328,7 @@ function animateShot(startX, startY, targetX, targetY, made) {
     if (made && !blocked) {
         for (var flash = 0; flash < 3; flash++) {
             // Flash rim (2 characters wide)
-            courtFrame.gotoxy(targetX, targetY);
+            courtFrame.gotoxy(targetX - 1, targetY);
             courtFrame.putmsg("*", YELLOW | WAS_BROWN);
             courtFrame.gotoxy(targetX + 1, targetY);
             courtFrame.putmsg("*", YELLOW | WAS_BROWN);
@@ -4272,71 +4488,99 @@ function attemptShot() {
 }
 
 function setupInbound(scoringTeam) {
-    // After a made basket, set up inbound play (NBA Jam style)
+    // After a made basket, set up inbound play with alternating inbounders
     gameState.reboundActive = false;
     gameState.inbounding = true;
 
     // The team that got scored ON inbounds the ball
     var inboundTeam = scoringTeam === "red" ? "blue" : "red";
     gameState.currentTeam = inboundTeam;
-    resetBackcourtState();
 
-    if (inboundTeam === "red") {
-        // Red team inbounds from left baseline (their defensive basket), attacking right
-        redPlayer1.moveTo(2, 9); // Out of bounds position near left sideline
-        gameState.inboundPasser = redPlayer1;
+    if (!gameState.inboundAlternateIndex) {
+        gameState.inboundAlternateIndex = { red: 0, blue: 0 };
+    }
 
-        var redReceiverX = clampToCourtX(Math.floor(COURT_WIDTH / 2) - 6);
-        redPlayer2.moveTo(redReceiverX, 9);
-        gameState.ballCarrier = redPlayer1; // Passer has ball initially
+    var teamSprites = inboundTeam === "red" ? [redPlayer1, redPlayer2] : [bluePlayer1, bluePlayer2];
+    var defenderSprites = inboundTeam === "red" ? [bluePlayer1, bluePlayer2] : [redPlayer1, redPlayer2];
 
-        // Blue defenders retreat toward midcourt on their side to reduce interceptions
-        bluePlayer1.moveTo(clampToCourtX(COURT_WIDTH - 16), 7);
-        bluePlayer2.moveTo(clampToCourtX(COURT_WIDTH - 12), 11);
+    var inboundIndex = gameState.inboundAlternateIndex[inboundTeam];
+    if (inboundIndex !== 0 && inboundIndex !== 1) inboundIndex = 0;
+
+    var inbounder = teamSprites[inboundIndex] || teamSprites[0];
+    var receiverIndex;
+    if (teamSprites.length > 1) {
+        receiverIndex = (inbounder === teamSprites[0]) ? 1 : 0;
     } else {
-        // Blue team inbounds from right baseline (their defensive basket), attacking left
-        bluePlayer1.moveTo(COURT_WIDTH - 2, 9); // Out of bounds position near right sideline
-        gameState.inboundPasser = bluePlayer1;
+        receiverIndex = 0;
+    }
+    var receiver = teamSprites[receiverIndex] || inbounder;
 
-        var blueReceiverX = clampToCourtX(Math.floor(COURT_WIDTH / 2) + 6);
-        bluePlayer2.moveTo(blueReceiverX, 9);
-        gameState.ballCarrier = bluePlayer1; // Passer has ball initially
+    var attackDir = inboundTeam === "red" ? 1 : -1;
+    var midX = Math.floor(COURT_WIDTH / 2);
+    var inboundHalfOffset = 3;
+    var inboundX = clampToCourtX(midX - attackDir * inboundHalfOffset);
+    var inboundY = BASKET_LEFT_Y;
 
-        // Red defenders fall back toward midcourt on their side
-        redPlayer1.moveTo(clampToCourtX(16), 7);
-        redPlayer2.moveTo(clampToCourtX(12), 11);
+    if (inbounder && inbounder.moveTo) inbounder.moveTo(inboundX, inboundY);
+
+    var defendBasketX = inboundTeam === "red" ? BASKET_LEFT_X : BASKET_RIGHT_X;
+    var defendBasketY = BASKET_LEFT_Y;
+    if (receiver && receiver.moveTo) receiver.moveTo(clampToCourtX(defendBasketX), defendBasketY);
+
+    var defenderBaseX = clampToCourtX(midX + attackDir * 6);
+    if (defenderSprites[0] && defenderSprites[0].moveTo) defenderSprites[0].moveTo(defenderBaseX, 7);
+    if (defenderSprites[1] && defenderSprites[1].moveTo) defenderSprites[1].moveTo(clampToCourtX(defenderBaseX + attackDir * 4), 11);
+
+    gameState.inboundPasser = inbounder;
+    gameState.ballCarrier = inbounder;
+
+    resetBackcourtState();
+    gameState.ballHandlerStuckTimer = 0;
+    gameState.ballHandlerAdvanceTimer = 0;
+    if (inbounder) {
+        gameState.ballHandlerLastX = inbounder.x;
+        gameState.ballHandlerLastY = inbounder.y;
+        gameState.ballHandlerFrontcourtStartX = inbounder.x;
+        gameState.ballHandlerProgressOwner = inbounder;
+    }
+
+    // Toggle inbounder for next possession
+    if (teamSprites.length > 1) {
+        gameState.inboundAlternateIndex[inboundTeam] = (inbounder === teamSprites[0]) ? 1 : 0;
+    } else {
+        gameState.inboundAlternateIndex[inboundTeam] = 0;
     }
 
     // Auto-pass after a brief delay (simulate inbound)
     mswait(300);
 
-    // Determine receiver
-    var receiver = inboundTeam === "red" ? redPlayer2 : bluePlayer2;
     var inboundPasserSprite = gameState.inboundPasser;
+    var receiverSprite = receiver;
 
-    // Animate the inbound pass
-    animatePass(inboundPasserSprite, receiver);
+    if (inboundPasserSprite && receiverSprite && inboundPasserSprite !== receiverSprite) {
+        animatePass(inboundPasserSprite, receiverSprite);
+    }
 
     // Inbounder steps onto the court after the pass
-    if (inboundTeam === "red") {
-        redPlayer1.moveTo(clampToCourtX(Math.floor(COURT_WIDTH / 2) - 10), 9);
-    } else {
-        bluePlayer1.moveTo(clampToCourtX(Math.floor(COURT_WIDTH / 2) + 10), 9);
-    }
+    var inbounderPostX = clampToCourtX(midX - attackDir * 6);
+    if (inbounder && inbounder.moveTo) inbounder.moveTo(inbounderPostX, inboundY);
 
     // Make sure possession is set to the receiver after inbound
     if (!gameState.ballCarrier || gameState.ballCarrier === inboundPasserSprite) {
-        gameState.ballCarrier = receiver;
+        gameState.ballCarrier = receiverSprite;
     }
 
-    var teammateAfterInbound = inboundTeam === "red" ? redPlayer1 : bluePlayer1;
+    var teammateAfterInbound = inbounder;
     primeInboundOffense(gameState.ballCarrier, teammateAfterInbound, inboundTeam);
 
     // Reset ball-handler tracking so the AI doesn't think it's stuck
     gameState.ballHandlerStuckTimer = 0;
+    gameState.ballHandlerAdvanceTimer = 0;
     if (gameState.ballCarrier) {
         gameState.ballHandlerLastX = gameState.ballCarrier.x;
         gameState.ballHandlerLastY = gameState.ballCarrier.y;
+        gameState.ballHandlerFrontcourtStartX = gameState.ballCarrier.x;
+        gameState.ballHandlerProgressOwner = gameState.ballCarrier;
     }
 
     // Clear inbound state
@@ -4393,6 +4637,7 @@ function switchPossession() {
     gameState.shotClock = 24; // Reset shot clock on possession change
     resetBackcourtState();
     gameState.ballHandlerStuckTimer = 0;
+    gameState.ballHandlerAdvanceTimer = 0;
     clearPotentialAssist();
 
     if (gameState.currentTeam === "red") {
@@ -4412,6 +4657,8 @@ function switchPossession() {
     if (gameState.ballCarrier) {
         gameState.ballHandlerLastX = gameState.ballCarrier.x;
         gameState.ballHandlerLastY = gameState.ballCarrier.y;
+        gameState.ballHandlerFrontcourtStartX = gameState.ballCarrier.x;
+        gameState.ballHandlerProgressOwner = gameState.ballCarrier;
     }
 
     // Assign defensive matchups
@@ -4438,10 +4685,10 @@ function positionSpritesForBoxScore() {
     if (bluePlayer2 && typeof bluePlayer2.moveTo === "function") {
         bluePlayer2.moveTo(rightX, bottomYSecondary);
     }
-    if (ballFrame && typeof ballFrame.moveTo === "function") {
+    if (typeof moveBallFrameTo === "function") {
         var midX = Math.floor(COURT_WIDTH / 2);
         var midY = Math.floor(COURT_HEIGHT / 2);
-        ballFrame.moveTo(midX, midY);
+        moveBallFrameTo(midX, midY);
         gameState.ballX = midX;
         gameState.ballY = midY;
     }
@@ -4748,16 +4995,9 @@ function teamSelectionScreen() {
         // Display team list
         for (var i = 0; i < teamList.length; i++) {
             var team = NBATeams[teamList[i].key];
-            var teamColor = team.colors ? team.colors.fg : "WHITE";
-            var colorCode = getColorCode(teamColor);
-
-            if (i === currentSelection) {
-                // Selected item: show in bright team color with arrow
-                console.putmsg(colorCode + "\1h> " + teamList[i].name + "\1n\r\n");
-            } else {
-                // Unselected item: show in regular team color
-                console.putmsg(colorCode + "  " + teamList[i].name + "\1n\r\n");
-            }
+            var colorSequence = getMenuColorCodes(team, i === currentSelection);
+            var prefix = (i === currentSelection) ? "> " : "  ";
+            console.putmsg(colorSequence + prefix + teamList[i].name + "\1n\r\n");
         }
 
         console.putmsg("\r\n\1h[UP/DOWN]\1n Navigate  \1h[ENTER]\1n Select  \1h[Q]\1n Quit\r\n");
@@ -4795,16 +5035,9 @@ function teamSelectionScreen() {
         // Display team list
         for (var i = 0; i < teamList.length; i++) {
             var team = NBATeams[teamList[i].key];
-            var teamColor = team.colors ? team.colors.fg : "WHITE";
-            var colorCode = getColorCode(teamColor);
-
-            if (i === currentSelection) {
-                // Selected item: show in bright team color with arrow
-                console.putmsg(colorCode + "\1h> " + teamList[i].name + "\1n\r\n");
-            } else {
-                // Unselected item: show in regular team color
-                console.putmsg(colorCode + "  " + teamList[i].name + "\1n\r\n");
-            }
+            var colorSequence = getMenuColorCodes(team, i === currentSelection);
+            var prefix = (i === currentSelection) ? "> " : "  ";
+            console.putmsg(colorSequence + prefix + teamList[i].name + "\1n\r\n");
         }
 
         console.putmsg("\r\n\1h[UP/DOWN]\1n Navigate  \1h[ENTER]\1n Select  \1h[Q]\1n Quit\r\n");
@@ -4905,7 +5138,8 @@ function runCPUDemo() {
             bluePlayerIndices.player2 = blueAvailablePlayers[Math.floor(Math.random() * blueAvailablePlayers.length)];
         }
 
-        // Initialize sprites with ALL CPU mode
+        // Reset state and initialize sprites with ALL CPU mode
+        resetGameState({ allCPUMode: true });
         initSprites(redTeamKey, blueTeamKey, redPlayerIndices, bluePlayerIndices, true);
 
         // Set game time (shorter for demo - 120 seconds total)
@@ -4930,6 +5164,7 @@ function runCPUDemo() {
 
         // Clean up sprites before starting new demo
         cleanupSprites();
+        resetGameState({ allCPUMode: true });
     }
 }
 
@@ -4952,6 +5187,7 @@ function showSplashScreen() {
 }
 
 function main() {
+    resetGameState();
     // Show ANSI splash screen first
     showSplashScreen();
 
@@ -4991,6 +5227,7 @@ function main() {
             // Clear screen before starting game to remove selection artifacts
             console.clear();
 
+            resetGameState({ allCPUMode: false });
             initSprites(
                 selection.redTeam,
                 selection.blueTeam,
@@ -4998,17 +5235,6 @@ function main() {
                 selection.bluePlayers,
                 false  // Not demo mode - player1 is human
             );
-
-            // Reset game state for new game
-            gameState.score.red = 0;
-            gameState.score.blue = 0;
-            gameState.timeRemaining = gameState.totalGameTime; // Start with full game time
-            gameState.currentHalf = 1;
-            gameState.isHalftime = false;
-            gameState.consecutivePoints.red = 0;
-            gameState.consecutivePoints.blue = 0;
-            gameState.onFire.red = false;
-            gameState.onFire.blue = false;
 
             gameLoop();
             var choice = showGameOver(false); // Pass false for player mode
@@ -5018,8 +5244,10 @@ function main() {
             } else if (choice === "newteams") {
                 useNewTeams = true;
                 cleanupSprites(); // Clean up before new team selection
+                resetGameState();
             } else if (choice === "playagain") {
                 cleanupSprites(); // Clean up before restarting
+                resetGameState();
             }
         }
     }
