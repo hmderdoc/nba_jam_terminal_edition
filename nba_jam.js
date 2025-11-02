@@ -7,6 +7,7 @@ load("sprite.js");
 load("shoe_colors.js");
 
 var COURT_SCREEN_Y_OFFSET = 1;
+var BEEP_DEMO = false;
 
 var ShoeColorConfig = (typeof SHOE_COLOR_CONFIG === "object" && SHOE_COLOR_CONFIG) ? SHOE_COLOR_CONFIG : {
     threshold: 45,
@@ -339,7 +340,9 @@ function renderPlayerLabel(player, options) {
     if (!labelFrame) return null;
 
     var displayText;
-    if (player.playerData.shortNick && player.playerData.shortNick.length > 0) {
+    if (options.forcedText !== undefined && options.forcedText !== null) {
+        displayText = String(options.forcedText);
+    } else if (player.playerData.shortNick && player.playerData.shortNick.length > 0) {
         displayText = player.playerData.shortNick;
     } else {
         displayText = String(player.playerData.jersey);
@@ -368,6 +371,12 @@ function renderPlayerLabel(player, options) {
         attr = fg | WAS_BROWN;
     }
 
+    if (options.flashPalette && options.flashPalette.length) {
+        var palette = options.flashPalette;
+        var tick = (typeof options.flashTick === "number") ? options.flashTick : gameState.tickCounter;
+        attr = palette[((tick % palette.length) + palette.length) % palette.length];
+    }
+
     var visibleText = displayText;
     if (visibleText.length > labelFrame.width) {
         visibleText = visibleText.slice(0, labelFrame.width);
@@ -386,6 +395,31 @@ function renderPlayerLabel(player, options) {
     }
 
     return { frame: labelFrame, isCarrier: isCarrier, visible: true };
+}
+
+var DUNK_LABEL_WORDS = ["SLAM!", "BOOM!", "JAM!", "FLY!", "YEAH!"];
+
+function getDunkLabelText(style, tick) {
+    var words = DUNK_LABEL_WORDS;
+    if (style === "hang") {
+        words = ["HANG!", "GLIDE", "SOAR!"];
+    } else if (style === "power") {
+        words = ["POWER", "BOOM!", "CRUSH"];
+    }
+    var index = ((tick || 0) % words.length + words.length) % words.length;
+    return words[index];
+}
+
+function getDunkFlashPalette(player) {
+    var teamKey = getPlayerTeamName(player);
+    var base = getTeamBaselineColors(teamKey) || { fg: WHITE, bg: BG_BLACK };
+    var bg = (typeof base.bg === "number") ? base.bg : BG_BLACK;
+    return [
+        base.fg | bg,
+        WHITE | bg,
+        YELLOW | bg,
+        LIGHTRED | bg
+    ];
 }
 
 function scrubSpriteTransparency(sprite) {
@@ -490,8 +524,9 @@ var BASKET_RIGHT_Y = 9;
 // Three-point arc radius
 var THREE_POINT_RADIUS = 16;
 var KEY_DEPTH = 8;
-var DUNK_DISTANCE_BASE = 4.5;
-var DUNK_DISTANCE_PER_ATTR = 0.85;
+var DUNK_DISTANCE_BASE = 4.2;
+var DUNK_DISTANCE_PER_ATTR = 0.95;
+var DUNK_MIN_DISTANCE = 2.4;
 var DUNK_ARC_HEIGHT_MIN = 2.5;
 var DUNK_ARC_HEIGHT_MAX = 5.5;
 
@@ -664,11 +699,21 @@ function createDefaultGameState() {
             red: [0, 1], // Currently active player indices
             blue: [0, 1]
         },
+        ballHandlerDeadSince: null,
+        ballHandlerDeadFrames: 0,
         tickCounter: 0,
         allCPUMode: false,
         firstHalfStartTeam: null,
         secondHalfInitDone: false,
-        pendingSecondHalfInbound: false
+        pendingSecondHalfInbound: false,
+        scoreFlash: {
+            active: false,
+            activeTeam: null,
+            stopTeam: null,
+            startedTick: 0,
+            regainCheckEnabled: false
+        },
+        beepEnabled: true
     };
 }
 
@@ -694,6 +739,8 @@ function resetGameState(options) {
     gameState.allCPUMode = (options && typeof options.allCPUMode === "boolean")
         ? options.allCPUMode
         : prevCPU;
+
+    gameState.beepEnabled = gameState.allCPUMode ? !!BEEP_DEMO : true;
 }
 
 // Frames
@@ -702,6 +749,13 @@ var scoreFrame;
 var announcerFrame;
 var ballFrame;
 var announcerLibrary = {};
+var scoreFontModule = null;
+var scoreFontData = null;
+var scoreFontInitAttempted = false;
+var SCORE_FONT_DEFAULT_JUSTIFY = 2;
+var SCORE_FONT_MIN_WIDTH = 6;
+var leftScoreFrame = null;
+var rightScoreFrame = null;
 
 function ensureBallFrame(x, y) {
     if (!courtFrame) return;
@@ -724,11 +778,13 @@ function ensureBallFrame(x, y) {
 }
 
 function moveBallFrameTo(x, y) {
+    var clampedX = clamp(Math.round(x), 1, COURT_WIDTH);
+    var clampedY = clamp(Math.round(y), 1, COURT_HEIGHT);
     if (!ballFrame || !ballFrame.is_open) {
-        ensureBallFrame(x, y);
+        ensureBallFrame(clampedX, clampedY);
     } else if (ballFrame.moveTo) {
-        var drawY = (typeof y === "number") ? y + getCourtScreenOffsetY() : y;
-        ballFrame.moveTo(x, drawY);
+        var drawY = clampedY + getCourtScreenOffsetY();
+        ballFrame.moveTo(clampedX, drawY);
     }
 }
 
@@ -765,13 +821,15 @@ function Player(name, jersey, attributes, sprite, shortNick) {
         tpm: 0,
         tpa: 0,
         dunks: 0,
-        dunkAttempts: 0
+        dunkAttempts: 0,
+        turnovers: 0
     };
     this.injured = false;
     this.injuryCount = 0;
     this.hasDribble = true;
     this.shakeCooldown = 0;
     this.shoveCooldown = 0;
+    this.knockdownTimer = 0;
 
     // AI State Machine
     this.aiState = AI_STATE.OFFENSE_BALL; // Current FSM state
@@ -786,7 +844,8 @@ function Player(name, jersey, attributes, sprite, shortNick) {
 }
 
 Player.prototype.getSpeed = function () {
-    var baseSpeed = this.attributes[ATTR_SPEED] / 10.0;
+    var speedAttr = getEffectiveAttribute(this, ATTR_SPEED);
+    var baseSpeed = speedAttr / 10.0;
     if (this.turboActive) {
         return baseSpeed * TURBO_SPEED_MULTIPLIER;
     }
@@ -1259,6 +1318,7 @@ function loadAnnouncerLibrary() {
         fire_extinguished: ["He's cooled off."],
         shot_clock_violation: ["Shot clock violation!"],
         violation_backcourt: ["Backcourt violation!"],
+        violation_five_seconds: ["5-second violation!"],
         dribble_pickup: ["He picked up his dribble!"],
         game_start: ["Welcome to NBA Jam!"],
         tipoff: ["And we're underway!"],
@@ -1566,13 +1626,11 @@ function drawJerseyNumbers() {
     var carrierFrame = null;
     for (var i = 0; i < players.length; i++) {
         var player = players[i];
-        var info = renderPlayerLabel(player, { highlightCarrier: true });
+        var info = renderPlayerLabel(player, { highlightCarrier: true, forceTop: true });
         if (!info || !info.frame || !info.visible) continue;
 
         if (info.isCarrier) {
             carrierFrame = info.frame;
-        } else if (typeof info.frame.top === "function") {
-            info.frame.top();
         }
     }
 
@@ -1621,6 +1679,10 @@ function updateBallPosition() {
         ballOffsetX = (player.x < targetBasket) ? 5 : -1;
     }
 
+    if (player.x >= COURT_WIDTH - 7 && ballOffsetX > 0) {
+        ballOffsetX = Math.max(ballOffsetX - 3, 1);
+    }
+
     if (hasDribble) {
         var period = 12;
         var phase = (gameState.tickCounter % period) / period;
@@ -1639,8 +1701,12 @@ function updateBallPosition() {
         ballAttr = holdPhase ? (LIGHTRED | WAS_BROWN) : (YELLOW | WAS_BROWN);
     }
 
-    gameState.ballX = player.x + ballOffsetX;
-    gameState.ballY = player.y + ballOffsetY + 2;
+    var desiredBallX = player.x + ballOffsetX;
+    if (desiredBallX > COURT_WIDTH - 2) {
+        desiredBallX = COURT_WIDTH - 2;
+    }
+    gameState.ballX = clamp(desiredBallX, 1, COURT_WIDTH);
+    gameState.ballY = clamp(player.y + ballOffsetY + 2, 1, COURT_HEIGHT);
 
     if (ballFrame && moveBallFrameTo) {
         moveBallFrameTo(gameState.ballX, gameState.ballY);
@@ -1702,21 +1768,60 @@ function clearTeamOnFire(teamKey) {
 }
 
 function drawScore() {
+    if (!scoreFrame) return;
+
     scoreFrame.clear();
+    ensureScoreFontLoaded();
 
     var frameWidth = scoreFrame.width || 80;
     var centerColumn = Math.floor(frameWidth / 2);
+    var sideMargin = 0;
+    var turboGap = 0;
+    var clockGap = 1;
+    var shotClockRow = 2;
+    var turboRow = 2;
+    var playerRow = 3;
+    var scorePanelAttr = WHITE | BG_BLACK;
 
     var blueTeamName = (gameState.teamNames.blue || "BLUE").toUpperCase();
     var redTeamName = (gameState.teamNames.red || "RED").toUpperCase();
 
-    var blueScoreText = padStart(String(gameState.score.blue), 3, ' ');
-    var redScoreText = padStart(String(gameState.score.red), 3, ' ');
+    var blueScoreValue = String(gameState.score.blue);
+    var redScoreValue = String(gameState.score.red);
+    var blueScoreText = padStart(blueScoreValue, 3, ' ');
+    var redScoreText = padStart(redScoreValue, 3, ' ');
 
     var blueBg = (gameState.teamColors.blue && gameState.teamColors.blue.bg !== undefined) ? gameState.teamColors.blue.bg : BG_BLACK;
     var redBg = (gameState.teamColors.red && gameState.teamColors.red.bg !== undefined) ? gameState.teamColors.red.bg : BG_BLACK;
-    var blueNameColor = gameState.teamColors.blue.fg | blueBg;
-    var redNameColor = gameState.teamColors.red.fg | redBg;
+    var blueNameColor = (gameState.teamColors.blue ? gameState.teamColors.blue.fg : LIGHTBLUE) | blueBg;
+    var redNameColor = (gameState.teamColors.red ? gameState.teamColors.red.fg : LIGHTRED) | redBg;
+    var panelBgMask = scorePanelAttr & BG_MASK;
+    var blueScoreFg = (gameState.teamColors.blue ? gameState.teamColors.blue.fg : WHITE) & FG_MASK;
+    var redScoreFg = (gameState.teamColors.red ? gameState.teamColors.red.fg : WHITE) & FG_MASK;
+
+    var flashInfo = getScoreFlashState();
+    if (flashInfo.active && flashInfo.regainCheckEnabled && !gameState.inbounding && gameState.currentTeam === flashInfo.activeTeam) {
+        stopScoreFlash(flashInfo.activeTeam);
+        flashInfo = getScoreFlashState();
+    }
+
+    var flashActive = !!(flashInfo.active && flashInfo.activeTeam);
+    var flashTick = gameState.tickCounter || 0;
+    var flashPeriod = 8;
+    var flashElapsed = flashTick - (flashInfo.startedTick || 0);
+    if (flashElapsed < 0) flashElapsed = 0;
+    var flashOn = flashActive && ((flashElapsed % flashPeriod) < (flashPeriod / 2));
+    var blueFlashOn = flashOn && flashInfo.activeTeam === "blue";
+    var redFlashOn = flashOn && flashInfo.activeTeam === "red";
+    var whiteFg = WHITE & FG_MASK;
+
+    if (blueFlashOn) blueScoreFg = whiteFg;
+    if (redFlashOn) redScoreFg = whiteFg;
+
+    var blueScorePanelAttr = blueScoreFg | panelBgMask;
+    var redScorePanelAttr = redScoreFg | panelBgMask;
+    var blueScoreBoardAttr = blueScoreFg | BG_BLACK;
+    var redScoreBoardAttr = redScoreFg | BG_BLACK;
 
     var halfTime = Math.floor(gameState.totalGameTime / 2);
     var rawTime = (gameState.currentHalf === 1) ? (gameState.timeRemaining - halfTime) : gameState.timeRemaining;
@@ -1726,74 +1831,161 @@ function drawScore() {
     var halfLabel = gameState.currentHalf === 1 ? "1ST" : "2ND";
     var clockText = halfLabel + " " + mins + ":" + padStart(secs, 2, '0');
     var clockX = clamp(centerColumn - Math.floor(clockText.length / 2), 1, frameWidth - clockText.length + 1);
+    clockX = Math.min(clockX + 1, frameWidth - clockText.length + 1);
+    var clockRight = clockX + clockText.length - 1;
     scoreFrame.gotoxy(clockX, 1);
     scoreFrame.putmsg(clockText, LIGHTGREEN | BG_BLACK);
 
-    // Left side score (team name followed by score toward center)
-    var leftScoreEnd = clockX - 2;
-    var leftScoreStart = Math.max(1, leftScoreEnd - blueScoreText.length + 1);
-    scoreFrame.gotoxy(leftScoreStart, 1);
-    scoreFrame.putmsg(blueScoreText, WHITE | BG_BLACK);
-
-    var leftNameStart = Math.max(1, leftScoreStart - blueTeamName.length - 1);
-    var leftNameEnd = leftScoreStart - 2;
-    var maxLeftNameLength = Math.max(0, leftNameEnd - leftNameStart + 1);
-    if (maxLeftNameLength > 0) {
-        var blueNameSegment = blueTeamName;
-        if (blueNameSegment.length > maxLeftNameLength) {
-            blueNameSegment = blueNameSegment.slice(-maxLeftNameLength);
-            leftNameStart = leftNameEnd - blueNameSegment.length + 1;
+    var leftNameStart = Math.max(1 + sideMargin, 1);
+    var leftNameEnd = clockX - clockGap - 1;
+    var leftAvailable = Math.max(0, leftNameEnd - leftNameStart + 1);
+    if (leftAvailable > 0) {
+        var leftName = blueTeamName;
+        if (leftName.length > leftAvailable) {
+            leftName = leftName.slice(0, leftAvailable);
         }
-        scoreFrame.gotoxy(leftNameStart, 1);
-        scoreFrame.putmsg(blueNameSegment, blueNameColor);
+        if (leftName.length > 0) {
+            scoreFrame.gotoxy(leftNameStart, 1);
+            scoreFrame.putmsg(leftName, blueNameColor);
+        }
     }
 
-    // Right side score (score precedes team name to lean toward center)
-    var clockRight = clockX + clockText.length - 1;
-    var rightScoreStart = clamp(clockRight + 2, 1, frameWidth - redScoreText.length + 1);
-    scoreFrame.gotoxy(rightScoreStart, 1);
-    scoreFrame.putmsg(redScoreText, WHITE | BG_BLACK);
-
-    var rightNameStart = rightScoreStart + redScoreText.length + 1;
-    if (rightNameStart <= frameWidth) {
-        var maxRightNameLength = Math.max(0, frameWidth - rightNameStart + 1);
-        if (maxRightNameLength > 0) {
-            var redNameSegment = redTeamName;
-            if (redNameSegment.length > maxRightNameLength) {
-                redNameSegment = redNameSegment.substring(0, maxRightNameLength);
-            }
+    var rightNameEnd = frameWidth - sideMargin;
+    var rightNameStartMin = clockRight + clockGap + 1;
+    var rightAvailable = Math.max(0, rightNameEnd - rightNameStartMin + 1);
+    if (rightAvailable > 0) {
+        var rightName = redTeamName;
+        if (rightName.length > rightAvailable) {
+            rightName = rightName.slice(rightName.length - rightAvailable);
+        }
+        if (rightName.length > 0) {
+            var rightNameStart = Math.max(rightNameStartMin, rightNameEnd - rightName.length + 1);
             scoreFrame.gotoxy(rightNameStart, 1);
-            scoreFrame.putmsg(redNameSegment, redNameColor);
+            scoreFrame.putmsg(rightName, redNameColor);
         }
     }
 
-    // Shot clock (centered on second row)
     var shotClockValue = Math.max(0, gameState.shotClock);
     var shotClockColor = shotClockValue <= 5 ? LIGHTRED : WHITE;
     var shotText = "SHOT " + padStart(String(shotClockValue), 2, ' ');
     var shotX = clamp(centerColumn - Math.floor(shotText.length / 2), 1, frameWidth - shotText.length + 1);
-    scoreFrame.gotoxy(shotX, 2);
+    shotX = Math.min(shotX + 1, frameWidth - shotText.length + 1);
+    var shotRight = shotX + shotText.length - 1;
+    scoreFrame.gotoxy(shotX, shotClockRow);
     scoreFrame.putmsg(shotText, shotClockColor | BG_BLACK);
 
-    // Draw turbo bars (line 2)
+    var leftTurboPositions = [
+        { player: bluePlayer1, x: 1 },
+        { player: bluePlayer2, x: 12 }
+    ];
+    var leftTurboMax = sideMargin;
+    for (var i = 0; i < leftTurboPositions.length; i++) {
+        var leftInfo = leftTurboPositions[i];
+        var leftWidth = getTurboBarWidth(leftInfo.player);
+        if (leftWidth > 0) {
+            var leftEnd = leftInfo.x + leftWidth - 1;
+            if (leftEnd > leftTurboMax) leftTurboMax = leftEnd;
+        }
+    }
+
+    var rightTurboPositions = [
+        { player: redPlayer1, x: 59 },
+        { player: redPlayer2, x: 70 }
+    ];
+    var rightTurboMin = null;
+    for (var j = 0; j < rightTurboPositions.length; j++) {
+        var rightInfo = rightTurboPositions[j];
+        var rightWidth = getTurboBarWidth(rightInfo.player);
+        if (rightWidth > 0) {
+            if (rightTurboMin === null || rightInfo.x < rightTurboMin) {
+                rightTurboMin = rightInfo.x;
+            }
+        }
+    }
+
+    var leftDigitsStart = Math.max(leftTurboMax + turboGap + 1, sideMargin + 1);
+    var leftDigitsEnd = shotX - clockGap - 1;
+    var leftDigitsWidth = leftDigitsEnd - leftDigitsStart + 1;
+    var leftRendered = false;
+    var leftFrame = null;
+
+    if (leftDigitsWidth >= SCORE_FONT_MIN_WIDTH) {
+        leftFrame = ensureScoreFrame("left", leftDigitsStart, leftDigitsWidth, scorePanelAttr);
+        if (leftFrame) {
+            if (ensureScoreFontLoaded()) {
+                leftRendered = renderScoreDigits(leftFrame, blueScoreValue, blueScorePanelAttr, scorePanelAttr);
+            } else {
+                fillFrameBackground(leftFrame, scorePanelAttr);
+            }
+        }
+    } else {
+        leftFrame = null;
+        ensureScoreFrame("left", 0, 0);
+    }
+
+    if (!leftRendered) {
+        var maxLeftEnd = shotX - clockGap - 1;
+        var minLeftStart = sideMargin + 1;
+        var fallbackLeftStart = Math.max(minLeftStart, maxLeftEnd - blueScoreText.length + 1);
+        var fallbackLeftEnd = fallbackLeftStart + blueScoreText.length - 1;
+        if (leftFrame) {
+            renderFallbackScore(leftFrame, blueScoreText.trim(), blueScorePanelAttr, scorePanelAttr);
+        } else if (fallbackLeftStart <= maxLeftEnd && fallbackLeftEnd <= maxLeftEnd) {
+            scoreFrame.gotoxy(fallbackLeftStart, shotClockRow);
+            scoreFrame.putmsg(blueScoreText, blueScoreBoardAttr);
+        }
+    }
+
+    var rightDigitsStart = shotRight + clockGap;
+    var rightDigitsEnd = (rightTurboMin !== null) ? (rightTurboMin - turboGap - 1) : (frameWidth - sideMargin);
+    var rightDigitsWidth = rightDigitsEnd - rightDigitsStart + 1;
+    var rightRendered = false;
+    var rightFrame = null;
+
+    if (rightDigitsWidth >= SCORE_FONT_MIN_WIDTH) {
+        rightFrame = ensureScoreFrame("right", rightDigitsStart, rightDigitsWidth, scorePanelAttr);
+        if (rightFrame) {
+            if (ensureScoreFontLoaded()) {
+                rightRendered = renderScoreDigits(rightFrame, redScoreValue, redScorePanelAttr, scorePanelAttr);
+            } else {
+                fillFrameBackground(rightFrame, scorePanelAttr);
+            }
+        }
+    } else {
+        rightFrame = null;
+        ensureScoreFrame("right", 0, 0);
+    }
+
+    if (!rightRendered) {
+        var minRightStart = shotRight + clockGap;
+        var maxRightStart = frameWidth - sideMargin - redScoreText.length + 1;
+        if (rightFrame) {
+            renderFallbackScore(rightFrame, redScoreText.trim(), redScorePanelAttr, scorePanelAttr);
+        } else if (minRightStart <= maxRightStart) {
+            var fallbackRightStart = maxRightStart;
+            scoreFrame.gotoxy(fallbackRightStart, shotClockRow);
+            scoreFrame.putmsg(redScoreText, redScoreBoardAttr);
+        }
+    }
+
     if (bluePlayer1 && bluePlayer1.playerData) {
         updatePlayerShoeColor(bluePlayer1);
-        scoreFrame.gotoxy(3, 2);
+        scoreFrame.gotoxy(1, turboRow);
         drawTurboBar(bluePlayer1);
     }
     if (bluePlayer2 && bluePlayer2.playerData) {
         updatePlayerShoeColor(bluePlayer2);
-        scoreFrame.gotoxy(14, 2);
+        scoreFrame.gotoxy(12, turboRow);
         drawTurboBar(bluePlayer2);
     }
     if (redPlayer1 && redPlayer1.playerData) {
         updatePlayerShoeColor(redPlayer1);
-        scoreFrame.gotoxy(56, 2);
+        scoreFrame.gotoxy(59, turboRow);
         drawTurboBar(redPlayer1);
     }
     if (redPlayer2 && redPlayer2.playerData) {
         updatePlayerShoeColor(redPlayer2);
-        scoreFrame.gotoxy(67, 2);
+        scoreFrame.gotoxy(70, turboRow);
         drawTurboBar(redPlayer2);
     }
 
@@ -1808,14 +2000,14 @@ function drawScore() {
 
     function renderPlayerSlot(x, player, teamKey, offset) {
         if (!player || !player.playerData) return;
-        scoreFrame.gotoxy(x, 3);
+        scoreFrame.gotoxy(x, playerRow);
         if (gameState.ballCarrier === player) {
             scoreFrame.putmsg("o", YELLOW | BG_BLACK);
         } else {
             scoreFrame.putmsg(" ", BG_BLACK);
         }
         var last = getLastName(player.playerData.name).substring(0, 8);
-        scoreFrame.gotoxy(x + 1, 3);
+        scoreFrame.gotoxy(x + 1, playerRow);
         var baseBg = (gameState.teamColors[teamKey] && gameState.teamColors[teamKey].bg !== undefined)
             ? gameState.teamColors[teamKey].bg
             : BG_BLACK;
@@ -1825,12 +2017,93 @@ function drawScore() {
     }
 
     renderPlayerSlot(2, bluePlayer1, "blue", 0);
-    renderPlayerSlot(13, bluePlayer2, "blue", 3);
-    renderPlayerSlot(55, redPlayer1, "red", 0);
-    renderPlayerSlot(66, redPlayer2, "red", 3);
+    renderPlayerSlot(14, bluePlayer2, "blue", 3);
+    renderPlayerSlot(60, redPlayer1, "red", 0);
+    renderPlayerSlot(72, redPlayer2, "red", 3);
+
+    if (flashActive) {
+        var buryX = Math.max(1, Math.min(frameWidth, scoreFrame.width || frameWidth));
+        var buryY = scoreFrame.height || 5;
+        scoreFrame.gotoxy(buryX, buryY);
+    }
 
     cycleFrame(scoreFrame);
     drawAnnouncerLine();
+}
+
+function getScoreFlashState() {
+    if (!gameState.scoreFlash) {
+        gameState.scoreFlash = {
+            active: false,
+            activeTeam: null,
+            stopTeam: null,
+            startedTick: 0,
+            regainCheckEnabled: false
+        };
+    }
+    return gameState.scoreFlash;
+}
+
+function startScoreFlash(scoringTeam, inboundTeam) {
+    var state = getScoreFlashState();
+    state.active = true;
+    state.activeTeam = scoringTeam;
+    state.stopTeam = inboundTeam;
+    state.startedTick = gameState.tickCounter || 0;
+    state.regainCheckEnabled = false;
+}
+
+function stopScoreFlash(teamName) {
+    var state = getScoreFlashState();
+    if (!state.active) return;
+    if (!teamName || state.activeTeam === teamName) {
+        state.active = false;
+        state.activeTeam = null;
+        state.stopTeam = null;
+        state.startedTick = 0;
+        state.regainCheckEnabled = false;
+    }
+}
+
+function enableScoreFlashRegainCheck(teamName) {
+    var state = getScoreFlashState();
+    if (!state.active) return;
+    if (!teamName || state.stopTeam === teamName) {
+        state.regainCheckEnabled = true;
+        if (!gameState.inbounding && state.activeTeam && gameState.currentTeam === state.activeTeam) {
+            stopScoreFlash(state.activeTeam);
+        }
+    }
+}
+
+function setFrontcourtEstablished(teamName) {
+    if (gameState.frontcourtEstablished) return;
+    gameState.frontcourtEstablished = true;
+    var state = gameState.scoreFlash;
+    if (state && state.active && state.stopTeam === teamName) {
+        stopScoreFlash(state.activeTeam);
+    }
+}
+
+function canPlayPossessionBeep() {
+    if (typeof console === "undefined" || typeof console.beep !== "function") return false;
+    if (!gameState || gameState.beepEnabled === false) return false;
+    return true;
+}
+
+function triggerPossessionBeep() {
+    if (!canPlayPossessionBeep()) return;
+    try {
+        console.beep();
+    } catch (beepErr) { }
+}
+
+function togglePossessionBeep() {
+    if (!gameState) return;
+    gameState.beepEnabled = !gameState.beepEnabled;
+    if (typeof announce === "function") {
+        announce(gameState.beepEnabled ? "Audio cues ON" : "Audio cues OFF", YELLOW);
+    }
 }
 
 function drawAnnouncerLine() {
@@ -1851,14 +2124,34 @@ function drawAnnouncerLine() {
     cycleFrame(announcerFrame);
 }
 
-function drawTurboBar(player) {
-    if (!player || !player.playerData) return;
-    var turbo = (typeof player.playerData.turbo === "number") ? player.playerData.turbo : 0;
+function getJerseyDisplayValue(player) {
+    if (!player || !player.playerData) return "";
     var rawJersey = (player.playerData.jerseyString !== undefined && player.playerData.jerseyString !== null)
         ? player.playerData.jerseyString
         : player.playerData.jersey;
     var jerseyValue = (rawJersey !== undefined && rawJersey !== null) ? String(rawJersey) : "";
-    scoreFrame.putmsg("#" + jerseyValue + " ", LIGHTGRAY | BG_BLACK);
+    if (jerseyValue.length === 0) return "";
+    if (jerseyValue.length < 2) {
+        jerseyValue = padStart(jerseyValue, 2, ' ');
+    }
+    return jerseyValue;
+}
+
+function getTurboBarWidth(player) {
+    if (!player || !player.playerData) return 0;
+    var jerseyDisplay = getJerseyDisplayValue(player);
+    var prefix = "#" + jerseyDisplay;
+    var prefixLength = prefix.length;
+    var barLength = 6; // Matches drawTurboBar segments
+    return prefixLength + 2 + barLength; // prefix + '[' + ']' + segments
+}
+
+function drawTurboBar(player) {
+    if (!player || !player.playerData) return;
+    var turbo = (typeof player.playerData.turbo === "number") ? player.playerData.turbo : 0;
+    var jerseyDisplay = getJerseyDisplayValue(player);
+    var jerseyText = "\1h\1w#" + jerseyDisplay + "\1n";
+    scoreFrame.putmsg(jerseyText, LIGHTGRAY | BG_BLACK);
 
     var palette = getPlayerShoePalette(player);
     var highColor = palette ? palette.high : LIGHTGREEN;
@@ -1886,11 +2179,13 @@ function initFrames() {
 
     announcerFrame = new Frame(1, 1, 80, 1, LIGHTGRAY | BG_BLACK);
     courtFrame = new Frame(1, 2, COURT_WIDTH, COURT_HEIGHT, WHITE | WAS_BROWN);
+    cleanupScoreFrames();
     scoreFrame = new Frame(1, COURT_HEIGHT + 2, 80, 5, LIGHTGRAY | BG_BLACK);
 
     announcerFrame.open();
     courtFrame.open();
     scoreFrame.open();
+    ensureScoreFontLoaded();
 
     ensureBallFrame(40, 10);
     drawAnnouncerLine();
@@ -2191,6 +2486,7 @@ function checkBoundaries(sprite) {
     if (sprite.x > COURT_WIDTH - 7) sprite.x = COURT_WIDTH - 7;
     if (sprite.y < 2) sprite.y = 2;
     if (sprite.y > COURT_HEIGHT - 5) sprite.y = COURT_HEIGHT - 5;
+    clampSpriteFeetToCourt(sprite);
 }
 
 function getAllPlayers() {
@@ -2246,6 +2542,22 @@ function getTimeMs() {
 
 function clearPotentialAssist() {
     gameState.potentialAssist = null;
+}
+
+function recordTurnover(player, reason) {
+    if (!player || !player.playerData) return;
+    var stats = player.playerData.stats;
+    if (!stats) {
+        stats = {};
+        player.playerData.stats = stats;
+    }
+    if (typeof stats.turnovers !== "number") stats.turnovers = 0;
+    stats.turnovers++;
+    if (reason) {
+        player.playerData.lastTurnoverReason = reason;
+    } else {
+        player.playerData.lastTurnoverReason = null;
+    }
 }
 
 function setPotentialAssist(passer, receiver) {
@@ -2312,6 +2624,265 @@ function distanceBetweenPoints(x1, y1, x2, y2) {
     return Math.sqrt(dx * dx + dy * dy);
 }
 
+function clampSpriteFeetToCourt(sprite) {
+    if (!sprite || !sprite.moveTo) return;
+    var width = (sprite.frame && sprite.frame.width) ? sprite.frame.width : 5;
+    if (width < 3) return;
+
+    var legCenter = Math.floor(width / 2);
+    var legLeftOffset = Math.max(1, legCenter - 1);
+    var legRightOffset = Math.min(width - 2, legCenter + 1);
+
+    var legLeft = sprite.x + legLeftOffset;
+    var legRight = sprite.x + legRightOffset;
+    var shift = 0;
+
+    var legMin = 2;
+    var legMax = COURT_WIDTH - 2;
+
+    if (legLeft < legMin) {
+        shift = legMin - legLeft;
+    } else if (legRight > legMax) {
+        shift = legRight - legMax;
+        shift = -shift;
+    }
+
+    if (shift !== 0) {
+        var minX = 2;
+        var maxX = Math.min(COURT_WIDTH - width, COURT_WIDTH - 7);
+        var newX = clamp(sprite.x + shift, minX, maxX);
+        sprite.moveTo(newX, sprite.y);
+    }
+}
+
+function ensureScoreFontLoaded() {
+    if (scoreFontModule && scoreFontData) return true;
+
+    if (!scoreFontModule) {
+        try {
+            scoreFontModule = load("tdfonts_lib.js");
+        } catch (primaryLoadError) {
+            try {
+                scoreFontModule = load("exec/load/tdfonts_lib.js");
+            } catch (secondaryLoadError) {
+                scoreFontInitAttempted = true;
+                scoreFontModule = null;
+                return false;
+            }
+        }
+
+        scoreFontInitAttempted = true;
+    }
+
+    if (!scoreFontModule) return false;
+
+    if (!scoreFontData) {
+        try {
+            scoreFontModule.opt = scoreFontModule.opt || {};
+            scoreFontModule.opt.blankline = false;
+            scoreFontModule.opt.ansi = false;
+            scoreFontData = scoreFontModule.loadfont("serpentx");
+        } catch (fontError) {
+            scoreFontModule = null;
+            scoreFontData = null;
+            return false;
+        }
+    }
+
+    return !!(scoreFontModule && scoreFontData);
+}
+
+function ensureScoreFrame(which, x, width, attr) {
+    if (!scoreFrame) return null;
+    var height = scoreFrame.height || 5;
+    var parentX = scoreFrame.x || 1;
+    var parentY = scoreFrame.y || 1;
+    var parentWidth = scoreFrame.width || 80;
+
+    if (width <= 0) {
+        if (which === "left" && leftScoreFrame) {
+            leftScoreFrame.close();
+            leftScoreFrame = null;
+        }
+        if (which === "right" && rightScoreFrame) {
+            rightScoreFrame.close();
+            rightScoreFrame = null;
+        }
+        return null;
+    }
+
+    var localX = Math.max(1, x);
+    var maxWidth = Math.max(0, parentWidth - localX + 1);
+    if (width > maxWidth) width = maxWidth;
+    if (width <= 0) {
+        if (which === "left" && leftScoreFrame) {
+            leftScoreFrame.close();
+            leftScoreFrame = null;
+        }
+        if (which === "right" && rightScoreFrame) {
+            rightScoreFrame.close();
+            rightScoreFrame = null;
+        }
+        return null;
+    }
+
+    var globalX = parentX + localX - 1;
+    var globalY = parentY;
+
+    var frameRef = (which === "left") ? leftScoreFrame : rightScoreFrame;
+    if (frameRef) {
+        if (frameRef.x !== globalX || frameRef.y !== globalY || frameRef.width !== width || frameRef.height !== height) {
+            frameRef.close();
+            frameRef = null;
+        }
+    }
+
+    if (!frameRef) {
+        var frameAttr = (typeof attr === "number") ? attr : BG_BLACK;
+        frameRef = new Frame(globalX, globalY, width, height, frameAttr, scoreFrame);
+        frameRef.open();
+    }
+
+    if (which === "left") leftScoreFrame = frameRef;
+    else rightScoreFrame = frameRef;
+
+    return frameRef;
+}
+
+function sanitizeFontLine(line) {
+    if (!line) return "";
+    return line.replace(/\x01./g, "");
+}
+
+function fillFrameBackground(frame, attr) {
+    if (!frame) return;
+    if (frame.width <= 0 || frame.height <= 0) return;
+    var fillAttr = (typeof attr === "number") ? attr : frame.attr;
+    var blankLine = Array(frame.width + 1).join(" ");
+    frame.home();
+    for (var row = 1; row <= frame.height; row++) {
+        frame.gotoxy(1, row);
+        frame.putmsg(blankLine, fillAttr);
+    }
+    frame.home();
+    frame.top();
+}
+
+function renderScoreDigits(frame, scoreText, attr, fillAttr) {
+    if (!frame || !scoreFontModule || !scoreFontData) return false;
+    scoreText = String(scoreText);
+    fillFrameBackground(frame, fillAttr);
+
+    scoreFontModule.opt = scoreFontModule.opt || {};
+    scoreFontModule.opt.width = frame.width;
+    scoreFontModule.opt.margin = 0;
+    var justify = (scoreFontModule && typeof scoreFontModule.CENTER_JUSTIFY === "number")
+        ? scoreFontModule.CENTER_JUSTIFY
+        : SCORE_FONT_DEFAULT_JUSTIFY;
+    scoreFontModule.opt.justify = justify;
+    scoreFontModule.opt.blankline = false;
+
+    var rendered;
+    try {
+        rendered = scoreFontModule.output(scoreText, scoreFontData) || "";
+    } catch (renderErr) {
+        return false;
+    }
+
+    var lines = rendered.split(/\r?\n/).filter(function (line) { return line.length > 0; });
+    if (!lines.length) return false;
+
+    var maxWidth = frame.width;
+    var tooWide = lines.some(function (line) {
+        var clean = sanitizeFontLine(line);
+        return clean.length > maxWidth;
+    });
+    if (tooWide) return false;
+
+    var startRow = Math.max(1, Math.floor((frame.height - lines.length) / 2));
+    var colorAttr = attr || (WHITE | BG_BLACK);
+    if (typeof fillAttr === "number") {
+        colorAttr = (colorAttr & FG_MASK) | (fillAttr & BG_MASK);
+    }
+
+    for (var i = 0; i < lines.length && (startRow + i) <= frame.height; i++) {
+        var cleanLine = sanitizeFontLine(lines[i]);
+        frame.gotoxy(1, startRow + i);
+        frame.putmsg(cleanLine, colorAttr);
+    }
+
+    frame.top();
+    return true;
+}
+
+function renderFallbackScore(frame, text, attr, fillAttr) {
+    if (!frame) return;
+    text = String(text);
+    fillFrameBackground(frame, fillAttr);
+
+    var displayAttr = attr || (WHITE | BG_BLACK);
+    if (typeof fillAttr === "number") {
+        displayAttr = (displayAttr & FG_MASK) | (fillAttr & BG_MASK);
+    }
+
+    var startCol = Math.max(1, Math.floor((frame.width - text.length) / 2) + 1);
+    var startRow = Math.max(1, Math.floor(frame.height / 2));
+    if (startCol + text.length - 1 > frame.width) {
+        text = text.substring(0, frame.width);
+    }
+
+    frame.gotoxy(startCol, startRow);
+    frame.putmsg(text, displayAttr);
+    frame.top();
+}
+
+function cleanupScoreFrames() {
+    if (leftScoreFrame) {
+        leftScoreFrame.close();
+        leftScoreFrame = null;
+    }
+    if (rightScoreFrame) {
+        rightScoreFrame.close();
+        rightScoreFrame = null;
+    }
+}
+
+function resetDeadDribbleTimer() {
+    gameState.ballHandlerDeadSince = null;
+    gameState.ballHandlerDeadFrames = 0;
+}
+
+function isBallHandlerDribbleDead() {
+    var handler = gameState.ballCarrier;
+    return !!(handler && handler.playerData && handler.playerData.hasDribble === false);
+}
+
+function getBallHandlerDeadElapsed() {
+    if (!gameState.ballHandlerDeadSince) return 0;
+    var now = getTimeMs();
+    return Math.max(0, now - gameState.ballHandlerDeadSince);
+}
+
+function getSpriteDistanceToBasket(player, teamName) {
+    if (!player) return 0;
+    var basket = teamName === "red"
+        ? { x: BASKET_RIGHT_X, y: BASKET_RIGHT_Y }
+        : { x: BASKET_LEFT_X, y: BASKET_LEFT_Y };
+    return distanceBetweenPoints(player.x, player.y, basket.x, basket.y);
+}
+
+function getBaseAttribute(playerData, attrIndex) {
+    if (!playerData || !playerData.attributes) return 0;
+    var value = playerData.attributes[attrIndex];
+    return (typeof value === "number") ? value : 0;
+}
+
+function getEffectiveAttribute(playerData, attrIndex) {
+    if (!playerData) return 0;
+    if (playerData.onFire) return 10;
+    return getBaseAttribute(playerData, attrIndex);
+}
+
 // ===== NEW AI HELPER FUNCTIONS =====
 
 /**
@@ -2327,6 +2898,11 @@ function calculateShotProbability(shooter, targetX, targetY, closestDefender) {
 
     var playerData = shooter.playerData;
     var distanceToBasket = distanceBetweenPoints(shooter.x, shooter.y, targetX, targetY);
+    var dunkSkill = getEffectiveAttribute(playerData, ATTR_DUNK);
+    var threePointSkill = getEffectiveAttribute(playerData, ATTR_3PT);
+    var rawDunkSkill = getBaseAttribute(playerData, ATTR_DUNK);
+    var rawThreeSkill = getBaseAttribute(playerData, ATTR_3PT);
+    var skillEdge = threePointSkill - dunkSkill;
 
     // 1. BASE PROBABILITY FROM DISTANCE (closer = better)
     var baseProbability;
@@ -2347,16 +2923,37 @@ function calculateShotProbability(shooter, targetX, targetY, closestDefender) {
         baseProbability = 15;
     }
 
+    // Encourage dunkers to stay aggressive at the rim and penalize bailout twos
+    if (distanceToBasket < 12 && rawDunkSkill >= 6 && !playerData.onFire) {
+        baseProbability -= (rawDunkSkill - 5) * 4;
+        if (distanceToBasket < 8) {
+            baseProbability -= (rawDunkSkill - 5) * 3;
+        }
+    }
+    if (distanceToBasket < 10 && rawDunkSkill <= 3) {
+        baseProbability += (4 - rawDunkSkill) * 3;
+    }
+    if (distanceToBasket >= 18 && rawThreeSkill >= 7) {
+        baseProbability += 5;
+    }
+    if (baseProbability < 5) baseProbability = 5;
+
     // 2. ATTRIBUTE MULTIPLIER (player skill)
     var attributeMultiplier = 1.0;
     if (distanceToBasket < 8) {
         // Close range - use dunk attribute
-        var dunkSkill = playerData.attributes[ATTR_DUNK];
         attributeMultiplier = 0.7 + (dunkSkill / 10) * 0.6; // 0.7 to 1.3
     } else {
         // Perimeter - use 3point attribute
-        var threePointSkill = playerData.attributes[ATTR_3PT];
         attributeMultiplier = 0.7 + (threePointSkill / 10) * 0.6; // 0.7 to 1.3
+    }
+
+    if (distanceToBasket >= 18) {
+        if (skillEdge >= 3) {
+            baseProbability += 6;
+        } else if (skillEdge >= 2) {
+            baseProbability += 3;
+        }
     }
 
     // 3. DEFENDER PENALTY (proximity to defender)
@@ -2374,10 +2971,24 @@ function calculateShotProbability(shooter, targetX, targetY, closestDefender) {
             defenderPenalty = 8;
         }
         // else: wide open (no penalty)
+
+        if (distanceToBasket >= 18 && defenderPenalty > 0) {
+            defenderPenalty = Math.max(0, defenderPenalty - 4);
+        }
     }
 
     // COMBINED FORMULA
     var finalProbability = (baseProbability * attributeMultiplier) - defenderPenalty;
+
+    if (distanceToBasket >= 18) {
+        if (skillEdge >= 3) {
+            finalProbability += 10;
+        } else if (skillEdge >= 2) {
+            finalProbability += 6;
+        } else if (skillEdge >= 1) {
+            finalProbability += 3;
+        }
+    }
 
     // Clamp to 0-100 range
     if (finalProbability < 0) finalProbability = 0;
@@ -2481,8 +3092,8 @@ function evaluatePassingLaneClearance(passer, targetX, targetY, defenders) {
         var deltaY = defY - closestY;
         var distToLane = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
 
-        var stealAttr = (defender.playerData && defender.playerData.attributes)
-            ? defender.playerData.attributes[ATTR_STEAL] || 0
+        var stealAttr = defender.playerData
+            ? getEffectiveAttribute(defender.playerData, ATTR_STEAL)
             : 0;
 
         var clearance = distToLane - (stealAttr * 0.45);
@@ -2907,17 +3518,46 @@ function isInBackcourt(player, teamName) {
 }
 
 function enforceBackcourtViolation(message) {
-    announceEvent("violation_backcourt", { team: gameState.currentTeam });
+    var violatingTeam = gameState.currentTeam;
+    if (gameState.ballCarrier) {
+        recordTurnover(gameState.ballCarrier, message || "backcourt");
+    }
+    announceEvent("violation_backcourt", { team: violatingTeam });
     mswait(800);
     resetBackcourtState();
-    switchPossession();
-    gameState.ballHandlerStuckTimer = 0;
-    gameState.ballHandlerAdvanceTimer = 0;
+    resetDeadDribbleTimer();
+    clearPotentialAssist();
+    if (violatingTeam === "red" || violatingTeam === "blue") {
+        setupInbound(violatingTeam);
+    } else {
+        switchPossession();
+        gameState.ballHandlerStuckTimer = 0;
+        gameState.ballHandlerAdvanceTimer = 0;
+        if (gameState.ballCarrier) {
+            gameState.ballHandlerLastX = gameState.ballCarrier.x;
+            gameState.ballHandlerLastY = gameState.ballCarrier.y;
+            gameState.ballHandlerFrontcourtStartX = gameState.ballCarrier.x;
+            gameState.ballHandlerProgressOwner = gameState.ballCarrier;
+        }
+    }
+}
+
+function enforceFiveSecondViolation() {
+    var violatingTeam = gameState.currentTeam;
     if (gameState.ballCarrier) {
-        gameState.ballHandlerLastX = gameState.ballCarrier.x;
-        gameState.ballHandlerLastY = gameState.ballCarrier.y;
-        gameState.ballHandlerFrontcourtStartX = gameState.ballCarrier.x;
-        gameState.ballHandlerProgressOwner = gameState.ballCarrier;
+        recordTurnover(gameState.ballCarrier, "five_seconds");
+    }
+    announceEvent("violation_five_seconds", { team: violatingTeam });
+    mswait(800);
+    resetDeadDribbleTimer();
+    resetBackcourtState();
+    clearPotentialAssist();
+    if (violatingTeam === "red" || violatingTeam === "blue") {
+        setupInbound(violatingTeam);
+    } else {
+        switchPossession();
+        gameState.ballHandlerStuckTimer = 0;
+        gameState.ballHandlerAdvanceTimer = 0;
     }
 }
 
@@ -2972,10 +3612,9 @@ function autoContestShot(shooter, targetX, targetY) {
         if (closest.playerData && closest.playerData.turbo > 2) {
             activateAITurbo(closest, 0.7, closestDist);
         }
-        var closestBlockBoost = 0;
-        if (closest.playerData && closest.playerData.attributes) {
-            closestBlockBoost = (closest.playerData.attributes[ATTR_BLOCK] || 0) * 0.2;
-        }
+        var closestBlockBoost = closest.playerData
+            ? getEffectiveAttribute(closest.playerData, ATTR_BLOCK) * 0.2
+            : 0;
         attemptBlock(closest, {
             duration: BLOCK_JUMP_DURATION + (closestDist < 5 ? 4 : 2),
             heightBoost: closestBlockBoost,
@@ -3187,6 +3826,38 @@ function pickOffBallSpot(player, ballCarrier, teamName) {
     return spots.left_wing;
 }
 
+function pickEmergencyCrosscourtSpot(player, teamName) {
+    var spots = getTeamSpots(teamName);
+    var goOppositeBaseline = player.y < BASKET_LEFT_Y;
+    var target = null;
+    if (spots) {
+        target = goOppositeBaseline ? spots.corner_high : spots.corner_low;
+        if (!target) target = goOppositeBaseline ? spots.elbow_high : spots.elbow_low;
+        if (!target) target = spots.top_key || spots.left_wing || spots.right_wing;
+    }
+    if (!target) {
+        var destX = teamName === "red"
+            ? clampToCourtX(player.x + 10)
+            : clampToCourtX(player.x - 10);
+        var destY = clampToCourtY(player.y < BASKET_LEFT_Y ? BASKET_LEFT_Y + 6 : BASKET_LEFT_Y - 6);
+        target = { x: destX, y: destY };
+    }
+    return {
+        x: clampToCourtX(Math.round(target.x)),
+        y: clampToCourtY(Math.round(target.y))
+    };
+}
+
+function pickEmergencyReliefSpot(player, ballCarrier, teamName) {
+    var base = pickOffBallSpot(player, ballCarrier, teamName) || { x: player.x, y: player.y };
+    var jitterY = (player.y < BASKET_LEFT_Y ? 1 : -1) * (2 + Math.random() * 2);
+    var jitterX = (Math.random() < 0.5 ? -1 : 1) * (1 + Math.random() * 2);
+    return {
+        x: clampToCourtX(Math.round(base.x + jitterX)),
+        y: clampToCourtY(Math.round(base.y + jitterY))
+    };
+}
+
 
 // Check if lane is open for drive
 function isLaneOpen(player, teamName) {
@@ -3252,7 +3923,7 @@ function calculateShotQuality(player, teamName) {
     var defenderDist = getClosestDefenderDistance(player, teamName);
 
     // Base quality from attributes
-    var baseQuality = player.playerData.attributes[ATTR_3PT] * 5; // 0-50
+    var baseQuality = getEffectiveAttribute(player.playerData, ATTR_3PT) * 5; // 0-50
 
     // Bonus for being open
     var openBonus = Math.min(defenderDist * 2, 20); // 0-20
@@ -3296,8 +3967,24 @@ function aiOffenseBall(player, teamName) {
 
     var basket = getOffensiveBasket(teamName);
     var spots = getTeamSpots(teamName);
+    var attackDirection = teamName === "red" ? 1 : -1;
     var inBackcourt = isInBackcourt(player, teamName);
     var defenderDist = getClosestDefenderDistance(player, teamName);
+    var distToBasket = distanceBetweenPoints(player.x, player.y, basket.x, basket.y);
+    var rawThreePointSkill = getBaseAttribute(playerData, ATTR_3PT);
+    var rawDunkSkill = getBaseAttribute(playerData, ATTR_DUNK);
+    var threePointSkill = getEffectiveAttribute(playerData, ATTR_3PT);
+    var dunkSkill = getEffectiveAttribute(playerData, ATTR_DUNK);
+    var skillEdge = threePointSkill - dunkSkill;
+    var isThreeSpecialist = (rawThreePointSkill >= 7 && rawDunkSkill <= 5);
+    var now = getTimeMs();
+    var timeSinceTurbo = playerData.lastTurboUseTime ? (now - playerData.lastTurboUseTime) : Number.POSITIVE_INFINITY;
+    var closestDefender = getClosestPlayer(player.x, player.y, teamName === "red" ? "blue" : "red");
+    var hasDribble = playerData.hasDribble !== false;
+    var dribbleDead = !hasDribble;
+    var deadElapsed = dribbleDead ? Math.max(0, now - (gameState.ballHandlerDeadSince || now)) : 0;
+    var closestDefenderDistToBasket = closestDefender ? getSpriteDistanceToBasket(closestDefender, teamName) : 999;
+    var shotQuality = calculateShotQuality(player, teamName);
 
     // PRIORITY 1: BACKCOURT - Must advance, no other options
     if (inBackcourt && !gameState.frontcourtEstablished) {
@@ -3349,8 +4036,37 @@ function aiOffenseBall(player, teamName) {
         return;
     }
 
+    // PRIORITY 2A: PERIMETER QUICK THREE (favor specialists early)
+    var isPerimeter = distToBasket >= 17 && distToBasket <= 22;
+    if (!inBackcourt && isPerimeter) {
+        var earlyPossession = gameState.ballHandlerAdvanceTimer <= 1;
+        var settledFeet = (gameState.ballHandlerStuckTimer >= 1) && timeSinceTurbo > 350;
+        var spacing = defenderDist >= (isThreeSpecialist ? 3 : 4.5);
+        var clockComfort = gameState.shotClock > (SHOT_CLOCK_URGENT + (isThreeSpecialist ? 4 : 2));
+        var qualityFloor = SHOT_PROBABILITY_THRESHOLD - (isThreeSpecialist ? 7 : 3);
+        var quickThreeQuality = shotQuality;
+        var isTransition = earlyPossession && timeSinceTurbo < 1200;
+        if (isTransition) {
+            quickThreeQuality -= isThreeSpecialist ? 4 : 12;
+        }
+        if (distToBasket > 20) {
+            quickThreeQuality -= (distToBasket - 20) * 4;
+        }
+        var hasGreenLight = isThreeSpecialist || skillEdge >= 3 || (threePointSkill >= 7 && !isTransition);
+
+        if (settledFeet && (clockComfort || (earlyPossession && !isTransition)) &&
+            spacing && quickThreeQuality >= qualityFloor && hasGreenLight) {
+            playerData.aiLastAction = (earlyPossession && isThreeSpecialist)
+                ? "transition_three"
+                : "quick_three";
+            attemptShot();
+            return;
+        }
+    }
+
     // PRIORITY 2: LANE OPEN + TURBO -> DRIVE
-    if (isLaneOpen(player, teamName) && playerData.turbo > 20) {
+    var laneTurboThreshold = rawDunkSkill >= 7 ? 12 : 20;
+    if (!dribbleDead && isLaneOpen(player, teamName) && playerData.turbo > laneTurboThreshold) {
         playerData.aiLastAction = "drive_lane";
         playerData.turboActive = true;
         playerData.useTurbo(TURBO_DRAIN_RATE);
@@ -3358,18 +4074,54 @@ function aiOffenseBall(player, teamName) {
         steerToward(player, basket.x, basket.y, 5); // Turbo speed
 
         // Dunk if close enough
-        var distToBasket = distanceBetweenPoints(player.x, player.y, basket.x, basket.y);
         if (distToBasket < 6) {
             attemptShot(); // Will trigger dunk animation
         }
         return;
     }
 
-    // PRIORITY 3: OPEN SHOT -> SHOOT
-    var shotQuality = calculateShotQuality(player, teamName);
-    var distToBasket = distanceBetweenPoints(player.x, player.y, basket.x, basket.y);
+    var highFlyer = rawDunkSkill >= 8;
+    if (!dribbleDead && highFlyer && distToBasket <= 12 && defenderDist <= 6) {
+        if (distToBasket > 6.2) {
+            playerData.aiLastAction = "attack_rim";
+            var gatherTarget = basket.x - attackDirection * 5;
+            var gatherX = clampToCourtX(gatherTarget);
+            var gatherY = clampToCourtY(basket.y + (player.y < basket.y ? -2 : 2));
+            var burstSpeed = playerData.turbo > 5 ? 5.4 : 3.8;
+            if (playerData.turbo > 5) {
+                playerData.turboActive = true;
+                playerData.useTurbo(TURBO_DRAIN_RATE * 0.9);
+            }
+            steerToward(player, gatherX, gatherY, burstSpeed);
+        } else {
+            playerData.aiLastAction = "power_rim";
+            attemptShot();
+        }
+        return;
+    }
 
-    if (shotQuality > SHOT_PROBABILITY_THRESHOLD && defenderDist > 6 && distToBasket > 12) {
+    if (!dribbleDead && closestDefender && defenderDist <= 4 && closestDefenderDistToBasket >= distToBasket + 2) {
+        playerData.aiLastAction = "press_break";
+        var burstX = clampToCourtX(player.x + attackDirection * 8);
+        var burstY = clampToCourtY(player.y + (Math.random() < 0.5 ? -2 : 2));
+        var burstSpeed = playerData.turbo > 5 ? 5 : 3.2;
+        if (playerData.turbo > 5) {
+            playerData.turboActive = true;
+            playerData.useTurbo(TURBO_DRAIN_RATE * 0.75);
+        }
+        steerToward(player, burstX, burstY, burstSpeed);
+        return;
+    }
+
+    if (rawDunkSkill >= 7 && distToBasket < 6 && defenderDist <= 5) {
+        playerData.aiLastAction = "power_rim";
+        attemptShot();
+        return;
+    }
+
+    // PRIORITY 3: OPEN SHOT -> SHOOT
+    var pullUpRange = isThreeSpecialist ? 12 : 14;
+    if (shotQuality > SHOT_PROBABILITY_THRESHOLD && defenderDist > 5 && distToBasket > pullUpRange) {
         playerData.aiLastAction = "pull_up_shot";
         attemptShot();
         return;
@@ -3392,8 +4144,13 @@ function aiOffenseBall(player, teamName) {
         return;
     }
 
+    if (dribbleDead) {
+        playerData.aiLastAction = "hold_pivot";
+        return;
+    }
+
     // DEFAULT: PROBE - Move toward best corner or top of key
-    var preferCorner = playerData.attributes[ATTR_3PT] >= playerData.attributes[ATTR_DUNK];
+    var preferCorner = rawThreePointSkill >= rawDunkSkill;
     var cornerTarget = preferCorner ? selectBestCorner(teamName, player, true) : null;
     if (cornerTarget) {
         playerData.aiLastAction = "probe_corner";
@@ -3421,6 +4178,73 @@ function aiOffenseNoBall(player, teamName) {
 
     var spots = getTeamSpots(teamName);
     var defenderDist = getClosestDefenderDistance(player, teamName);
+    var dribbleDead = isBallHandlerDribbleDead();
+    var deadElapsed = dribbleDead ? getBallHandlerDeadElapsed() : 0;
+    var fiveSecondAlarm = deadElapsed > 2500;
+
+    if (dribbleDead) {
+        if (!playerData.emergencyCut) {
+            playerData.emergencyCut = { flareCount: 0, forceRepathTick: 0, currentMode: "relief" };
+        }
+
+        var tolerance = deadElapsed > 1800 ? 1.3 : 1.8;
+        var forceTick = playerData.emergencyCut.forceRepathTick || 0;
+        var needsNewTarget = !playerData.aiTargetSpot ||
+            hasReachedSpot(player, playerData.aiTargetSpot, tolerance) ||
+            (forceTick && gameState.tickCounter >= forceTick);
+
+        if (needsNewTarget) {
+            var mustCross = playerData.emergencyCut.flareCount >= 2;
+            if (!mustCross && deadElapsed > 2500) mustCross = true;
+            if (!mustCross && Math.random() < 0.35) mustCross = true;
+
+            var target;
+            if (mustCross) {
+                target = pickEmergencyCrosscourtSpot(player, teamName);
+                playerData.emergencyCut.flareCount = 0;
+                playerData.emergencyCut.currentMode = "cross";
+            } else {
+                target = pickEmergencyReliefSpot(player, ballCarrier, teamName);
+                playerData.emergencyCut.flareCount++;
+                playerData.emergencyCut.currentMode = "relief";
+            }
+
+            playerData.aiTargetSpot = target;
+            var deltaX = (target.x || player.x) - player.x;
+            var deltaY = (target.y || player.y) - player.y;
+            var dirX = deltaX === 0 ? 0 : (deltaX > 0 ? 1 : -1);
+            var dirY = deltaY === 0 ? 0 : (deltaY > 0 ? 1 : -1);
+            var leadOffsetX = mustCross ? 2 : 1;
+            var leadOffsetY = mustCross ? 1 : 0;
+            var lead = {
+                x: clampToCourtX(Math.round(target.x + dirX * leadOffsetX)),
+                y: clampToCourtY(Math.round(target.y + dirY * leadOffsetY))
+            };
+            playerData.emergencyCut.leadTarget = lead;
+            playerData.emergencyCut.forceRepathTick = gameState.tickCounter + (mustCross ? 10 : 14);
+        }
+
+        var mode = playerData.emergencyCut.currentMode || "relief";
+        playerData.aiLastAction = mode === "cross" ? "emergency_cross" : "emergency_space";
+
+        var speed = mode === "cross"
+            ? (deadElapsed > 3200 ? 5.4 : 4.6)
+            : (deadElapsed > 2600 ? 4.2 : 3.2);
+
+        if (playerData.turbo > 3 && (mode === "cross" || fiveSecondAlarm)) {
+            playerData.turboActive = true;
+            playerData.useTurbo(TURBO_DRAIN_RATE * (mode === "cross" ? 0.85 : 0.6));
+            speed = Math.max(speed, mode === "cross" ? 5.6 : 4.4);
+        }
+
+        steerToward(player, playerData.aiTargetSpot.x, playerData.aiTargetSpot.y, speed);
+        return;
+    } else if (playerData.emergencyCut) {
+        playerData.emergencyCut.flareCount = 0;
+        playerData.emergencyCut.forceRepathTick = 0;
+        playerData.emergencyCut.currentMode = "relief";
+        playerData.emergencyCut.leadTarget = null;
+    }
 
     // PRIORITY 1: Ball carrier in backcourt -> SPRINT AHEAD
     if (isInBackcourt(ballCarrier, teamName)) {
@@ -3491,7 +4315,8 @@ function aiDefenseOnBall(player, teamName, ballCarrier) {
 
     // Attempt steal if very close
     var distToBall = distanceBetweenPoints(player.x, player.y, ballCarrier.x, ballCarrier.y);
-    if (distToBall < 2 && Math.random() < (0.01 + 0.02 * playerData.attributes[ATTR_STEAL] / 10)) {
+    var stealSkill = getEffectiveAttribute(playerData, ATTR_STEAL);
+    if (distToBall < 2 && Math.random() < (0.01 + 0.02 * stealSkill / 10)) {
         attemptUserSteal(player); // Try to steal
     }
 }
@@ -3504,6 +4329,7 @@ function aiDefenseHelp(player, teamName, ballCarrier) {
     var playerData = player.playerData;
     if (!playerData || !ballCarrier) return;
 
+    var dribbleDead = isBallHandlerDribbleDead();
     var ourBasket = teamName === "red"
         ? { x: BASKET_LEFT_X, y: BASKET_LEFT_Y }
         : { x: BASKET_RIGHT_X, y: BASKET_RIGHT_Y };
@@ -3519,9 +4345,11 @@ function aiDefenseHelp(player, teamName, ballCarrier) {
         playerData.aiLastAction = "help_paint";
         var helpTargetX = paintX + (Math.random() - 0.5) * 2;
         var helpTargetY = paintY + (Math.random() - 0.5) * 2;
-        var response = 0.22 + ((playerData.attributes ? playerData.attributes[ATTR_SPEED] || 0 : 0) * 0.03);
+        var response = 0.22 + (getEffectiveAttribute(playerData, ATTR_SPEED) * 0.03);
+        if (dribbleDead) response *= 0.7;
         var momentum = applyDefenderMomentum(player, helpTargetX, helpTargetY, response, false);
-        steerToward(player, momentum.x, momentum.y, 2.5);
+        var paintSpeed = dribbleDead ? 1.8 : 2.5;
+        steerToward(player, momentum.x, momentum.y, paintSpeed);
     } else {
         // Otherwise, deny passing lane to my man
         // Find the offensive player I should be guarding
@@ -3542,16 +4370,23 @@ function aiDefenseHelp(player, teamName, ballCarrier) {
             var denyY = (myMan.y + ballCarrier.y) / 2 + (Math.random() - 0.5) * 2;
 
             playerData.aiLastAction = "deny_pass";
-            var denyResponse = 0.2 + ((playerData.attributes ? playerData.attributes[ATTR_SPEED] || 0 : 0) * 0.03);
+            if (dribbleDead) {
+                denyX = (denyX * 0.6) + (myMan.x * 0.4);
+                denyY = (denyY * 0.6) + (myMan.y * 0.4);
+            }
+            var denyResponse = 0.2 + (getEffectiveAttribute(playerData, ATTR_SPEED) * 0.03);
+            if (dribbleDead) denyResponse *= 0.6;
             var denyMomentum = applyDefenderMomentum(player, denyX, denyY, denyResponse, false);
-            steerToward(player, denyMomentum.x, denyMomentum.y, 2);
+            var denySpeed = dribbleDead ? 1.6 : 2;
+            steerToward(player, denyMomentum.x, denyMomentum.y, denySpeed);
         } else {
             // Fallback: protect paint
             playerData.aiLastAction = "fallback_paint";
             var fallbackX = paintX + (Math.random() - 0.5) * 2;
             var fallbackY = paintY + (Math.random() - 0.5) * 2;
-            var fallbackMomentum = applyDefenderMomentum(player, fallbackX, fallbackY, 0.2, false);
-            steerToward(player, fallbackMomentum.x, fallbackMomentum.y, 2);
+            var fallbackResponse = dribbleDead ? 0.12 : 0.2;
+            var fallbackMomentum = applyDefenderMomentum(player, fallbackX, fallbackY, fallbackResponse, false);
+            steerToward(player, fallbackMomentum.x, fallbackMomentum.y, dribbleDead ? 1.5 : 2);
         }
     }
 }
@@ -3567,6 +4402,14 @@ function updateAI() {
     for (var i = 0; i < allPlayers.length; i++) {
         var player = allPlayers[i];
         if (!player || player.isHuman || !player.playerData) continue;
+
+        if (player.playerData.knockdownTimer && player.playerData.knockdownTimer > 0) {
+            player.playerData.knockdownTimer--;
+            if (player.playerData.knockdownTimer > 0) {
+                player.playerData.turboActive = false;
+                continue;
+            }
+        }
 
         var teamName = getPlayerTeamName(player);
         if (!teamName) continue;
@@ -3614,6 +4457,11 @@ function updateAI() {
     for (var i = 0; i < allPlayers.length; i++) {
         var player = allPlayers[i];
         if (!player || player.isHuman || !player.playerData) continue;
+
+        if (player.playerData.knockdownTimer && player.playerData.knockdownTimer > 0) {
+            player.playerData.turboActive = false;
+            continue;
+        }
 
         var teamName = getPlayerTeamName(player);
         if (!teamName) continue;
@@ -3678,6 +4526,7 @@ function handleAIBallCarrier(player, teamName) {
     var distanceToBasket = distanceBetweenPoints(player.x, player.y, targetBasketX, targetBasketY);
     var closestDefender = getClosestPlayer(player.x, player.y, teamName === "red" ? "blue" : "red");
     var defenderDist = closestDefender ? getSpriteDistance(player, closestDefender) : 999;
+    var closestDefenderDistToBasket = closestDefender ? getSpriteDistanceToBasket(closestDefender, teamName) : 999;
     var teammate = getTeammate(player, teamName);
 
     // TRANSITION OFFENSE - If I just got a rebound near my own basket, push it forward fast
@@ -3779,7 +4628,15 @@ function handleAIBallCarrier(player, teamName) {
                 passIntent = "RESET_OFFENSE";
             }
 
-            // REASON 4: Backcourt urgency - must advance
+            // REASON 5: Dead dribble urgency - must move the ball
+            if (!shouldPass && dribbleDead && deadElapsed > 2000 && teammateDefDist > 3) {
+                if (!teammateInBackcourt || !inBackcourt) {
+                    shouldPass = true;
+                    passIntent = deadElapsed > 3500 ? "ESCAPE_JAM" : "ADVANCE_BALL";
+                }
+            }
+
+            // REASON 6: Backcourt urgency - must advance
             if (!shouldPass && backcourtUrgent && !teammateInBackcourt) {
                 shouldPass = true;
                 passIntent = "ADVANCE_BALL";
@@ -3790,21 +4647,34 @@ function handleAIBallCarrier(player, teamName) {
                 if (!gameState.passIntent) gameState.passIntent = {};
                 gameState.passIntent[getPlayerKey(teammate)] = passIntent;
 
-                animatePass(player, teammate);
+                var leadTarget = null;
+                if (dribbleDead && teammate && teammate.playerData && teammate.playerData.emergencyCut) {
+                    leadTarget = teammate.playerData.emergencyCut.leadTarget || teammate.playerData.aiTargetSpot;
+                }
+                animatePass(player, teammate, leadTarget);
                 return;
             }
         }
     }
 
     if (playerData.hasDribble !== false && (isTrapped || gameState.ballHandlerStuckTimer >= 4) && !player.isHuman) {
-        pickUpDribble(player, "ai");
+        var pressRisk = closestDefender && (closestDefenderDistToBasket > distToBasket + 1.5);
+        if (!pressRisk || distToBasket < 10) {
+            pickUpDribble(player, "ai");
+        }
     }
 
     if (playerData.hasDribble === false && playerData.shakeCooldown <= 0) {
-        if (isTrapped || gameState.ballHandlerStuckTimer >= 3) {
-            attemptShake(player);
-            if (playerData.hasDribble) {
-                return;
+        var closeDefenders = getTouchingOpponents(player, teamName, 2.75);
+        if (closeDefenders.length || isTrapped || gameState.ballHandlerStuckTimer >= 2) {
+            var shakeWon = attemptShake(player);
+            if (shakeWon) {
+                if (handlePostShakeDecision(player, teamName)) {
+                    return;
+                }
+                if (playerData.hasDribble) {
+                    return;
+                }
             }
         }
     }
@@ -3877,7 +4747,7 @@ function handleAIBallCarrier(player, teamName) {
             driveTargetY = targetBasketY;
 
             // Use turbo for aggressive drive
-            if (playerData.attributes[ATTR_SPEED] >= 7 || playerData.attributes[ATTR_DUNK] >= 7) {
+            if (getEffectiveAttribute(playerData, ATTR_SPEED) >= 7 || getEffectiveAttribute(playerData, ATTR_DUNK) >= 7) {
                 needTurbo = true;
             }
         } else if (defenderDist < 5) {
@@ -4208,13 +5078,14 @@ function handleAIDefense(player, teamName) {
     // === MAN-TO-MAN POSITIONING ===
 
     var myManDistToMyBasket = Math.abs(myMan.x - myBasketX);
+    var myDistToMyBasket = Math.abs(player.x - myBasketX);
 
     // Check perimeter limit - don't chase too far from basket unless they're a shooter
     var atPerimeterLimit = myManDistToMyBasket > DEFENDER_PERIMETER_LIMIT;
     var shouldSagOff = false;
 
     if (atPerimeterLimit && myMan.playerData) {
-        var threePointSkill = myMan.playerData.attributes[ATTR_3PT];
+        var threePointSkill = getBaseAttribute(myMan.playerData, ATTR_3PT);
         if (threePointSkill < 7) {
             // Not a good shooter at perimeter - sag off (but still maintain position)
             shouldSagOff = true;
@@ -4269,16 +5140,18 @@ function handleAIDefense(player, teamName) {
     }
 
     // Apply turbo if needed
-    if (needTurbo && playerData.turbo > 10) {
+    var fullPress = myManDistToMyBasket > DEFENDER_PERIMETER_LIMIT;
+    if (needTurbo && playerData.turbo > 10 && !fullPress) {
         var defDistance = distanceBetweenPoints(player.x, player.y, targetX, targetY);
         activateAITurbo(player, 0.6, defDistance);
         applyDefenderMomentum(player, targetX, targetY, 0.6, true);
     } else {
-        var speedAttr = playerData.attributes ? playerData.attributes[ATTR_SPEED] || 0 : 0;
-        var stealAttr = playerData.attributes ? playerData.attributes[ATTR_STEAL] || 0 : 0;
+        var speedAttr = getEffectiveAttribute(playerData, ATTR_SPEED);
+        var stealAttr = getEffectiveAttribute(playerData, ATTR_STEAL);
         var responsiveness = 0.18 + (speedAttr * 0.035) + (stealAttr * 0.025);
         if (shouldSagOff) responsiveness -= 0.06;
         if (!amBetweenManAndBasket) responsiveness += 0.08;
+        if (myManDistToMyBasket > DEFENDER_PERIMETER_LIMIT + 4) responsiveness -= 0.05;
         var momentumPos = applyDefenderMomentum(player, targetX, targetY, responsiveness, false);
         targetX = momentumPos.x;
         targetY = momentumPos.y;
@@ -4290,12 +5163,17 @@ function handleAIDefense(player, teamName) {
 
     // STEAL - attempt if guarding ball carrier and close
     if (myMan === ballCarrier && distToMyMan < 5) {
-        var stealAttr = playerData.attributes[ATTR_STEAL];
+        var stealAttr = getEffectiveAttribute(playerData, ATTR_STEAL);
         var stealChance = STEAL_BASE_CHANCE * (stealAttr / 5); // Higher steal = more attempts
         if (ballCarrier.playerData && ballCarrier.playerData.hasDribble === false) {
             attemptShove(player);
-        } else if (Math.random() < stealChance) {
-            attemptAISteal(player, ballCarrier);
+        } else {
+            if (myManDistToMyBasket > DEFENDER_PERIMETER_LIMIT) {
+                stealChance *= 0.4;
+            }
+            if (Math.random() < stealChance) {
+                attemptAISteal(player, ballCarrier);
+            }
         }
     }
 
@@ -4310,7 +5188,7 @@ function moveAITowards(sprite, targetX, targetY) {
     var dy = targetY - sprite.y;
     var distance = Math.sqrt(dx * dx + dy * dy);
 
-    if (distance < 1.5) return;
+    if (distance < 1.5 || isPlayerKnockedDown(sprite)) return;
 
     var movesPerUpdate = 2;
     if (sprite.playerData && sprite.playerData.turboActive) {
@@ -4450,9 +5328,6 @@ function renderHalftimeStats(teamKey) {
 
         var statLine = nameDisplay + ": " + (stats.points || 0) + "pts, " +
             (stats.assists || 0) + "ast, " + (stats.rebounds || 0) + "reb";
-        if (player.playerData.injuryCount && player.playerData.injuryCount > 0) {
-            statLine += ", inj " + player.playerData.injuryCount;
-        }
 
         courtFrame.center(statLine + "\1n\r\n");
     }
@@ -4574,6 +5449,21 @@ function gameLoop() {
                 gameState.ballHandlerLastX = ballHandler.x;
                 gameState.ballHandlerLastY = ballHandler.y;
 
+                if (ballHandler.playerData && ballHandler.playerData.hasDribble === false) {
+                    if (!gameState.ballHandlerDeadSince) {
+                        gameState.ballHandlerDeadSince = now;
+                        gameState.ballHandlerDeadFrames = 1;
+                    } else {
+                        gameState.ballHandlerDeadFrames++;
+                        if (!violationTriggeredThisFrame && (now - gameState.ballHandlerDeadSince) >= 5000) {
+                            enforceFiveSecondViolation();
+                            violationTriggeredThisFrame = true;
+                        }
+                    }
+                } else {
+                    resetDeadDribbleTimer();
+                }
+
                 // Track frontcourt progress for smarter passing
                 var attackDir = (gameState.currentTeam === "red") ? 1 : -1;
                 if (gameState.ballHandlerProgressOwner !== ballHandler) {
@@ -4603,13 +5493,14 @@ function gameLoop() {
             } else {
                 gameState.ballHandlerAdvanceTimer = 0;
                 gameState.ballHandlerProgressOwner = null;
+                resetDeadDribbleTimer();
             }
 
             if (gameState.ballCarrier && !gameState.inbounding) {
                 var inBackcourt = isInBackcourt(gameState.ballCarrier, gameState.currentTeam);
                 if (!gameState.frontcourtEstablished) {
                     if (!inBackcourt) {
-                        gameState.frontcourtEstablished = true;
+                        setFrontcourtEstablished(gameState.currentTeam);
                         gameState.backcourtTimer = 0;
                     } else {
                         gameState.backcourtTimer++;
@@ -4703,12 +5594,16 @@ function gameLoop() {
                 var pdata = allPlayers[p].playerData;
                 if (pdata.shakeCooldown && pdata.shakeCooldown > 0) pdata.shakeCooldown--;
                 if (pdata.shoveCooldown && pdata.shoveCooldown > 0) pdata.shoveCooldown--;
+                if (allPlayers[p].isHuman && pdata.knockdownTimer && pdata.knockdownTimer > 0) {
+                    pdata.knockdownTimer--;
+                    if (pdata.knockdownTimer < 0) pdata.knockdownTimer = 0;
+                }
             }
         }
 
         if (gameState.ballCarrier && !gameState.inbounding && !gameState.frontcourtEstablished) {
             if (!isInBackcourt(gameState.ballCarrier, gameState.currentTeam)) {
-                gameState.frontcourtEstablished = true;
+                setFrontcourtEstablished(gameState.currentTeam);
                 gameState.backcourtTimer = 0;
             }
         }
@@ -4768,6 +5663,11 @@ function handleInput(key) {
     }
 
     var keyUpper = key.toUpperCase();
+
+    if (keyUpper === 'M') {
+        togglePossessionBeep();
+        return;
+    }
 
     // Space bar - shoot on offense, block on defense
     if (key === ' ') {
@@ -4862,13 +5762,21 @@ function passToTeammate() {
     animatePass(redPlayer1, redPlayer2);
 }
 
-function animatePass(passer, receiver) {
+function animatePass(passer, receiver, leadTarget) {
     if (!passer || !receiver) return;
 
     var startX = passer.x + 2; // Center of sprite
     var startY = passer.y + 2;
-    var endX = receiver.x + 2;
-    var endY = receiver.y + 2;
+    var targetPoint = null;
+    if (leadTarget && typeof leadTarget.x === "number" && typeof leadTarget.y === "number") {
+        targetPoint = {
+            x: clampToCourtX(Math.round(leadTarget.x)),
+            y: clampToCourtY(Math.round(leadTarget.y))
+        };
+    }
+
+    var endX = (targetPoint ? targetPoint.x : receiver.x) + 2;
+    var endY = (targetPoint ? targetPoint.y : receiver.y) + 2;
 
     // Calculate distance for realistic timing
     var dx = endX - startX;
@@ -4876,9 +5784,10 @@ function animatePass(passer, receiver) {
     var distance = Math.sqrt(dx * dx + dy * dy);
 
     // Check for interception during animation
-    var interceptor = checkPassInterception(passer, receiver);
+    var interceptor = checkPassInterception(passer, receiver, targetPoint);
 
     if (interceptor) {
+        recordTurnover(passer, "steal_pass");
         // Pass was intercepted - animate to interceptor
         endX = interceptor.x + 2;
         endY = interceptor.y + 2;
@@ -4930,6 +5839,7 @@ function animatePass(passer, receiver) {
         gameState.ballCarrier = interceptor;
         var interceptorTeam = (interceptor === redPlayer1 || interceptor === redPlayer2) ? "red" : "blue";
         gameState.currentTeam = interceptorTeam;
+        triggerPossessionBeep();
         resetBackcourtState();
         gameState.ballHandlerStuckTimer = 0;
         gameState.ballHandlerAdvanceTimer = 0;
@@ -4976,9 +5886,11 @@ function animatePass(passer, receiver) {
         gameState.ballHandlerFrontcourtStartX = gameState.ballCarrier.x;
         gameState.ballHandlerProgressOwner = gameState.ballCarrier;
     }
+
+    resetDeadDribbleTimer();
 }
 
-function checkPassInterception(passer, receiver) {
+function checkPassInterception(passer, receiver, targetOverride) {
     // Check if any defender is in the passing lane and can intercept
     if (!passer || !receiver) return null;
 
@@ -4988,8 +5900,15 @@ function checkPassInterception(passer, receiver) {
     // Calculate pass vector
     var passX1 = passer.x + 2;
     var passY1 = passer.y + 2;
-    var passX2 = receiver.x + 2;
-    var passY2 = receiver.y + 2;
+    var passX2;
+    var passY2;
+    if (targetOverride) {
+        passX2 = clampToCourtX(targetOverride.x) + 2;
+        passY2 = clampToCourtY(targetOverride.y) + 2;
+    } else {
+        passX2 = receiver.x + 2;
+        passY2 = receiver.y + 2;
+    }
     var passVecX = passX2 - passX1;
     var passVecY = passY2 - passY1;
     var passLength = Math.sqrt(passVecX * passVecX + passVecY * passVecY);
@@ -4999,7 +5918,7 @@ function checkPassInterception(passer, receiver) {
     for (var i = 0; i < defenders.length; i++) {
         var defender = defenders[i];
         if (!defender || !defender.playerData) continue;
-        var stealAttr = defender.playerData.attributes ? defender.playerData.attributes[ATTR_STEAL] || 0 : 0;
+        var stealAttr = getEffectiveAttribute(defender.playerData, ATTR_STEAL);
 
         var defX = defender.x + 2;
         var defY = defender.y + 2;
@@ -5066,8 +5985,8 @@ function attemptSteal() {
 
     if (distance < 6) {
         // Steal chance based on attributes (reduced for more difficulty)
-        var stealChance = defenderData.attributes[ATTR_STEAL] * 4; // Reduced from 8 to 4
-        var resistance = carrierData.attributes[ATTR_POWER] * 4; // Increased from 3 to 4
+        var stealChance = getEffectiveAttribute(defenderData, ATTR_STEAL) * 4; // Reduced from 8 to 4
+        var resistance = getEffectiveAttribute(carrierData, ATTR_POWER) * 4; // Increased from 3 to 4
         var chance = (stealChance - resistance + 10) / 100; // Reduced base from 20 to 10
 
         if (chance < 0.05) chance = 0.05; // Lowered minimum from 0.1 to 0.05
@@ -5075,9 +5994,11 @@ function attemptSteal() {
 
         if (Math.random() < chance) {
             // Steal successful!
+            recordTurnover(ballCarrier, "steal");
             gameState.reboundActive = false; // Clear rebound state
             gameState.ballCarrier = redPlayer1;
             gameState.currentTeam = "red";
+            triggerPossessionBeep();
             resetBackcourtState();
             gameState.ballHandlerStuckTimer = 0;
             gameState.ballHandlerAdvanceTimer = 0;
@@ -5344,6 +6265,16 @@ function incrementInjury(player, amount) {
     }
 }
 
+function setPlayerKnockedDown(player, duration) {
+    if (!player || !player.playerData) return;
+    player.playerData.knockdownTimer = Math.max(duration || 30, 0);
+    if (player.playerData.turboActive) player.playerData.turboActive = false;
+}
+
+function isPlayerKnockedDown(player) {
+    return !!(player && player.playerData && player.playerData.knockdownTimer > 0);
+}
+
 function knockBack(player, source, maxDistance) {
     if (!player || !player.moveTo) return;
     var distance = Math.max(1, Math.min(maxDistance || 1, 5));
@@ -5361,46 +6292,101 @@ function knockBack(player, source, maxDistance) {
     }
 }
 
+function getTouchingOpponents(player, teamName, radius) {
+    if (!player) return [];
+    var opponents = getOpposingTeamSprites(teamName || getPlayerTeamName(player));
+    if (!opponents || !opponents.length) return [];
+    var touchRadius = radius || 2.6;
+    var touching = [];
+    for (var i = 0; i < opponents.length; i++) {
+        var opp = opponents[i];
+        if (!opp || !opp.playerData) continue;
+        if (getSpriteDistance(player, opp) <= touchRadius) {
+            touching.push(opp);
+        }
+    }
+    return touching;
+}
+
 function attemptShake(player) {
-    if (!player || !player.playerData) return;
+    if (!player || !player.playerData) return false;
     var teamName = getPlayerTeamName(player);
-    if (!teamName) return;
-    if (player.playerData.shakeCooldown > 0) return;
+    if (!teamName) return false;
+    if (player.playerData.shakeCooldown > 0) return false;
 
     player.playerData.shakeCooldown = 25;
 
-    var defenders = getOpposingTeamSprites(teamName) || [];
-    var power = player.playerData.attributes[ATTR_POWER] || 5;
+    var power = getEffectiveAttribute(player.playerData, ATTR_POWER) || 5;
     var turboBonus = (player.playerData.turboActive && player.playerData.turbo > 0) ? 2 : 0;
-    var rng = Math.random();
-    var affected = 0;
+    var touching = getTouchingOpponents(player, teamName, 2.75);
+    if (!touching.length) return false;
 
-    for (var i = 0; i < defenders.length; i++) {
-        var defender = defenders[i];
+    var affected = 0;
+    var knockdownCount = 0;
+
+    for (var i = 0; i < touching.length; i++) {
+        var defender = touching[i];
         if (!defender || !defender.playerData) continue;
-        var dist = getSpriteDistance(player, defender);
-        if (dist > 2.5) continue;
-        var defenderPower = defender.playerData.attributes[ATTR_POWER] || 5;
-        var threshold = (power + turboBonus + 6) / (power + turboBonus + defenderPower + 12);
-        if (threshold < 0.15) threshold = 0.15;
-        if (threshold > 0.9) threshold = 0.9;
-        if (rng < threshold) {
-            var push = Math.max(1, Math.min(5, Math.round((power + turboBonus) / 2)));
-            knockBack(defender, player, push);
-            incrementInjury(defender, 1);
-            affected++;
+        var defenderPower = getEffectiveAttribute(defender.playerData, ATTR_POWER) || 5;
+        var aggressorScore = power + turboBonus;
+        var threshold = (aggressorScore + 6) / (aggressorScore + defenderPower + 12);
+        threshold = clamp(threshold, 0.15, 0.9);
+        if (Math.random() > threshold) continue;
+
+        var push = Math.max(1, Math.min(5, Math.round((aggressorScore - defenderPower) / 2 + 2 + Math.random() * 2)));
+        knockBack(defender, player, push);
+        incrementInjury(defender, 1);
+        affected++;
+
+        var knockdownChance = Math.max(0, (aggressorScore - defenderPower) * 0.08 + Math.random() * 0.1);
+        knockdownChance = Math.min(knockdownChance, 0.45);
+        if (Math.random() < knockdownChance) {
+            setPlayerKnockedDown(defender, 32 + Math.round(Math.random() * 18));
+            knockdownCount++;
         }
     }
 
     if (affected > 0) {
         player.playerData.hasDribble = true;
         if (player.playerData.turboActive) player.playerData.useTurbo(TURBO_DRAIN_RATE);
-        announceEvent("shake_free", {
+        var eventKey = knockdownCount > 0 ? "shake_knockdown" : "shake_break";
+        announceEvent(eventKey, {
             player: player,
             team: teamName,
             playerName: player.playerData.name
         });
+        return true;
     }
+    return false;
+}
+
+function handlePostShakeDecision(player, teamName) {
+    if (!player || player.isHuman || !player.playerData) return false;
+    var basket = getOffensiveBasket(teamName);
+    var opponentTeam = teamName === "red" ? "blue" : "red";
+    var closestDefender = getClosestPlayer(player.x, player.y, opponentTeam);
+    var shotProb = calculateShotProbability(player, basket.x, basket.y, closestDefender);
+    if (shotProb >= (SHOT_PROBABILITY_THRESHOLD - 6)) {
+        player.playerData.aiLastAction = "shake_shot";
+        attemptShot();
+        return true;
+    }
+
+    var teammate = getTeammate(player);
+    if (teammate && teammate.playerData) {
+        var teammateClosest = getClosestPlayer(teammate.x, teammate.y, opponentTeam);
+        var teammateProb = calculateShotProbability(teammate, basket.x, basket.y, teammateClosest);
+        var leadTarget = null;
+        if (teammate.playerData.emergencyCut) {
+            leadTarget = teammate.playerData.emergencyCut.leadTarget || teammate.playerData.aiTargetSpot;
+        }
+        if (teammateProb >= (SHOT_PROBABILITY_THRESHOLD - 10) || !closestDefender || getSpriteDistance(player, closestDefender) < 3) {
+            player.playerData.aiLastAction = "shake_pass";
+            animatePass(player, teammate, leadTarget);
+            return true;
+        }
+    }
+    return false;
 }
 
 function createLooseBall(defender, victim) {
@@ -5454,12 +6440,12 @@ function attemptShove(defender) {
 
     defender.playerData.shoveCooldown = 35;
 
-    var defPower = defender.playerData.attributes[ATTR_POWER] || 5;
+    var defPower = getEffectiveAttribute(defender.playerData, ATTR_POWER) || 5;
     if (defender.playerData.turboActive && defender.playerData.turbo > 0) {
         defPower += 2;
         defender.playerData.useTurbo(TURBO_DRAIN_RATE * 0.5);
     }
-    var victimPower = victim.playerData.attributes[ATTR_POWER] || 5;
+    var victimPower = getEffectiveAttribute(victim.playerData, ATTR_POWER) || 5;
     var rng = Math.random();
     var threshold = (defPower + 6) / (defPower + victimPower + 12);
     if (threshold < 0.2) threshold = 0.2;
@@ -5532,21 +6518,29 @@ function attemptUserSteal(defender) {
     }
 
     // User steal chance (better than AI)
-    var stealChance = defenderData.attributes[ATTR_STEAL] * 5;
-    var resistance = carrierData.attributes[ATTR_POWER] * 4;
+    var stealChance = getEffectiveAttribute(defenderData, ATTR_STEAL) * 5;
+    var resistance = getEffectiveAttribute(carrierData, ATTR_POWER) * 4;
     var chance = (stealChance - resistance + 15) / 100;
 
     if (chance < 0.1) chance = 0.1;
     if (chance > 0.4) chance = 0.4; // Human can be slightly better
 
+    var defenderTeamName = getPlayerTeamName(defender);
+    var carrierDistToBasket = getSpriteDistanceToBasket(ballCarrier, defenderTeamName);
+    if (carrierDistToBasket > DEFENDER_PERIMETER_LIMIT) {
+        chance *= 0.5;
+    }
+
     if (Math.random() < chance) {
         // Steal successful!
+        recordTurnover(ballCarrier, "steal");
         var defenderTeam = (defender === redPlayer1 || defender === redPlayer2) ? "red" : "blue";
         var opponentTeam = defenderTeam === "red" ? "blue" : "red";
 
         gameState.reboundActive = false;
         gameState.shotClock = 24;
         gameState.currentTeam = defenderTeam;
+        triggerPossessionBeep();
         gameState.ballCarrier = defender;
         resetBackcourtState();
         gameState.ballHandlerStuckTimer = 0;
@@ -5599,21 +6593,29 @@ function attemptAISteal(defender, ballCarrier) {
     if (distance > 6) return; // Too far
 
     // Steal chance based on attributes (reduced for more difficulty)
-    var stealChance = defenderData.attributes[ATTR_STEAL] * 4; // Reduced from 8 to 4
-    var resistance = carrierData.attributes[ATTR_POWER] * 4; // Increased from 3 to 4
+    var stealChance = getEffectiveAttribute(defenderData, ATTR_STEAL) * 4; // Reduced from 8 to 4
+    var resistance = getEffectiveAttribute(carrierData, ATTR_POWER) * 4; // Increased from 3 to 4
     var chance = (stealChance - resistance + 10) / 100; // Reduced base from 20 to 10
 
     if (chance < 0.05) chance = 0.05; // Lowered minimum
     if (chance > 0.35) chance = 0.35; // AI slightly worse at steals than human
 
+    var defenderTeamName = getPlayerTeamName(defender);
+    var carrierDistToBasket = getSpriteDistanceToBasket(ballCarrier, defenderTeamName);
+    if (carrierDistToBasket > DEFENDER_PERIMETER_LIMIT) {
+        chance *= 0.5;
+    }
+
     if (Math.random() < chance) {
         // Steal successful!
+        recordTurnover(ballCarrier, "steal");
         gameState.reboundActive = false;
         gameState.shotClock = 24; // Reset shot clock on steal
 
         // Figure out which team gets the ball
         var defenderTeam = (defender === redPlayer1 || defender === redPlayer2) ? "red" : "blue";
         gameState.currentTeam = defenderTeam;
+        triggerPossessionBeep();
         gameState.ballCarrier = defender;
         resetBackcourtState();
         gameState.ballHandlerStuckTimer = 0;
@@ -5782,6 +6784,7 @@ function secureRebound(player) {
 
     // Determine team
     var teamName = getPlayerTeamName(player);
+    var previousTeam = gameState.currentTeam;
     if (!teamName) {
         switchPossession();
         return;
@@ -5799,6 +6802,10 @@ function secureRebound(player) {
     gameState.ballHandlerFrontcourtStartX = player.x;
     gameState.ballHandlerProgressOwner = player;
     if (player.playerData) player.playerData.hasDribble = true;
+
+    if (teamName !== previousTeam) {
+        triggerPossessionBeep();
+    }
 
     // Announce who got it
     announceEvent("rebound", {
@@ -5832,6 +6839,7 @@ function evaluateDunkOpportunity(player, teamName, targetX, targetY, scaledDista
     if (scaledDistance > THREE_POINT_RADIUS) return null;
 
     var attackDir = teamName === "red" ? 1 : -1;
+    var playerData = player.playerData;
 
     var spriteHalfWidth = 2;
     var spriteHalfHeight = 2;
@@ -5859,9 +6867,21 @@ function evaluateDunkOpportunity(player, teamName, targetX, targetY, scaledDista
     var adjustedDy = Math.abs(targetY - centerY) * (insideKey ? 1 : 2);
     var adjustedDistance = Math.sqrt(absDx * absDx + adjustedDy * adjustedDy);
 
-    var dunkSkill = player.playerData.attributes ? player.playerData.attributes[ATTR_DUNK] || 0 : 0;
-    var dunkRange = DUNK_DISTANCE_BASE + dunkSkill * DUNK_DISTANCE_PER_ATTR;
+    var rawDunkSkill = getBaseAttribute(playerData, ATTR_DUNK);
+    var effectiveDunkSkill = getEffectiveAttribute(playerData, ATTR_DUNK);
+    if (!playerData.onFire && rawDunkSkill <= 2 && !insideKey) {
+        return null; // low dunkers must be in the restricted area
+    }
+
+    var dunkRange = DUNK_DISTANCE_BASE + effectiveDunkSkill * DUNK_DISTANCE_PER_ATTR;
+    if (!playerData.onFire && rawDunkSkill <= 3) {
+        dunkRange -= (4 - rawDunkSkill) * 0.4;
+    }
+    if (dunkRange < DUNK_MIN_DISTANCE) dunkRange = DUNK_MIN_DISTANCE;
     if (adjustedDistance > dunkRange) return null;
+
+    var flightSkillFactor = clamp((effectiveDunkSkill + 1) / 11, 0.4, 1.05);
+    var baseSkillFactor = clamp((rawDunkSkill + 1) / 11, 0.3, 1.0);
 
     return {
         attackDir: attackDir,
@@ -5873,16 +6893,28 @@ function evaluateDunkOpportunity(player, teamName, targetX, targetY, scaledDista
         centerY: centerY,
         spriteHalfWidth: spriteHalfWidth,
         spriteHalfHeight: spriteHalfHeight,
-        dunkRange: dunkRange
+        dunkRange: dunkRange,
+        dunkSkill: effectiveDunkSkill,
+        rawDunkSkill: rawDunkSkill,
+        flightSkillFactor: flightSkillFactor,
+        baseSkillFactor: baseSkillFactor
     };
 }
 
 function calculateDunkChance(playerData, dunkInfo, closestDefender, teamName) {
-    var dunkSkill = playerData.attributes ? playerData.attributes[ATTR_DUNK] || 0 : 0;
-    var baseChance = 64 + dunkSkill * 4;
+    var effectiveDunkSkill = getEffectiveAttribute(playerData, ATTR_DUNK);
+    var rawDunkSkill = dunkInfo ? dunkInfo.rawDunkSkill : getBaseAttribute(playerData, ATTR_DUNK);
+    var baseChance = 48 + effectiveDunkSkill * 5;
+
+    if (!playerData.onFire && rawDunkSkill <= 2) {
+        baseChance -= (3 - rawDunkSkill) * 6;
+    }
 
     if (dunkInfo.adjustedDistance < 3.5) baseChance += 6;
     if (!dunkInfo.insideKey) baseChance -= 4;
+    if (dunkInfo.adjustedDistance > (dunkInfo.dunkRange - 0.5)) {
+        baseChance -= (dunkInfo.adjustedDistance - (dunkInfo.dunkRange - 0.5)) * 8;
+    }
 
     if (closestDefender) {
         var defenderHalfWidth = 2;
@@ -5898,8 +6930,8 @@ function calculateDunkChance(playerData, dunkInfo, closestDefender, teamName) {
         var defenderCenterX = closestDefender.x + defenderHalfWidth;
         var defenderCenterY = closestDefender.y + defenderHalfHeight;
         var separation = distanceBetweenPoints(defenderCenterX, defenderCenterY, dunkInfo.centerX, dunkInfo.centerY);
-        var blockAttr = closestDefender.playerData && closestDefender.playerData.attributes
-            ? closestDefender.playerData.attributes[ATTR_BLOCK] || 0
+        var blockAttr = closestDefender.playerData
+            ? getEffectiveAttribute(closestDefender.playerData, ATTR_BLOCK)
             : 0;
         var defensePenalty = Math.max(0, (6 - separation)) * (2 + blockAttr * 0.6);
         baseChance -= defensePenalty;
@@ -5916,24 +6948,22 @@ function calculateDunkChance(playerData, dunkInfo, closestDefender, teamName) {
 }
 
 function selectDunkStyle(playerData, dunkInfo) {
-    var dunkSkill = 0;
-    if (playerData && playerData.attributes) {
-        dunkSkill = playerData.attributes[ATTR_DUNK] || 0;
-    }
+    var dunkSkill = playerData ? getEffectiveAttribute(playerData, ATTR_DUNK) : 0;
+    var rawSkill = playerData ? getBaseAttribute(playerData, ATTR_DUNK) : 0;
 
     var weights = {
         standard: 2.2,
         power: 1.4
     };
 
-    if (dunkSkill >= 6) {
-        weights.glide = (weights.glide || 0) + (1 + (dunkSkill - 5) * 0.45);
+    if (rawSkill >= 6 || playerData.onFire) {
+        weights.glide = (weights.glide || 0) + (1 + ((dunkSkill) - 5) * 0.45);
     }
-    if (dunkSkill >= 7) {
-        weights.hang = (weights.hang || 0) + (0.8 + (dunkSkill - 6) * 0.35);
+    if (rawSkill >= 7 || playerData.onFire) {
+        weights.hang = (weights.hang || 0) + (0.8 + ((dunkSkill) - 6) * 0.35);
     }
-    if (dunkSkill >= 8) {
-        weights.windmill = (weights.windmill || 0) + (0.7 + (dunkSkill - 7) * 0.3);
+    if (rawSkill >= 8 || playerData.onFire) {
+        weights.windmill = (weights.windmill || 0) + (0.7 + ((dunkSkill) - 7) * 0.3);
     }
 
     if (!dunkInfo.insideKey) {
@@ -5981,6 +7011,9 @@ function generateDunkFlight(player, dunkInfo, targetX, targetY, style) {
     var travel = Math.sqrt(dx * dx + dy * dy);
     var baseSteps = Math.max(12, Math.round(travel * 3));
 
+    var skillFactor = dunkInfo.flightSkillFactor || 1;
+    var rawSkillFactor = dunkInfo.baseSkillFactor || skillFactor;
+
     var stepsFactor = 1;
     var arcBonus = 0;
     var msBase = 30;
@@ -6022,10 +7055,14 @@ function generateDunkFlight(player, dunkInfo, targetX, targetY, style) {
             break;
     }
 
-    var steps = Math.max(10, Math.round(baseSteps * stepsFactor));
+    var stepScale = clamp(0.8 + skillFactor * 0.35, 0.7, 1.2);
+    var steps = Math.max(10, Math.round(baseSteps * stepsFactor * stepScale));
+    var arcScale = clamp(0.6 + skillFactor * 0.6, 0.7, 1.35);
+    var minArc = DUNK_ARC_HEIGHT_MIN * clamp(0.65 + rawSkillFactor * 0.5, 0.6, 1.4);
+    var rawArc = 1.25 + travel * 0.65 + arcBonus;
     var arcHeight = Math.max(
-        DUNK_ARC_HEIGHT_MIN,
-        Math.min(DUNK_ARC_HEIGHT_MAX + arcBonus, 1.25 + travel * 0.65 + arcBonus)
+        minArc,
+        Math.min((DUNK_ARC_HEIGHT_MAX + arcBonus) * arcScale, rawArc * arcScale)
     );
 
     var frames = [];
@@ -6143,7 +7180,7 @@ function autoContestDunk(dunker, dunkInfo, targetX, targetY, style) {
         if (!defender || defender.isHuman || !defender.playerData) continue;
         var distToDunker = getSpriteDistance(defender, dunker);
         var distToRim = distanceBetweenPoints(defender.x, defender.y, targetX, targetY);
-        var blockAttr = defender.playerData.attributes ? defender.playerData.attributes[ATTR_BLOCK] || 0 : 0;
+        var blockAttr = defender.playerData ? getEffectiveAttribute(defender.playerData, ATTR_BLOCK) : 0;
         var score = (16 - distToDunker) * 1.4 + (12 - distToRim) * 0.9 + blockAttr * 2.1;
         if (defender.playerData.turbo > 6) {
             score += 1.5;
@@ -6195,8 +7232,8 @@ function maybeBlockDunk(dunker, frameData, dunkInfo, style) {
     var separation = distanceBetweenPoints(blockerCenterX, blockerReachY, frameData.handX, frameData.handY);
     if (separation > 3.6) return null;
 
-    var blockAttr = blocker.playerData.attributes ? blocker.playerData.attributes[ATTR_BLOCK] || 0 : 0;
-    var dunkAttr = dunker.playerData && dunker.playerData.attributes ? dunker.playerData.attributes[ATTR_DUNK] || 0 : 0;
+    var blockAttr = blocker.playerData ? getEffectiveAttribute(blocker.playerData, ATTR_BLOCK) : 0;
+    var dunkAttr = dunker.playerData ? getEffectiveAttribute(dunker.playerData, ATTR_DUNK) : 0;
 
     var baseChance = 34 + blockAttr * 7;
     baseChance += Math.max(0, (3.6 - separation)) * 11;
@@ -6251,10 +7288,15 @@ function animateDunk(player, dunkInfo, targetX, targetY, made) {
             player.turnTo(attackDir > 0 ? "e" : "w");
         }
 
-        var labelInfo = renderPlayerLabel(player, { highlightCarrier: true, forceTop: true });
-        if (labelInfo && labelInfo.frame && typeof labelInfo.frame.top === "function") {
-            labelInfo.frame.top();
-        }
+        var flashPalette = getDunkFlashPalette(player);
+        var flashText = getDunkLabelText(style, gameState.tickCounter + i);
+        renderPlayerLabel(player, {
+            highlightCarrier: false,
+            forcedText: flashText,
+            flashPalette: flashPalette,
+            flashTick: gameState.tickCounter + i,
+            forceTop: true
+        });
 
         var handOffsetX = attackDir > 0 ? dunkInfo.spriteHalfWidth : -dunkInfo.spriteHalfWidth;
         var handX = clamp(Math.round(frame.centerX + handOffsetX + (frame.ballOffsetX || 0)), 1, COURT_WIDTH);
@@ -6318,10 +7360,7 @@ function animateDunk(player, dunkInfo, targetX, targetY, made) {
             player.turnTo(attackDir > 0 ? "e" : "w");
         }
 
-        var knockLabel = renderPlayerLabel(player, { highlightCarrier: true, forceTop: true });
-        if (knockLabel && knockLabel.frame && typeof knockLabel.frame.top === "function") {
-            knockLabel.frame.top();
-        }
+        renderPlayerLabel(player, { highlightCarrier: true, forceTop: true });
 
         var deflectX = clamp(targetX - attackDir * (2 + Math.round(Math.random() * 2)), 1, COURT_WIDTH);
         var deflectY = clamp(targetY + 2 + Math.round(Math.random() * 2), 1, COURT_HEIGHT);
@@ -6349,10 +7388,7 @@ function animateDunk(player, dunkInfo, targetX, targetY, made) {
         player.turnTo(attackDir > 0 ? "e" : "w");
     }
 
-    var finishLabel = renderPlayerLabel(player, { highlightCarrier: true, forceTop: true });
-    if (finishLabel && finishLabel.frame && typeof finishLabel.frame.top === "function") {
-        finishLabel.frame.top();
-    }
+    renderPlayerLabel(player, { highlightCarrier: true, forceTop: true });
 
     if (made) {
         for (var drop = 0; drop < 3; drop++) {
@@ -6388,6 +7424,8 @@ function animateDunk(player, dunkInfo, targetX, targetY, made) {
         gameState.ballY = targetY + 1;
     }
 
+    renderPlayerLabel(player, { highlightCarrier: true, forceTop: true });
+
     gameState.shotInProgress = false;
     return { made: made, blocked: false, style: style };
 }
@@ -6422,16 +7460,18 @@ function animateShot(startX, startY, targetX, targetY, made) {
         // Higher arc for longer shots
         var arcHeight = Math.min(5, 3 + (distance / 10));
         var y = Math.round(startY + (dy * t) - (Math.sin(t * Math.PI) * arcHeight));
+        var clampedX = clamp(x, 1, COURT_WIDTH);
+        var clampedY = clamp(y, 1, COURT_HEIGHT);
 
         // CHECK FOR BLOCK - if ball is in arc (t > 0.1 && t < 0.5) and blocker is jumping
         if (!blocked && gameState.activeBlock && gameState.blockJumpTimer > 0 && t > 0.1 && t < 0.5) {
             var blocker = gameState.activeBlock;
             // Check if blocker is near ball trajectory
-            var blockDist = Math.sqrt(Math.pow(blocker.x - x, 2) + Math.pow(blocker.y - y, 2));
+            var blockDist = Math.sqrt(Math.pow(blocker.x - clampedX, 2) + Math.pow(blocker.y - clampedY, 2));
 
             if (blockDist < 4) { // Blocker must be very close
                 // Check block attribute for success
-                var blockChance = blocker.playerData.attributes[ATTR_BLOCK] * 8 + 20; // 20-100%
+                var blockChance = getEffectiveAttribute(blocker.playerData, ATTR_BLOCK) * 8 + 20; // 20-100%
                 if (Math.random() * 100 < blockChance) {
                     blocked = true;
                     if (blocker.playerData && blocker.playerData.stats) {
@@ -6449,13 +7489,15 @@ function animateShot(startX, startY, targetX, targetY, made) {
         }
 
         // Draw ball at this position
-        moveBallFrameTo(x, y);
+        moveBallFrameTo(clampedX, clampedY);
 
         // Draw trail
         if (i > 0) {
             var prevT = (i - 1) / steps;
             var prevX = Math.round(startX + (dx * prevT));
             var prevY = Math.round(startY + (dy * prevT) - (Math.sin(prevT * Math.PI) * arcHeight));
+            prevX = clamp(prevX, 1, COURT_WIDTH);
+            prevY = clamp(prevY, 1, COURT_HEIGHT);
             courtFrame.gotoxy(prevX, prevY);
             courtFrame.putmsg(".", LIGHTGRAY | WAS_BROWN);
         }
@@ -6494,6 +7536,8 @@ function attemptShot() {
     var playerData = player.playerData;
     if (!playerData) return;
     playerData.hasDribble = false;
+
+    clampSpriteFeetToCourt(player);
 
     // Sync ball coordinates to the shooter's current position before calculations/animation
     updateBallPosition();
@@ -6557,12 +7601,14 @@ function attemptShot() {
         if (dunkResult.blocker) dunkBlocker = dunkResult.blocker;
         distance = dunkInfo.adjustedDistance;
     } else {
+        var threeAttr = getEffectiveAttribute(playerData, ATTR_3PT);
+        var dunkAttr = getEffectiveAttribute(playerData, ATTR_DUNK);
         if (is3Pointer) {
-            baseChance = 40 + (playerData.attributes[ATTR_3PT] * 4);
+            baseChance = 40 + (threeAttr * 4);
         } else if (distance < 10) {
-            baseChance = 60 + (playerData.attributes[ATTR_DUNK] * 3);
+            baseChance = 60 + (dunkAttr * 3);
         } else {
-            baseChance = 50 + ((playerData.attributes[ATTR_DUNK] + playerData.attributes[ATTR_3PT]) * 2);
+            baseChance = 50 + ((dunkAttr + threeAttr) * 2);
         }
 
         if (isCornerThree) {
@@ -6594,7 +7640,20 @@ function attemptShot() {
 
         if (defenseDistance < 8) {
             var defenderData = closestDefender.playerData;
-            var defensePenalty = (8 - defenseDistance) * (2 + (defenderData ? defenderData.attributes[ATTR_BLOCK] * 0.5 : 2));
+            var defensePenalty = (8 - defenseDistance) * (2 + (defenderData ? getEffectiveAttribute(defenderData, ATTR_BLOCK) * 0.5 : 2));
+
+            // Reduce penalty if defender is behind or off to the side
+            var relX = (closestDefender.x - player.x) * attackDir;
+            var relY = Math.abs(closestDefender.y - player.y);
+            var directionalFactor;
+            if (relX >= 0) {
+                directionalFactor = 1; // Defender between shooter and hoop
+            } else {
+                directionalFactor = Math.max(0.25, 1 + (relX / 6));
+            }
+            var lateralFactor = Math.max(0.35, 1 - (relY / 10));
+            var coverageFactor = Math.max(0.2, Math.min(1, directionalFactor * lateralFactor));
+            defensePenalty *= coverageFactor;
             chance -= defensePenalty;
             if (chance < 15) chance = 15;
         }
@@ -6627,11 +7686,14 @@ function attemptShot() {
         maybeAwardAssist(player);
         clearPotentialAssist();
 
+        var scoringTeamKey = gameState.currentTeam;
+        var inboundTeamKey = (scoringTeamKey === "red") ? "blue" : "red";
+
         // Refill turbo for entire scoring team on made basket!
-        var scoringTeam = gameState.currentTeam === "red" ? [redPlayer1, redPlayer2] : [bluePlayer1, bluePlayer2];
-        for (var i = 0; i < scoringTeam.length; i++) {
-            if (scoringTeam[i] && scoringTeam[i].playerData) {
-                scoringTeam[i].playerData.turbo = MAX_TURBO;
+        var scoringSprites = scoringTeamKey === "red" ? [redPlayer1, redPlayer2] : [bluePlayer1, bluePlayer2];
+        for (var i = 0; i < scoringSprites.length; i++) {
+            if (scoringSprites[i] && scoringSprites[i].playerData) {
+                scoringSprites[i].playerData.turbo = MAX_TURBO;
             }
         }
 
@@ -6668,13 +7730,16 @@ function attemptShot() {
         }
 
         // Reset other team's streak
-        var otherTeam = gameState.currentTeam === "red" ? "blue" : "red";
-        gameState.consecutivePoints[otherTeam] = 0;
-        clearTeamOnFire(otherTeam);
+        gameState.consecutivePoints[inboundTeamKey] = 0;
+        clearTeamOnFire(inboundTeamKey);
+
+        triggerPossessionBeep();
+        startScoreFlash(scoringTeamKey, inboundTeamKey);
+        drawScore();
 
         // Set up inbound play after made basket
         mswait(attemptType === "dunk" ? 900 : 800);  // Brief pause to see the score
-        setupInbound(gameState.currentTeam);
+        setupInbound(scoringTeamKey);
     } else {
         // Miss - reset streak
         gameState.consecutivePoints[gameState.currentTeam] = 0;
@@ -6829,6 +7894,8 @@ function setupInbound(scoringTeam) {
     gameState.inboundPasser = null;
     gameState.shotClock = 24; // Reset shot clock after inbound
 
+    enableScoreFlashRegainCheck(inboundTeam);
+
     // Assign defensive matchups after inbound
     assignDefensiveMatchups();
 
@@ -6883,6 +7950,7 @@ function switchPossession() {
     gameState.ballHandlerStuckTimer = 0;
     gameState.ballHandlerAdvanceTimer = 0;
     clearPotentialAssist();
+    resetDeadDribbleTimer();
 
     if (gameState.currentTeam === "red") {
         gameState.currentTeam = "blue";
@@ -6897,6 +7965,8 @@ function switchPossession() {
         redPlayer2.moveTo(18, 12);
         primeInboundOffense(gameState.ballCarrier, redPlayer2, "red");
     }
+
+    triggerPossessionBeep();
 
     if (gameState.ballCarrier) {
         gameState.ballHandlerLastX = gameState.ballCarrier.x;
@@ -6922,23 +7992,19 @@ function positionSpritesForBoxScore() {
 
     if (redPlayer1 && typeof redPlayer1.moveTo === "function") {
         redPlayer1.moveTo(leftX, topYPrimary);
-        var red1Label = renderPlayerLabel(redPlayer1, { highlightCarrier: false });
-        if (red1Label && red1Label.frame && typeof red1Label.frame.top === "function") red1Label.frame.top();
+        renderPlayerLabel(redPlayer1, { highlightCarrier: false, forceTop: true });
     }
     if (redPlayer2 && typeof redPlayer2.moveTo === "function") {
         redPlayer2.moveTo(rightX, topYSecondary);
-        var red2Label = renderPlayerLabel(redPlayer2, { highlightCarrier: false });
-        if (red2Label && red2Label.frame && typeof red2Label.frame.top === "function") red2Label.frame.top();
+        renderPlayerLabel(redPlayer2, { highlightCarrier: false, forceTop: true });
     }
     if (bluePlayer1 && typeof bluePlayer1.moveTo === "function") {
         bluePlayer1.moveTo(leftX, bottomYPrimary);
-        var blue1Label = renderPlayerLabel(bluePlayer1, { highlightCarrier: false });
-        if (blue1Label && blue1Label.frame && typeof blue1Label.frame.top === "function") blue1Label.frame.top();
+        renderPlayerLabel(bluePlayer1, { highlightCarrier: false, forceTop: true });
     }
     if (bluePlayer2 && typeof bluePlayer2.moveTo === "function") {
         bluePlayer2.moveTo(rightX, bottomYSecondary);
-        var blue2Label = renderPlayerLabel(bluePlayer2, { highlightCarrier: false });
-        if (blue2Label && blue2Label.frame && typeof blue2Label.frame.top === "function") blue2Label.frame.top();
+        renderPlayerLabel(bluePlayer2, { highlightCarrier: false, forceTop: true });
     }
     if (typeof moveBallFrameTo === "function") {
         var ballX = COURT_WIDTH - 2;
@@ -7040,7 +8106,7 @@ var BOX_SCORE_COLUMNS = [
     { key: "rebounds", label: "REB" },
     { key: "blocks", label: "BLK" },
     { key: "dunks", label: "DNK" },
-    { key: "injuryCount", label: "INJ", isRaw: true }
+    { key: "turnovers", label: "TO", skipLeader: true }
 ];
 
 function collectGlobalStatLeaders() {
@@ -7048,7 +8114,7 @@ function collectGlobalStatLeaders() {
     var allPlayers = getAllPlayers();
     for (var c = 0; c < BOX_SCORE_COLUMNS.length; c++) {
         var column = BOX_SCORE_COLUMNS[c];
-        if (column.isRaw) continue;
+        if (column.isRaw || column.skipLeader) continue;
         var key = column.key;
         var maxValue = -Infinity;
         for (var i = 0; i < allPlayers.length; i++) {
@@ -7106,7 +8172,7 @@ function renderTeamBoxScore(teamKey, teamLabel, options) {
             var valueStr = padStart(rawValue, 4, " ");
 
             var attrCode = whiteCode;
-            if (!column.isRaw) {
+            if (!column.isRaw && !column.skipLeader) {
                 var leaderInfo = leaders[key];
                 if (leaderInfo && rawValue > 0 && rawValue === leaderInfo.max) {
                     attrCode = "\1h\1g";
@@ -7466,9 +8532,9 @@ function runCPUDemo() {
         resetGameState({ allCPUMode: true });
         initSprites(redTeamKey, blueTeamKey, redPlayerIndices, bluePlayerIndices, true);
 
-        // Set game time (shorter for demo - 120 seconds total)
-        gameState.timeRemaining = 120;
-        gameState.totalGameTime = 120;
+        // Match player game length for demo as well
+        gameState.timeRemaining = 360;
+        gameState.totalGameTime = 360;
         gameState.currentHalf = 1;
 
         // Display "DEMO MODE" message
@@ -7584,6 +8650,7 @@ function main() {
     if (bluePlayer1) bluePlayer1.remove();
     if (bluePlayer2) bluePlayer2.remove();
     if (courtFrame) courtFrame.close();
+    cleanupScoreFrames();
     if (scoreFrame) scoreFrame.close();
     if (announcerFrame) announcerFrame.close();
 }

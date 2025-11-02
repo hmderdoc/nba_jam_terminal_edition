@@ -3,7 +3,7 @@
     "event_type": "game_start",
     "quotes": [
       "Welcome to NBA Jam!",
-      "Tonight’s matchup: ${teamA} vs ${teamB}!",
+      "Tonight's matchup: ${teamA} vs ${teamB}!",
       "Here we goooooo!",
       "Let's get ready for some Jam!"
     ]
@@ -12,7 +12,7 @@
     "event_type": "tipoff",
     "quotes": [
       "And we're underway!",
-      "The ball is up — let’s jam!",
+      "The ball is up -- let's jam!",
       "Here comes the opening tip!"
     ]
   },
@@ -21,8 +21,8 @@
     "quotes": [
       "${playerName} for two!",
       "Count it!",
-      "He’s heating up!",
-      "From downtown — yes!",
+      "He's heating up!",
+      "From downtown -- yes!",
       "Boom shakalaka!",
       "Swish!"
     ]
@@ -31,7 +31,7 @@
     "event_type": "three_pointer",
     "quotes": [
       "From downtown!",
-      "He’s on fire from three!",
+      "He's on fire from three!",
       "He's heating up!",
       "Nothing but net!",
       "${playerName} lights it up from long range!"
@@ -62,7 +62,7 @@
     "event_type": "steal",
     "quotes": [
       "Picked his pocket!",
-      "He’s got sticky fingers!",
+      "He's got sticky fingers!",
       "${playerName} with the steal!",
       "Quick hands!",
       "Taking candy from a baby!"
@@ -73,15 +73,15 @@
     "quotes": [
       "He's on fire!",
       "The roof is on fire!",
-      "${playerName} can’t miss!",
-      "This guy’s a human torch!"
+      "${playerName} can't miss!",
+      "This guy's a human torch!"
     ]
   },
   {
     "event_type": "fire_extinguished",
     "quotes": [
       "He's cooled off.",
-      "The fire’s out!",
+      "The fire's out!",
       "Somebody put water on him!",
       "Back to normal temps."
     ]
@@ -89,10 +89,10 @@
   {
     "event_type": "half_time",
     "quotes": [
-      "It’s halftime!",
-      "Grab a drink — you’ve earned it!",
+      "It's halftime!",
+      "Grab a drink -- you've earned it!",
       "End of the first half!",
-      "And we’ve got a barnburner here!"
+      "And we've got a barnburner here!"
     ]
   },
   {
@@ -113,7 +113,7 @@
       "Off the rim!",
       "That was ugly!",
       "Brick city!",
-      "He’s ice cold!"
+      "He's ice cold!"
     ]
   },
   {
@@ -127,9 +127,9 @@
   {
     "event_type": "buzzer_beater",
     "quotes": [
-      "At the buzzer — YES!",
+      "At the buzzer -- YES!",
       "Beats the buzzer!",
-      "That’s good if it goes — and it does!",
+      "That's good if it goes -- and it does!",
       "Time expires, but ${playerName} nails it!"
     ]
   },
@@ -139,7 +139,7 @@
       "The ${teamName} take the win!",
       "What a performance by ${playerName}!",
       "Victory is theirs!",
-      "That’s the ball game!"
+      "That's the ball game!"
     ]
   },
   {
@@ -148,16 +148,16 @@
       "The ${teamName} fall short tonight.",
       "Tough loss.",
       "Better luck next time!",
-      "They just couldn’t get it done."
+      "They just couldn't get it done."
     ]
   },
   {
     "event_type": "injury",
     "quotes": [
       "Ouch! ${playerName} is down!",
-      "That’s gotta hurt!",
+      "That's gotta hurt!",
       "He got hammered!",
-      "Hope he’s alright!"
+      "Hope he's alright!"
     ]
   },
   {
@@ -175,6 +175,22 @@
       "Shakes and bakes!",
       "He shook him loose!",
       "Broke those ankles!"
+    ]
+  },
+  {
+    "event_type": "shake_break",
+    "quotes": [
+      "Blew right by him!",
+      "He just shook the defense!",
+      "Handles for days!"
+    ]
+  },
+  {
+    "event_type": "shake_knockdown",
+    "quotes": [
+      "He drops him to the floor!",
+      "Ankles shattered!",
+      "Somebody help him up!"
     ]
   },
   {
@@ -202,6 +218,14 @@
     ]
   },
   {
+    "event_type": "violation_five_seconds",
+    "quotes": [
+      "Five-second violation!",
+      "Gotta get rid of it!",
+      "Too long with the rock!"
+    ]
+  },
+  {
     "event_type": "dribble_pickup",
     "quotes": [
       "He picked up his dribble!",
@@ -212,8 +236,8 @@
   {
     "event_type": "hot_streak",
     "quotes": [
-      "He’s heating up!",
-      "He can’t miss!",
+      "He's heating up!",
+      "He can't miss!",
       "Red hot!",
       "${playerName} is on a roll!"
     ]
@@ -221,9 +245,9 @@
   {
     "event_type": "cold_streak",
     "quotes": [
-      "He’s ice cold!",
+      "He's ice cold!",
       "Someone check the thermostat!",
-      "${playerName} can’t buy a bucket!",
+      "${playerName} can't buy a bucket!",
       "Not his night!"
     ]
   },
@@ -232,7 +256,7 @@
     "quotes": [
       "The crowd goes wild!",
       "Listen to this crowd!",
-      "They’re loving it!",
+      "They're loving it!",
       "The fans are going nuts!"
     ]
   },
