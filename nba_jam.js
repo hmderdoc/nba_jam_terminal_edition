@@ -641,6 +641,7 @@ function createDefaultGameState() {
         inbounding: false,  // True when setting up after a made basket
         inboundPasser: null,  // Player passing the ball in
         teamNames: { red: "RED", blue: "BLUE" },  // Actual team names from rosters
+        teamAbbrs: { red: "RED", blue: "BLUE" },
         teamColors: {
             red: {
                 fg: WHITE,
@@ -961,6 +962,7 @@ function parseRostersINI(file) {
                         jerseyString: jerseyNumberString,
                         skin: skinTone,
                         shortNick: shortNick, // Add short nickname property
+                        teamAbbr: team.team_abbr || teamKey,
                         attributes: [
                             parseInt(player.speed) || 5,
                             parseInt(player["3point"]) || 5,
@@ -976,6 +978,7 @@ function parseRostersINI(file) {
 
         NBATeams[teamKey] = {
             name: team.team_name || teamKey,
+            abbr: team.team_abbr || teamKey.substring(0, 3).toUpperCase(),
             players: roster,
             colors: {
                 fg: team.ansi_fg || "WHITE",
@@ -1046,6 +1049,7 @@ function generateRandomRoster(teamName) {
 
     return {
         name: teamName,
+        abbr: teamName.substring(0, 3).toUpperCase(),
         players: roster
     };
 }
@@ -1785,6 +1789,8 @@ function drawScore() {
 
     var blueTeamName = (gameState.teamNames.blue || "BLUE").toUpperCase();
     var redTeamName = (gameState.teamNames.red || "RED").toUpperCase();
+    var blueTeamAbbr = (gameState.teamAbbrs && gameState.teamAbbrs.blue) ? String(gameState.teamAbbrs.blue).toUpperCase() : "BLU";
+    var redTeamAbbr = (gameState.teamAbbrs && gameState.teamAbbrs.red) ? String(gameState.teamAbbrs.red).toUpperCase() : "RED";
 
     var blueScoreValue = String(gameState.score.blue);
     var redScoreValue = String(gameState.score.red);
@@ -1814,9 +1820,22 @@ function drawScore() {
     var blueFlashOn = flashOn && flashInfo.activeTeam === "blue";
     var redFlashOn = flashOn && flashInfo.activeTeam === "red";
     var whiteFg = WHITE & FG_MASK;
+    var flashFg = LIGHTGRAY & FG_MASK;
 
-    if (blueFlashOn) blueScoreFg = whiteFg;
-    if (redFlashOn) redScoreFg = whiteFg;
+    if (blueFlashOn) {
+        if (blueScoreFg === whiteFg) {
+            blueScoreFg = flashFg;
+        } else {
+            blueScoreFg = whiteFg;
+        }
+    }
+    if (redFlashOn) {
+        if (redScoreFg === whiteFg) {
+            redScoreFg = flashFg;
+        } else {
+            redScoreFg = whiteFg;
+        }
+    }
 
     var blueScorePanelAttr = blueScoreFg | panelBgMask;
     var redScorePanelAttr = redScoreFg | panelBgMask;
@@ -1905,6 +1924,8 @@ function drawScore() {
 
     var leftDigitsStart = Math.max(leftTurboMax + turboGap + 1, sideMargin + 1);
     var leftDigitsEnd = shotX - clockGap - 1;
+    var leftPanelStart = leftDigitsStart;
+    var leftPanelEnd = leftDigitsEnd;
     var leftDigitsWidth = leftDigitsEnd - leftDigitsStart + 1;
     var leftRendered = false;
     var leftFrame = null;
@@ -1928,6 +1949,8 @@ function drawScore() {
         var minLeftStart = sideMargin + 1;
         var fallbackLeftStart = Math.max(minLeftStart, maxLeftEnd - blueScoreText.length + 1);
         var fallbackLeftEnd = fallbackLeftStart + blueScoreText.length - 1;
+        leftPanelStart = fallbackLeftStart;
+        leftPanelEnd = fallbackLeftEnd;
         if (leftFrame) {
             renderFallbackScore(leftFrame, blueScoreText.trim(), blueScorePanelAttr, scorePanelAttr);
         } else if (fallbackLeftStart <= maxLeftEnd && fallbackLeftEnd <= maxLeftEnd) {
@@ -1938,6 +1961,8 @@ function drawScore() {
 
     var rightDigitsStart = shotRight + clockGap;
     var rightDigitsEnd = (rightTurboMin !== null) ? (rightTurboMin - turboGap - 1) : (frameWidth - sideMargin);
+    var rightPanelStart = rightDigitsStart;
+    var rightPanelEnd = rightDigitsEnd;
     var rightDigitsWidth = rightDigitsEnd - rightDigitsStart + 1;
     var rightRendered = false;
     var rightFrame = null;
@@ -1965,6 +1990,8 @@ function drawScore() {
             var fallbackRightStart = maxRightStart;
             scoreFrame.gotoxy(fallbackRightStart, shotClockRow);
             scoreFrame.putmsg(redScoreText, redScoreBoardAttr);
+            rightPanelStart = fallbackRightStart;
+            rightPanelEnd = fallbackRightStart + redScoreText.length - 1;
         }
     }
 
@@ -2020,6 +2047,36 @@ function drawScore() {
     renderPlayerSlot(14, bluePlayer2, "blue", 3);
     renderPlayerSlot(60, redPlayer1, "red", 0);
     renderPlayerSlot(72, redPlayer2, "red", 3);
+
+    var abbrRow = 4;
+    if ((scoreFrame.height || 0) >= abbrRow) {
+        var blueAbbrAttr = (gameState.teamColors.blue ? gameState.teamColors.blue.fg : WHITE) | BG_BLACK;
+        var redAbbrAttr = (gameState.teamColors.red ? gameState.teamColors.red.fg : WHITE) | BG_BLACK;
+
+        var leftWidth = leftPanelEnd - leftPanelStart + 1;
+        if (leftWidth > 0) {
+            var leftAbbr = blueTeamAbbr;
+            if (leftAbbr.length > leftWidth) {
+                leftAbbr = leftAbbr.substring(0, leftWidth);
+            }
+            var leftCenter = Math.floor((leftPanelStart + leftPanelEnd) / 2);
+            var leftStart = clamp(leftCenter - Math.floor(leftAbbr.length / 2), 1, Math.max(1, frameWidth - leftAbbr.length + 1));
+            scoreFrame.gotoxy(leftStart, abbrRow);
+            scoreFrame.putmsg(leftAbbr, blueAbbrAttr);
+        }
+
+        var rightWidth = rightPanelEnd - rightPanelStart + 1;
+        if (rightWidth > 0) {
+            var rightAbbr = redTeamAbbr;
+            if (rightAbbr.length > rightWidth) {
+                rightAbbr = rightAbbr.substring(0, rightWidth);
+            }
+            var rightCenter = Math.floor((rightPanelStart + rightPanelEnd) / 2);
+            var rightStart = clamp(rightCenter - Math.floor(rightAbbr.length / 2), 1, Math.max(1, frameWidth - rightAbbr.length + 1));
+            scoreFrame.gotoxy(rightStart, abbrRow);
+            scoreFrame.putmsg(rightAbbr, redAbbrAttr);
+        }
+    }
 
     if (flashActive) {
         var buryX = Math.max(1, Math.min(frameWidth, scoreFrame.width || frameWidth));
@@ -2243,6 +2300,8 @@ function initSprites(redTeamName, blueTeamName, redPlayerIndices, bluePlayerIndi
     // Set team names and colors in game state
     gameState.teamNames.red = redTeam.name || redTeamName;
     gameState.teamNames.blue = blueTeam.name || blueTeamName;
+    gameState.teamAbbrs.red = (redTeam && redTeam.abbr) ? String(redTeam.abbr).toUpperCase() : redTeamName.substring(0, 3).toUpperCase();
+    gameState.teamAbbrs.blue = (blueTeam && blueTeam.abbr) ? String(blueTeam.abbr).toUpperCase() : blueTeamName.substring(0, 3).toUpperCase();
 
     // Set team colors (convert string names to actual color constants)
     if (redTeam.colors) {
@@ -2694,7 +2753,9 @@ function ensureScoreFontLoaded() {
 
 function ensureScoreFrame(which, x, width, attr) {
     if (!scoreFrame) return null;
-    var height = scoreFrame.height || 5;
+    var desiredHeight = 3;
+    var parentHeight = scoreFrame.height || desiredHeight;
+    var height = Math.min(parentHeight, desiredHeight);
     var parentX = scoreFrame.x || 1;
     var parentY = scoreFrame.y || 1;
     var parentWidth = scoreFrame.width || 80;
@@ -8561,19 +8622,59 @@ function runCPUDemo() {
 function showSplashScreen() {
     console.clear();
 
-    // Load and display ANSI file
-    var ansiFile = new File(js.exec_dir + "nba_jam.ans");
-    if (ansiFile.open("r")) {
-        var content = ansiFile.read();
-        ansiFile.close();
-        console.print(content);
+    var splashLoaded = false;
+
+    var binPath = js.exec_dir + "nba_jam.bin";
+    var screenCols = (typeof console.screen_columns === "number") ? console.screen_columns : 80;
+    var screenRows = (typeof console.screen_rows === "number") ? console.screen_rows : 24;
+
+    if (file_exists(binPath) && screenCols >= 80 && screenRows >= 24) {
+        if (typeof Graphic === "undefined") load("graphic.js");
+        try {
+            var graphicHeight = 25;
+            var splashGraphic = new Graphic(80, graphicHeight);
+            splashGraphic.load(binPath);
+            splashGraphic.autowrap = false;
+            var drawHeight = Math.min(graphicHeight, screenRows);
+            splashGraphic.draw('center', 'center', 80, drawHeight);
+            splashLoaded = true;
+        } catch (e) {
+            splashLoaded = false;
+        }
     }
 
-    // Wait for any keypress
-    console.getkey();
+    if (!splashLoaded) {
+        var ansiFile = new File(js.exec_dir + "nba_jam.ans");
+        if (ansiFile.open("r")) {
+            var content = ansiFile.read();
+            ansiFile.close();
+            if (typeof Graphic === "undefined") load("graphic.js");
+            try {
+                var ansiWidth = Math.min(80, screenCols);
+                var ansiHeight = Math.min(Math.max(24, screenRows), screenRows);
+                var ansiGraphic = new Graphic(ansiWidth, ansiHeight);
+                ansiGraphic.autowrap = false;
+                ansiGraphic.ANSI = content;
+                ansiGraphic.draw('center', 'center', ansiWidth, Math.min(ansiGraphic.height, screenRows));
+                splashLoaded = true;
+            } catch (err) {
+                console.print(content);
+                splashLoaded = true;
+            }
+        }
+    }
 
-    // Clear buffer
+    // Wait for any keypress if something displayed
+    if (splashLoaded) {
+        console.getkey();
+    }
+
+    // Clear input buffer
     while (console.inkey(K_NONE, 0)) { }
+
+    // Clean up and reset attributes/screen
+    console.print("\1n");
+    console.clear();
 }
 
 function main() {
