@@ -7,26 +7,6 @@ load("sprite.js");
 load("shoe_colors.js");
 load(js.exec_dir + "bookie.js");
 
-// === PHASE 1 & 2: EXTRACTED MODULES ===
-load(js.exec_dir + "lib/utils/constants.js");
-load(js.exec_dir + "lib/utils/helpers.js");
-load(js.exec_dir + "lib/rendering/sprite-utils.js");
-load(js.exec_dir + "lib/rendering/shoe-colors.js");
-load(js.exec_dir + "lib/rendering/player-labels.js");
-load(js.exec_dir + "lib/rendering/animation-system.js");
-load(js.exec_dir + "lib/game-logic/player-class.js");
-load(js.exec_dir + "lib/game-logic/game-state.js");
-load(js.exec_dir + "lib/game-logic/team-data.js");
-load(js.exec_dir + "lib/game-logic/movement-physics.js");
-load(js.exec_dir + "lib/rendering/court-rendering.js");
-
-// === PHASE 3: AI MODULES ===
-load(js.exec_dir + "lib/ai/coordinator.js");
-load(js.exec_dir + "lib/ai/offense-ball-handler.js");
-load(js.exec_dir + "lib/ai/offense-off-ball.js");
-load(js.exec_dir + "lib/ai/defense-on-ball.js");
-load(js.exec_dir + "lib/ai/defense-help.js");
-
 // Local debug logging function
 function debugLog(message) {
     try {
@@ -768,13 +748,123 @@ Frame.prototype.drawBorder = function (color, opts) {
     this.popxy();
 }
 
-// ===================================================================
-// CONSTANTS NOW LOADED FROM lib/utils/constants.js
-// Removed ~150 lines of duplicate constants (court dimensions, speeds,
-// turbo, AI thresholds, court spots, AI_STATE enum, etc.)
-// ===================================================================
+// Game constants
+var COURT_WIDTH = 80;
+var COURT_HEIGHT = 18;
+var BASKET_LEFT_X = 4;   // Rim center (left basket)
+var BASKET_LEFT_Y = 9;
+var BASKET_RIGHT_X = COURT_WIDTH - (BASKET_LEFT_X - 1); // Rim center (right basket)
+var BASKET_RIGHT_Y = 9;
 
-// Game state (initialized by createDefaultGameState() from lib/game-logic/game-state.js)
+var PLAYER_BASE_SPEED_PER_FRAME = 0.75;   // tiles per frame without turbo (~15 tiles/sec)
+var PLAYER_TURBO_SPEED_PER_FRAME = 1.1;   // tiles per frame with turbo (~22 tiles/sec)
+var PLAYER_TURBO_BALL_HANDLER_FACTOR = 0.85; // turbo penalty for ball handler
+var PLAYER_MAX_SPEED_PER_FRAME = 1.2;
+
+// Three-point arc radius
+var THREE_POINT_RADIUS = 16;
+var KEY_DEPTH = 8;
+var DUNK_DISTANCE_BASE = 4.2;
+var DUNK_DISTANCE_PER_ATTR = 0.95;
+var DUNK_MIN_DISTANCE = 2.4;
+var DUNK_ARC_HEIGHT_MIN = 2.5;
+var DUNK_ARC_HEIGHT_MAX = 5.5;
+
+// Player attribute constants (NBA Jam style)
+var ATTR_SPEED = 0;
+var ATTR_3PT = 1;
+var ATTR_DUNK = 2;
+var ATTR_POWER = 3;
+var ATTR_STEAL = 4;
+var ATTR_BLOCK = 5;
+
+// Turbo constants
+var MAX_TURBO = 150;  // Increased by 50% from 100
+var TURBO_DRAIN_RATE = 2;
+var TURBO_RECHARGE_RATE = 5; // Faster recharge to keep local pacing snappy
+var TURBO_SPEED_MULTIPLIER = 3;
+if (SHOE_TURBO_THRESHOLD < 0) SHOE_TURBO_THRESHOLD = 0;
+if (SHOE_TURBO_THRESHOLD > MAX_TURBO) SHOE_TURBO_THRESHOLD = MAX_TURBO;
+var TURBO_ACTIVATION_THRESHOLD = 200; // ms between same key presses
+
+// Shove system constants
+var SHOVE_FAILURE_STUN = 10; // Frames attacker can't move after failed shove (tunable)
+
+// Passing balance tweaks
+var PASS_INTERCEPT_LATENCY_MIN = 4;
+var PASS_INTERCEPT_LATENCY_MAX = 9;
+var PASS_LANE_BASE_TOLERANCE = 3.5;
+var PASS_INTERCEPT_MAX_CHANCE = 70;
+var PASS_LANE_MIN_CLEARANCE = 3.2;
+var PASS_LANE_TRAVEL_WEIGHT = 0.55;
+var PASS_LANE_SPACING_WEIGHT = 0.35;
+var PASS_LANE_LENGTH_WEIGHT = 0.12;
+
+// Pressure defense penalty - defenders touching ball handler lose interception ability
+var TIGHT_DEFENSE_TOUCH_DISTANCE = 1.5; // Sprite touching distance
+var TIGHT_DEFENSE_INTERCEPT_PENALTY = 0.85; // 85% reduction in intercept chance when touching
+
+// Block animation constants
+var BLOCK_JUMP_DURATION = 12;
+var BLOCK_JUMP_HEIGHT = 4;
+
+// AI Decision Constants - Tunable for game balancing
+var SHOT_PROBABILITY_THRESHOLD = 40; // Percent - AI shoots if probability > this
+var SHOT_CLOCK_URGENT = 3; // Seconds - force shot when clock this low
+var BACKCOURT_URGENT = 8; // Seconds - urgency increases at this time
+var STEAL_BASE_CHANCE = 0.18; // Base chance for steal attempt per frame
+var DEFENDER_PERIMETER_LIMIT = 22; // Don't guard farther than this from basket
+var DEFENDER_TIGHT_RANGE = 18; // Guard tightly inside this range
+var DOUBLE_TEAM_RADIUS = 8; // Trigger double team when offensive player this close to both defenders
+var HELP_DEFENSE_RANGE = 15; // Help defend when ball carrier within this range
+
+// Court midline
+var COURT_MID_X = Math.floor(COURT_WIDTH / 2);
+
+// Court Spots (Waypoints) - Named positions for AI positioning
+// Red team attacks right (toward BASKET_RIGHT)
+// Blue team attacks left (toward BASKET_LEFT)
+var COURT_SPOTS = {
+    // Red offensive spots (attacking right/east toward x=74)
+    red: {
+        left_wing: { x: COURT_MID_X + 8, y: 5 },
+        right_wing: { x: COURT_MID_X + 8, y: 13 },
+        top_key: { x: COURT_MID_X + 12, y: BASKET_LEFT_Y },
+        corner_low: { x: BASKET_RIGHT_X - 8, y: 3 },
+        corner_high: { x: BASKET_RIGHT_X - 8, y: 15 },
+        dunker_low: { x: BASKET_RIGHT_X - 4, y: 6 },
+        dunker_high: { x: BASKET_RIGHT_X - 4, y: 12 },
+        elbow_low: { x: COURT_MID_X + 16, y: 6 },
+        elbow_high: { x: COURT_MID_X + 16, y: 12 },
+        backcourt_entry: { x: COURT_MID_X + 3, y: BASKET_LEFT_Y },
+        frontcourt_entry: { x: COURT_MID_X + 6, y: BASKET_LEFT_Y }
+    },
+    // Blue offensive spots (attacking left/west toward x=3)
+    blue: {
+        left_wing: { x: COURT_MID_X - 8, y: 5 },
+        right_wing: { x: COURT_MID_X - 8, y: 13 },
+        top_key: { x: COURT_MID_X - 12, y: BASKET_LEFT_Y },
+        corner_low: { x: BASKET_LEFT_X + 8, y: 3 },
+        corner_high: { x: BASKET_LEFT_X + 8, y: 15 },
+        dunker_low: { x: BASKET_LEFT_X + 4, y: 6 },
+        dunker_high: { x: BASKET_LEFT_X + 4, y: 12 },
+        elbow_low: { x: COURT_MID_X - 16, y: 6 },
+        elbow_high: { x: COURT_MID_X - 16, y: 12 },
+        backcourt_entry: { x: COURT_MID_X - 3, y: BASKET_LEFT_Y },
+        frontcourt_entry: { x: COURT_MID_X - 6, y: BASKET_LEFT_Y }
+    }
+};
+
+// AI States (FSM)
+var AI_STATE = {
+    OFFENSE_BALL: "OffenseBall",       // I have the ball
+    OFFENSE_NO_BALL: "OffenseNoBall",  // My teammate has the ball
+    DEFENSE_ON_BALL: "DefenseOnBall",  // Guarding ball handler
+    DEFENSE_HELP: "DefenseHelp",       // Help defense
+    REBOUND: "Rebound"                 // Going for rebound
+};
+
+// Game state
 var gameState = {};
 var mpCoordinator = null; // Multiplayer coordinator (if in multiplayer mode)
 
@@ -1413,19 +1503,10 @@ Player.prototype.rechargeTurbo = function (amount) {
     if (this.turbo > MAX_TURBO) this.turbo = MAX_TURBO;
 };
 
-// ===================================================================
-// TEAM DATA LOADING NOW IN lib/game-logic/team-data.js
-// Removed: NBATeams object, loadTeamData(), parseRostersINI(),
-//          generateDefaultTeams(), generateRandomRoster(),
-//          getLastName(), getColorValue(), getColorCode(),
-//          getBackgroundCode(), getMenuColorCodes(),
-//          sanitizeSpriteBaseName(), customSpriteExists(),
-//          resolveCustomSpriteBase(), resolveSpriteBaseBySkin()
-// (~420 lines removed)
-// ===================================================================
+// NBA Teams data structure
+var NBATeams = {};
 
-// (Team data functions removed - now loaded from module)
-function ___REMOVED_loadTeamData() {
+function loadTeamData() {
     // Load from rosters.ini
     var rostersFile = new File(js.exec_dir + "rosters.ini");
 
