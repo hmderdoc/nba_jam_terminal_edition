@@ -1,0 +1,2 @@
+# Ignore config, text, and ini files
+data/*
