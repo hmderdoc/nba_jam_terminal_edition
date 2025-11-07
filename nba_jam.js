@@ -153,9 +153,12 @@ function cleanupSprites() {
 function gameLoop() {
     gameState.gameRunning = true;
     clearPotentialAssist();
-    var lastUpdate = Date.now();
-    var lastSecond = Date.now();
-    var lastAI = Date.now();
+    
+    // Initialize timing in gameState (Bug #25 fix - move from local vars to state)
+    gameState.lastUpdateTime = Date.now();
+    gameState.lastSecondTime = Date.now();
+    gameState.lastAIUpdateTime = Date.now();
+    
     var tempo = getSinglePlayerTempo();
     var frameDelay = tempo.frameDelayMs;
     var aiInterval = tempo.aiIntervalMs;
@@ -179,10 +182,10 @@ function gameLoop() {
         }
 
         // Update timer
-        if (now - lastSecond >= 1000) {
+        if (now - gameState.lastSecondTime >= 1000) {
             gameState.timeRemaining--;
             gameState.shotClock--;
-            lastSecond = now;
+            gameState.lastSecondTime = now;
 
             // Check for halftime (when first half time expires)
             if (gameState.currentHalf === 1 && gameState.timeRemaining <= gameState.totalGameTime / 2) {
@@ -196,9 +199,9 @@ function gameLoop() {
                 }
                 drawCourt();
                 drawScore();
-                lastUpdate = Date.now();
-                lastSecond = Date.now();
-                lastAI = Date.now();
+                gameState.lastUpdateTime = Date.now();
+                gameState.lastSecondTime = Date.now();
+                gameState.lastAIUpdateTime = Date.now();
                 continue;
             }
 
@@ -323,8 +326,8 @@ function gameLoop() {
         }
 
         if (violationTriggeredThisFrame) {
-            lastAI = now;
-            lastUpdate = now;
+            gameState.lastAIUpdateTime = now;
+            gameState.lastUpdateTime = now;
             continue;
         }
 
@@ -451,9 +454,9 @@ function gameLoop() {
         }
 
         // Update AI (slower than rendering)
-        if (now - lastAI >= aiInterval) {
+        if (now - gameState.lastAIUpdateTime >= aiInterval) {
             updateAI();
-            lastAI = now;
+            gameState.lastAIUpdateTime = now;
         }
 
         // Update turbo for all players
@@ -490,10 +493,10 @@ function gameLoop() {
 
         // Redraw court and score less frequently to balance performance
         // Skip during active animations to allow trails to accumulate
-        if (now - lastUpdate >= 60 && !animationSystem.isBallAnimating()) {
+        if (now - gameState.lastUpdateTime >= 60 && !animationSystem.isBallAnimating()) {
             drawCourt();
             drawScore();
-            lastUpdate = now;
+            gameState.lastUpdateTime = now;
         }
 
         // Cycle trail frame AFTER drawCourt so trails appear on top
