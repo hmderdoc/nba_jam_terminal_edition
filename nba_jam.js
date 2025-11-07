@@ -251,23 +251,17 @@ function gameLoop() {
 
                 if (distanceMoved < 3) {
                     gameState.ballHandlerStuckTimer++;
+                    // AI picks up dribble when stuck
                     if (!ballHandler.isHuman &&
                         ballHandler.playerData &&
                         ballHandler.playerData.hasDribble !== false &&
                         closelyGuarded &&
-                        gameState.ballHandlerStuckTimer >= 8) {
+                        gameState.ballHandlerStuckTimer >= 3) {
                         pickUpDribble(ballHandler, "stuck");
                     }
                 } else {
                     // Ball handler is moving, reset timer
                     gameState.ballHandlerStuckTimer = 0;
-                    // If moving and not closely guarded, restore dribble
-                    if (ballHandler.playerData && ballHandler.playerData.hasDribble === false && !closelyGuarded) {
-                        ballHandler.playerData.hasDribble = true;
-                        gameState.ballHandlerDeadSince = null;
-                        gameState.ballHandlerDeadFrames = 0;
-                        gameState.ballHandlerDeadForcedShot = false;
-                    }
                 }
 
                 // Update last position
