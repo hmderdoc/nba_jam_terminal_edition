@@ -170,9 +170,10 @@ function clientUpdate(serverState) {
 
 ### The Mismatch
 
-**Problem**: AI modules tightly coupled to specific game state structure.
+**Problem**: AI modules tightly coupled to specific game state structure.  
+**Status**: ✅ **FIXED** in Wave 17 (AI dependency injection with GameContext)
 
-### Coupling Example
+### Coupling Example (BEFORE)
 
 **File**: `lib/ai/ai-ball-handler.js`
 ```javascript
@@ -190,44 +191,84 @@ function handleAIBallCarrier(player) {
 }
 ```
 
-### Issues
+### Solution Implemented (AFTER)
 
-1. **Fragile**: Changing `gameState` structure breaks AI
-2. **Not Reusable**: Can't use AI for simulation/testing without full `gameState`
-3. **Hidden Dependencies**: AI depends on gameState, positioning-helpers, player-helpers, etc.
-4. **Testing Difficulty**: Must mock entire `gameState` to test AI
-
-### Recommendation
-
-**Dependency Injection Pattern**:
+**New Module**: `lib/ai/game-context.js`
 ```javascript
-// AI receives context object, not direct gameState access
-function handleAIBallCarrier(player, context) {
-    // Context is interface, not direct gameState
-    var shotClock = context.getShotClock();
-    var timeRemaining = context.getTimeRemaining();
-    var isCloselyGuarded = context.isCloselyGuarded(player);
-    
-    // AI makes decision based on context
-    if (isCloselyGuarded && shotClock < 5) {
-        return context.takeShot(player);
-    }
+function GameContext(gameState) {
+    this.gameState = gameState;
 }
 
-// Context adapter wraps gameState
-class GameContext {
-    getShotClock() { return gameState.shotClock; }
-    getTimeRemaining() { return gameState.timeRemaining; }
-    isCloselyGuarded(player) { return calculateGuardedDistance(player) < 4; }
-    takeShot(player) { attemptShot(player); }
+// Clean interface methods
+GameContext.prototype.getShotClock = function () {
+    return this.gameState.shotClock || 24;
+};
+
+GameContext.prototype.isBallHandlerStuck = function (framesThreshold) {
+    framesThreshold = framesThreshold || 2;
+    return this.getBallHandlerStuckTimer() >= framesThreshold;
+};
+
+// ... 20+ interface methods
+```
+
+**AI Modules Updated** (all now use context parameter):
+- `lib/ai/coordinator.js` - Creates context, passes to all AI functions
+- `lib/ai/offense-ball-handler.js` - Uses context instead of gameState
+- `lib/ai/offense-off-ball.js` - Uses context.getBallCarrier()
+- `lib/ai/defense-on-ball.js` - Accepts context parameter (future-ready)
+- `lib/ai/defense-help.js` - Accepts context parameter (future-ready)
+
+**Example Refactored Code**:
+```javascript
+// BEFORE: Direct gameState access
+function aiOffenseBall(player, teamName) {
+    var shotClock = gameState.shotClock;
+    if (gameState.ballHandlerStuckTimer >= 2) { ... }
+}
+
+// AFTER: Context injection
+function aiOffenseBall(player, teamName, context) {
+    var shotClock = context.getShotClock();
+    if (context.isBallHandlerStuck(2)) { ... }
 }
 ```
 
-**Benefits**:
-- AI testable with mock context
-- AI reusable in different game modes
-- gameState changes don't break AI
-- Clear interface between AI and game state
+### Benefits Achieved
+
+✅ **Testable**: AI can be tested with mock context
+✅ **Decoupled**: gameState structure changes don't break AI
+✅ **Reusable**: AI can be used in different game modes or simulations
+✅ **Clear Interface**: 20+ documented methods define AI's game state contract
+✅ **Future-Proof**: Adding new state doesn't require AI changes
+
+### Testing Example
+
+```javascript
+// Create mock context for testing
+function MockGameContext() {
+    this.shotClock = 10;
+    this.ballCarrier = mockSprite;
+}
+MockGameContext.prototype.getShotClock = function() { return this.shotClock; };
+MockGameContext.prototype.isShotClockUrgent = function() { return this.shotClock <= 5; };
+
+// Test AI with mock
+var mockContext = new MockGameContext();
+aiOffenseBall(testPlayer, "teamA", mockContext);
+// Assert expected behavior
+```
+
+### Issues (RESOLVED)
+
+1. ~~**Fragile**: Changing `gameState` structure breaks AI~~ → Interface protects AI from changes
+2. ~~**Not Reusable**: Can't use AI for simulation/testing without full `gameState`~~ → Mock context enables testing
+3. ~~**Hidden Dependencies**: AI depends on gameState, positioning-helpers, player-helpers, etc.~~ → Context makes dependencies explicit
+4. ~~**Testing Difficulty**: Must mock entire `gameState` to test AI~~ → Simple mock context sufficient
+
+### Recommendation
+
+**Status**: ✅ **IMPLEMENTED** - See solution above
 
 ---
 
