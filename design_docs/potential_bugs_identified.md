@@ -503,7 +503,8 @@ var playerData = team.players[safeIndex];
 ### 25. Global State vs Local State Inconsistency
 **File**: `nba_jam.js`  
 **Severity**: Medium  
-**Impact**: State can diverge between global and local
+**Impact**: State can diverge between global and local  
+**Status**: ✅ **FIXED** in Wave 15 (commit 98dbf8c - moved timing vars to gameState)
 
 **Issue**: Some timing vars local, some global (see architecture_mismatches.md)
 
