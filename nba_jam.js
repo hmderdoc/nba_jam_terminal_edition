@@ -781,8 +781,12 @@ function main() {
 
         // Cleanup
         mpCoordinator = null; // Clear global reference
-        coordinator.cleanup();
-        playerClient.cleanup();
+        if (coordinator && typeof coordinator.cleanup === "function") {
+            coordinator.cleanup();
+        }
+        if (playerClient && typeof playerClient.cleanup === "function") {
+            playerClient.cleanup();
+        }
         cleanupSprites();
 
         // Show game over screen
@@ -1072,7 +1076,7 @@ function main() {
             }
 
             // Coordinator processes inputs and runs game logic
-            if (coordinator.isCoordinator) {
+            if (coordinator && coordinator.isCoordinator) {
                 var recoveryList = getAllPlayers();
                 for (var r = 0; r < recoveryList.length; r++) {
                     decrementStealRecovery(recoveryList[r]);
