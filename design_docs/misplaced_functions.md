@@ -17,7 +17,8 @@ This document identifies functions that are defined in modules that don't match 
 ## 1. Team/Player Query Duplicates
 
 ### Problem
-Team and player query functions are defined in multiple overlapping modules.
+Team and player query functions are defined in multiple overlapping modules.  
+**Status**: ✅ **FIXED** in Wave 10 (commit 9bf4172 - removed team-helpers.js duplicate)
 
 ### Misplaced Functions
 
@@ -71,7 +72,8 @@ rm lib/utils/team-helpers.js
 ## 2. Positioning Logic Scattered
 
 ### Problem
-Spatial calculation functions split across multiple modules with duplicates.
+Spatial calculation functions split across multiple modules with duplicates.  
+**Status**: ✅ **FIXED** in Wave 10 (commit 4ab119f - removed getTouchingOpponents duplicate)
 
 ### Misplaced Functions
 
@@ -123,7 +125,8 @@ load(js.exec_dir + "lib/utils/positioning-helpers.js");
 ## 3. Game Logic in UI Modules
 
 ### Problem
-UI modules contain business logic that should be in game-logic modules.
+UI modules contain business logic that should be in game-logic modules.  
+**Status**: ✅ **FIXED** in Wave 11 (commit e767932 - created score calculator module)
 
 ### Misplaced Functions
 

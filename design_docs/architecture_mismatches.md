@@ -19,7 +19,8 @@ This document identifies architectural inconsistencies, technical debt, and desi
 
 ### The Mismatch
 
-**Problem**: Inconsistent state management between global `gameState` object and local function variables.
+**Problem**: Inconsistent state management between global `gameState` object and local function variables.  
+**Status**: ✅ **DOCUMENTED** in Wave 11 (commit a7f78d9 - comprehensive state management documentation)
 
 ### Examples
 
@@ -80,7 +81,8 @@ var loopState = { lastUpdate, lastSecond, violationThisFrame };
 
 ### The Mismatch
 
-**Problem**: Coordinator pattern mixed with client-side prediction creates race conditions.
+**Problem**: Coordinator pattern mixed with client-side prediction creates race conditions.  
+**Status**: ✅ **FIXED** in Wave 10 (commit 95b5fa8 - expanded DTO to include velocity and animation state)
 
 ### Architecture Issues
 
@@ -232,7 +234,8 @@ class GameContext {
 
 ### The Mismatch
 
-**Problem**: Same functions defined in multiple modules.
+**Problem**: Same functions defined in multiple modules.  
+**Status**: ✅ **PARTIALLY FIXED** in Wave 10 (commits 9bf4172, 4ab119f - removed team-helpers.js and getTouchingOpponents duplicate) and Wave 12 (commit 580df48 - consolidated string formatting)
 
 ### Duplicates Identified
 

@@ -9,7 +9,8 @@ Comprehensive list of bugs identified through code analysis, categorized by seve
 ### 1. Multiplayer Coordinator Disconnect Crash
 **File**: `lib/multiplayer/mp_coordinator.js`  
 **Severity**: Critical  
-**Impact**: Game becomes unrecoverable if coordinator disconnects
+**Impact**: Game becomes unrecoverable if coordinator disconnects  
+**Status**: ✅ **FIXED** in Wave 11 (commit e3c0499)
 
 **Issue**:
 ```javascript
@@ -64,7 +65,8 @@ function getTeamSprites(teamName) {
 ### 3. Diagonal Movement Speed Exploit
 **File**: `nba_jam.js` (input handling)  
 **Severity**: High  
-**Impact**: Moving diagonally is 1.41x faster than cardinal directions
+**Impact**: Moving diagonally is 1.41x faster than cardinal directions  
+**Status**: ✅ **FIXED** in Wave 13 (commit 340d0dc)
 
 **Issue**:
 ```javascript
@@ -89,7 +91,8 @@ sprite.y += dy * speed;
 ### 4. AI Gets Stuck in Corners
 **File**: `lib/ai/ai-ball-handler.js`  
 **Severity**: High  
-**Impact**: AI dribbles into corner, can't escape, 5-second violation
+**Impact**: AI dribbles into corner, can't escape, 5-second violation  
+**Status**: ✅ **FIXED** in Wave 13 (commit 92403e9)
 
 **Issue**: No corner detection or escape logic
 
@@ -113,7 +116,8 @@ function escapeCorner(player) {
 ### 5. Multiplayer Rubber-Banding
 **File**: `lib/multiplayer/mp_client.js`  
 **Severity**: High  
-**Impact**: Sprites snap/jump due to incomplete state sync
+**Impact**: Sprites snap/jump due to incomplete state sync  
+**Status**: ✅ **FIXED** in Wave 10 (commit 95b5fa8)
 
 **Issue**: DTO doesn't include velocity or animation state
 ```javascript
@@ -195,7 +199,8 @@ if (gameState.shotClock <= 0) {
 ### 8. Quit Confirmation Blocks Game Loop
 **File**: `nba_jam.js`  
 **Severity**: Medium  
-**Impact**: Game freezes while waiting for confirmation
+**Impact**: Game freezes while waiting for confirmation  
+**Status**: ✅ **FIXED** in Wave 12 (commit a7a0f67)
 
 **Issue**: Blocking `console.getkey()` call
 ```javascript
@@ -223,7 +228,8 @@ if (gameState.pauseMenuOpen) {
 ### 9. Hot Streak Logic in UI Module
 **File**: `lib/ui/score-display.js`  
 **Severity**: Medium  
-**Impact**: Game logic in wrong place, hard to test
+**Impact**: Game logic in wrong place, hard to test  
+**Status**: ✅ **FIXED** in Wave 11 (commit e767932 - created score calculator module)
 
 **Issue**: Hot streak calculation in rendering function
 ```javascript
@@ -245,7 +251,8 @@ function drawScore() {
 ### 10. Duplicate Function Definitions
 **Files**: Multiple  
 **Severity**: Medium  
-**Impact**: Maintenance burden, potential divergence
+**Impact**: Maintenance burden, potential divergence  
+**Status**: ✅ **PARTIALLY FIXED** in Wave 10 (commits 9bf4172, 4ab119f - removed team-helpers.js and getTouchingOpponents duplicate)
 
 **Issue**:
 - `getTeamSprites()` in `player-helpers.js` AND `team-helpers.js`
@@ -260,7 +267,8 @@ function drawScore() {
 ### 11. No Input Buffering
 **File**: Input handling  
 **Severity**: Low  
-**Impact**: Rapid key presses can be dropped
+**Impact**: Rapid key presses can be dropped  
+**Status**: ✅ **FIXED** in Wave 11 (commit 2a9b155)
 
 **Issue**: Input checked once per frame (50ms window)
 ```javascript
@@ -289,7 +297,8 @@ function processBuffer() {
 ### 12. Event Duplication in Multiplayer
 **File**: `lib/multiplayer/mp_coordinator.js`  
 **Severity**: Low  
-**Impact**: Announcements shown twice on coordinator
+**Impact**: Announcements shown twice on coordinator  
+**Status**: ✅ **FIXED** in Wave 12 (commit 9179e93)
 
 **Issue**: Coordinator fires event locally AND broadcasts
 ```javascript
@@ -422,7 +431,8 @@ if (distance < 2 && defender.stealCooldown <= 0) {
 ### 20. Roster Index Out of Bounds
 **File**: `lib/core/sprite-init.js`  
 **Severity**: Medium  
-**Impact**: Crash if invalid roster index
+**Impact**: Crash if invalid roster index  
+**Status**: ✅ **FIXED** in Wave 12 (commit 1c4effe)
 
 **Issue**: No clamping of roster selection
 ```javascript
