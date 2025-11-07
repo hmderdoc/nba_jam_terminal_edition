@@ -12,6 +12,7 @@ load(js.exec_dir + "lib/rendering/player-labels.js");
 load(js.exec_dir + "lib/rendering/shoe-colors.js");
 load(js.exec_dir + "lib/rendering/ball.js");
 load(js.exec_dir + "lib/rendering/court-rendering.js");
+load(js.exec_dir + "lib/rendering/jump-indicators.js");
 load(js.exec_dir + "lib/game-logic/game-state.js");
 load(js.exec_dir + "lib/game-logic/player-class.js");
 load(js.exec_dir + "lib/game-logic/movement-physics.js");
@@ -23,6 +24,7 @@ load(js.exec_dir + "lib/game-logic/dunks.js");
 load(js.exec_dir + "lib/game-logic/shooting.js");
 load(js.exec_dir + "lib/game-logic/possession.js");
 load(js.exec_dir + "lib/game-logic/team-data.js");
+load(js.exec_dir + "lib/game-logic/input-handler.js");
 load(js.exec_dir + "lib/bookie/bookie.js");
 
 // Multiplayer support (optional - loaded on demand)
@@ -48,6 +50,9 @@ load(js.exec_dir + "lib/ai/defense-help.js");
 load(js.exec_dir + "lib/ai/coordinator.js");
 load(js.exec_dir + "lib/ui/announcer.js");
 load(js.exec_dir + "lib/ui/scoreboard.js");
+load(js.exec_dir + "lib/ui/menus.js");
+load(js.exec_dir + "lib/ui/game-over.js");
+load(js.exec_dir + "lib/ui/halftime.js");
 
 // Helper function to pad strings
 function padStart(str, length, padChar) {
@@ -265,7 +270,7 @@ function setSpriteControllerLabel(sprite, alias, isHuman) {
 
 function applyDefaultControllerLabels() {
     var alias = (typeof user !== "undefined" && user && user.alias) ? user.alias : "YOU";
-    var sprites = [redPlayer1, redPlayer2, bluePlayer1, bluePlayer2];
+    var sprites = [teamAPlayer1, teamAPlayer2, teamBPlayer1, teamBPlayer2];
     for (var i = 0; i < sprites.length; i++) {
         var sprite = sprites[i];
         if (!sprite || !sprite.playerData)
@@ -295,34 +300,34 @@ function drawScore() {
     var controllerRow = 4;
     var scorePanelAttr = WHITE | BG_BLACK;
 
-    var blueTeamName = (gameState.teamNames.blue || "BLUE").toUpperCase();
-    var redTeamName = (gameState.teamNames.red || "RED").toUpperCase();
-    var blueTeamAbbr = (gameState.teamAbbrs && gameState.teamAbbrs.blue) ? String(gameState.teamAbbrs.blue).toUpperCase() : "BLU";
-    var redTeamAbbr = (gameState.teamAbbrs && gameState.teamAbbrs.red) ? String(gameState.teamAbbrs.red).toUpperCase() : "RED";
+    var teamBTeamName = (gameState.teamNames.teamB || "TEAM B").toUpperCase();
+    var teamATeamName = (gameState.teamNames.teamA || "TEAM A").toUpperCase();
+    var teamBTeamAbbr = (gameState.teamAbbrs && gameState.teamAbbrs.teamB) ? String(gameState.teamAbbrs.teamB).toUpperCase() : "TEMB";
+    var teamATeamAbbr = (gameState.teamAbbrs && gameState.teamAbbrs.teamA) ? String(gameState.teamAbbrs.teamA).toUpperCase() : "TEAM A";
 
-    if (blueTeamAbbr && redTeamAbbr && blueTeamAbbr.replace(/\s+/g, "") === redTeamAbbr.replace(/\s+/g, "")) {
-        var baseAbbr = blueTeamAbbr.replace(/\s+/g, "");
+    if (teamBTeamAbbr && teamATeamAbbr && teamBTeamAbbr.replace(/\s+/g, "") === teamATeamAbbr.replace(/\s+/g, "")) {
+        var baseAbbr = teamBTeamAbbr.replace(/\s+/g, "");
         if (!baseAbbr.length) baseAbbr = "TEAM";
         var trimmedBase = baseAbbr;
         if (trimmedBase.length > 5) {
             trimmedBase = trimmedBase.substring(0, 5);
         }
-        blueTeamAbbr = trimmedBase + "1";
-        redTeamAbbr = trimmedBase + "2";
+        teamBTeamAbbr = trimmedBase + "1";
+        teamATeamAbbr = trimmedBase + "2";
     }
 
-    var blueScoreValue = String(gameState.score.blue);
-    var redScoreValue = String(gameState.score.red);
-    var blueScoreText = padStart(blueScoreValue, 3, ' ');
-    var redScoreText = padStart(redScoreValue, 3, ' ');
+    var teamBScoreValue = String(gameState.score.teamB);
+    var teamAScoreValue = String(gameState.score.teamA);
+    var teamBScoreText = padStart(teamBScoreValue, 3, ' ');
+    var teamAScoreText = padStart(teamAScoreValue, 3, ' ');
 
-    var blueBg = (gameState.teamColors.blue && gameState.teamColors.blue.bg !== undefined) ? gameState.teamColors.blue.bg : BG_BLACK;
-    var redBg = (gameState.teamColors.red && gameState.teamColors.red.bg !== undefined) ? gameState.teamColors.red.bg : BG_BLACK;
-    var blueNameColor = (gameState.teamColors.blue ? gameState.teamColors.blue.fg : LIGHTBLUE) | blueBg;
-    var redNameColor = (gameState.teamColors.red ? gameState.teamColors.red.fg : LIGHTRED) | redBg;
+    var teamBBg = (gameState.teamColors.teamB && gameState.teamColors.teamB.bg !== undefined) ? gameState.teamColors.teamB.bg : BG_BLACK;
+    var teamABg = (gameState.teamColors.teamA && gameState.teamColors.teamA.bg !== undefined) ? gameState.teamColors.teamA.bg : BG_BLACK;
+    var teamBNameColor = (gameState.teamColors.teamB ? gameState.teamColors.teamB.fg : LIGHTBLUE) | teamBBg;
+    var teamANameColor = (gameState.teamColors.teamA ? gameState.teamColors.teamA.fg : LIGHTRED) | teamABg;
     var panelBgMask = scorePanelAttr & BG_MASK;
-    var blueScoreFg = (gameState.teamColors.blue ? gameState.teamColors.blue.fg : WHITE) & FG_MASK;
-    var redScoreFg = (gameState.teamColors.red ? gameState.teamColors.red.fg : WHITE) & FG_MASK;
+    var teamBScoreFg = (gameState.teamColors.teamB ? gameState.teamColors.teamB.fg : WHITE) & FG_MASK;
+    var teamAScoreFg = (gameState.teamColors.teamA ? gameState.teamColors.teamA.fg : WHITE) & FG_MASK;
 
     var flashInfo = getScoreFlashState();
     if (flashInfo.active && flashInfo.regainCheckEnabled && !gameState.inbounding && gameState.currentTeam === flashInfo.activeTeam) {
@@ -336,30 +341,30 @@ function drawScore() {
     var flashElapsed = flashTick - (flashInfo.startedTick || 0);
     if (flashElapsed < 0) flashElapsed = 0;
     var flashOn = flashActive && ((flashElapsed % flashPeriod) < (flashPeriod / 2));
-    var blueFlashOn = flashOn && flashInfo.activeTeam === "blue";
-    var redFlashOn = flashOn && flashInfo.activeTeam === "red";
+    var blueFlashOn = flashOn && flashInfo.activeTeam === "teamB";
+    var redFlashOn = flashOn && flashInfo.activeTeam === "teamA";
     var whiteFg = WHITE & FG_MASK;
     var flashFg = LIGHTGRAY & FG_MASK;
 
     if (blueFlashOn) {
-        if (blueScoreFg === whiteFg) {
-            blueScoreFg = flashFg;
+        if (teamBScoreFg === whiteFg) {
+            teamBScoreFg = flashFg;
         } else {
-            blueScoreFg = whiteFg;
+            teamBScoreFg = whiteFg;
         }
     }
     if (redFlashOn) {
-        if (redScoreFg === whiteFg) {
-            redScoreFg = flashFg;
+        if (teamAScoreFg === whiteFg) {
+            teamAScoreFg = flashFg;
         } else {
-            redScoreFg = whiteFg;
+            teamAScoreFg = whiteFg;
         }
     }
 
-    var blueScorePanelAttr = blueScoreFg | panelBgMask;
-    var redScorePanelAttr = redScoreFg | panelBgMask;
-    var blueScoreBoardAttr = blueScoreFg | BG_BLACK;
-    var redScoreBoardAttr = redScoreFg | BG_BLACK;
+    var teamBScorePanelAttr = teamBScoreFg | panelBgMask;
+    var teamAScorePanelAttr = teamAScoreFg | panelBgMask;
+    var teamBScoreBoardAttr = teamBScoreFg | BG_BLACK;
+    var teamAScoreBoardAttr = teamAScoreFg | BG_BLACK;
 
     var halfTime = Math.floor(gameState.totalGameTime / 2);
     var rawTime = (gameState.currentHalf === 1) ? (gameState.timeRemaining - halfTime) : gameState.timeRemaining;
@@ -378,13 +383,13 @@ function drawScore() {
     var leftNameEnd = clockX - clockGap - 1;
     var leftAvailable = Math.max(0, leftNameEnd - leftNameStart + 1);
     if (leftAvailable > 0) {
-        var leftName = blueTeamName;
+        var leftName = teamBTeamName;
         if (leftName.length > leftAvailable) {
             leftName = leftName.slice(0, leftAvailable);
         }
         if (leftName.length > 0) {
             scoreFrame.gotoxy(leftNameStart, 1);
-            scoreFrame.putmsg(leftName, blueNameColor);
+            scoreFrame.putmsg(leftName, teamBNameColor);
         }
     }
 
@@ -392,14 +397,14 @@ function drawScore() {
     var rightNameStartMin = clockRight + clockGap + 1;
     var rightAvailable = Math.max(0, rightNameEnd - rightNameStartMin + 1);
     if (rightAvailable > 0) {
-        var rightName = redTeamName;
+        var rightName = teamATeamName;
         if (rightName.length > rightAvailable) {
             rightName = rightName.slice(rightName.length - rightAvailable);
         }
         if (rightName.length > 0) {
             var rightNameStart = Math.max(rightNameStartMin, rightNameEnd - rightName.length + 1);
             scoreFrame.gotoxy(rightNameStart, 1);
-            scoreFrame.putmsg(rightName, redNameColor);
+            scoreFrame.putmsg(rightName, teamANameColor);
         }
     }
 
@@ -413,8 +418,8 @@ function drawScore() {
     scoreFrame.putmsg(shotText, shotClockColor | BG_BLACK);
 
     var leftTurboPositions = [
-        { player: bluePlayer1, x: 1 },
-        { player: bluePlayer2, x: 12 }
+        { player: teamBPlayer1, x: 1 },
+        { player: teamBPlayer2, x: 12 }
     ];
     var leftTurboMax = sideMargin;
     for (var i = 0; i < leftTurboPositions.length; i++) {
@@ -427,8 +432,8 @@ function drawScore() {
     }
 
     var rightTurboPositions = [
-        { player: redPlayer1, x: 59 },
-        { player: redPlayer2, x: 70 }
+        { player: teamAPlayer1, x: 59 },
+        { player: teamAPlayer2, x: 70 }
     ];
     var rightTurboMin = null;
     for (var j = 0; j < rightTurboPositions.length; j++) {
@@ -453,7 +458,7 @@ function drawScore() {
         leftFrame = ensureScoreFrame("left", leftDigitsStart, leftDigitsWidth, scorePanelAttr);
         if (leftFrame) {
             if (ensureScoreFontLoaded()) {
-                leftRendered = renderScoreDigits(leftFrame, blueScoreValue, blueScorePanelAttr, scorePanelAttr);
+                leftRendered = renderScoreDigits(leftFrame, teamBScoreValue, teamBScorePanelAttr, scorePanelAttr);
             } else {
                 fillFrameBackground(leftFrame, scorePanelAttr);
             }
@@ -466,15 +471,15 @@ function drawScore() {
     if (!leftRendered) {
         var maxLeftEnd = shotX - clockGap - 1;
         var minLeftStart = sideMargin + 1;
-        var fallbackLeftStart = Math.max(minLeftStart, maxLeftEnd - blueScoreText.length + 1);
-        var fallbackLeftEnd = fallbackLeftStart + blueScoreText.length - 1;
+        var fallbackLeftStart = Math.max(minLeftStart, maxLeftEnd - teamBScoreText.length + 1);
+        var fallbackLeftEnd = fallbackLeftStart + teamBScoreText.length - 1;
         leftPanelStart = fallbackLeftStart;
         leftPanelEnd = fallbackLeftEnd;
         if (leftFrame) {
-            renderFallbackScore(leftFrame, blueScoreText.trim(), blueScorePanelAttr, scorePanelAttr);
+            renderFallbackScore(leftFrame, teamBScoreText.trim(), teamBScorePanelAttr, scorePanelAttr);
         } else if (fallbackLeftStart <= maxLeftEnd && fallbackLeftEnd <= maxLeftEnd) {
             scoreFrame.gotoxy(fallbackLeftStart, shotClockRow);
-            scoreFrame.putmsg(blueScoreText, blueScoreBoardAttr);
+            scoreFrame.putmsg(teamBScoreText, teamBScoreBoardAttr);
         }
     }
 
@@ -490,7 +495,7 @@ function drawScore() {
         rightFrame = ensureScoreFrame("right", rightDigitsStart, rightDigitsWidth, scorePanelAttr);
         if (rightFrame) {
             if (ensureScoreFontLoaded()) {
-                rightRendered = renderScoreDigits(rightFrame, redScoreValue, redScorePanelAttr, scorePanelAttr);
+                rightRendered = renderScoreDigits(rightFrame, teamAScoreValue, teamAScorePanelAttr, scorePanelAttr);
             } else {
                 fillFrameBackground(rightFrame, scorePanelAttr);
             }
@@ -502,37 +507,37 @@ function drawScore() {
 
     if (!rightRendered) {
         var minRightStart = shotRight + clockGap;
-        var maxRightStart = frameWidth - sideMargin - redScoreText.length + 1;
+        var maxRightStart = frameWidth - sideMargin - teamAScoreText.length + 1;
         if (rightFrame) {
-            renderFallbackScore(rightFrame, redScoreText.trim(), redScorePanelAttr, scorePanelAttr);
+            renderFallbackScore(rightFrame, teamAScoreText.trim(), teamAScorePanelAttr, scorePanelAttr);
         } else if (minRightStart <= maxRightStart) {
             var fallbackRightStart = maxRightStart;
             scoreFrame.gotoxy(fallbackRightStart, shotClockRow);
-            scoreFrame.putmsg(redScoreText, redScoreBoardAttr);
+            scoreFrame.putmsg(teamAScoreText, teamAScoreBoardAttr);
             rightPanelStart = fallbackRightStart;
-            rightPanelEnd = fallbackRightStart + redScoreText.length - 1;
+            rightPanelEnd = fallbackRightStart + teamAScoreText.length - 1;
         }
     }
 
-    if (bluePlayer1 && bluePlayer1.playerData) {
-        updatePlayerShoeColor(bluePlayer1);
+    if (teamBPlayer1 && teamBPlayer1.playerData) {
+        updatePlayerShoeColor(teamBPlayer1);
         scoreFrame.gotoxy(1, turboRow);
-        drawTurboBar(bluePlayer1);
+        drawTurboBar(teamBPlayer1);
     }
-    if (bluePlayer2 && bluePlayer2.playerData) {
-        updatePlayerShoeColor(bluePlayer2);
+    if (teamBPlayer2 && teamBPlayer2.playerData) {
+        updatePlayerShoeColor(teamBPlayer2);
         scoreFrame.gotoxy(12, turboRow);
-        drawTurboBar(bluePlayer2);
+        drawTurboBar(teamBPlayer2);
     }
-    if (redPlayer1 && redPlayer1.playerData) {
-        updatePlayerShoeColor(redPlayer1);
+    if (teamAPlayer1 && teamAPlayer1.playerData) {
+        updatePlayerShoeColor(teamAPlayer1);
         scoreFrame.gotoxy(59, turboRow);
-        drawTurboBar(redPlayer1);
+        drawTurboBar(teamAPlayer1);
     }
-    if (redPlayer2 && redPlayer2.playerData) {
-        updatePlayerShoeColor(redPlayer2);
+    if (teamAPlayer2 && teamAPlayer2.playerData) {
+        updatePlayerShoeColor(teamAPlayer2);
         scoreFrame.gotoxy(70, turboRow);
-        drawTurboBar(redPlayer2);
+        drawTurboBar(teamAPlayer2);
     }
 
     var firePalette = [LIGHTRED, YELLOW, WHITE, LIGHTRED];
@@ -586,24 +591,24 @@ function drawScore() {
         scoreFrame.putmsg(padded, attr);
     }
 
-    renderPlayerSlot(2, bluePlayer1, "blue", 0);
-    renderPlayerSlot(14, bluePlayer2, "blue", 3);
-    renderPlayerSlot(60, redPlayer1, "red", 0);
-    renderPlayerSlot(72, redPlayer2, "red", 3);
+    renderPlayerSlot(2, teamBPlayer1, "teamB", 0);
+    renderPlayerSlot(14, teamBPlayer2, "teamB", 3);
+    renderPlayerSlot(60, teamAPlayer1, "teamA", 0);
+    renderPlayerSlot(72, teamAPlayer2, "teamA", 3);
 
-    renderControllerSlot(2, bluePlayer1, "blue");
-    renderControllerSlot(14, bluePlayer2, "blue");
-    renderControllerSlot(60, redPlayer1, "red");
-    renderControllerSlot(72, redPlayer2, "red");
+    renderControllerSlot(2, teamBPlayer1, "teamB");
+    renderControllerSlot(14, teamBPlayer2, "teamB");
+    renderControllerSlot(60, teamAPlayer1, "teamA");
+    renderControllerSlot(72, teamAPlayer2, "teamA");
 
     var abbrRow = 5;
     if ((scoreFrame.height || 0) >= abbrRow) {
-        var blueAbbrAttr = (gameState.teamColors.blue ? gameState.teamColors.blue.fg : WHITE) | BG_BLACK;
-        var redAbbrAttr = (gameState.teamColors.red ? gameState.teamColors.red.fg : WHITE) | BG_BLACK;
+        var blueAbbrAttr = (gameState.teamColors.teamB ? gameState.teamColors.teamB.fg : WHITE) | BG_BLACK;
+        var redAbbrAttr = (gameState.teamColors.teamA ? gameState.teamColors.teamA.fg : WHITE) | BG_BLACK;
 
         var leftWidth = leftPanelEnd - leftPanelStart + 1;
         if (leftWidth > 0) {
-            var leftAbbr = blueTeamAbbr;
+            var leftAbbr = teamBTeamAbbr;
             if (leftAbbr.length > leftWidth) {
                 leftAbbr = leftAbbr.substring(0, leftWidth);
             }
@@ -615,7 +620,7 @@ function drawScore() {
 
         var rightWidth = rightPanelEnd - rightPanelStart + 1;
         if (rightWidth > 0) {
-            var rightAbbr = redTeamAbbr;
+            var rightAbbr = teamATeamAbbr;
             if (rightAbbr.length > rightWidth) {
                 rightAbbr = rightAbbr.substring(0, rightWidth);
             }
@@ -978,71 +983,71 @@ function mergeShoverBearingsIntoSprite(sprite) {
 
 // Cleanup function for sprites
 function cleanupSprites() {
-    if (redPlayer1) {
-        if (redPlayer1.frame) redPlayer1.frame.close();
-        if (redPlayer1.labelFrame) {
-            try { redPlayer1.labelFrame.close(); } catch (e) { }
-            redPlayer1.labelFrame = null;
+    if (teamAPlayer1) {
+        if (teamAPlayer1.frame) teamAPlayer1.frame.close();
+        if (teamAPlayer1.labelFrame) {
+            try { teamAPlayer1.labelFrame.close(); } catch (e) { }
+            teamAPlayer1.labelFrame = null;
         }
     }
-    if (redPlayer2) {
-        if (redPlayer2.frame) redPlayer2.frame.close();
-        if (redPlayer2.labelFrame) {
-            try { redPlayer2.labelFrame.close(); } catch (e) { }
-            redPlayer2.labelFrame = null;
+    if (teamAPlayer2) {
+        if (teamAPlayer2.frame) teamAPlayer2.frame.close();
+        if (teamAPlayer2.labelFrame) {
+            try { teamAPlayer2.labelFrame.close(); } catch (e) { }
+            teamAPlayer2.labelFrame = null;
         }
     }
-    if (bluePlayer1) {
-        if (bluePlayer1.frame) bluePlayer1.frame.close();
-        if (bluePlayer1.labelFrame) {
-            try { bluePlayer1.labelFrame.close(); } catch (e) { }
-            bluePlayer1.labelFrame = null;
+    if (teamBPlayer1) {
+        if (teamBPlayer1.frame) teamBPlayer1.frame.close();
+        if (teamBPlayer1.labelFrame) {
+            try { teamBPlayer1.labelFrame.close(); } catch (e) { }
+            teamBPlayer1.labelFrame = null;
         }
     }
-    if (bluePlayer2) {
-        if (bluePlayer2.frame) bluePlayer2.frame.close();
-        if (bluePlayer2.labelFrame) {
-            try { bluePlayer2.labelFrame.close(); } catch (e) { }
-            bluePlayer2.labelFrame = null;
+    if (teamBPlayer2) {
+        if (teamBPlayer2.frame) teamBPlayer2.frame.close();
+        if (teamBPlayer2.labelFrame) {
+            try { teamBPlayer2.labelFrame.close(); } catch (e) { }
+            teamBPlayer2.labelFrame = null;
         }
     }
     if (ballFrame) ballFrame.close();
 
-    redPlayer1 = null;
-    redPlayer2 = null;
-    bluePlayer1 = null;
-    bluePlayer2 = null;
+    teamAPlayer1 = null;
+    teamAPlayer2 = null;
+    teamBPlayer1 = null;
+    teamBPlayer2 = null;
     ballFrame = null;
 }
 
 // Load the shoved sprite template once for all players
-function initSprites(redTeamName, blueTeamName, redPlayerIndices, bluePlayerIndices, allCPUMode) {
+function initSprites(teamATeamName, teamBTeamName, redPlayerIndices, bluePlayerIndices, allCPUMode) {
     // Get team rosters
-    redTeamName = redTeamName || "lakers";
-    blueTeamName = blueTeamName || "celtics";
+    teamATeamName = teamATeamName || "lakers";
+    teamBTeamName = teamBTeamName || "celtics";
     allCPUMode = allCPUMode || false;
     gameState.allCPUMode = allCPUMode;
 
-    var redTeam = NBATeams[redTeamName];
-    var blueTeam = NBATeams[blueTeamName];
+    var teamATeam = NBATeams[teamATeamName];
+    var teamBTeam = NBATeams[teamBTeamName];
 
     // Set team names and colors in game state
-    gameState.teamNames.red = redTeam.name || redTeamName;
-    gameState.teamNames.blue = blueTeam.name || blueTeamName;
-    gameState.teamAbbrs.red = (redTeam && redTeam.abbr) ? String(redTeam.abbr).toUpperCase() : redTeamName.substring(0, 3).toUpperCase();
-    gameState.teamAbbrs.blue = (blueTeam && blueTeam.abbr) ? String(blueTeam.abbr).toUpperCase() : blueTeamName.substring(0, 3).toUpperCase();
+    gameState.teamNames.teamA = teamATeam.name || teamATeamName;
+    gameState.teamNames.teamB = teamBTeam.name || teamBTeamName;
+    gameState.teamAbbrs.teamA = (teamATeam && teamATeam.abbr) ? String(teamATeam.abbr).toUpperCase() : teamATeamName.substring(0, 3).toUpperCase();
+    gameState.teamAbbrs.teamB = (teamBTeam && teamBTeam.abbr) ? String(teamBTeam.abbr).toUpperCase() : teamBTeamName.substring(0, 3).toUpperCase();
 
     // Set team colors (convert string names to actual color constants)
-    if (redTeam.colors) {
-        var redFgName = redTeam.colors.fg || "WHITE";
-        var redFgAccentName = redTeam.colors.fg_accent || redFgName;
-        var redAltFgName = redTeam.colors.alt_fg || null;
-        var redAltBgName = redTeam.colors.alt_bg || null;
-        gameState.teamColors.red = {
-            fg: getColorValue(redTeam.colors.fg),
-            bg: getColorValue(redTeam.colors.bg),
-            fg_accent: getColorValue(redTeam.colors.fg_accent),
-            bg_alt: getColorValue(redTeam.colors.bg_alt),
+    if (teamATeam.colors) {
+        var redFgName = teamATeam.colors.fg || "WHITE";
+        var redFgAccentName = teamATeam.colors.fg_accent || redFgName;
+        var redAltFgName = teamATeam.colors.alt_fg || null;
+        var redAltBgName = teamATeam.colors.alt_bg || null;
+        gameState.teamColors.teamA = {
+            fg: getColorValue(teamATeam.colors.fg),
+            bg: getColorValue(teamATeam.colors.bg),
+            fg_accent: getColorValue(teamATeam.colors.fg_accent),
+            bg_alt: getColorValue(teamATeam.colors.bg_alt),
             fg_code: getColorCode(redFgName),
             fg_accent_code: getColorCode(redFgAccentName),
             alt_fg: redAltFgName ? getColorValue(redAltFgName) : null,
@@ -1051,16 +1056,16 @@ function initSprites(redTeamName, blueTeamName, redPlayerIndices, bluePlayerIndi
             alt_bg_code: redAltBgName ? getBackgroundCode(redAltBgName) : null
         };
     }
-    if (blueTeam.colors) {
-        var blueFgName = blueTeam.colors.fg || "WHITE";
-        var blueFgAccentName = blueTeam.colors.fg_accent || blueFgName;
-        var blueAltFgName = blueTeam.colors.alt_fg || null;
-        var blueAltBgName = blueTeam.colors.alt_bg || null;
-        gameState.teamColors.blue = {
-            fg: getColorValue(blueTeam.colors.fg),
-            bg: getColorValue(blueTeam.colors.bg),
-            fg_accent: getColorValue(blueTeam.colors.fg_accent),
-            bg_alt: getColorValue(blueTeam.colors.bg_alt),
+    if (teamBTeam.colors) {
+        var blueFgName = teamBTeam.colors.fg || "WHITE";
+        var blueFgAccentName = teamBTeam.colors.fg_accent || blueFgName;
+        var blueAltFgName = teamBTeam.colors.alt_fg || null;
+        var blueAltBgName = teamBTeam.colors.alt_bg || null;
+        gameState.teamColors.teamB = {
+            fg: getColorValue(teamBTeam.colors.fg),
+            bg: getColorValue(teamBTeam.colors.bg),
+            fg_accent: getColorValue(teamBTeam.colors.fg_accent),
+            bg_alt: getColorValue(teamBTeam.colors.bg_alt),
             fg_code: getColorCode(blueFgName),
             fg_accent_code: getColorCode(blueFgAccentName),
             alt_fg: blueAltFgName ? getColorValue(blueAltFgName) : null,
@@ -1193,78 +1198,78 @@ function initSprites(redTeamName, blueTeamName, redPlayerIndices, bluePlayerIndi
     }
 
     // Create RED TEAM (left side)
-    var redInfo1 = getPlayerInfo(redTeam.players, redPlayerIndices.player1);
-    redPlayer1 = createSpriteForPlayer(redInfo1, 18, 7, "e", gameState.teamColors.red, !allCPUMode, BG_RED);
-    var redPlayer1Data = new Player(
+    var redInfo1 = getPlayerInfo(teamATeam.players, redPlayerIndices.player1);
+    teamAPlayer1 = createSpriteForPlayer(redInfo1, 18, 7, "e", gameState.teamColors.teamA, !allCPUMode, BG_RED);
+    var teamAPlayer1Data = new Player(
         redInfo1.name,
         redInfo1.jersey,
         redInfo1.attributes,
-        redPlayer1,
+        teamAPlayer1,
         redInfo1.shortNick
     );
-    redPlayer1Data.skin = redInfo1.skin || "brown";
-    redPlayer1Data.jerseyString = redInfo1.jerseyString !== undefined ? String(redInfo1.jerseyString) : String(redPlayer1Data.jersey);
-    redPlayer1Data.position = (redInfo1.position || "").toUpperCase();
-    redPlayer1Data.hasDribble = true;
-    applyShoePaletteToPlayer(redPlayer1);
+    teamAPlayer1Data.skin = redInfo1.skin || "brown";
+    teamAPlayer1Data.jerseyString = redInfo1.jerseyString !== undefined ? String(redInfo1.jerseyString) : String(teamAPlayer1Data.jersey);
+    teamAPlayer1Data.position = (redInfo1.position || "").toUpperCase();
+    teamAPlayer1Data.hasDribble = true;
+    applyShoePaletteToPlayer(teamAPlayer1);
 
-    var redInfo2 = getPlayerInfo(redTeam.players, redPlayerIndices.player2);
-    redPlayer2 = createSpriteForPlayer(redInfo2, 18, 12, "e", gameState.teamColors.red, false, BG_RED);
-    var redPlayer2Data = new Player(
+    var redInfo2 = getPlayerInfo(teamATeam.players, redPlayerIndices.player2);
+    teamAPlayer2 = createSpriteForPlayer(redInfo2, 18, 12, "e", gameState.teamColors.teamA, false, BG_RED);
+    var teamAPlayer2Data = new Player(
         redInfo2.name,
         redInfo2.jersey,
         redInfo2.attributes,
-        redPlayer2,
+        teamAPlayer2,
         redInfo2.shortNick
     );
-    redPlayer2Data.skin = redInfo2.skin || "brown";
-    redPlayer2Data.jerseyString = redInfo2.jerseyString !== undefined ? String(redInfo2.jerseyString) : String(redPlayer2Data.jersey);
-    redPlayer2Data.position = (redInfo2.position || "").toUpperCase();
-    redPlayer2Data.hasDribble = true;
-    applyShoePaletteToPlayer(redPlayer2);
+    teamAPlayer2Data.skin = redInfo2.skin || "brown";
+    teamAPlayer2Data.jerseyString = redInfo2.jerseyString !== undefined ? String(redInfo2.jerseyString) : String(teamAPlayer2Data.jersey);
+    teamAPlayer2Data.position = (redInfo2.position || "").toUpperCase();
+    teamAPlayer2Data.hasDribble = true;
+    applyShoePaletteToPlayer(teamAPlayer2);
 
     // Create BLUE TEAM (right side)
-    var blueInfo1 = getPlayerInfo(blueTeam.players, bluePlayerIndices.player1);
-    bluePlayer1 = createSpriteForPlayer(blueInfo1, 58, 7, "w", gameState.teamColors.blue, false, BG_BLUE);
-    var bluePlayer1Data = new Player(
+    var blueInfo1 = getPlayerInfo(teamBTeam.players, bluePlayerIndices.player1);
+    teamBPlayer1 = createSpriteForPlayer(blueInfo1, 58, 7, "w", gameState.teamColors.teamB, false, BG_BLUE);
+    var teamBPlayer1Data = new Player(
         blueInfo1.name,
         blueInfo1.jersey,
         blueInfo1.attributes,
-        bluePlayer1,
+        teamBPlayer1,
         blueInfo1.shortNick
     );
-    bluePlayer1Data.skin = blueInfo1.skin || "brown";
-    bluePlayer1Data.jerseyString = blueInfo1.jerseyString !== undefined ? String(blueInfo1.jerseyString) : String(bluePlayer1Data.jersey);
-    bluePlayer1Data.position = (blueInfo1.position || "").toUpperCase();
-    bluePlayer1Data.hasDribble = true;
-    applyShoePaletteToPlayer(bluePlayer1);
+    teamBPlayer1Data.skin = blueInfo1.skin || "brown";
+    teamBPlayer1Data.jerseyString = blueInfo1.jerseyString !== undefined ? String(blueInfo1.jerseyString) : String(teamBPlayer1Data.jersey);
+    teamBPlayer1Data.position = (blueInfo1.position || "").toUpperCase();
+    teamBPlayer1Data.hasDribble = true;
+    applyShoePaletteToPlayer(teamBPlayer1);
 
-    var blueInfo2 = getPlayerInfo(blueTeam.players, bluePlayerIndices.player2);
-    bluePlayer2 = createSpriteForPlayer(blueInfo2, 58, 12, "w", gameState.teamColors.blue, false, BG_BLUE);
-    var bluePlayer2Data = new Player(
+    var blueInfo2 = getPlayerInfo(teamBTeam.players, bluePlayerIndices.player2);
+    teamBPlayer2 = createSpriteForPlayer(blueInfo2, 58, 12, "w", gameState.teamColors.teamB, false, BG_BLUE);
+    var teamBPlayer2Data = new Player(
         blueInfo2.name,
         blueInfo2.jersey,
         blueInfo2.attributes,
-        bluePlayer2,
+        teamBPlayer2,
         blueInfo2.shortNick
     );
-    bluePlayer2Data.skin = blueInfo2.skin || "brown";
-    bluePlayer2Data.jerseyString = blueInfo2.jerseyString !== undefined ? String(blueInfo2.jerseyString) : String(bluePlayer2Data.jersey);
-    bluePlayer2Data.position = (blueInfo2.position || "").toUpperCase();
-    bluePlayer2Data.hasDribble = true;
-    applyShoePaletteToPlayer(bluePlayer2);
+    teamBPlayer2Data.skin = blueInfo2.skin || "brown";
+    teamBPlayer2Data.jerseyString = blueInfo2.jerseyString !== undefined ? String(blueInfo2.jerseyString) : String(teamBPlayer2Data.jersey);
+    teamBPlayer2Data.position = (blueInfo2.position || "").toUpperCase();
+    teamBPlayer2Data.hasDribble = true;
+    applyShoePaletteToPlayer(teamBPlayer2);
 
     applyDefaultControllerLabels();
 
     ensureBallFrame();
 
     // Red team starts with ball - player 1 has it
-    gameState.ballCarrier = redPlayer1;
-    gameState.currentTeam = "red";
-    if (redPlayer1.playerData) redPlayer1.playerData.hasDribble = true;
-    if (redPlayer2.playerData) redPlayer2.playerData.hasDribble = true;
-    if (bluePlayer1.playerData) bluePlayer1.playerData.hasDribble = true;
-    if (bluePlayer2.playerData) bluePlayer2.playerData.hasDribble = true;
+    gameState.ballCarrier = teamAPlayer1;
+    gameState.currentTeam = "teamA";
+    if (teamAPlayer1.playerData) teamAPlayer1.playerData.hasDribble = true;
+    if (teamAPlayer2.playerData) teamAPlayer2.playerData.hasDribble = true;
+    if (teamBPlayer1.playerData) teamBPlayer1.playerData.hasDribble = true;
+    if (teamBPlayer2.playerData) teamBPlayer2.playerData.hasDribble = true;
 
     gameState.firstHalfStartTeam = gameState.currentTeam;
     gameState.secondHalfInitDone = false;
@@ -1272,19 +1277,19 @@ function initSprites(redTeamName, blueTeamName, redPlayerIndices, bluePlayerIndi
 }
 
 function getAllPlayers() {
-    return [redPlayer1, redPlayer2, bluePlayer1, bluePlayer2];
+    return [teamAPlayer1, teamAPlayer2, teamBPlayer1, teamBPlayer2];
 }
 
 function getRedTeam() {
-    return [redPlayer1, redPlayer2];
+    return [teamAPlayer1, teamAPlayer2];
 }
 
 function getBlueTeam() {
-    return [bluePlayer1, bluePlayer2];
+    return [teamBPlayer1, teamBPlayer2];
 }
 
 function getClosestPlayer(x, y, team) {
-    var players = team === "red" ? getRedTeam() : getBlueTeam();
+    var players = team === "teamA" ? getRedTeam() : getBlueTeam();
     var closest = players[0];
     var closestDist = 9999;
 
@@ -1301,16 +1306,16 @@ function getClosestPlayer(x, y, team) {
 }
 
 function getPlayerTeamName(player) {
-    if (player === redPlayer1 || player === redPlayer2) return "red";
-    if (player === bluePlayer1 || player === bluePlayer2) return "blue";
+    if (player === teamAPlayer1 || player === teamAPlayer2) return "teamA";
+    if (player === teamBPlayer1 || player === teamBPlayer2) return "teamB";
     return null;
 }
 
 function getPlayerTeammate(player) {
-    if (player === redPlayer1) return redPlayer2;
-    if (player === redPlayer2) return redPlayer1;
-    if (player === bluePlayer1) return bluePlayer2;
-    if (player === bluePlayer2) return bluePlayer1;
+    if (player === teamAPlayer1) return teamAPlayer2;
+    if (player === teamAPlayer2) return teamAPlayer1;
+    if (player === teamBPlayer1) return teamBPlayer2;
+    if (player === teamBPlayer2) return teamBPlayer1;
     return null;
 }
 
@@ -1387,11 +1392,11 @@ function maybeAwardAssist(scorer) {
 }
 
 function getTeamSprites(teamName) {
-    return teamName === "red" ? getRedTeam() : getBlueTeam();
+    return teamName === "teamA" ? getRedTeam() : getBlueTeam();
 }
 
 function getOpposingTeamSprites(teamName) {
-    return teamName === "red" ? getBlueTeam() : getRedTeam();
+    return teamName === "teamA" ? getBlueTeam() : getRedTeam();
 }
 
 function clamp(value, min, max) {
@@ -1624,7 +1629,7 @@ function getBallHandlerDeadElapsed() {
 
 function getSpriteDistanceToBasket(player, teamName) {
     if (!player) return 0;
-    var basket = teamName === "red"
+    var basket = teamName === "teamA"
         ? { x: BASKET_RIGHT_X, y: BASKET_RIGHT_Y }
         : { x: BASKET_LEFT_X, y: BASKET_LEFT_Y };
     return distanceBetweenPoints(player.x, player.y, basket.x, basket.y);
@@ -1647,13 +1652,13 @@ function getEffectiveAttribute(playerData, attrIndex) {
 /**
  * Check if player is in frontcourt or backcourt
  * @param {Object} player - The sprite to check
- * @param {string} teamName - "red" or "blue"
+ * @param {string} teamName - "teamA" or "teamB"
  * @returns {boolean} true if in backcourt
  */
 function isInBackcourt(player, teamName) {
     if (!player) return false;
     var courtMidX = Math.floor(COURT_WIDTH / 2);
-    if (teamName === "red") {
+    if (teamName === "teamA") {
         return player.x < courtMidX;
     } else {
         return player.x > courtMidX;
@@ -1664,7 +1669,7 @@ function isInBackcourt(player, teamName) {
  * Check if a pass would violate over-and-back rule
  * @param {Object} passer - Player with ball
  * @param {Object} receiver - Teammate to receive pass
- * @param {string} teamName - "red" or "blue"
+ * @param {string} teamName - "teamA" or "teamB"
  * @returns {boolean} true if pass would be over-and-back violation
  */
 function wouldBeOverAndBack(passer, receiver, teamName) {
@@ -1769,7 +1774,7 @@ function findOpenPassingLaneTarget(player, ballCarrier, teamName, myDefender) {
 
     var defenders = getOpposingTeamSprites(teamName) || [];
     var teammate = getTeammate(player, teamName);
-    var attackDirection = teamName === "red" ? 1 : -1;
+    var attackDirection = teamName === "teamA" ? 1 : -1;
     var aheadBuffer = 2;
 
     var candidates = [];
@@ -1883,10 +1888,10 @@ function resetPlayerDefenseMomentum(player) {
 }
 
 function resetAllDefenseMomentum() {
-    resetPlayerDefenseMomentum(redPlayer1);
-    resetPlayerDefenseMomentum(redPlayer2);
-    resetPlayerDefenseMomentum(bluePlayer1);
-    resetPlayerDefenseMomentum(bluePlayer2);
+    resetPlayerDefenseMomentum(teamAPlayer1);
+    resetPlayerDefenseMomentum(teamAPlayer2);
+    resetPlayerDefenseMomentum(teamBPlayer1);
+    resetPlayerDefenseMomentum(teamBPlayer2);
 }
 
 function cloneCourtSpot(spot) {
@@ -2042,10 +2047,10 @@ function evaluateMomentumCutPlan(player, teamName, attackDirection, context) {
 }
 
 function getPlayerKey(player) {
-    if (player === redPlayer1) return "redPlayer1";
-    if (player === redPlayer2) return "redPlayer2";
-    if (player === bluePlayer1) return "bluePlayer1";
-    if (player === bluePlayer2) return "bluePlayer2";
+    if (player === teamAPlayer1) return "teamAPlayer1";
+    if (player === teamAPlayer2) return "teamAPlayer2";
+    if (player === teamBPlayer1) return "teamBPlayer1";
+    if (player === teamBPlayer2) return "teamBPlayer2";
     return null;
 }
 
@@ -2085,7 +2090,7 @@ function findBestDriveLaneY(player, defenders, targetX) {
 
 function chooseBackcourtAdvanceTarget(player, teamName) {
     var midCourt = Math.floor(COURT_WIDTH / 2);
-    var desiredX = teamName === "red"
+    var desiredX = teamName === "teamA"
         ? clampToCourtX(Math.max(player.x + 12, midCourt + 10))
         : clampToCourtX(Math.min(player.x - 12, midCourt - 10));
 
@@ -2159,7 +2164,7 @@ function resetBackcourtState() {
 function isInBackcourt(player, teamName) {
     if (!player) return false;
     var midCourt = Math.floor(COURT_WIDTH / 2);
-    if (teamName === "red") {
+    if (teamName === "teamA") {
         return player.x < midCourt - 2;
     }
     return player.x > midCourt + 2;
@@ -2180,7 +2185,7 @@ function enforceBackcourtViolation(message) {
     resetBackcourtState();
     resetDeadDribbleTimer();
     clearPotentialAssist();
-    if (violatingTeam === "red" || violatingTeam === "blue") {
+    if (violatingTeam === "teamA" || violatingTeam === "teamB") {
         setupInbound(violatingTeam);
     } else {
         switchPossession();
@@ -2210,7 +2215,7 @@ function enforceFiveSecondViolation() {
     resetDeadDribbleTimer();
     resetBackcourtState();
     clearPotentialAssist();
-    if (violatingTeam === "red" || violatingTeam === "blue") {
+    if (violatingTeam === "teamA" || violatingTeam === "teamB") {
         setupInbound(violatingTeam);
     } else {
         switchPossession();
@@ -2255,7 +2260,7 @@ function primeInboundOffense(ballHandler, teammate, teamName) {
 // Get the offensive basket for a team
 function getOffensiveBasket(teamName) {
     // Red attacks right (BASKET_RIGHT), Blue attacks left (BASKET_LEFT)
-    return teamName === "red"
+    return teamName === "teamA"
         ? { x: BASKET_RIGHT_X, y: BASKET_RIGHT_Y }
         : { x: BASKET_LEFT_X, y: BASKET_LEFT_Y };
 }
@@ -2419,7 +2424,7 @@ function pickOffBallSpot(player, ballCarrier, teamName) {
 
     // PRIORITY 1: If ball carrier in backcourt, GO TO FRONTCOURT WING
     if (inBackcourt) {
-        return (player === redPlayer2 || player === bluePlayer1)
+        return (player === teamAPlayer2 || player === teamBPlayer1)
             ? spots.left_wing
             : spots.right_wing;
     }
@@ -2477,17 +2482,17 @@ function isLaneOpen(player, teamName) {
 
 // Get opposing team players
 function getOpposingTeam(teamName) {
-    return teamName === "red"
-        ? [bluePlayer1, bluePlayer2]
-        : [redPlayer1, redPlayer2];
+    return teamName === "teamA"
+        ? [teamBPlayer1, teamBPlayer2]
+        : [teamAPlayer1, teamAPlayer2];
 }
 
 // Get teammate
 function getTeammate(player) {
-    if (player === redPlayer1) return redPlayer2;
-    if (player === redPlayer2) return redPlayer1;
-    if (player === bluePlayer1) return bluePlayer2;
-    if (player === bluePlayer2) return bluePlayer1;
+    if (player === teamAPlayer1) return teamAPlayer2;
+    if (player === teamAPlayer2) return teamAPlayer1;
+    if (player === teamBPlayer1) return teamBPlayer2;
+    if (player === teamBPlayer2) return teamBPlayer1;
     return null;
 }
 
@@ -2556,15 +2561,15 @@ function handleAIBallCarrier(player, teamName) {
     if (!playerData) return;
 
     // Setup court coordinates
-    var targetBasketX = teamName === "red" ? BASKET_RIGHT_X : BASKET_LEFT_X;
+    var targetBasketX = teamName === "teamA" ? BASKET_RIGHT_X : BASKET_LEFT_X;
     var targetBasketY = BASKET_LEFT_Y;
-    var myBasketX = teamName === "red" ? BASKET_LEFT_X : BASKET_RIGHT_X;
-    var attackDirection = teamName === "red" ? 1 : -1;
+    var myBasketX = teamName === "teamA" ? BASKET_LEFT_X : BASKET_RIGHT_X;
+    var attackDirection = teamName === "teamA" ? 1 : -1;
 
     // Get game situation
     var inBackcourt = isInBackcourt(player, teamName);
     var distanceToBasket = distanceBetweenPoints(player.x, player.y, targetBasketX, targetBasketY);
-    var closestDefender = getClosestPlayer(player.x, player.y, teamName === "red" ? "blue" : "red");
+    var closestDefender = getClosestPlayer(player.x, player.y, teamName === "teamA" ? "teamB" : "teamA");
     var defenderDist = closestDefender ? getSpriteDistance(player, closestDefender) : 999;
     var closestDefenderDistToBasket = closestDefender ? getSpriteDistanceToBasket(closestDefender, teamName) : 999;
     var teammate = getTeammate(player, teamName);
@@ -2585,7 +2590,7 @@ function handleAIBallCarrier(player, teamName) {
 
     if (nearMyOwnBasket && inBackcourt) {
         // FAST BREAK - push the ball up court aggressively
-        var pushTargetX = teamName === "red" ? courtMidX + 15 : courtMidX - 15;
+        var pushTargetX = teamName === "teamA" ? courtMidX + 15 : courtMidX - 15;
         var pushTargetY = BASKET_LEFT_Y;
 
         // Always use turbo on fast break
@@ -2610,7 +2615,7 @@ function handleAIBallCarrier(player, teamName) {
     var isTrapped = nearbyDefenders >= 2 || defenderDist < 3;
 
     // Check if defender is playing too tight (exploitable for passing)
-    var opponentTeam = teamName === "red" ? "blue" : "red";
+    var opponentTeam = teamName === "teamA" ? "teamB" : "teamA";
     var defenderTooTight = isDefenderPlayingTooTight(player, opponentTeam);
 
     // === VIOLATION AVOIDANCE ===
@@ -2628,7 +2633,7 @@ function handleAIBallCarrier(player, teamName) {
 
     if (teammate) {
         var teammateDistToBasket = distanceBetweenPoints(teammate.x, teammate.y, targetBasketX, targetBasketY);
-        var teammateClosestDef = getClosestPlayer(teammate.x, teammate.y, teamName === "red" ? "blue" : "red");
+        var teammateClosestDef = getClosestPlayer(teammate.x, teammate.y, teamName === "teamA" ? "teamB" : "teamA");
         var teammateDefDist = teammateClosestDef ? getSpriteDistance(teammate, teammateClosestDef) : 999;
 
         // Check for over-and-back violation
@@ -2778,7 +2783,7 @@ function handleAIBallCarrier(player, teamName) {
     if (inBackcourt) {
         // MUST advance to frontcourt - ALWAYS aggressive
         var courtMidX = Math.floor(COURT_WIDTH / 2);
-        driveTargetX = teamName === "red" ? courtMidX + 10 : courtMidX - 10;
+        driveTargetX = teamName === "teamA" ? courtMidX + 10 : courtMidX - 10;
         driveTargetY = BASKET_LEFT_Y;
 
         // ALWAYS use turbo in backcourt to avoid 10-sec violation
@@ -2854,8 +2859,8 @@ function handleAIOffBallOffense(player, teamName) {
     if (!playerData) return;
 
     // Setup
-    var targetBasketX = teamName === "red" ? BASKET_RIGHT_X : BASKET_LEFT_X;
-    var attackDirection = teamName === "red" ? 1 : -1;
+    var targetBasketX = teamName === "teamA" ? BASKET_RIGHT_X : BASKET_LEFT_X;
+    var attackDirection = teamName === "teamA" ? 1 : -1;
     var courtMidX = Math.floor(COURT_WIDTH / 2);
 
     // === AI SHOVE EVALUATION (Offensive) ===
@@ -2878,11 +2883,11 @@ function handleAIOffBallOffense(player, teamName) {
     var amAhead = myDistToBasket < ballCarrierDistToBasket - 4;
 
     // Check my defender
-    var myDefender = getClosestPlayer(player.x, player.y, teamName === "red" ? "blue" : "red");
+    var myDefender = getClosestPlayer(player.x, player.y, teamName === "teamA" ? "teamB" : "teamA");
     var myDefDist = myDefender ? getSpriteDistance(player, myDefender) : 999;
 
     // Check if ball carrier is on fast break (near their own basket in backcourt)
-    var myBasketX = teamName === "red" ? BASKET_LEFT_X : BASKET_RIGHT_X;
+    var myBasketX = teamName === "teamA" ? BASKET_LEFT_X : BASKET_RIGHT_X;
     var ballCarrierDistFromOwnBasket = Math.abs(ballCarrier.x - myBasketX);
     var ballCarrierOnFastBreak = ballCarrierInBackcourt && ballCarrierDistFromOwnBasket < 15;
 
@@ -3015,7 +3020,7 @@ function handleAIOffBallOffense(player, teamName) {
     }
     // FALLBACK: Find spot on perimeter
     else {
-        var laneOffset = (player === redPlayer2 || player === bluePlayer2) ? 5 : -5;
+        var laneOffset = (player === teamAPlayer2 || player === teamBPlayer2) ? 5 : -5;
         targetX = clampToCourtX(targetBasketX - attackDirection * 12);
         targetY = clampToCourtY(BASKET_LEFT_Y + laneOffset);
     }
@@ -3049,8 +3054,8 @@ function handleAIDefense(player, teamName) {
     var playerData = player.playerData;
     if (!playerData) return;
 
-    var myBasketX = teamName === "red" ? BASKET_LEFT_X : BASKET_RIGHT_X;
-    var opponentBasketX = teamName === "red" ? BASKET_RIGHT_X : BASKET_LEFT_X;
+    var myBasketX = teamName === "teamA" ? BASKET_LEFT_X : BASKET_RIGHT_X;
+    var opponentBasketX = teamName === "teamA" ? BASKET_RIGHT_X : BASKET_LEFT_X;
 
     // === AI SHOVE EVALUATION (Defensive) ===
     var shoveOpportunity = evaluateDefensiveShoveOpportunity(player, teamName);
@@ -3067,12 +3072,12 @@ function handleAIDefense(player, teamName) {
     var courtMidX = Math.floor(COURT_WIDTH / 2);
 
     // If I'm closer to opponent's basket than my own OR in opponent's backcourt, sprint back
-    var inOpponentBackcourt = (teamName === "red" && player.x > courtMidX + 10) ||
-        (teamName === "blue" && player.x < courtMidX - 10);
+    var inOpponentBackcourt = (teamName === "teamA" && player.x > courtMidX + 10) ||
+        (teamName === "teamB" && player.x < courtMidX - 10);
 
     if (inOpponentBackcourt || myDistFromOpponentBasket < myDistFromMyBasket) {
         // SPRINT BACK TO DEFENSE with turbo
-        var getBackX = teamName === "red" ? courtMidX - 10 : courtMidX + 10;
+        var getBackX = teamName === "teamA" ? courtMidX - 10 : courtMidX + 10;
         var getBackY = BASKET_LEFT_Y;
 
         if (playerData.turbo > 10) {
@@ -3087,7 +3092,7 @@ function handleAIDefense(player, teamName) {
     // Special case: Crash boards for rebound when shot in progress
     if (gameState.shotInProgress) {
         var rimX = myBasketX;
-        var crashX = clampToCourtX(rimX + (teamName === "red" ? 4 : -4));
+        var crashX = clampToCourtX(rimX + (teamName === "teamA" ? 4 : -4));
         var crashY = clampToCourtY(BASKET_LEFT_Y);
         if (playerData.turbo > 10) {
             var crashDistance = distanceBetweenPoints(player.x, player.y, crashX, crashY);
@@ -3115,14 +3120,14 @@ function handleAIDefense(player, teamName) {
 
         // Simple zone: each defender covers half the court
         var courtMidX = Math.floor(COURT_WIDTH / 2);
-        var leftZone = teamName === "red";
+        var leftZone = teamName === "teamA";
 
         // Ball carrier in my zone? Guard them. Otherwise, patrol zone.
         var ballCarrierInMyZone = leftZone ? (ballCarrier.x < courtMidX) : (ballCarrier.x >= courtMidX);
 
         if (ballCarrierInMyZone) {
             // Guard ball carrier in my zone
-            var interceptX = clampToCourtX(ballCarrier.x - (teamName === "red" ? 2 : -2));
+            var interceptX = clampToCourtX(ballCarrier.x - (teamName === "teamA" ? 2 : -2));
             var interceptY = clampToCourtY(ballCarrier.y);
             moveAITowards(player, interceptX, interceptY);
         } else {
@@ -3372,164 +3377,6 @@ function moveAITowards(sprite, targetX, targetY) {
     }
 }
 
-function showHalftimeScreen() {
-    gameState.isHalftime = true;
-
-    // MULTIPLAYER: Broadcast halftime event to all clients
-    if (mpCoordinator && mpCoordinator.isCoordinator) {
-        mpCoordinator.broadcastGameState({
-            type: 'halftime_start',
-            currentHalf: gameState.currentHalf,
-            redScore: gameState.score.red,
-            blueScore: gameState.score.blue,
-            timeRemaining: gameState.timeRemaining,
-            timestamp: Date.now()
-        });
-    }
-
-    positionSpritesForBoxScore();
-    courtFrame.clear();
-    courtFrame.gotoxy(1, 1);
-
-    var redName = gameState.teamNames.red;
-    var blueName = gameState.teamNames.blue;
-    var redColorCode = gameState.teamColors.red.fg_accent_code || gameState.teamColors.red.fg_code || "\1h\1w";
-    var blueColorCode = gameState.teamColors.blue.fg_accent_code || gameState.teamColors.blue.fg_code || "\1h\1w";
-    var whiteCode = "\1h\1w";
-
-    courtFrame.center("\r\n\r\n");
-    courtFrame.center("\1h\1y HALFTIME \1n\r\n\r\n");
-
-    // Show current score
-    courtFrame.center(
-        whiteCode + "Halftime Score: " +
-        redColorCode + redName + " " + gameState.score.red +
-        whiteCode + " - " +
-        blueColorCode + blueName + " " + gameState.score.blue +
-        "\1n\r\n\r\n"
-    );
-
-    // Show halftime stats
-    renderTeamBoxScore("red", redName, { halftime: true });
-    courtFrame.center("\r\n");
-    renderTeamBoxScore("blue", blueName, { halftime: true });
-
-    courtFrame.center("\r\n\1h[S]\1n Substitutions  \1h[SPACE]\1n Continue to 2nd Half\r\n");
-
-    if (typeof Sprite !== "undefined" && typeof Sprite.cycle === "function") {
-        Sprite.cycle();
-    }
-    cycleFrame(courtFrame);
-
-    // Wait for user input (auto-advance for CPU-only games)
-    var halftimeStart = Date.now();
-    var autoAdvance = !!gameState.allCPUMode;
-    while (true) {
-        var key = console.inkey(K_NONE, 100);
-
-        if (key && key.length > 0) {
-            var keyUpper = key.toUpperCase();
-            if (keyUpper === 'S') {
-                // Show substitution screen
-                if (showSubstitutionScreen()) {
-                    break; // User made substitutions and wants to continue
-                }
-            } else if (key === ' ') {
-                break; // Continue to second half
-            } else if (keyUpper === 'Q') {
-                gameState.gameRunning = false;
-                return;
-            }
-        } else if (autoAdvance && (Date.now() - halftimeStart) >= 10000) {
-            break; // Auto-continue for CPU games after 10 seconds
-        }
-    }
-
-    // Prepare for second half
-    gameState.isHalftime = false;
-    // Don't reset timeRemaining - let it continue counting down from current time
-
-    gameState.pendingSecondHalfInbound = true;
-    gameState.secondHalfInitDone = false;
-
-    // CPU substitutions (simple random)
-    performCPUSubstitutions();
-
-    announceEvent("tipoff", {
-        teamA: (gameState.teamNames.red || "RED").toUpperCase(),
-        teamB: (gameState.teamNames.blue || "BLUE").toUpperCase(),
-        team: gameState.currentTeam
-    });
-
-    // Coordinator: Skip blocking wait
-    if (!(mpCoordinator && mpCoordinator.isCoordinator)) {
-        mswait(1500);
-    }
-}
-
-function renderHalftimeStats(teamKey) {
-    var players = teamKey === "red" ? getRedTeam() : getBlueTeam();
-    var teamColorInfo = gameState.teamColors[teamKey] || {};
-    var jerseyColor = teamColorInfo.fg_code || "\1h\1w";
-    var whiteCode = "\1h\1w";
-
-    for (var i = 0; i < players.length; i++) {
-        var player = players[i];
-        if (!player || !player.playerData) continue;
-
-        var data = player.playerData;
-        var stats = data.stats || {};
-        var name = getLastName(data.name || "");
-        var nameDisplay = jerseyColor + "#" + data.jersey + " " + name + whiteCode;
-
-        var statLine = nameDisplay + ": " + (stats.points || 0) + "pts, " +
-            (stats.assists || 0) + "ast, " + (stats.rebounds || 0) + "reb";
-
-        courtFrame.center(statLine + "\1n\r\n");
-    }
-}
-
-function showSubstitutionScreen() {
-    // For now, just show a simple message - player substitution coming in future enhancement
-    courtFrame.clear();
-    courtFrame.center("\r\n\r\n\r\n");
-    courtFrame.center("\1h\1y SUBSTITUTIONS \1n\r\n\r\n");
-    courtFrame.center("Player substitutions will be available\r\n");
-    courtFrame.center("in a future update!\r\n\r\n");
-    courtFrame.center("\1h[SPACE]\1n Continue to 2nd Half\r\n");
-    cycleFrame(courtFrame);
-
-    while (true) {
-        var key = console.getkey();
-        if (key === ' ') {
-            return true;
-        } else if (key.toUpperCase() === 'Q') {
-            gameState.gameRunning = false;
-            return false;
-        }
-    }
-}
-
-function performCPUSubstitutions() {
-    // Simple CPU substitution logic - randomly substitute players with low performance
-    var blueTeam = getBlueTeam();
-    for (var i = 0; i < blueTeam.length; i++) {
-        var player = blueTeam[i];
-        if (player && player.playerData && player.playerData.stats) {
-            var stats = player.playerData.stats;
-            var performance = (stats.points || 0) + (stats.assists || 0) + (stats.rebounds || 0);
-
-            // 30% chance to substitute if performance is low
-            if (performance < 5 && Math.random() < 0.3) {
-                // For now, just reset their turbo (simulation of fresh legs)
-                player.playerData.turbo = MAX_TURBO;
-                player.playerData.heatStreak = 0;
-                player.playerData.fireMakeStreak = 0;
-            }
-        }
-    }
-}
-
 /**
  * Unified violation checking logic
  * Extracted from duplicate code in single-player and multiplayer loops
@@ -3603,8 +3450,8 @@ function gameLoop() {
     drawCourt();
     drawScore();
     announceEvent("game_start", {
-        teamA: (gameState.teamNames.red || "RED").toUpperCase(),
-        teamB: (gameState.teamNames.blue || "BLUE").toUpperCase()
+        teamA: (gameState.teamNames.teamA || "TEAM A").toUpperCase(),
+        teamB: (gameState.teamNames.teamB || "TEAM B").toUpperCase()
     });
 
     while (gameState.gameRunning && gameState.timeRemaining > 0) {
@@ -3658,7 +3505,7 @@ function gameLoop() {
                 );
 
                 // If ball handler barely moved (less than 3 units), increment stuck timer
-                var opponentTeamName = (gameState.currentTeam === "red") ? "blue" : "red";
+                var opponentTeamName = (gameState.currentTeam === "teamA") ? "teamB" : "teamA";
                 var closestDefender = getClosestPlayer(ballHandler.x, ballHandler.y, opponentTeamName);
                 var guardDistance = closestDefender ? getSpriteDistance(ballHandler, closestDefender) : 999;
                 var closelyGuarded = guardDistance <= 4;
@@ -3726,7 +3573,7 @@ function gameLoop() {
                 }
 
                 // Track frontcourt progress for smarter passing
-                var attackDir = (gameState.currentTeam === "red") ? 1 : -1;
+                var attackDir = (gameState.currentTeam === "teamA") ? 1 : -1;
                 if (gameState.ballHandlerProgressOwner !== ballHandler) {
                     gameState.ballHandlerProgressOwner = ballHandler;
                     gameState.ballHandlerFrontcourtStartX = ballHandler.x;
@@ -3950,473 +3797,12 @@ function gameLoop() {
     gameState.gameRunning = false;
 }
 
-// Generic action handlers for multiplayer
-function handleActionButton(player) {
-    if (!player || !player.playerData) return;
-    if (player.playerData.stealRecoverFrames > 0) return;
-
-    var playerTeam = getPlayerTeamName(player);
-    if (!playerTeam) return;
-
-    if (gameState.currentTeam === playerTeam && gameState.ballCarrier === player) {
-        // Player has ball - attempt shot
-        attemptShot();
-    } else if (gameState.currentTeam !== playerTeam) {
-        // On defense - attempt block
-        var defenderDir = null;
-        if (gameState.ballCarrier) {
-            defenderDir = gameState.ballCarrier.x >= player.x ? 1 : -1;
-        }
-        attemptBlock(player, { direction: defenderDir });
-    }
-}
-
-function handleSecondaryButton(player) {
-    if (!player || !player.playerData) return;
-    if (player.playerData.stealRecoverFrames > 0) return;
-
-    var playerTeam = getPlayerTeamName(player);
-    if (!playerTeam) return;
-
-    if (gameState.currentTeam === playerTeam) {
-        // On offense - pass to teammate
-        var teammate = getPlayerTeammate(player);
-        if (gameState.ballCarrier === player && teammate) {
-            animatePass(player, teammate);
-        } else if (gameState.ballCarrier === teammate && teammate) {
-            animatePass(teammate, player);
-        }
-    } else {
-        // On defense - attempt steal
-        attemptUserSteal(player);
-    }
-}
-
-function handleDribbleButton(player) {
-    if (!player || !player.playerData) return;
-    if (player.playerData.stealRecoverFrames > 0) return;
-
-    var playerTeam = getPlayerTeamName(player);
-    if (!playerTeam) return;
-
-    if (gameState.currentTeam === playerTeam && gameState.ballCarrier === player) {
-        pickUpDribble(player);
-    } else if (gameState.currentTeam !== playerTeam) {
-        attemptShake(player);
-    }
-}
-
-function handleInput(key) {
-    if (key.toUpperCase() === 'Q') {
-        gameState.gameRunning = false;
-        return;
-    }
-
-    var keyUpper = key.toUpperCase();
-
-    if (keyUpper === 'M') {
-        togglePossessionBeep();
-        return;
-    }
-
-    var recovering = (redPlayer1 && redPlayer1.playerData && redPlayer1.playerData.stealRecoverFrames > 0);
-
-    // Space bar - shoot on offense, block on defense
-    if (key === ' ') {
-        if (recovering) return;
-        if (gameState.currentTeam === "red" && (gameState.ballCarrier === redPlayer1 || gameState.ballCarrier === redPlayer2)) {
-            attemptShot();
-        } else {
-            var defenderDir = null;
-            if (gameState.ballCarrier) {
-                defenderDir = gameState.ballCarrier.x >= redPlayer1.x ? 1 : -1;
-            }
-            attemptBlock(redPlayer1, {
-                direction: defenderDir
-            });
-        }
-        return;
-    }
-
-    // S key - pass to/from teammate OR steal (on defense)
-    if (keyUpper === 'S') {
-        if (recovering) return;
-        if (gameState.currentTeam === "red" && gameState.ballCarrier === redPlayer1) {
-            // Human has ball - pass to teammate
-            animatePass(redPlayer1, redPlayer2);
-        } else if (gameState.currentTeam === "red" && gameState.ballCarrier === redPlayer2) {
-            // Teammate has ball - command them to pass back
-            animatePass(redPlayer2, redPlayer1);
-        } else if (gameState.currentTeam !== "red") {
-            // On defense - attempt steal
-            attemptUserSteal(redPlayer1);
-        }
-        return;
-    }
-
-    if (keyUpper === 'D') {
-        if (recovering) return;
-
-        // REBOUND SCRAMBLE: Allow user to shove during rebounds
-        if (gameState.reboundActive) {
-            // Find closest opponent to shove
-            var allPlayers = [redPlayer1, redPlayer2, bluePlayer1, bluePlayer2];
-            var closestOpponent = null;
-            var closestDist = 999;
-
-            for (var i = 0; i < allPlayers.length; i++) {
-                var other = allPlayers[i];
-                if (!other || other === redPlayer1) continue;
-                var otherTeam = getPlayerTeamName(other);
-                if (otherTeam === "red") continue; // Skip teammate
-
-                var dist = getSpriteDistance(redPlayer1, other);
-                if (dist < closestDist) {
-                    closestDist = dist;
-                    closestOpponent = other;
-                }
-            }
-
-            if (closestOpponent) {
-                attemptShove(redPlayer1, closestOpponent);
-            }
-            return;
-        }
-
-        // OFFENSE WITH BALL: Pick up dribble or shake
-        if (gameState.currentTeam === "red" && gameState.ballCarrier === redPlayer1) {
-            if (redPlayer1.playerData && redPlayer1.playerData.hasDribble !== false) {
-                pickUpDribble(redPlayer1, "user");
-            } else {
-                attemptShake(redPlayer1);
-            }
-        }
-        // OFFENSE WITHOUT BALL: Shove nearby defender to create space
-        else if (gameState.currentTeam === "red" && gameState.ballCarrier !== redPlayer1) {
-            // Find closest opponent to shove
-            var allPlayers = [redPlayer1, redPlayer2, bluePlayer1, bluePlayer2];
-            var closestOpponent = null;
-            var closestDist = 999;
-
-            for (var i = 0; i < allPlayers.length; i++) {
-                var other = allPlayers[i];
-                if (!other || other === redPlayer1) continue;
-                var otherTeam = getPlayerTeamName(other);
-                if (otherTeam === "red") continue; // Skip teammate
-
-                var dist = getSpriteDistance(redPlayer1, other);
-                if (dist < closestDist) {
-                    closestDist = dist;
-                    closestOpponent = other;
-                }
-            }
-
-            if (closestOpponent) {
-                attemptShove(redPlayer1, closestOpponent);
-            }
-        }
-        // DEFENSE: Shove ball carrier (or nearby opponent if not near ball)
-        else {
-            // Try to shove ball carrier first, or nearest opponent
-            var target = gameState.ballCarrier;
-            if (!target || getSpriteDistance(redPlayer1, target) > 2.5) {
-                // Ball carrier too far - find closest opponent
-                var allPlayers = [redPlayer1, redPlayer2, bluePlayer1, bluePlayer2];
-                var closestOpponent = null;
-                var closestDist = 999;
-
-                for (var i = 0; i < allPlayers.length; i++) {
-                    var other = allPlayers[i];
-                    if (!other || other === redPlayer1) continue;
-                    var otherTeam = getPlayerTeamName(other);
-                    if (otherTeam === "red") continue; // Skip teammate
-
-                    var dist = getSpriteDistance(redPlayer1, other);
-                    if (dist < closestDist) {
-                        closestDist = dist;
-                        closestOpponent = other;
-                    }
-                }
-
-                if (closestOpponent) {
-                    target = closestOpponent;
-                }
-            }
-
-            if (target) {
-                attemptShove(redPlayer1, target);
-            }
-        }
-        return;
-    }
-
-    // Detect turbo (rapid repeated arrow key presses)
-    var now = Date.now();
-    var isArrowKey = (key == KEY_UP || key == KEY_DOWN || key == KEY_LEFT || key == KEY_RIGHT);
-
-    if (recovering && isArrowKey) {
-        return;
-    }
-
-    if (isArrowKey) {
-        if (gameState.lastKey == key && (now - gameState.lastKeyTime) < TURBO_ACTIVATION_THRESHOLD) {
-            // Turbo activated!
-            if (redPlayer1 && redPlayer1.playerData && redPlayer1.playerData.turbo > 0) {
-                redPlayer1.playerData.turboActive = true;
-                redPlayer1.playerData.useTurbo(TURBO_DRAIN_RATE);
-            }
-        } else {
-            // Turn off turbo
-            if (redPlayer1 && redPlayer1.playerData) {
-                redPlayer1.playerData.turboActive = false;
-            }
-        }
-        gameState.lastKey = key;
-        gameState.lastKeyTime = now;
-    }
-
-    // Always control redPlayer1 (human) - execute moves based on speed
-    if (redPlayer1 && isArrowKey) {
-        var budget = createMovementCounters(redPlayer1);
-        if (budget.moves > 0) {
-            var counters = {
-                horizontal: Math.max(0, budget.horizontal),
-                vertical: Math.max(0, budget.vertical)
-            };
-            for (var m = 0; m < budget.moves; m++) {
-                if (!applyMovementCommand(redPlayer1, key, counters)) break;
-            }
-        }
-    } else if (redPlayer1 && !recovering) {
-        // Non-movement keys (pass, shoot, etc)
-        redPlayer1.getcmd(key);
-    }
-}
-
-// Check if any defenders are playing too tight on the ball handler (exploitable situation)
-function restoreIndicatorEntry(entry) {
-    if (!entry || !courtFrame) return;
-    var rx = entry.x;
-    var ry = entry.y;
-    if (rx < 1 || rx > COURT_WIDTH || ry < 1 || ry > COURT_HEIGHT) return;
-    var ch = (entry.origCh !== undefined && entry.origCh !== null) ? entry.origCh : " ";
-    var attr = (entry.origAttr !== undefined && entry.origAttr !== null) ? entry.origAttr : (WHITE | WAS_BROWN);
-    courtFrame.gotoxy(rx, ry);
-    courtFrame.putmsg(ch, attr);
-}
-
-function redrawIndicatorEntry(entry) {
-    if (!entry || !courtFrame) return;
-    var rx = entry.x;
-    var ry = entry.y;
-    if (rx < 1 || rx > COURT_WIDTH || ry < 1 || ry > COURT_HEIGHT) return;
-    courtFrame.gotoxy(rx, ry);
-    courtFrame.putmsg(entry.char, entry.color);
-}
-
-function addIndicatorEntry(list, x, y, ch, color) {
-    if (!courtFrame) return null;
-    for (var i = 0; i < list.length; i++) {
-        if (list[i].x === x && list[i].y === y && list[i].char === ch) {
-            list[i].color = color;
-            redrawIndicatorEntry(list[i]);
-            return list[i];
-        }
-    }
-
-    var cell = courtFrame.getData(x - 1, y - 1, false) || {};
-    var entry = {
-        x: x,
-        y: y,
-        char: ch,
-        color: color,
-        origCh: cell.ch,
-        origAttr: cell.attr
-    };
-    list.push(entry);
-    redrawIndicatorEntry(entry);
-    return entry;
-}
-
-function drawIndicatorPattern(list, baseX, y, pattern, color) {
-    if (!courtFrame) return;
-    if (y < 1 || y > COURT_HEIGHT) return;
-    if (pattern === undefined || pattern === null || pattern === "") {
-        pattern = "^";
-    }
-    var startX = baseX;
-    for (var i = 0; i < pattern.length; i++) {
-        var ch = pattern.charAt(i);
-        if (ch === " ") continue;
-        var drawX = startX + i;
-        if (drawX < 1 || drawX > COURT_WIDTH) continue;
-        addIndicatorEntry(list, drawX, y, ch, color);
-    }
-}
-
-function redrawIndicatorList(list) {
-    for (var i = 0; i < list.length; i++) {
-        redrawIndicatorEntry(list[i]);
-    }
-}
-
-function restoreIndicatorList(list) {
-    for (var i = 0; i < list.length; i++) {
-        restoreIndicatorEntry(list[i]);
-    }
-    list.length = 0;
-}
-
-function computeIndicatorColumn(direction, leftX, rightX, phase) {
-    if (!direction) direction = -1; // default lean left
-    if (phase === "ascend") {
-        return direction > 0 ? clamp(leftX - 1, 1, COURT_WIDTH) : clamp(rightX + 1, 1, COURT_WIDTH);
-    }
-    return direction > 0 ? clamp(rightX + 1, 1, COURT_WIDTH) : clamp(leftX - 1, 1, COURT_WIDTH);
-}
-
-function ensureJumpIndicatorData(sprite) {
-    if (!sprite.jumpIndicatorData) {
-        sprite.jumpIndicatorData = {
-            ascend: [],
-            descent: [],
-            apexGenerated: false,
-            direction: 0
-        };
-    }
-    return sprite.jumpIndicatorData;
-}
-
-function prepareDescentIndicators(sprite, data, options) {
-    if (data.apexGenerated) return;
-    data.apexGenerated = true;
-    restoreIndicatorList(data.descent);
-
-    var direction = data.direction || options.horizontalDir || 0;
-    var spriteWidth = options.spriteWidth;
-    var spriteHeight = options.spriteHeight;
-    var spriteHalfWidth = (options.spriteHalfWidth !== undefined) ? options.spriteHalfWidth : Math.floor(spriteWidth / 2);
-    var spriteHalfHeight = (options.spriteHalfHeight !== undefined) ? options.spriteHalfHeight : Math.floor(spriteHeight / 2);
-    var frames = options.flightFrames;
-    var frameIndex = options.frameIndex;
-    var added = 0;
-    var limit = 8;
-    var pattern = options.patternDescend || "v";
-
-    if (frames && typeof frameIndex === "number") {
-        var baseAttr = DARKGRAY | WAS_BROWN;
-        for (var i = frameIndex + 1; i < frames.length && added < limit; i++) {
-            var frame = frames[i];
-            var leftX = clamp(Math.round(frame.centerX) - spriteHalfWidth, 1, COURT_WIDTH);
-            var rightX = clamp(leftX + spriteWidth - 1, 1, COURT_WIDTH);
-            var computedBase = computeIndicatorColumn(direction, leftX, rightX, "descend");
-            var baseColumn = (options.baseColumn !== undefined) ? options.baseColumn : computedBase;
-            var projectedBottom = Math.round(frame.centerY) + spriteHalfHeight;
-            var markerY = projectedBottom + 1;
-            if (markerY > options.groundBottom) markerY = options.groundBottom;
-            markerY = clamp(markerY, 1, COURT_HEIGHT);
-            if (markerY < 1 || markerY > COURT_HEIGHT) continue;
-            var trailAttr = getOnFireTrailAttr(sprite, i, baseAttr);
-            drawIndicatorPattern(data.descent, baseColumn, markerY, pattern, trailAttr);
-            added++;
-        }
-    }
-
-    if (!added) {
-        var currentBottom = options.currentBottom;
-        var left = sprite.x;
-        var right = sprite.x + spriteWidth - 1;
-        var computedBase = computeIndicatorColumn(direction, left, right, "descend");
-        var baseColumn = (options.baseColumn !== undefined) ? options.baseColumn : computedBase;
-        var steps = Math.min(limit, Math.max(0, options.groundBottom - currentBottom));
-        for (var step = 1; step <= steps; step++) {
-            var markerY = currentBottom + step;
-            if (markerY > options.groundBottom) markerY = options.groundBottom;
-            markerY = clamp(markerY, 1, COURT_HEIGHT);
-            if (markerY < 1 || markerY > COURT_HEIGHT) break;
-            var descendAttr = getOnFireTrailAttr(sprite, step, DARKGRAY | WAS_BROWN);
-            drawIndicatorPattern(data.descent, baseColumn, markerY, pattern, descendAttr);
-            if (markerY >= options.groundBottom) break;
-        }
-    }
-}
-
-function pruneDescentIndicators(data, currentBottom) {
-    for (var i = data.descent.length - 1; i >= 0; i--) {
-        var entry = data.descent[i];
-        if (entry.y <= currentBottom) {
-            restoreIndicatorEntry(entry);
-            data.descent.splice(i, 1);
-        }
-    }
-}
-
-function updateJumpIndicator(sprite, options) {
-    if (!sprite || !courtFrame) return;
-    var data = ensureJumpIndicatorData(sprite);
-
-    if (typeof options.horizontalDir === "number" && options.horizontalDir !== 0) {
-        data.direction = options.horizontalDir;
-    }
-
-    var spriteWidth = options.spriteWidth;
-    if (!spriteWidth) {
-        spriteWidth = (sprite.frame && sprite.frame.width) ? sprite.frame.width : 4;
-    }
-    var spriteHeight = options.spriteHeight;
-    if (!spriteHeight) {
-        spriteHeight = (sprite.frame && sprite.frame.height) ? sprite.frame.height : 4;
-    }
-    var spriteHalfWidth = (options.spriteHalfWidth !== undefined) ? options.spriteHalfWidth : Math.floor(spriteWidth / 2);
-    var spriteHalfHeight = (options.spriteHalfHeight !== undefined) ? options.spriteHalfHeight : Math.floor(spriteHeight / 2);
-    var left = sprite.x;
-    var right = sprite.x + spriteWidth - 1;
-    var patternAsc = options.patternAscend || "^";
-    var patternDesc = options.patternDescend || "v";
-
-    if (options.ascending) {
-        data.apexGenerated = false;
-        if (options.currentBottom < options.groundBottom) {
-            var computedBase = computeIndicatorColumn(data.direction, left, right, "ascend");
-            var baseColumn = (options.baseColumn !== undefined) ? options.baseColumn : computedBase;
-            var markerY = options.currentBottom + 1;
-            if (markerY > options.groundBottom) markerY = options.groundBottom;
-            markerY = clamp(markerY, 1, COURT_HEIGHT);
-            if (markerY >= 1 && markerY <= COURT_HEIGHT) {
-                var ascendAttr = getOnFireTrailAttr(sprite, options.frameIndex || 0, DARKGRAY | WAS_BROWN);
-                drawIndicatorPattern(data.ascend, baseColumn, markerY, patternAsc, ascendAttr);
-            }
-        }
-    } else {
-        options.spriteWidth = spriteWidth;
-        options.spriteHeight = spriteHeight;
-        options.spriteHalfWidth = spriteHalfWidth;
-        options.spriteHalfHeight = spriteHalfHeight;
-        options.patternDescend = patternDesc;
-        prepareDescentIndicators(sprite, data, options);
-        pruneDescentIndicators(data, options.currentBottom);
-    }
-
-    redrawIndicatorList(data.ascend);
-    redrawIndicatorList(data.descent);
-}
-
-function clearJumpIndicator(sprite) {
-    if (!sprite || !sprite.jumpIndicatorData) return;
-    if (!courtFrame) {
-        sprite.jumpIndicatorData = null;
-        return;
-    }
-    restoreIndicatorList(sprite.jumpIndicatorData.ascend);
-    restoreIndicatorList(sprite.jumpIndicatorData.descent);
-    sprite.jumpIndicatorData = null;
-}
-
+// === GAME MECHANICS ===
 function pickUpDribble(player, reason) {
     if (!player || !player.playerData) return;
     if (player.playerData.hasDribble === false) return;
     player.playerData.hasDribble = false;
-    if (player === redPlayer1 && reason === "user") {
+    if (player === teamAPlayer1 && reason === "user") {
         announceEvent("dribble_pickup", {
             player: player,
             team: getPlayerTeamName(player),
@@ -4649,580 +4035,8 @@ function getBearingVector(bearing) {
 // Evaluate offensive shove opportunities per shove_documentation.md
 // Evaluate defensive shove opportunities per shove_documentation.md
 // Trigger defensive rotation when a defender is shoved (per shove_documentation.md)
-function positionSpritesForBoxScore() {
-    var marginX = 2;
-    var spriteWidth = 5;
-    var leftX = clampToCourtX(marginX);
-    // Move right-side players further right to avoid covering injury stats (no clamping needed for scoreboard)
-    var rightX = COURT_WIDTH - spriteWidth;
-    var topYPrimary = clampToCourtY(3);
-    var topYSecondary = clampToCourtY(6);
-    var bottomYPrimary = clampToCourtY(COURT_HEIGHT - 8);
-    var bottomYSecondary = clampToCourtY(COURT_HEIGHT - 5);
 
-    if (redPlayer1 && typeof redPlayer1.moveTo === "function") {
-        redPlayer1.moveTo(leftX, topYPrimary);
-        renderPlayerLabel(redPlayer1, { highlightCarrier: false, forceTop: true });
-    }
-    if (redPlayer2 && typeof redPlayer2.moveTo === "function") {
-        redPlayer2.moveTo(rightX, topYSecondary);
-        renderPlayerLabel(redPlayer2, { highlightCarrier: false, forceTop: true });
-    }
-    if (bluePlayer1 && typeof bluePlayer1.moveTo === "function") {
-        bluePlayer1.moveTo(leftX, bottomYPrimary);
-        renderPlayerLabel(bluePlayer1, { highlightCarrier: false, forceTop: true });
-    }
-    if (bluePlayer2 && typeof bluePlayer2.moveTo === "function") {
-        bluePlayer2.moveTo(rightX, bottomYSecondary);
-        renderPlayerLabel(bluePlayer2, { highlightCarrier: false, forceTop: true });
-    }
-    if (typeof moveBallFrameTo === "function") {
-        var ballX = COURT_WIDTH - 2;
-        var ballY = 2;
-        var safeX = clamp(ballX, 1, COURT_WIDTH);
-        var safeY = clamp(ballY, 1, COURT_HEIGHT);
-        moveBallFrameTo(safeX, safeY);
-        gameState.ballX = safeX;
-        gameState.ballY = safeY;
-    }
-}
-
-function showGameOver(isDemoMode) {
-    courtFrame.clear();
-    positionSpritesForBoxScore();
-    courtFrame.gotoxy(1, 1);
-
-    courtFrame.center("\r\n\r\n");
-    courtFrame.center("\1h\1y GAME OVER\1n\r\n\r\n");
-
-    var redName = gameState.teamNames && gameState.teamNames.red ? gameState.teamNames.red : "RED";
-    var blueName = gameState.teamNames && gameState.teamNames.blue ? gameState.teamNames.blue : "BLUE";
-    var redColorCode = gameState.teamColors.red.fg_accent_code || gameState.teamColors.red.fg_code || "\1h\1w";
-    var blueColorCode = gameState.teamColors.blue.fg_accent_code || gameState.teamColors.blue.fg_code || "\1h\1w";
-    var whiteCode = "\1h\1w";
-
-    if (gameState.score.red > gameState.score.blue) {
-        courtFrame.center(redColorCode + " " + redName.toUpperCase() + " WIN!\1n\r\n");
-    } else if (gameState.score.blue > gameState.score.red) {
-        courtFrame.center(blueColorCode + " " + blueName.toUpperCase() + " WIN!\1n\r\n");
-    } else {
-        courtFrame.center("\1h\1yTIE GAME!\1n\r\n");
-    }
-
-    courtFrame.center("\r\n");
-    courtFrame.center(
-        whiteCode + "Final Score: " +
-        redColorCode + redName + " " + gameState.score.red +
-        whiteCode + " - " +
-        blueColorCode + blueName + " " + gameState.score.blue +
-        "\1n\r\n"
-    );
-    courtFrame.center("\r\n");
-
-    renderTeamBoxScore("red", redName, { halftime: false });
-    courtFrame.center("\r\n");
-    renderTeamBoxScore("blue", blueName, { halftime: false });
-
-    if (isDemoMode) {
-        courtFrame.center("\r\n\1hStarting new demo in 15 seconds...\1n\r\n");
-        courtFrame.center("\1h[Q]\1n Quit to Menu\r\n");
-    } else {
-        courtFrame.center("\r\n\1h[SPACE]\1n Play Again  \1h[T]\1n New Teams  \1h[Q]\1n Quit to Menu\r\n");
-    }
-
-    if (typeof Sprite !== "undefined" && typeof Sprite.cycle === "function") {
-        Sprite.cycle();
-    }
-    cycleFrame(courtFrame);
-
-    if (isDemoMode) {
-        // Demo mode: wait 15 seconds or until user presses Q
-        var startTime = Date.now();
-        var timeoutMs = 15000; // 15 seconds
-
-        while (Date.now() - startTime < timeoutMs) {
-            var key = console.inkey(K_NONE, 100);
-            if (key && key.toUpperCase() === 'Q') {
-                return "quit";
-            }
-        }
-        return "newdemo"; // Start new demo
-    } else {
-        // Player mode: wait for choice
-        while (true) {
-            var key = console.getkey();
-            if (!key) continue;
-
-            var keyUpper = key.toUpperCase();
-            if (key === ' ') {
-                return "playagain"; // Same teams, play again
-            } else if (keyUpper === 'T') {
-                return "newteams"; // Select new teams
-            } else if (keyUpper === 'Q') {
-                return "quit"; // Quit to main menu
-            }
-        }
-    }
-}
-
-var BOX_SCORE_COLUMNS = [
-    { key: "fgm", label: "FGM" },
-    { key: "fga", label: "FGA" },
-    { key: "tpm", label: "3PM" },
-    { key: "tpa", label: "3PA" },
-    { key: "points", label: "PTS" },
-    { key: "assists", label: "AST" },
-    { key: "steals", label: "STL" },
-    { key: "rebounds", label: "REB" },
-    { key: "blocks", label: "BLK" },
-    { key: "dunks", label: "DNK" },
-    { key: "turnovers", label: "TO", skipLeader: true },
-    { key: "injuryCount", label: "INJ", isRaw: true, skipLeader: true }
-];
-
-function collectGlobalStatLeaders() {
-    var leaders = {};
-    var allPlayers = getAllPlayers();
-    for (var c = 0; c < BOX_SCORE_COLUMNS.length; c++) {
-        var column = BOX_SCORE_COLUMNS[c];
-        var key = column.key;
-        var maxValue = -Infinity;
-
-        // For negative stats like turnovers and injuries, we want to track the highest value
-        var isNegativeStat = (key === "turnovers" || key === "injuryCount");
-
-        for (var i = 0; i < allPlayers.length; i++) {
-            var player = allPlayers[i];
-            if (!player || !player.playerData) continue;
-
-            var value;
-            if (column.isRaw) {
-                value = player.playerData[key] || 0;
-            } else {
-                var stats = player.playerData.stats || {};
-                value = stats[key] || 0;
-            }
-
-            if (value > maxValue) {
-                maxValue = value;
-            }
-        }
-        leaders[key] = { max: maxValue, isNegative: isNegativeStat };
-    }
-    return leaders;
-}
-
-function renderTeamBoxScore(teamKey, teamLabel, options) {
-    var players = teamKey === "red" ? getRedTeam() : getBlueTeam();
-    var teamColorInfo = gameState.teamColors[teamKey] || {};
-    var headerColor = teamColorInfo.fg_accent_code || teamColorInfo.fg_code || "\1h\1w";
-    var jerseyColor = teamColorInfo.fg_code || "\1h\1w";
-    var whiteCode = "\1h\1w";
-
-    var leaders = collectGlobalStatLeaders();
-
-    courtFrame.center(headerColor + teamLabel.toUpperCase() + " BOX SCORE\1n\r\n");
-    var headerLine = "PLAYER             ";
-    for (var c = 0; c < BOX_SCORE_COLUMNS.length; c++) {
-        var col = BOX_SCORE_COLUMNS[c];
-        headerLine += padStart(col.label, 4, " ");
-    }
-    courtFrame.center(whiteCode + headerLine + "\1n\r\n");
-
-    for (var i = 0; i < players.length; i++) {
-        var player = players[i];
-        if (!player || !player.playerData) continue;
-
-        var data = player.playerData;
-        var stats = data.stats || {};
-        var jersey = padStart(data.jersey, 2, "0");
-        var name = getLastName(data.name || "");
-        var nameBase = padEnd(("#" + jersey + " " + name).toUpperCase(), 18, " ");
-        var displayName = jerseyColor + nameBase.substring(0, 3) + whiteCode + nameBase.substring(3);
-        var line = whiteCode + displayName;
-
-        for (var c = 0; c < BOX_SCORE_COLUMNS.length; c++) {
-            var column = BOX_SCORE_COLUMNS[c];
-            var key = column.key;
-            var rawValue;
-            if (column.isRaw) {
-                rawValue = data[key] || 0;
-            } else {
-                rawValue = stats[key] || 0;
-            }
-            var valueStr = padStart(rawValue, 4, " ");
-
-            var attrCode = whiteCode;
-            var leaderInfo = leaders[key];
-            if (leaderInfo && rawValue > 0 && rawValue === leaderInfo.max) {
-                if (leaderInfo.isNegative) {
-                    // Highlight negative stats (turnovers, injuries) in LIGHTRED
-                    attrCode = "\1h\1r";
-                } else if (!column.skipLeader) {
-                    // Highlight positive stats in bright green
-                    attrCode = "\1h\1g";
-                }
-            }
-
-            line += attrCode + valueStr;
-        }
-        line += "\1n";
-        courtFrame.center(line + "\r\n");
-    }
-}
-
-function showIntro() {
-    courtFrame.clear();
-    courtFrame.drawBorder([YELLOW, YELLOW, YELLOW]);
-    courtFrame.gotoxy(1, 1);
-
-    courtFrame.center("\r\n\r\n");
-    courtFrame.center("\1h\1y NBA JAM 2v2\1n\r\n");
-    courtFrame.center("Terminal Edition\r\n\r\n");
-    courtFrame.center("Get 3 in a row to catch \1h\1yON FIRE\1n!\r\n\r\n");
-    courtFrame.center("Arrow keys: Move  |  Hold for \1h\1cTURBO\1n!\r\n");
-    courtFrame.center("Space: Shoot / Block  |  S: Pass / Steal\r\n");
-    courtFrame.center("D: Pick Up / Shake  |  D (Def): Shove\r\n");
-    courtFrame.center("Q: Quit\r\n\r\n");
-    courtFrame.center("\1h Press any key to start...\1n\r\n");
-
-    cycleFrame(courtFrame);
-
-    if (typeof console !== 'undefined' && typeof console.getkey === 'function') {
-        console.getkey();
-    }
-
-    // Clear input buffer
-    while (console.inkey(K_NONE, 0)) { }
-}
-
-function mainMenu() {
-    courtFrame.clear();
-    courtFrame.drawBorder([YELLOW, YELLOW, YELLOW]);
-    courtFrame.gotoxy(1, 1);
-
-    courtFrame.center("\r\n\r\n\r\n");
-    courtFrame.center("\1h\1y NBA JAM 2v2\1n\r\n");
-    courtFrame.center("Terminal Edition\r\n\r\n\r\n");
-
-    courtFrame.center("\1h\1g1\1n. Play Game (Single Player)\r\n");
-    courtFrame.center("\1h\1m2\1n. Multiplayer (Online)\r\n");
-    courtFrame.center("\1h\1c3\1n. Watch CPU Demo\r\n");
-    courtFrame.center("\1h\1y4\1n. Play LORB\r\n");
-    courtFrame.center("\1h\1rQ\1n. Quit\r\n\r\n\r\n");
-
-    courtFrame.center("Select an option:\r\n");
-
-    cycleFrame(courtFrame);
-
-    // Wait for user selection
-    while (true) {
-        var key = console.getkey();
-        if (!key) continue;
-
-        var keyUpper = key.toUpperCase();
-
-        if (keyUpper === 'Q') {
-            return null; // Quit
-        } else if (key === '1') {
-            return "play"; // Play game
-        } else if (key === '2') {
-            return "multiplayer"; // Multiplayer
-        } else if (key === '3') {
-            return "demo"; // Watch demo
-        } else if (key === '4') {
-            return "lorb"; // Play LORB
-        }
-        // Invalid key, loop again
-    }
-}
-
-function playerSelectionScreen(teamKey, teamColor, selectionType, excludeIndices) {
-    var team = NBATeams[teamKey];
-    if (!team || !team.players || team.players.length === 0) {
-        return null;
-    }
-
-    var currentSelection = 0;
-    selectionType = selectionType || "main"; // "main" or "teammate"
-    excludeIndices = excludeIndices || [];
-
-    // Skip excluded players for initial selection
-    while (excludeIndices.indexOf(currentSelection) !== -1 && currentSelection < team.players.length - 1) {
-        currentSelection++;
-    }
-
-    while (true) {
-        console.clear();
-        var colorCode = teamColor === "RED" ? "\1h\1r" : "\1h\1c";
-        console.putmsg("\1h\1y=== NBA JAM - PLAYER SELECTION ===\1n\r\n\r\n");
-        console.putmsg(colorCode + teamColor + " TEAM: " + team.name + "\1n\r\n\r\n");
-
-        if (selectionType === "main") {
-            console.putmsg("Select your main player:\r\n\r\n");
-        } else {
-            console.putmsg("Select your teammate:\r\n\r\n");
-        }
-
-        // Display players with stats
-        for (var i = 0; i < team.players.length; i++) {
-            var player = team.players[i];
-            var isExcluded = excludeIndices.indexOf(i) !== -1;
-            var prefix;
-
-            if (isExcluded) {
-                prefix = "\1h\1k  [SELECTED] ";
-                console.putmsg(prefix + "#" + player.jersey + " " + player.name + "\1n\r\n");
-            } else if (i === currentSelection) {
-                prefix = "\1h\1w> ";
-                console.putmsg(prefix + "#" + player.jersey + " " + player.name + "\1n\r\n");
-
-                // Show detailed stats for selected player
-                console.putmsg("     SPD: " + player.attributes[ATTR_SPEED] + "/10  ");
-                console.putmsg("3PT: " + player.attributes[ATTR_3PT] + "/10  ");
-                console.putmsg("DNK: " + player.attributes[ATTR_DUNK] + "/10\r\n");
-                console.putmsg("     PWR: " + player.attributes[ATTR_POWER] + "/10  ");
-                console.putmsg("STL: " + player.attributes[ATTR_STEAL] + "/10  ");
-                console.putmsg("BLK: " + player.attributes[ATTR_BLOCK] + "/10\r\n");
-            } else {
-                prefix = "  ";
-                console.putmsg(prefix + "#" + player.jersey + " " + player.name + "\1n\r\n");
-            }
-            console.putmsg("\r\n");
-        }
-
-        console.putmsg("\1h[UP/DOWN]\1n Navigate  \1h[ENTER]\1n Select  \1h[Q]\1n Quit\r\n");
-
-        // Get input
-        var key = console.getkey();
-
-        if (key.toUpperCase() === 'Q') {
-            return null;
-        } else if (key === KEY_UP) {
-            do {
-                currentSelection--;
-                if (currentSelection < 0) currentSelection = team.players.length - 1;
-            } while (excludeIndices.indexOf(currentSelection) !== -1);
-        } else if (key === KEY_DOWN) {
-            do {
-                currentSelection++;
-                if (currentSelection >= team.players.length) currentSelection = 0;
-            } while (excludeIndices.indexOf(currentSelection) !== -1);
-        } else if (key === '\r' || key === '\n') {
-            if (excludeIndices.indexOf(currentSelection) === -1) {
-                return currentSelection; // Return selected player index
-            }
-        }
-    }
-}
-
-function teammateSelectionScreen(teamKey, teamColor, mainPlayerIndex) {
-    var team = NBATeams[teamKey];
-    if (!team || !team.players || team.players.length < 2) {
-        return [mainPlayerIndex]; // Fallback to just main player
-    }
-
-    console.clear();
-    var colorCode = teamColor === "RED" ? "\1h\1r" : "\1h\1c";
-    console.putmsg("\1h\1y=== NBA JAM - TEAMMATE SELECTION ===\1n\r\n\r\n");
-    console.putmsg(colorCode + teamColor + " TEAM: " + team.name + "\1n\r\n\r\n");
-    console.putmsg("Your main player: #" + team.players[mainPlayerIndex].jersey + " " + team.players[mainPlayerIndex].name + "\r\n\r\n");
-    console.putmsg("Select your teammate to play alongside you:\r\n\r\n");
-
-    var teammateIndex = playerSelectionScreen(teamKey, teamColor, "teammate", [mainPlayerIndex]);
-    if (teammateIndex === null) {
-        return null; // User quit
-    }
-
-    return [mainPlayerIndex, teammateIndex];
-}
-
-function teamSelectionScreen() {
-    console.clear();
-
-    // Get list of all teams
-    var teamList = [];
-    for (var teamKey in NBATeams) {
-        teamList.push({
-            key: teamKey,
-            name: NBATeams[teamKey].name
-        });
-    }
-
-    // Sort alphabetically by team name
-    teamList.sort(function (a, b) {
-        return a.name.localeCompare(b.name);
-    });
-
-    var columnRows = Math.ceil(teamList.length / 2);
-    var rightColumnRows = teamList.length - columnRows;
-
-    function indexToCoord(index) {
-        if (index < columnRows) return { col: 0, row: index };
-        return { col: 1, row: index - columnRows };
-    }
-
-    function coordToIndex(col, row) {
-        return col === 0 ? row : columnRows + row;
-    }
-
-    function columnLength(col) {
-        return col === 0 ? columnRows : rightColumnRows;
-    }
-
-    function renderTeamMenu(currentSelection, title) {
-        console.clear();
-        console.putmsg("\1h\1y=== NBA JAM - TEAM SELECTION ===\1n\r\n\r\n");
-        console.putmsg(title + "\r\n\r\n");
-
-        for (var row = 0; row < columnRows; row++) {
-            var line = "";
-
-            var leftIndex = row;
-            if (leftIndex < teamList.length) {
-                var leftTeam = NBATeams[teamList[leftIndex].key];
-                var leftSelected = (currentSelection === leftIndex);
-                var leftPrefix = leftSelected ? "> " : "  ";
-                var leftColor = getMenuColorCodes(leftTeam, leftSelected);
-                line += leftColor + leftPrefix + teamList[leftIndex].name;
-                var leftPad = 32 - (leftPrefix.length + teamList[leftIndex].name.length);
-                if (leftPad < 2) leftPad = 2;
-                line += repeatChar(' ', leftPad);
-            } else {
-                line += repeatChar(' ', 34);
-            }
-
-            var rightIndex = row + columnRows;
-            if (rightIndex < teamList.length) {
-                var rightTeam = NBATeams[teamList[rightIndex].key];
-                var rightSelected = (currentSelection === rightIndex);
-                var rightPrefix = rightSelected ? "> " : "  ";
-                var rightColor = getMenuColorCodes(rightTeam, rightSelected);
-                line += rightColor + rightPrefix + teamList[rightIndex].name;
-            }
-
-            line += "\1n\r\n";
-            console.putmsg(line);
-        }
-
-        console.putmsg("\r\n\1h[UP/DOWN]\1n Navigate  \1h[LEFT/RIGHT]\1n Column  \1h[ENTER]\1n Select  \1h[Q]\1n Quit\r\n");
-    }
-
-    // STEP 1: Select YOUR team
-    var currentSelection = 0;
-    var userTeamKey = null;
-
-    while (userTeamKey === null) {
-        renderTeamMenu(currentSelection, "\1h\1rYOUR TEAM\1n - Select your team:");
-        var key = console.getkey();
-
-        if (key.toUpperCase() === 'Q') {
-            return null;
-        } else if (key === KEY_UP) {
-            var coordUp = indexToCoord(currentSelection);
-            if (coordUp.row > 0) {
-                coordUp.row--;
-                currentSelection = coordToIndex(coordUp.col, coordUp.row);
-            }
-        } else if (key === KEY_DOWN) {
-            var coordDown = indexToCoord(currentSelection);
-            var colLenDown = columnLength(coordDown.col);
-            if (coordDown.row + 1 < colLenDown) {
-                coordDown.row++;
-                currentSelection = coordToIndex(coordDown.col, coordDown.row);
-            }
-        } else if (key === KEY_LEFT) {
-            var coordLeft = indexToCoord(currentSelection);
-            if (coordLeft.col === 1) {
-                coordLeft.col = 0;
-                var leftLen = columnLength(0);
-                if (coordLeft.row >= leftLen) coordLeft.row = leftLen - 1;
-                currentSelection = coordToIndex(coordLeft.col, coordLeft.row);
-            }
-        } else if (key === KEY_RIGHT) {
-            var coordRight = indexToCoord(currentSelection);
-            if (rightColumnRows > 0 && coordRight.col === 0 && coordRight.row < rightColumnRows) {
-                coordRight.col = 1;
-                currentSelection = coordToIndex(coordRight.col, coordRight.row);
-            }
-        } else if (key === '\r' || key === '\n') {
-            userTeamKey = teamList[currentSelection].key;
-        }
-    }
-
-    // STEP 2: Select YOUR main player from your team
-    var userPlayerIndex = playerSelectionScreen(userTeamKey, "RED", "main");
-    if (userPlayerIndex === null) return null;
-
-    // STEP 2.5: Select YOUR teammate(s) from your team  
-    var userTeamPlayers = teammateSelectionScreen(userTeamKey, "RED", userPlayerIndex);
-    if (userTeamPlayers === null) return null;
-
-    // STEP 3: Select OPPONENT team
-    currentSelection = 0;
-    var opponentTeamKey = null;
-
-    while (opponentTeamKey === null) {
-        renderTeamMenu(currentSelection, "\1h\1cOPPONENT TEAM\1n - Select opponent:");
-        var key = console.getkey();
-
-        if (key.toUpperCase() === 'Q') {
-            return null;
-        } else if (key === KEY_UP) {
-            var oCoordUp = indexToCoord(currentSelection);
-            if (oCoordUp.row > 0) {
-                oCoordUp.row--;
-                currentSelection = coordToIndex(oCoordUp.col, oCoordUp.row);
-            }
-        } else if (key === KEY_DOWN) {
-            var oCoordDown = indexToCoord(currentSelection);
-            var oLenDown = columnLength(oCoordDown.col);
-            if (oCoordDown.row + 1 < oLenDown) {
-                oCoordDown.row++;
-                currentSelection = coordToIndex(oCoordDown.col, oCoordDown.row);
-            }
-        } else if (key === KEY_LEFT) {
-            var oCoordLeft = indexToCoord(currentSelection);
-            if (oCoordLeft.col === 1) {
-                oCoordLeft.col = 0;
-                var oLeftLen = columnLength(0);
-                if (oCoordLeft.row >= oLeftLen) oCoordLeft.row = oLeftLen - 1;
-                currentSelection = coordToIndex(oCoordLeft.col, oCoordLeft.row);
-            }
-        } else if (key === KEY_RIGHT) {
-            var oCoordRight = indexToCoord(currentSelection);
-            if (rightColumnRows > 0 && oCoordRight.col === 0 && oCoordRight.row < rightColumnRows) {
-                oCoordRight.col = 1;
-                currentSelection = coordToIndex(oCoordRight.col, oCoordRight.row);
-            }
-        } else if (key === '\r' || key === '\n') {
-            opponentTeamKey = teamList[currentSelection].key;
-        }
-    }
-
-    // Opponent uses their first two players by default
-    var opponentPlayers = [0, 1];
-
-    // Make sure opponent has enough players
-    var opponentTeam = NBATeams[opponentTeamKey];
-    if (opponentTeam.players.length < 2) {
-        opponentPlayers = [0, 0]; // Fallback to duplicate first player
-    }
-
-    return {
-        redTeam: userTeamKey,
-        blueTeam: opponentTeamKey,
-        redPlayers: {
-            player1: userTeamPlayers[0],    // Human controlled (main player)
-            player2: userTeamPlayers[1]     // AI teammate (selected teammate)
-        },
-        bluePlayers: {
-            player1: opponentPlayers[0],  // AI opponent 1
-            player2: opponentPlayers[1]   // AI opponent 2
-        }
-    };
-}
-
+// === DEMO MODE ===
 function runCPUDemo() {
     while (true) {
         // Pick random teams for demo
@@ -5239,27 +4053,27 @@ function runCPUDemo() {
         var blueTeamKey = randomTeam2;
 
         // Use random player indices (pick 2 random players from each 6-player roster)
-        var redTeam = NBATeams[redTeamKey];
-        var blueTeam = NBATeams[blueTeamKey];
+        var teamATeam = NBATeams[redTeamKey];
+        var teamBTeam = NBATeams[blueTeamKey];
 
         var redAvailablePlayers = [];
         var blueAvailablePlayers = [];
 
         // Get available players for each team using actual players array
-        for (var i = 0; i < redTeam.players.length; i++) {
+        for (var i = 0; i < teamATeam.players.length; i++) {
             redAvailablePlayers.push(i);
         }
-        for (var i = 0; i < blueTeam.players.length; i++) {
+        for (var i = 0; i < teamBTeam.players.length; i++) {
             blueAvailablePlayers.push(i);
         }
 
         // Safety check - ensure we have at least 2 players per team
         if (redAvailablePlayers.length < 2) {
             // Fallback to default players (0 and 1, or 0 and 0 if only 1 player)
-            redAvailablePlayers = [0, redTeam.players.length > 1 ? 1 : 0];
+            redAvailablePlayers = [0, teamATeam.players.length > 1 ? 1 : 0];
         }
         if (blueAvailablePlayers.length < 2) {
-            blueAvailablePlayers = [0, blueTeam.players.length > 1 ? 1 : 0];
+            blueAvailablePlayers = [0, teamBTeam.players.length > 1 ? 1 : 0];
         }
 
         // Randomly select 2 players from each team
@@ -5324,16 +4138,16 @@ function runCPUDemo() {
 
 // Collect game results for betting resolution
 function collectGameResults(redTeamKey, blueTeamKey) {
-    var redScore = gameState.score.red || 0;
-    var blueScore = gameState.score.blue || 0;
-    var winner = redScore > blueScore ? "red" : "blue";
+    var teamAScore = gameState.score.teamA || 0;
+    var teamBScore = gameState.score.teamB || 0;
+    var winner = teamAScore > teamBScore ? "teamA" : "teamB";
 
     // Find stat leaders
     var allPlayers = [];
-    if (redPlayer1 && redPlayer1.playerData) allPlayers.push(redPlayer1.playerData);
-    if (redPlayer2 && redPlayer2.playerData) allPlayers.push(redPlayer2.playerData);
-    if (bluePlayer1 && bluePlayer1.playerData) allPlayers.push(bluePlayer1.playerData);
-    if (bluePlayer2 && bluePlayer2.playerData) allPlayers.push(bluePlayer2.playerData);
+    if (teamAPlayer1 && teamAPlayer1.playerData) allPlayers.push(teamAPlayer1.playerData);
+    if (teamAPlayer2 && teamAPlayer2.playerData) allPlayers.push(teamAPlayer2.playerData);
+    if (teamBPlayer1 && teamBPlayer1.playerData) allPlayers.push(teamBPlayer1.playerData);
+    if (teamBPlayer2 && teamBPlayer2.playerData) allPlayers.push(teamBPlayer2.playerData);
 
     var leaders = {
         points: null,
@@ -5363,385 +4177,13 @@ function collectGameResults(redTeamKey, blueTeamKey) {
     }
 
     return {
-        redTeam: gameState.teamNames.red || redTeamKey,
-        blueTeam: gameState.teamNames.blue || blueTeamKey,
-        redScore: redScore,
-        blueScore: blueScore,
+        teamATeam: gameState.teamNames.teamA || redTeamKey,
+        teamBTeam: gameState.teamNames.teamB || blueTeamKey,
+        teamAScore: teamAScore,
+        teamBScore: teamBScore,
         winner: winner,
         leaders: leaders
     };
-}
-
-function showSplashScreen() {
-    console.clear();
-
-    var splashLoaded = false;
-
-    var binPath = js.exec_dir + "assets/nba_jam.bin";
-    var screenCols = (typeof console.screen_columns === "number") ? console.screen_columns : 80;
-    var screenRows = (typeof console.screen_rows === "number") ? console.screen_rows : 24;
-
-    if (file_exists(binPath) && screenCols >= 80 && screenRows >= 24) {
-        if (typeof Graphic === "undefined") load("graphic.js");
-        try {
-            var graphicHeight = 25;
-            var splashGraphic = new Graphic(80, graphicHeight);
-            splashGraphic.load(binPath);
-            splashGraphic.autowrap = false;
-            var drawHeight = Math.min(graphicHeight, screenRows);
-            splashGraphic.draw('center', 'center', 80, drawHeight);
-            splashLoaded = true;
-        } catch (e) {
-            splashLoaded = false;
-        }
-    }
-
-    if (!splashLoaded) {
-        var ansiFile = new File(js.exec_dir + "assets/nba_jam.ans");
-        if (ansiFile.open("r")) {
-            var content = ansiFile.read();
-            ansiFile.close();
-            if (typeof Graphic === "undefined") load("graphic.js");
-            try {
-                var ansiWidth = Math.min(80, screenCols);
-                var ansiHeight = Math.min(Math.max(24, screenRows), screenRows);
-                var ansiGraphic = new Graphic(ansiWidth, ansiHeight);
-                ansiGraphic.autowrap = false;
-                ansiGraphic.ANSI = content;
-                ansiGraphic.draw('center', 'center', ansiWidth, Math.min(ansiGraphic.height, screenRows));
-                splashLoaded = true;
-            } catch (err) {
-                console.print(content);
-                splashLoaded = true;
-            }
-        }
-    }
-
-    // Wait for any keypress if something displayed
-    if (splashLoaded) {
-        console.getkey();
-    }
-
-    // Clear input buffer
-    while (console.inkey(K_NONE, 0)) { }
-
-    // Clean up and reset attributes/screen
-    console.print("\1n");
-    console.clear();
-}
-
-function showMatchupScreen(allowBetting) {
-    if (typeof console === "undefined" || typeof Sprite === "undefined") return null;
-    if (!bluePlayer1 || !bluePlayer2 || !redPlayer1 || !redPlayer2) return null;
-
-    var screenCols = (typeof console.screen_columns === "number") ? console.screen_columns : 80;
-    var screenRows = (typeof console.screen_rows === "number") ? console.screen_rows : 24;
-    if (screenCols < 80 || screenRows < 24) return;
-
-    var binPath = js.exec_dir + "assets/nba_jam.bin";
-    var graphicWidth = 80;
-    var graphicHeight = Math.min(25, screenRows);
-    var baseX = Math.max(1, Math.floor((screenCols - graphicWidth) / 2) + 1);
-    var baseY = Math.max(1, Math.floor((screenRows - graphicHeight) / 2) + 1);
-
-    console.clear();
-    if (file_exists(binPath)) {
-        if (typeof Graphic === "undefined") load("graphic.js");
-        try {
-            var backgroundGraphic = new Graphic(graphicWidth, graphicHeight);
-            backgroundGraphic.autowrap = false;
-            backgroundGraphic.load(binPath);
-            backgroundGraphic.draw(baseX, baseY, graphicWidth, Math.min(backgroundGraphic.height, screenRows));
-        } catch (e) {
-            console.clear();
-        }
-    }
-
-    var frameWidth = 21;
-    var frameHeight = 10;
-    var innerOffsetX = 2;
-    var innerOffsetY = 2;
-    var areaWidth = 9;
-    var areaHeight = frameHeight - 2;
-
-    function teamTextAttr(teamKey) {
-        var colors = gameState.teamColors[teamKey] || {};
-        var fg = (typeof colors.fg === "number") ? (colors.fg & FG_MASK) : WHITE;
-        return (fg & FG_MASK) | BG_BLACK;
-    }
-
-    function teamAccentAttr(teamKey) {
-        var colors = gameState.teamColors[teamKey] || {};
-        var fg = (typeof colors.fg_accent === "number") ? (colors.fg_accent & FG_MASK) : (typeof colors.fg === "number" ? colors.fg & FG_MASK : WHITE);
-        return fg | BG_BLACK;
-    }
-
-    function drawDivider(frame, dividerX, startY, height, attr) {
-        var prevAtcodes = frame.atcodes;
-        frame.atcodes = false;
-        for (var row = 0; row < height; row++) {
-            frame.gotoxy(dividerX, startY + row);
-            frame.putmsg(ascii(179), attr);
-        }
-        frame.atcodes = prevAtcodes;
-    }
-
-    function renderPlayerArea(frame, areaX, areaY, areaW, areaH, playerData, sprite, teamKey) {
-        var textAttr = teamTextAttr(teamKey);
-        var accentAttr = teamAccentAttr(teamKey);
-        var prevAtcodes = frame.atcodes;
-        frame.atcodes = false;
-
-        var blankLine = repeatChar(' ', areaW);
-        for (var r = 0; r < areaH; r++) {
-            frame.gotoxy(areaX, areaY + r);
-            frame.putmsg(blankLine, textAttr);
-        }
-
-        if (!playerData) {
-            frame.atcodes = prevAtcodes;
-            return;
-        }
-
-        function centerText(text, row, attr) {
-            if (!text) return;
-            var str = String(text);
-            if (str.length > areaW) str = str.substring(0, areaW);
-            var start = areaX + Math.max(0, Math.floor((areaW - str.length) / 2));
-            if (start + str.length > areaX + areaW) start = areaX + areaW - str.length;
-            frame.gotoxy(start, row);
-            frame.putmsg(str, attr);
-        }
-
-        var jerseyText = "#" + (playerData.jerseyString || playerData.jersey || "");
-        centerText(jerseyText, areaY, accentAttr);
-
-        var positionText = (playerData.position || "").toUpperCase();
-        centerText(positionText, areaY + 1, textAttr);
-
-        if (sprite && sprite.frame) {
-            var spriteWidth = sprite.frame.width || 5;
-            var spriteHeight = sprite.frame.height || 4;
-            var spriteStartX = areaX + Math.max(0, Math.floor((areaW - spriteWidth) / 2));
-            var spriteStartY = areaY + 2;
-            for (var sy = 0; sy < spriteHeight && (spriteStartY + sy) < areaY + areaH - 2; sy++) {
-                for (var sx = 0; sx < spriteWidth && (spriteStartX + sx) < areaX + areaW; sx++) {
-                    var cell = sprite.frame.getData(sx, sy, false);
-                    if (!cell) continue;
-                    var ch = cell.ch;
-                    var attr = cell.attr;
-                    if (!ch || ch === '\0') ch = ' ';
-                    if (attr === undefined || attr === null) attr = textAttr;
-                    frame.gotoxy(spriteStartX + sx, spriteStartY + sy);
-                    frame.putmsg(ch, attr);
-                }
-            }
-        }
-
-        var nickname = (playerData.shortNick || getLastName(playerData.name || "")).toUpperCase();
-        centerText(nickname, areaY + areaH - 2, textAttr);
-
-        var lastName = getLastName(playerData.name || "").toUpperCase();
-        centerText(lastName, areaY + areaH - 1, textAttr);
-
-        frame.atcodes = prevAtcodes;
-    }
-
-    function buildTeamFrame(teamKey, teamName, players, sprites, startX, startY) {
-        var borderAttr = teamTextAttr(teamKey);
-        var frame = new Frame(startX, startY, frameWidth, frameHeight, borderAttr);
-        frame.checkbounds = false;
-        frame.atcodes = false;
-        frame.open();
-        frame.drawBorder({ color: borderAttr, title: teamName.toUpperCase(), titleAttr: borderAttr });
-
-        var innerX = innerOffsetX;
-        var innerY = innerOffsetY;
-        var innerHeight = frameHeight - 2;
-        var dividerX = innerX + areaWidth;
-        drawDivider(frame, dividerX, innerY, innerHeight, borderAttr);
-
-        var areaOne = { x: innerX, y: innerY, width: areaWidth, height: areaHeight };
-        var areaTwo = { x: dividerX + 1, y: innerY, width: areaWidth, height: areaHeight };
-        renderPlayerArea(frame, areaOne.x, areaOne.y, areaOne.width, areaOne.height, players[0], sprites[0], teamKey);
-        renderPlayerArea(frame, areaTwo.x, areaTwo.y, areaTwo.width, areaTwo.height, players[1], sprites[1], teamKey);
-
-        cycleFrame(frame);
-        return frame;
-    }
-
-    var leftTeamKey = "red";
-    var rightTeamKey = "blue";
-    var leftTeamName = (gameState.teamNames && gameState.teamNames.red) ? gameState.teamNames.red : "RED";
-    var rightTeamName = (gameState.teamNames && gameState.teamNames.blue) ? gameState.teamNames.blue : "BLUE";
-
-    var leftPlayers = [redPlayer1 && redPlayer1.playerData || null, redPlayer2 && redPlayer2.playerData || null];
-    var rightPlayers = [bluePlayer1 && bluePlayer1.playerData || null, bluePlayer2 && bluePlayer2.playerData || null];
-
-    var leftSprites = [redPlayer1 || null, redPlayer2 || null];
-    var rightSprites = [bluePlayer1 || null, bluePlayer2 || null];
-
-    var leftFrameX = baseX + 1; // column 2 relative to graphic (1-based)
-    var leftFrameY = baseY + 10; // row 11
-    var rightFrameX = baseX + 58; // column 59
-    var rightFrameY = baseY + 10; // row 11
-
-    var leftFrame = buildTeamFrame(leftTeamKey, leftTeamName, leftPlayers, leftSprites, leftFrameX, leftFrameY);
-    var rightFrame = buildTeamFrame(rightTeamKey, rightTeamName, rightPlayers, rightSprites, rightFrameX, rightFrameY);
-
-    function updateTeamFrames() {
-        var innerHeight = frameHeight - 2;
-        var dividerX = innerOffsetX + areaWidth;
-        drawDivider(leftFrame, dividerX, innerOffsetY, innerHeight, teamTextAttr(leftTeamKey));
-        drawDivider(rightFrame, dividerX, innerOffsetY, innerHeight, teamTextAttr(rightTeamKey));
-        renderPlayerArea(leftFrame, innerOffsetX, innerOffsetY, areaWidth, areaHeight, leftPlayers[0], leftSprites[0], leftTeamKey);
-        renderPlayerArea(leftFrame, innerOffsetX + areaWidth + 1, innerOffsetY, areaWidth, areaHeight, leftPlayers[1], leftSprites[1], leftTeamKey);
-        renderPlayerArea(rightFrame, innerOffsetX, innerOffsetY, areaWidth, areaHeight, rightPlayers[0], rightSprites[0], rightTeamKey);
-        renderPlayerArea(rightFrame, innerOffsetX + areaWidth + 1, innerOffsetY, areaWidth, areaHeight, rightPlayers[1], rightSprites[1], rightTeamKey);
-        cycleFrame(leftFrame);
-        cycleFrame(rightFrame);
-    }
-
-    var previewSprites = [
-        { sprite: redPlayer1, originalBearing: redPlayer1 ? redPlayer1.bearing : null, teamKey: leftTeamKey },
-        { sprite: redPlayer2, originalBearing: redPlayer2 ? redPlayer2.bearing : null, teamKey: leftTeamKey },
-        { sprite: bluePlayer1, originalBearing: bluePlayer1 ? bluePlayer1.bearing : null, teamKey: rightTeamKey },
-        { sprite: bluePlayer2, originalBearing: bluePlayer2 ? bluePlayer2.bearing : null, teamKey: rightTeamKey }
-    ];
-
-    var turnInfo = previewSprites.map(function (entry) {
-        var bearings = [];
-        if (entry.sprite && entry.sprite.ini && entry.sprite.ini.bearings) {
-            bearings = entry.sprite.ini.bearings.slice();
-        }
-        return {
-            sprite: entry.sprite,
-            originalBearing: entry.originalBearing,
-            bearings: bearings,
-            nextTurn: Date.now() + 500 + Math.floor(Math.random() * 800)
-        };
-    });
-
-    updateTeamFrames();
-
-    // Display betting odds using bookie.js
-    var oddsDisplay = null;
-    if (typeof getOddsDisplayLines === "function") {
-        try {
-            oddsDisplay = getOddsDisplayLines(leftPlayers, rightPlayers);
-
-            // Position odds text below each team frame
-            var oddsY = leftFrameY + frameHeight + 1;
-            var leftOddsAttr = teamTextAttr(leftTeamKey);
-            var rightOddsAttr = teamTextAttr(rightTeamKey);
-
-            // Left side odds (red team)
-            var leftOddsX = leftFrameX + Math.floor((frameWidth - oddsDisplay.leftLine.length) / 2);
-            console.gotoxy(leftOddsX, oddsY);
-            console.putmsg(oddsDisplay.leftLine, leftOddsAttr);
-
-            // Right side odds (blue team)
-            var rightOddsX = rightFrameX + Math.floor((frameWidth - oddsDisplay.rightLine.length) / 2);
-            console.gotoxy(rightOddsX, oddsY);
-            console.putmsg(oddsDisplay.rightLine, rightOddsAttr);
-
-            // Add betting prompt if betting is enabled
-            if (allowBetting) {
-                var bettingPrompt = "Press [B] to place bets!";
-                var promptX = baseX + Math.floor((graphicWidth - bettingPrompt.length) / 2);
-                var promptY = oddsY + 2;
-                console.gotoxy(promptX, promptY);
-                console.putmsg(bettingPrompt, YELLOW | BG_BLACK);
-            }
-        } catch (e) {
-            // Silently fail if bookie.js not loaded
-        }
-    }
-
-    var durationMs = 10000;
-    var startTime = Date.now();
-    while (Date.now() - startTime < durationMs) {
-        var now = Date.now();
-        var changed = false;
-        for (var i = 0; i < turnInfo.length; i++) {
-            var info = turnInfo[i];
-            var sprite = info.sprite;
-            if (!sprite || !info.bearings || info.bearings.length === 0) continue;
-            if (now >= info.nextTurn) {
-                var newBearing = info.bearings[Math.floor(Math.random() * info.bearings.length)];
-                if (newBearing && sprite.turnTo) {
-                    if (sprite.bearing !== newBearing) {
-                        sprite.turnTo(newBearing);
-                        changed = true;
-                    }
-                }
-                info.nextTurn = now + 700 + Math.floor(Math.random() * 900);
-            }
-        }
-        if (changed) {
-            Sprite.cycle();
-            updateTeamFrames();
-        }
-        cycleFrame(leftFrame);
-        cycleFrame(rightFrame);
-        var key = console.inkey(K_NONE, 100);
-
-        // Check for betting mode ('B' key) if betting is allowed
-        if (key && allowBetting && (key.toUpperCase() === 'B')) {
-            // Prepare matchup data for betting interface
-            if (typeof showBettingInterface === "function") {
-                var matchupData = {
-                    redTeam: leftTeamName,
-                    blueTeam: rightTeamName,
-                    redPlayers: leftPlayers,
-                    bluePlayers: rightPlayers,
-                    odds: oddsDisplay ? oddsDisplay.matchup : getMatchupOdds(leftPlayers, rightPlayers),
-                    spread: calculateSpread(leftPlayers, rightPlayers),
-                    total: calculateOverUnder(leftPlayers, rightPlayers),
-                    teamColors: gameState.teamColors,
-                    sprites: [leftSprites[0], leftSprites[1], rightSprites[0], rightSprites[1]]
-                };
-
-                var bettingSlip = showBettingInterface(matchupData);
-
-                // Restore matchup screen after betting
-                if (bettingSlip) {
-                    // User placed bets - clean up and return the slip
-                    for (var r = 0; r < turnInfo.length; r++) {
-                        var entry = turnInfo[r];
-                        if (entry.sprite && entry.originalBearing && entry.sprite.turnTo) {
-                            entry.sprite.turnTo(entry.originalBearing);
-                        }
-                    }
-                    Sprite.cycle();
-                    if (leftFrame) leftFrame.close();
-                    if (rightFrame) rightFrame.close();
-                    console.print("\1n");
-                    console.clear();
-                    return bettingSlip;
-                }
-                // User cancelled - continue showing matchup screen
-                continue;
-            }
-        }
-
-        if (key) break;
-        mswait(20);
-    }
-
-    for (var r = 0; r < turnInfo.length; r++) {
-        var entry = turnInfo[r];
-        if (entry.sprite && entry.originalBearing && entry.sprite.turnTo) {
-            entry.sprite.turnTo(entry.originalBearing);
-        }
-    }
-    Sprite.cycle();
-
-    if (leftFrame) leftFrame.close();
-    if (rightFrame) rightFrame.close();
-    console.print("\1n");
-    console.clear();
-    return null;
 }
 
 function main() {
@@ -5810,10 +4252,10 @@ function main() {
 
             resetGameState({ allCPUMode: false });
             initSprites(
-                selection.redTeam,
-                selection.blueTeam,
-                selection.redPlayers,
-                selection.bluePlayers,
+                selection.teamATeam,
+                selection.teamBTeam,
+                selection.teamAPlayers,
+                selection.teamBPlayers,
                 false  // Not demo mode - player1 is human
             );
 
@@ -5933,10 +4375,10 @@ function main() {
 
     function assignMultiplayerPlayers(session, myId) {
         var assignments = {
-            redPlayer1: null,
-            redPlayer2: null,
-            bluePlayer1: null,
-            bluePlayer2: null
+            teamAPlayer1: null,
+            teamAPlayer2: null,
+            teamBPlayer1: null,
+            teamBPlayer2: null
         };
 
         if (!session || !session.teams) {
@@ -5944,21 +4386,21 @@ function main() {
         }
 
         // Assign players based on team selections
-        var redPlayers = session.teams.red.players || [];
-        var bluePlayers = session.teams.blue.players || [];
+        var teamAPlayers = session.teams.teamA.players || [];
+        var teamBPlayers = session.teams.teamB.players || [];
 
-        if (redPlayers.length > 0) {
-            assignments.redPlayer1 = redPlayers[0];
+        if (teamAPlayers.length > 0) {
+            assignments.teamAPlayer1 = teamAPlayers[0];
         }
-        if (redPlayers.length > 1) {
-            assignments.redPlayer2 = redPlayers[1];
+        if (teamAPlayers.length > 1) {
+            assignments.teamAPlayer2 = teamAPlayers[1];
         }
 
-        if (bluePlayers.length > 0) {
-            assignments.bluePlayer1 = bluePlayers[0];
+        if (teamBPlayers.length > 0) {
+            assignments.teamBPlayer1 = teamBPlayers[0];
         }
-        if (bluePlayers.length > 1) {
-            assignments.bluePlayer2 = bluePlayers[1];
+        if (teamBPlayers.length > 1) {
+            assignments.teamBPlayer2 = teamBPlayers[1];
         }
 
         return assignments;
@@ -6046,31 +4488,31 @@ function main() {
             }
         }
 
-        applyLabel(redPlayer1, assignments.redPlayer1);
-        applyLabel(redPlayer2, assignments.redPlayer2);
-        applyLabel(bluePlayer1, assignments.bluePlayer1);
-        applyLabel(bluePlayer2, assignments.bluePlayer2);
+        applyLabel(teamAPlayer1, assignments.teamAPlayer1);
+        applyLabel(teamAPlayer2, assignments.teamAPlayer2);
+        applyLabel(teamBPlayer1, assignments.teamBPlayer1);
+        applyLabel(teamBPlayer2, assignments.teamBPlayer2);
     }
 
     function initMultiplayerSprites(session, assignments, myId) {
         // Use team names from session
-        var redSideData = (session.teams && session.teams.red) || { name: "lakers", players: [], roster: {} };
-        var blueSideData = (session.teams && session.teams.blue) || { name: "celtics", players: [], roster: {} };
-        var redTeamName = redSideData.name || "lakers";
-        var blueTeamName = blueSideData.name || "celtics";
-        var redTeamDef = NBATeams[redTeamName];
-        var blueTeamDef = NBATeams[blueTeamName];
+        var redSideData = (session.teams && session.teams.teamA) || { name: "lakers", players: [], roster: {} };
+        var blueSideData = (session.teams && session.teams.teamB) || { name: "celtics", players: [], roster: {} };
+        var teamATeamName = redSideData.name || "lakers";
+        var teamBTeamName = blueSideData.name || "celtics";
+        var teamATeamDef = NBATeams[teamATeamName];
+        var teamBTeamDef = NBATeams[teamBTeamName];
 
-        var redPlayerIndices = resolveTeamPlayerIndices(redSideData, redTeamDef);
-        var bluePlayerIndices = resolveTeamPlayerIndices(blueSideData, blueTeamDef);
+        var redPlayerIndices = resolveTeamPlayerIndices(redSideData, teamATeamDef);
+        var bluePlayerIndices = resolveTeamPlayerIndices(blueSideData, teamBTeamDef);
 
         // Determine if we're a human player
-        var isRedHuman = (assignments.redPlayer1 === myId.globalId || assignments.redPlayer2 === myId.globalId);
+        var isRedHuman = (assignments.teamAPlayer1 === myId.globalId || assignments.teamAPlayer2 === myId.globalId);
 
         // Initialize sprites (same as single-player, but mark human/AI appropriately)
         initSprites(
-            redTeamName,
-            blueTeamName,
+            teamATeamName,
+            teamBTeamName,
             redPlayerIndices,
             bluePlayerIndices,
             false // allCPUMode = false, at least one human
@@ -6081,57 +4523,57 @@ function main() {
         //                 "remote" = controlled by another client
         //                 "ai" = CPU controlled
         // NOTE: Remote players are HUMAN (controlled by another human), not AI!
-        if (redPlayer1) {
-            if (assignments.redPlayer1 === myId.globalId) {
-                redPlayer1.controllerType = "local";
-                redPlayer1.isHuman = true;
-            } else if (assignments.redPlayer1) {
-                redPlayer1.controllerType = "remote";
-                redPlayer1.isHuman = true; // Remote = human controlled, just not by me
+        if (teamAPlayer1) {
+            if (assignments.teamAPlayer1 === myId.globalId) {
+                teamAPlayer1.controllerType = "local";
+                teamAPlayer1.isHuman = true;
+            } else if (assignments.teamAPlayer1) {
+                teamAPlayer1.controllerType = "remote";
+                teamAPlayer1.isHuman = true; // Remote = human controlled, just not by me
             } else {
-                redPlayer1.controllerType = "ai";
-                redPlayer1.isHuman = false;
+                teamAPlayer1.controllerType = "ai";
+                teamAPlayer1.isHuman = false;
             }
-            redPlayer1.controlledBy = assignments.redPlayer1 || null;
+            teamAPlayer1.controlledBy = assignments.teamAPlayer1 || null;
         }
-        if (redPlayer2) {
-            if (assignments.redPlayer2 === myId.globalId) {
-                redPlayer2.controllerType = "local";
-                redPlayer2.isHuman = true;
-            } else if (assignments.redPlayer2) {
-                redPlayer2.controllerType = "remote";
-                redPlayer2.isHuman = true; // Remote = human controlled, just not by me
+        if (teamAPlayer2) {
+            if (assignments.teamAPlayer2 === myId.globalId) {
+                teamAPlayer2.controllerType = "local";
+                teamAPlayer2.isHuman = true;
+            } else if (assignments.teamAPlayer2) {
+                teamAPlayer2.controllerType = "remote";
+                teamAPlayer2.isHuman = true; // Remote = human controlled, just not by me
             } else {
-                redPlayer2.controllerType = "ai";
-                redPlayer2.isHuman = false;
+                teamAPlayer2.controllerType = "ai";
+                teamAPlayer2.isHuman = false;
             }
-            redPlayer2.controlledBy = assignments.redPlayer2 || null;
+            teamAPlayer2.controlledBy = assignments.teamAPlayer2 || null;
         }
-        if (bluePlayer1) {
-            if (assignments.bluePlayer1 === myId.globalId) {
-                bluePlayer1.controllerType = "local";
-                bluePlayer1.isHuman = true;
-            } else if (assignments.bluePlayer1) {
-                bluePlayer1.controllerType = "remote";
-                bluePlayer1.isHuman = true; // Remote = human controlled, just not by me
+        if (teamBPlayer1) {
+            if (assignments.teamBPlayer1 === myId.globalId) {
+                teamBPlayer1.controllerType = "local";
+                teamBPlayer1.isHuman = true;
+            } else if (assignments.teamBPlayer1) {
+                teamBPlayer1.controllerType = "remote";
+                teamBPlayer1.isHuman = true; // Remote = human controlled, just not by me
             } else {
-                bluePlayer1.controllerType = "ai";
-                bluePlayer1.isHuman = false;
+                teamBPlayer1.controllerType = "ai";
+                teamBPlayer1.isHuman = false;
             }
-            bluePlayer1.controlledBy = assignments.bluePlayer1 || null;
+            teamBPlayer1.controlledBy = assignments.teamBPlayer1 || null;
         }
-        if (bluePlayer2) {
-            if (assignments.bluePlayer2 === myId.globalId) {
-                bluePlayer2.controllerType = "local";
-                bluePlayer2.isHuman = true;
-            } else if (assignments.bluePlayer2) {
-                bluePlayer2.controllerType = "remote";
-                bluePlayer2.isHuman = true; // Remote = human controlled, just not by me
+        if (teamBPlayer2) {
+            if (assignments.teamBPlayer2 === myId.globalId) {
+                teamBPlayer2.controllerType = "local";
+                teamBPlayer2.isHuman = true;
+            } else if (assignments.teamBPlayer2) {
+                teamBPlayer2.controllerType = "remote";
+                teamBPlayer2.isHuman = true; // Remote = human controlled, just not by me
             } else {
-                bluePlayer2.controllerType = "ai";
-                bluePlayer2.isHuman = false;
+                teamBPlayer2.controllerType = "ai";
+                teamBPlayer2.isHuman = false;
             }
-            bluePlayer2.controlledBy = assignments.bluePlayer2 || null;
+            teamBPlayer2.controlledBy = assignments.teamBPlayer2 || null;
         }
 
         applyMultiplayerControllerLabels(session, assignments);
@@ -6144,28 +4586,28 @@ function main() {
         // Add ALL sprites to map, using synthetic IDs for AI-controlled sprites
         // This ensures AI sprites can be synced across clients
 
-        if (redPlayer1) {
-            var red1Id = assignments.redPlayer1 || "AI_RED_1";
-            map[red1Id] = redPlayer1;
-            debugInfo.push("Red1: " + red1Id + " -> " + (redPlayer1.controllerType || "?"));
+        if (teamAPlayer1) {
+            var red1Id = assignments.teamAPlayer1 || "AI_RED_1";
+            map[red1Id] = teamAPlayer1;
+            debugInfo.push("Red1: " + red1Id + " -> " + (teamAPlayer1.controllerType || "?"));
         }
 
-        if (redPlayer2) {
-            var red2Id = assignments.redPlayer2 || "AI_RED_2";
-            map[red2Id] = redPlayer2;
-            debugInfo.push("Red2: " + red2Id + " -> " + (redPlayer2.controllerType || "?"));
+        if (teamAPlayer2) {
+            var red2Id = assignments.teamAPlayer2 || "AI_RED_2";
+            map[red2Id] = teamAPlayer2;
+            debugInfo.push("Red2: " + red2Id + " -> " + (teamAPlayer2.controllerType || "?"));
         }
 
-        if (bluePlayer1) {
-            var blue1Id = assignments.bluePlayer1 || "AI_BLUE_1";
-            map[blue1Id] = bluePlayer1;
-            debugInfo.push("Blue1: " + blue1Id + " -> " + (bluePlayer1.controllerType || "?"));
+        if (teamBPlayer1) {
+            var blue1Id = assignments.teamBPlayer1 || "AI_BLUE_1";
+            map[blue1Id] = teamBPlayer1;
+            debugInfo.push("Blue1: " + blue1Id + " -> " + (teamBPlayer1.controllerType || "?"));
         }
 
-        if (bluePlayer2) {
-            var blue2Id = assignments.bluePlayer2 || "AI_BLUE_2";
-            map[blue2Id] = bluePlayer2;
-            debugInfo.push("Blue2: " + blue2Id + " -> " + (bluePlayer2.controllerType || "?"));
+        if (teamBPlayer2) {
+            var blue2Id = assignments.teamBPlayer2 || "AI_BLUE_2";
+            map[blue2Id] = teamBPlayer2;
+            debugInfo.push("Blue2: " + blue2Id + " -> " + (teamBPlayer2.controllerType || "?"));
         }
 
         // Verify no duplicate sprite objects in map
@@ -6262,7 +4704,7 @@ function main() {
                         Math.pow(ballHandler.y - gameState.ballHandlerLastY, 2)
                     );
 
-                    var opponentTeamName = (gameState.currentTeam === "red") ? "blue" : "red";
+                    var opponentTeamName = (gameState.currentTeam === "teamA") ? "teamB" : "teamA";
                     var closestDefender = getClosestPlayer(ballHandler.x, ballHandler.y, opponentTeamName);
                     var guardDistance = closestDefender ? getSpriteDistance(ballHandler, closestDefender) : 999;
                     var closelyGuarded = guardDistance <= 4;
@@ -6315,7 +4757,7 @@ function main() {
                         resetDeadDribbleTimer();
                     }
 
-                    var attackDir = (gameState.currentTeam === "red") ? 1 : -1;
+                    var attackDir = (gameState.currentTeam === "teamA") ? 1 : -1;
                     if (gameState.ballHandlerProgressOwner !== ballHandler) {
                         gameState.ballHandlerProgressOwner = ballHandler;
                         gameState.ballHandlerFrontcourtStartX = ballHandler.x;
@@ -6439,10 +4881,10 @@ function main() {
 
     // Cleanup
     if (ballFrame) ballFrame.close();
-    if (redPlayer1) redPlayer1.remove();
-    if (redPlayer2) redPlayer2.remove();
-    if (bluePlayer1) bluePlayer1.remove();
-    if (bluePlayer2) bluePlayer2.remove();
+    if (teamAPlayer1) teamAPlayer1.remove();
+    if (teamAPlayer2) teamAPlayer2.remove();
+    if (teamBPlayer1) teamBPlayer1.remove();
+    if (teamBPlayer2) teamBPlayer2.remove();
     if (courtFrame) courtFrame.close();
     cleanupScoreFrames();
     if (scoreFrame) scoreFrame.close();
