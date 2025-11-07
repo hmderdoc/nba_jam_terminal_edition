@@ -31,6 +31,7 @@ load(js.exec_dir + "lib/game-logic/dead-dribble.js");
 load(js.exec_dir + "lib/game-logic/stats-tracker.js");
 load(js.exec_dir + "lib/game-logic/game-utils.js");
 load(js.exec_dir + "lib/game-logic/score-calculator.js");
+load(js.exec_dir + "lib/game-logic/fast-break-detection.js");
 load(js.exec_dir + "lib/bookie/bookie.js");
 load(js.exec_dir + "lib/utils/player-helpers.js");
 load(js.exec_dir + "lib/utils/positioning-helpers.js");
