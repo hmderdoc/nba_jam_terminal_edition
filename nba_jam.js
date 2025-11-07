@@ -11,6 +11,12 @@ if (typeof COURT_WIDTH === "undefined") {
     throw new Error("LOAD ORDER ERROR: constants.js failed to load. Check file path and syntax.");
 }
 
+// WAVE 21: Load game balance configuration (centralized magic numbers)
+load(js.exec_dir + "lib/config/game-balance.js");
+if (typeof GAME_BALANCE === "undefined") {
+    throw new Error("LOAD ORDER ERROR: game-balance.js failed to load. This is a critical dependency.");
+}
+
 load(js.exec_dir + "lib/utils/helpers.js");
 load(js.exec_dir + "lib/utils/validation.js");  // WAVE 21: Input validation utilities
 load(js.exec_dir + "lib/rendering/sprite-utils.js");
