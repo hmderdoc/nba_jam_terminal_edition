@@ -20,7 +20,8 @@ This document identifies architectural inconsistencies, technical debt, and desi
 ### The Mismatch
 
 **Problem**: Inconsistent state management between global `gameState` object and local function variables.  
-**Status**: ✅ **DOCUMENTED** in Wave 11 (commit a7f78d9 - comprehensive state management documentation)
+**Status**: ✅ **DOCUMENTED** in Wave 11 (commit a7f78d9 - comprehensive state management documentation)  
+**Status**: ✅ **FIXED** in Wave 15 (commit 98dbf8c - moved loop timing vars to gameState)
 
 ### Examples
 

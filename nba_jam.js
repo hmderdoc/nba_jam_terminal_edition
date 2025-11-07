@@ -153,9 +153,12 @@ function cleanupSprites() {
 function gameLoop() {
     gameState.gameRunning = true;
     clearPotentialAssist();
-    var lastUpdate = Date.now();
-    var lastSecond = Date.now();
-    var lastAI = Date.now();
+
+    // Initialize timing in gameState (Bug #25 fix - move from local vars to state)
+    gameState.lastUpdateTime = Date.now();
+    gameState.lastSecondTime = Date.now();
+    gameState.lastAIUpdateTime = Date.now();
+
     var tempo = getSinglePlayerTempo();
     var frameDelay = tempo.frameDelayMs;
     var aiInterval = tempo.aiIntervalMs;
@@ -179,10 +182,10 @@ function gameLoop() {
         }
 
         // Update timer
-        if (now - lastSecond >= 1000) {
+        if (now - gameState.lastSecondTime >= 1000) {
             gameState.timeRemaining--;
             gameState.shotClock--;
-            lastSecond = now;
+            gameState.lastSecondTime = now;
 
             // Check for halftime (when first half time expires)
             if (gameState.currentHalf === 1 && gameState.timeRemaining <= gameState.totalGameTime / 2) {
@@ -196,9 +199,9 @@ function gameLoop() {
                 }
                 drawCourt();
                 drawScore();
-                lastUpdate = Date.now();
-                lastSecond = Date.now();
-                lastAI = Date.now();
+                gameState.lastUpdateTime = Date.now();
+                gameState.lastSecondTime = Date.now();
+                gameState.lastAIUpdateTime = Date.now();
                 continue;
             }
 
@@ -323,8 +326,8 @@ function gameLoop() {
         }
 
         if (violationTriggeredThisFrame) {
-            lastAI = now;
-            lastUpdate = now;
+            gameState.lastAIUpdateTime = now;
+            gameState.lastUpdateTime = now;
             continue;
         }
 
@@ -451,9 +454,9 @@ function gameLoop() {
         }
 
         // Update AI (slower than rendering)
-        if (now - lastAI >= aiInterval) {
+        if (now - gameState.lastAIUpdateTime >= aiInterval) {
             updateAI();
-            lastAI = now;
+            gameState.lastAIUpdateTime = now;
         }
 
         // Update turbo for all players
@@ -490,10 +493,10 @@ function gameLoop() {
 
         // Redraw court and score less frequently to balance performance
         // Skip during active animations to allow trails to accumulate
-        if (now - lastUpdate >= 60 && !animationSystem.isBallAnimating()) {
+        if (now - gameState.lastUpdateTime >= 60 && !animationSystem.isBallAnimating()) {
             drawCourt();
             drawScore();
-            lastUpdate = now;
+            gameState.lastUpdateTime = now;
         }
 
         // Cycle trail frame AFTER drawCourt so trails appear on top
@@ -1339,28 +1342,34 @@ function main() {
         // Draw overlay box in center of screen (non-blocking)
         var centerY = Math.floor(console.screen_rows / 2);
         var centerX = Math.floor(console.screen_columns / 2);
-        
+
+        // Build strings without .repeat() (not available in this JS engine)
+        var equals = "";
+        for (var i = 0; i < 40; i++) equals += "=";
+        var spaces38 = "";
+        for (var i = 0; i < 38; i++) spaces38 += " ";
+
         console.gotoxy(centerX - 20, centerY - 3);
-        console.print("\1h\1w" + "=".repeat(40) + "\1n");
-        
+        console.print("\1h\1w" + equals + "\1n");
+
         console.gotoxy(centerX - 20, centerY - 2);
-        console.print("\1h\1w|\1n" + " ".repeat(38) + "\1h\1w|\1n");
-        
+        console.print("\1h\1w|\1n" + spaces38 + "\1h\1w|\1n");
+
         console.gotoxy(centerX - 20, centerY - 1);
         console.print("\1h\1w|\1n     \1h\1yQuit multiplayer game?\1n          \1h\1w|\1n");
-        
+
         console.gotoxy(centerX - 20, centerY);
-        console.print("\1h\1w|\1n" + " ".repeat(38) + "\1h\1w|\1n");
-        
+        console.print("\1h\1w|\1n" + spaces38 + "\1h\1w|\1n");
+
         console.gotoxy(centerX - 20, centerY + 1);
         console.print("\1h\1w|\1n  This will disconnect from session.  \1h\1w|\1n");
-        
+
         console.gotoxy(centerX - 20, centerY + 2);
-        console.print("\1h\1w|\1n" + " ".repeat(38) + "\1h\1w|\1n");
-        
+        console.print("\1h\1w|\1n" + spaces38 + "\1h\1w|\1n");
+
         console.gotoxy(centerX - 20, centerY + 3);
         console.print("\1h\1w|\1n      \1h\1wY\1n\1kes / \1h\1wN\1n\1ko / \1h\1wQ\1n\1k=Cancel      \1h\1w|\1n");
-        
+
         console.gotoxy(centerX - 20, centerY + 4);
         console.print("\1h\1w" + "=".repeat(40) + "\1n");
     }
