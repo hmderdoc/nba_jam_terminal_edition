@@ -151,7 +151,8 @@ var stateDTO = {
 ### 6. AI Passes to Out-of-Bounds Teammates
 **File**: `lib/ai/ai-decision-support.js`  
 **Severity**: Medium  
-**Impact**: Turnover, looks broken
+**Impact**: Turnover, looks broken  
+**Status**: ✅ **FIXED** - Bounds checking added in ai-ball-handler.js lines 136-143
 
 **Issue**: No bounds checking before passing
 ```javascript
@@ -175,7 +176,8 @@ return null;
 ### 7. Shot Clock Violation Not Announced
 **File**: `nba_jam.js` (gameLoop)  
 **Severity**: Medium  
-**Impact**: Confusing to player (no feedback)
+**Impact**: Confusing to player (no feedback)  
+**Status**: ✅ **FIXED** - Announcements present at lines 208 and 1155 in nba_jam.js
 
 **Issue**:
 ```javascript
@@ -322,7 +324,8 @@ if (isCoordinator) {
 ### 13. No Fast Break Awareness
 **File**: `lib/ai/ai-ball-handler.js`  
 **Severity**: Low  
-**Impact**: AI doesn't push tempo (gameplay feels slow)
+**Impact**: AI doesn't push tempo (gameplay feels slow)  
+**Status**: ✅ **FIXED** in Wave 12 (commit 5dacbec)
 
 **Issue**: AI always walks ball up court
 
@@ -345,7 +348,8 @@ function isFastBreak(player) {
 ### 14. String Formatting Duplicates
 **File**: `lib/ui/score-display.js`  
 **Severity**: Low  
-**Impact**: Code duplication
+**Impact**: Code duplication  
+**Status**: ✅ **FIXED** in Wave 12 (commit 580df48)
 
 **Issue**: Inline `padStart()` implementation instead of using `string-helpers.js`
 
@@ -361,7 +365,8 @@ var paddedScore = padStart(String(score), 3, "0");
 ### 15. Missing Steal Cooldown
 **File**: `lib/ai/ai-movement.js`  
 **Severity**: Low  
-**Impact**: AI spams steal attempts
+**Impact**: AI spams steal attempts  
+**Status**: ✅ **FIXED** - stealRecoverFrames cooldown exists in defense-on-ball.js line 45
 
 **Issue**: No cooldown between steals
 ```javascript
@@ -509,7 +514,8 @@ var playerData = team.players[safeIndex];
 ### 26. Violation Flag Not Reset
 **File**: `nba_jam.js` (gameLoop)  
 **Severity**: Medium  
-**Impact**: Violation can trigger multiple times
+**Impact**: Violation can trigger multiple times  
+**Status**: ✅ **FIXED** - violationTriggeredThisFrame properly initialized at frame start (lines 173, 1151)
 
 **Issue**: `violationTriggeredThisFrame` might persist
 ```javascript
