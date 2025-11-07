@@ -153,12 +153,12 @@ function cleanupSprites() {
 function gameLoop() {
     gameState.gameRunning = true;
     clearPotentialAssist();
-    
+
     // Initialize timing in gameState (Bug #25 fix - move from local vars to state)
     gameState.lastUpdateTime = Date.now();
     gameState.lastSecondTime = Date.now();
     gameState.lastAIUpdateTime = Date.now();
-    
+
     var tempo = getSinglePlayerTempo();
     var frameDelay = tempo.frameDelayMs;
     var aiInterval = tempo.aiIntervalMs;
@@ -1342,28 +1342,34 @@ function main() {
         // Draw overlay box in center of screen (non-blocking)
         var centerY = Math.floor(console.screen_rows / 2);
         var centerX = Math.floor(console.screen_columns / 2);
-        
+
+        // Build strings without .repeat() (not available in this JS engine)
+        var equals = "";
+        for (var i = 0; i < 40; i++) equals += "=";
+        var spaces38 = "";
+        for (var i = 0; i < 38; i++) spaces38 += " ";
+
         console.gotoxy(centerX - 20, centerY - 3);
-        console.print("\1h\1w" + "=".repeat(40) + "\1n");
-        
+        console.print("\1h\1w" + equals + "\1n");
+
         console.gotoxy(centerX - 20, centerY - 2);
-        console.print("\1h\1w|\1n" + " ".repeat(38) + "\1h\1w|\1n");
-        
+        console.print("\1h\1w|\1n" + spaces38 + "\1h\1w|\1n");
+
         console.gotoxy(centerX - 20, centerY - 1);
         console.print("\1h\1w|\1n     \1h\1yQuit multiplayer game?\1n          \1h\1w|\1n");
-        
+
         console.gotoxy(centerX - 20, centerY);
-        console.print("\1h\1w|\1n" + " ".repeat(38) + "\1h\1w|\1n");
-        
+        console.print("\1h\1w|\1n" + spaces38 + "\1h\1w|\1n");
+
         console.gotoxy(centerX - 20, centerY + 1);
         console.print("\1h\1w|\1n  This will disconnect from session.  \1h\1w|\1n");
-        
+
         console.gotoxy(centerX - 20, centerY + 2);
-        console.print("\1h\1w|\1n" + " ".repeat(38) + "\1h\1w|\1n");
-        
+        console.print("\1h\1w|\1n" + spaces38 + "\1h\1w|\1n");
+
         console.gotoxy(centerX - 20, centerY + 3);
         console.print("\1h\1w|\1n      \1h\1wY\1n\1kes / \1h\1wN\1n\1ko / \1h\1wQ\1n\1k=Cancel      \1h\1w|\1n");
-        
+
         console.gotoxy(centerX - 20, centerY + 4);
         console.print("\1h\1w" + "=".repeat(40) + "\1n");
     }
