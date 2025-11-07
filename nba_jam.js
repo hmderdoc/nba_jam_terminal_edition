@@ -4,8 +4,15 @@
 load("sbbsdefs.js");
 load("frame.js");
 load("sprite.js");
+
+// WAVE 21: Load order guards for critical dependencies
 load(js.exec_dir + "lib/utils/constants.js");
+if (typeof COURT_WIDTH === "undefined") {
+    throw new Error("LOAD ORDER ERROR: constants.js failed to load. Check file path and syntax.");
+}
+
 load(js.exec_dir + "lib/utils/helpers.js");
+load(js.exec_dir + "lib/utils/validation.js");  // WAVE 21: Input validation utilities
 load(js.exec_dir + "lib/rendering/sprite-utils.js");
 load(js.exec_dir + "lib/rendering/uniform-system.js");
 load(js.exec_dir + "lib/rendering/animation-system.js");
@@ -48,6 +55,10 @@ load(js.exec_dir + "lib/ai/ai-corner-escape.js");
 load(js.exec_dir + "lib/ai/ai-ball-handler.js");
 load(js.exec_dir + "lib/ai/ai-movement.js");
 load(js.exec_dir + "lib/core/sprite-registry.js");
+// WAVE 21: Guard for sprite registry (critical dependency for sprite management)
+if (typeof spriteRegistry === "undefined") {
+    throw new Error("LOAD ORDER ERROR: sprite-registry.js failed to load. This is a critical dependency.");
+}
 load(js.exec_dir + "lib/core/sprite-init.js");
 load(js.exec_dir + "lib/animation/bearing-frames.js");
 load(js.exec_dir + "lib/animation/knockback-system.js");
@@ -76,7 +87,8 @@ try {
 }
 
 load(js.exec_dir + "lib/ai/game-context.js");
-load(js.exec_dir + "lib/ai/ai-decision-support.js");
+// WAVE 21 FIX: Removed duplicate load of ai-decision-support.js (was also at line 44)
+// This file is now loaded only once at line 44 to avoid redefining functions
 load(js.exec_dir + "lib/ai/offense-ball-handler.js");
 load(js.exec_dir + "lib/ai/offense-off-ball.js");
 load(js.exec_dir + "lib/ai/defense-on-ball.js");
