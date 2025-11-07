@@ -364,7 +364,68 @@ function padScoreDigit(digit) {
 
 ---
 
-## 5. Mixed UI and Logic Concerns
+## 5. Mixed UI and Logic Concerns ✅ **FIXED (Wave 18)**
+
+### Resolution
+
+**Fixed in Wave 18 (UI/Logic Separation)**:
+- Created view model functions in `lib/game-logic/score-calculator.js`
+- Moved score flash state management from UI to game logic
+- Removed duplicate logic from UI modules (score-display.js, scoreboard.js)
+- Fixed `gameState.scores` → `gameState.score` bug in score-calculator.js
+- Implemented view model pattern for clean data/presentation separation
+
+**Changes Made**:
+
+1. **score-calculator.js** now provides:
+   - `calculateScoreDisplay()` - Complete view model generator
+   - `calculateClockDisplay()` - Clock formatting logic
+   - `resolveTeamAbbreviations()` - Team name conflict resolution
+   - `calculateFireEffect()` - Fire animation calculation
+   - `calculateJerseyDisplay()` - Jersey number formatting
+   - `calculatePlayerDisplay()` - Player view data
+   - Score flash state (getScoreFlashState, startScoreFlash, stopScoreFlash, enableScoreFlashRegainCheck)
+
+2. **UI Modules** simplified:
+   - `score-display.js` - Removed 80+ lines of duplicated logic
+   - `scoreboard.js` - Removed duplicate score flash and jersey functions
+   - Both now delegate to score-calculator.js for data preparation
+
+**Architecture Pattern Implemented**:
+```javascript
+// LOGIC: lib/game-logic/score-calculator.js
+function calculateScoreDisplay(gameState, teamBPlayer1, teamBPlayer2, teamAPlayer1, teamAPlayer2) {
+    return {
+        teamB: {
+            name: "BULLS",
+            abbreviation: "BULLS",
+            score: 45,
+            colors: { fg: LIGHTBLUE, bg: BG_BLACK },
+            players: [
+                { name: "JORDAN", jersey: "23", turbo: 100, isOnFire: true, fireColor: YELLOW, hasBall: false, ... }
+            ]
+        },
+        teamA: { /* similar */ },
+        clock: { minutes: 5, seconds: 30, halfLabel: "2ND", shotClock: 14, isShotClockUrgent: false },
+        flashState: { active: true, activeTeam: "teamB", ... }
+    };
+}
+
+// UI: lib/ui/score-display.js (calls view model)
+function drawScore() {
+    var viewModel = calculateScoreDisplay(gameState, teamBPlayer1, teamBPlayer2, teamAPlayer1, teamAPlayer2);
+    // Pure rendering - no calculation
+    renderTeamScore(viewModel.teamB);
+    renderClock(viewModel.clock);
+}
+```
+
+**Benefits Achieved**:
+- ✅ Logic testable without Frame.js dependencies
+- ✅ Can render same data in multiple UIs (terminal, web, debug)
+- ✅ Clear responsibility: Logic calculates, UI renders
+- ✅ Eliminated ~150 lines of duplicated code
+- ✅ Fixed latent bug (wrong property name in score access)
 
 ### The Mismatch
 
