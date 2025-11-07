@@ -479,11 +479,21 @@ var playerData = team.players[safeIndex];
 ### 23. Input Lag Compensation Incomplete
 **File**: `lib/multiplayer/mp_client.js`  
 **Severity**: Medium  
-**Impact**: High-latency connections feel sluggish
+**Impact**: High-latency connections feel sluggish  
+**Status**: ✅ **FIXED** in Wave 16 (mp_input_replay.js module created, integrated into client)
 
 **Issue**: No input replay after reconciliation
 
-**Fix**: Implement replay buffer (see architecture_mismatches.md)
+**Details**: When server state corrections occur, client-side predictions are overwritten without replaying inputs that happened during the latency window, causing inputs to feel lost.
+
+**Fix**: Implemented input replay buffer system:
+- Created `lib/multiplayer/mp_input_replay.js` with frame-based history (120 frame buffer)
+- `recordInput()` called in PlayerClient.handleInput() to store all inputs with frame numbers
+- `replayInputsSince()` called in PlayerClient.reconcile() to re-apply inputs after server state
+- `pruneOldInputs()` called periodically in update() to manage memory
+- `clearInputHistory()` called in cleanup() on disconnect/new game
+
+**Result**: Inputs are preserved and replayed after server reconciliation, eliminating input loss during lag spikes
 
 ---
 

@@ -67,6 +67,7 @@ try {
     load(js.exec_dir + "lib/multiplayer/mp_failover.js");
     load(js.exec_dir + "lib/multiplayer/mp_coordinator.js");
     load(js.exec_dir + "lib/multiplayer/mp_client.js");
+    load(js.exec_dir + "lib/multiplayer/mp_input_replay.js");
     multiplayerEnabled = true;
 } catch (mpLoadError) {
     log(LOG_WARNING, "NBA JAM: Multiplayer load failed: " + mpLoadError + " (at " + (mpLoadError.fileName || "?") + ":" + (mpLoadError.lineNumber || "?") + ")");
