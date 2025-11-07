@@ -40,6 +40,7 @@ load(js.exec_dir + "lib/ui/controller-labels.js");
 load(js.exec_dir + "lib/ui/demo-results.js");
 load(js.exec_dir + "lib/ui/game-over.js");
 load(js.exec_dir + "lib/ai/ai-decision-support.js");
+load(js.exec_dir + "lib/ai/ai-difficulty.js");
 load(js.exec_dir + "lib/ai/ai-movement-utils.js");
 load(js.exec_dir + "lib/ai/ai-ball-handler.js");
 load(js.exec_dir + "lib/ai/ai-movement.js");
