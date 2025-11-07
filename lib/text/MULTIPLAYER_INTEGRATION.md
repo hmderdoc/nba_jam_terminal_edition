@@ -7,15 +7,15 @@ This guide explains how to integrate the multiplayer system into the main NBA JA
 ## Files Created
 
 ### Core System Files
-- **mp_identity.js** - Player identification across BBSes
-- **mp_config.js** - Server selection and configuration
-- **mp_network.js** - Network quality monitoring
-- **mp_sessions.js** - Session lifecycle management
+- **lib/multiplayer/mp_identity.js** - Player identification across BBSes
+- **lib/multiplayer/mp_config.js** - Server selection and configuration
+- **lib/multiplayer/mp_network.js** - Network quality monitoring
+- **lib/multiplayer/mp_sessions.js** - Session lifecycle management
 
 ### Game Files
-- **mp_lobby.js** - Multiplayer lobby with chat
-- **mp_coordinator.js** - Authoritative game coordinator
-- **mp_client.js** - Client-side prediction & reconciliation
+- **lib/multiplayer/mp_lobby.js** - Multiplayer lobby with chat
+- **lib/multiplayer/mp_coordinator.js** - Authoritative game coordinator
+- **lib/multiplayer/mp_client.js** - Client-side prediction & reconciliation
 
 ### Configuration
 - **mp_config.ini** - Server configuration (copy from .example)
@@ -64,9 +64,9 @@ switch (choice.toUpperCase()) {
 Add this function to `nba_jam.js`:
 
 ```javascript
-load(js.exec_dir + "mp_lobby.js");
-load(js.exec_dir + "mp_coordinator.js");
-load(js.exec_dir + "mp_client.js");
+load(js.exec_dir + "lib/multiplayer/mp_lobby.js");
+load(js.exec_dir + "lib/multiplayer/mp_coordinator.js");
+load(js.exec_dir + "lib/multiplayer/mp_client.js");
 
 function startMultiplayer() {
     // Run lobby

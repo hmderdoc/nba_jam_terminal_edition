@@ -103,13 +103,13 @@
 Required files in `/sbbs/xtrn/nba_jam/`:
 ```
 ✓ nba_jam.js             (main game - modified)
-✓ mp_identity.js         (player IDs)
-✓ mp_config.js           (server config)
-✓ mp_network.js          (network monitoring)
-✓ mp_sessions.js         (session management)
-✓ mp_lobby.js            (lobby UI)
-✓ mp_coordinator.js      (game coordinator)
-✓ mp_client.js           (client prediction)
+✓ lib/multiplayer/mp_identity.js         (player IDs)
+✓ lib/multiplayer/mp_config.js           (server config)
+✓ lib/multiplayer/mp_network.js          (network monitoring)
+✓ lib/multiplayer/mp_sessions.js         (session management)
+✓ lib/multiplayer/mp_lobby.js            (lobby UI)
+✓ lib/multiplayer/mp_coordinator.js      (game coordinator)
+✓ lib/multiplayer/mp_client.js           (client prediction)
 ```
 
 Optional:

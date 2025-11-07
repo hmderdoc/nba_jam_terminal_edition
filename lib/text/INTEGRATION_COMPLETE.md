@@ -111,17 +111,17 @@ Cleanup & return to lobby
    ```
 
 2. **Multiplayer Files Present**:
-   ```bash
-   ls /sbbs/xtrn/nba_jam/mp_*.js
-   ```
-   Should show:
-   - mp_identity.js
-   - mp_config.js
-   - mp_network.js
-   - mp_sessions.js
-   - mp_lobby.js
-   - mp_coordinator.js
-   - mp_client.js
+        ```bash
+        ls /sbbs/xtrn/nba_jam/lib/multiplayer/mp_*.js
+        ```
+        Should show:
+        - lib/multiplayer/mp_identity.js
+        - lib/multiplayer/mp_config.js
+        - lib/multiplayer/mp_network.js
+        - lib/multiplayer/mp_sessions.js
+        - lib/multiplayer/mp_lobby.js
+        - lib/multiplayer/mp_coordinator.js
+        - lib/multiplayer/mp_client.js
 
 ### Local Testing (Same BBS, Two Users)
 

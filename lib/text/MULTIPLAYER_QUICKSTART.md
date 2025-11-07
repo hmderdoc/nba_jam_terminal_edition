@@ -15,13 +15,13 @@ A **complete real-time multiplayer system** for NBA JAM that supports:
 
 ```
 /sbbs/xtrn/nba_jam/
-├── mp_identity.js              # Player ID system
-├── mp_config.js                # Server configuration
-├── mp_network.js               # Network monitoring
-├── mp_sessions.js              # Session management
-├── mp_lobby.js                 # Multiplayer lobby
-├── mp_coordinator.js           # Game coordinator
-├── mp_client.js                # Client prediction
+├── lib/multiplayer/mp_identity.js      # Player ID system
+├── lib/multiplayer/mp_config.js        # Server configuration
+├── lib/multiplayer/mp_network.js       # Network monitoring
+├── lib/multiplayer/mp_sessions.js      # Session management
+├── lib/multiplayer/mp_lobby.js         # Multiplayer lobby
+├── lib/multiplayer/mp_coordinator.js   # Game coordinator
+├── lib/multiplayer/mp_client.js        # Client prediction
 ├── mp_config.ini.example       # Config template
 ├── MULTIPLAYER_DESIGN.md       # Full architecture docs
 ├── MULTIPLAYER_INTEGRATION.md  # Integration guide
@@ -71,7 +71,7 @@ You can test the **lobby system** standalone right now:
 
 ```javascript
 // test_lobby.js
-load("/sbbs/xtrn/nba_jam/mp_lobby.js");
+load("/sbbs/xtrn/nba_jam/lib/multiplayer/mp_lobby.js");
 
 var result = runMultiplayerLobby();
 
