@@ -529,6 +529,32 @@ var playerData = team.players[safeIndex];
 **Status**: ✅ **FIXED** - violationTriggeredThisFrame properly initialized at frame start (lines 173, 1151)
 
 **Issue**: `violationTriggeredThisFrame` might persist
+
+**Fix**: Reset flag at start of each game loop frame
+
+---
+
+### 27. Database Event Broadcasting During Gameplay
+**File**: `lib/multiplayer/mp_coordinator.js`, `lib/multiplayer/mp_client.js`  
+**Severity**: **CRITICAL**  
+**Impact**: JSON overflow crashes in multiplayer games  
+**Status**: ✅ **FIXED** in Wave 16 (commit 5147abe - disabled database events entirely)
+
+**Issue**: Event broadcasting system used `client.push()` to write events (turboUpdate, shot_executed, etc.) to database during gameplay. Events accumulated without pruning, causing JSON payloads to exceed parser buffer limits (825+ frames observed). Non-coordinator clients crashed with "SyntaxError: JSON.parse" when trying to read truncated event arrays.
+
+**Architecture Violation**: Database should only be used for lobby/session management. All in-game synchronization must use memory-based Queues.
+
+**Fix**: 
+- Disabled `broadcastEvent()` in mp_coordinator.js (now a no-op)
+- Disabled `processEvents()` in mp_client.js (no database reads)
+- Removed database event subscription in cleanup()
+- All game state now syncs exclusively via stateQueues
+
+**Result**: No database I/O during gameplay, no JSON overflow, proper Queue-based architecture
+
+---
+
+**Issue**: `violationTriggeredThisFrame` might persist
 ```javascript
 var violationTriggeredThisFrame = false;
 // ... later ...
