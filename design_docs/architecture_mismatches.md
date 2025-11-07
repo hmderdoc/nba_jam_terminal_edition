@@ -375,6 +375,20 @@ function padScoreDigit(digit) {
 - Fixed `gameState.scores` → `gameState.score` bug in score-calculator.js
 - Implemented view model pattern for clean data/presentation separation
 
+**Further Fixed in Wave 19 (Hot Streak Separation)**:
+- Created `lib/game-logic/hot-streak.js` for "on fire" state management
+- Moved hot streak functions from `lib/ui/announcer.js` to game logic:
+  - `setPlayerOnFire()` - Activate hot streak for player
+  - `clearPlayerOnFire()` - Deactivate hot streak
+  - `clearTeamOnFire()` - Clear entire team's hot streak
+  - `updateTeamOnFireFlag()` - Sync team-level fire state
+  - `isPlayerOnFire()` - Query helper
+  - `isTeamOnFire()` - Query helper
+  - `getFireMakeStreak()` - Get player's streak count
+  - `incrementFireStreak()` - Increment make streak
+- `announcer.js` now handles ONLY announcements and UI display
+- ~60 lines of game logic removed from UI module
+
 **Changes Made**:
 
 1. **score-calculator.js** now provides:
