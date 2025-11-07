@@ -4908,6 +4908,7 @@ function mainMenu() {
     courtFrame.center("\1h\1g1\1n. Play Game (Single Player)\r\n");
     courtFrame.center("\1h\1m2\1n. Multiplayer (Online)\r\n");
     courtFrame.center("\1h\1c3\1n. Watch CPU Demo\r\n");
+    courtFrame.center("\1h\1y4\1n. Play LORB\r\n");
     courtFrame.center("\1h\1rQ\1n. Quit\r\n\r\n\r\n");
 
     courtFrame.center("Select an option:\r\n");
@@ -4929,6 +4930,8 @@ function mainMenu() {
             return "multiplayer"; // Multiplayer
         } else if (key === '3') {
             return "demo"; // Watch demo
+        } else if (key === '4') {
+            return "lorb"; // Play LORB
         }
         // Invalid key, loop again
     }
@@ -5772,6 +5775,17 @@ function main() {
             console.clear();
             console.print("\r\n\1r\1hMultiplayer not available!\1n\r\n\r\n");
             console.print("Multiplayer files not found. This installation may be incomplete.\r\n\r\n");
+            console.print("Press any key to continue...");
+            console.getkey();
+        }
+    } else if (menuChoice === "lorb") {
+        // Run LORB
+        try {
+            load(js.exec_dir + "lib/lorb/lorb.js");
+        } catch (e) {
+            console.clear();
+            console.print("\r\n\1r\1hLORB not available!\1n\r\n\r\n");
+            console.print("Error loading LORB: " + e + "\r\n\r\n");
             console.print("Press any key to continue...");
             console.getkey();
         }

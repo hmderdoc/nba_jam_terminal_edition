@@ -4,3 +4,4 @@ data/nba_jam.json.*
 data/*.log
 nba_jam.json
 visual_notes.md
+lib/text/*
