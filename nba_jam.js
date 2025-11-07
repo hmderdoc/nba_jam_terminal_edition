@@ -47,6 +47,7 @@ load(js.exec_dir + "lib/ai/ai-movement-utils.js");
 load(js.exec_dir + "lib/ai/ai-corner-escape.js");
 load(js.exec_dir + "lib/ai/ai-ball-handler.js");
 load(js.exec_dir + "lib/ai/ai-movement.js");
+load(js.exec_dir + "lib/core/sprite-registry.js");
 load(js.exec_dir + "lib/core/sprite-init.js");
 load(js.exec_dir + "lib/animation/bearing-frames.js");
 load(js.exec_dir + "lib/animation/knockback-system.js");
