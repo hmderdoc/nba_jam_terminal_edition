@@ -43,6 +43,7 @@ load(js.exec_dir + "lib/ui/game-over.js");
 load(js.exec_dir + "lib/ai/ai-decision-support.js");
 load(js.exec_dir + "lib/ai/ai-difficulty.js");
 load(js.exec_dir + "lib/ai/ai-movement-utils.js");
+load(js.exec_dir + "lib/ai/ai-corner-escape.js");
 load(js.exec_dir + "lib/ai/ai-ball-handler.js");
 load(js.exec_dir + "lib/ai/ai-movement.js");
 load(js.exec_dir + "lib/core/sprite-init.js");
