@@ -73,6 +73,7 @@ try {
     log(LOG_WARNING, "NBA JAM: Multiplayer load failed: " + mpLoadError + " (at " + (mpLoadError.fileName || "?") + ":" + (mpLoadError.lineNumber || "?") + ")");
 }
 
+load(js.exec_dir + "lib/ai/game-context.js");
 load(js.exec_dir + "lib/ai/ai-decision-support.js");
 load(js.exec_dir + "lib/ai/offense-ball-handler.js");
 load(js.exec_dir + "lib/ai/offense-off-ball.js");
