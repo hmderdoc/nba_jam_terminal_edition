@@ -49,6 +49,7 @@ load(js.exec_dir + "lib/animation/bearing-frames.js");
 load(js.exec_dir + "lib/animation/knockback-system.js");
 load(js.exec_dir + "lib/rendering/fire-effects.js");
 load(js.exec_dir + "lib/core/event-system.js");
+load(js.exec_dir + "lib/core/input-buffer.js");
 
 // Multiplayer modules
 
@@ -613,14 +614,14 @@ function runCPUDemo() {
  */
 function setupEventSubscriptions() {
     // Subscribe to violation events
-    onGameEvent("violation", function(data) {
+    onGameEvent("violation", function (data) {
         if (data.type === "backcourt") {
             announceEvent("violation_backcourt", { team: data.team });
         } else if (data.type === "five_seconds") {
             announceEvent("violation_five_seconds", { team: data.team });
         }
     });
-    
+
     // Future: Can add more event subscriptions here
     // - onGameEvent("score", ...) for stats tracking
     // - onGameEvent("steal", ...) for multiplayer sync
@@ -629,10 +630,10 @@ function setupEventSubscriptions() {
 
 function main() {
     resetGameState();
-    
+
     // Subscribe to game events (Observer pattern)
     setupEventSubscriptions();
-    
+
     // Show ANSI splash screen first
     showSplashScreen();
 
