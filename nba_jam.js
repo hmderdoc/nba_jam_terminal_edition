@@ -32,7 +32,6 @@ load(js.exec_dir + "lib/game-logic/stats-tracker.js");
 load(js.exec_dir + "lib/game-logic/game-utils.js");
 load(js.exec_dir + "lib/bookie/bookie.js");
 load(js.exec_dir + "lib/utils/player-helpers.js");
-load(js.exec_dir + "lib/utils/team-helpers.js");
 load(js.exec_dir + "lib/utils/positioning-helpers.js");
 load(js.exec_dir + "lib/utils/string-helpers.js");
 load(js.exec_dir + "lib/ui/score-display.js");
@@ -48,6 +47,9 @@ load(js.exec_dir + "lib/core/sprite-init.js");
 load(js.exec_dir + "lib/animation/bearing-frames.js");
 load(js.exec_dir + "lib/animation/knockback-system.js");
 load(js.exec_dir + "lib/rendering/fire-effects.js");
+load(js.exec_dir + "lib/core/event-system.js");
+
+// Multiplayer modules
 
 // Multiplayer support (optional - loaded on demand)
 var multiplayerEnabled = false;
@@ -603,8 +605,32 @@ function runCPUDemo() {
     }
 }
 
+/**
+ * Setup event subscriptions (Observer pattern)
+ * Connects game logic events to UI/announcer
+ */
+function setupEventSubscriptions() {
+    // Subscribe to violation events
+    onGameEvent("violation", function(data) {
+        if (data.type === "backcourt") {
+            announceEvent("violation_backcourt", { team: data.team });
+        } else if (data.type === "five_seconds") {
+            announceEvent("violation_five_seconds", { team: data.team });
+        }
+    });
+    
+    // Future: Can add more event subscriptions here
+    // - onGameEvent("score", ...) for stats tracking
+    // - onGameEvent("steal", ...) for multiplayer sync
+    // - onGameEvent("turnover", ...) for analytics
+}
+
 function main() {
     resetGameState();
+    
+    // Subscribe to game events (Observer pattern)
+    setupEventSubscriptions();
+    
     // Show ANSI splash screen first
     showSplashScreen();
 
