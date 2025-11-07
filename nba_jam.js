@@ -5374,7 +5374,7 @@ function showSplashScreen() {
 
     var splashLoaded = false;
 
-    var binPath = js.exec_dir + "nba_jam.bin";
+    var binPath = js.exec_dir + "assets/nba_jam.bin";
     var screenCols = (typeof console.screen_columns === "number") ? console.screen_columns : 80;
     var screenRows = (typeof console.screen_rows === "number") ? console.screen_rows : 24;
 
@@ -5394,7 +5394,7 @@ function showSplashScreen() {
     }
 
     if (!splashLoaded) {
-        var ansiFile = new File(js.exec_dir + "nba_jam.ans");
+        var ansiFile = new File(js.exec_dir + "assets/nba_jam.ans");
         if (ansiFile.open("r")) {
             var content = ansiFile.read();
             ansiFile.close();
@@ -5435,7 +5435,7 @@ function showMatchupScreen(allowBetting) {
     var screenRows = (typeof console.screen_rows === "number") ? console.screen_rows : 24;
     if (screenCols < 80 || screenRows < 24) return;
 
-    var binPath = js.exec_dir + "nba_jam.bin";
+    var binPath = js.exec_dir + "assets/nba_jam.bin";
     var graphicWidth = 80;
     var graphicHeight = Math.min(25, screenRows);
     var baseX = Math.max(1, Math.floor((screenCols - graphicWidth) / 2) + 1);
@@ -5748,7 +5748,7 @@ function main() {
 
     // Load team data first
     loadTeamData();
-    loadAnnouncerLibrary();
+    loadAnnouncerData();
 
     initFrames();
     showIntro();
