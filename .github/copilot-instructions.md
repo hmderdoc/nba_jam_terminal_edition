@@ -63,14 +63,17 @@ lib/
 1. Have ONE clear purpose (Single Responsibility Principle)
 2. Export 1-5 related functions (not 20+)
 3. Import only what it needs
-4. Be independently testable
+4. **Be independently testable** (pure functions, dependency injection)
 5. Have a clear name that describes its purpose
+6. **Include self-tests when practical** (runTests() function)
 
 **Red Flags**:
 - Module does multiple unrelated things
 - Module name is vague (`helpers.js`, `misc.js`)
 - Module has 10+ exports
 - Module imports from 10+ other modules (high coupling)
+- **Can't test module without running full game** (tightly coupled to globals)
+- **Side effects mixed with business logic** (impure functions)
 
 ---
 
@@ -385,28 +388,55 @@ function moveSprite(sprite, dx, dy) {
 ### Refactoring Process
 
 1. **Identify problem** (use design docs)
-2. **Write test** (if none exists)
+2. **Write test** (if none exists) - **Test BEFORE refactoring**
 3. **Refactor incrementally** (small changes)
 4. **Verify test passes** (no regressions)
 5. **Update documentation** (keep docs current)
 
-**Example: Extracting a module**
+**Example: Extracting a module (with testability)**
 ```javascript
 // Step 1: Identify duplicate code (in nba_jam.js, multiplayer-coordinator.js)
 function calculateShotQuality(shooter, defender) { ... }  // Appears 2x
 
-// Step 2: Create new module
-// lib/game-logic/shot-evaluation.js
-function calculateShotQuality(shooter, defender) {
-    // ... extracted logic
+// Step 2: Write test case BEFORE extracting
+function testShotQuality() {
+    var openShot = { x: 10, y: 10 };
+    var farDefender = { x: 20, y: 20 };
+    var quality = calculateShotQuality(openShot, farDefender);
+    return quality > 0.7;  // Expect high quality
 }
 
-// Step 3: Replace duplicates with import
-load(js.exec_dir + "lib/game-logic/shot-evaluation.js");
-var quality = calculateShotQuality(shooter, defender);
+// Step 3: Create new module (pure function for testability)
+// lib/game-logic/shot-evaluation.js
+function calculateShotQuality(shooter, defender, basketX, basketY) {
+    var distToBasket = getDistance(shooter.x, shooter.y, basketX, basketY);
+    var distToDefender = getDistance(shooter.x, shooter.y, defender.x, defender.y);
+    
+    var quality = 1.0;
+    if (distToBasket > 10) quality -= 0.3;
+    if (distToDefender < 3) quality -= 0.4;
+    
+    return Math.max(0, Math.min(1, quality));
+}
 
-// Step 4: Test both single-player and multiplayer
-// Step 5: Update file_layout.md
+// Self-test
+function runTests() {
+    var openShot = { x: 10, y: 10 };
+    var farDefender = { x: 20, y: 20 };
+    var quality = calculateShotQuality(openShot, farDefender, 5, 10);
+    console.print("Open shot test: " + (quality > 0.7 ? "PASS" : "FAIL") + "\n");
+}
+
+// Step 4: Replace duplicates with import
+load(js.exec_dir + "lib/game-logic/shot-evaluation.js");
+var quality = calculateShotQuality(shooter, defender, basketX, basketY);
+
+// Step 5: Run self-tests
+// load("lib/game-logic/shot-evaluation.js");
+// runTests();
+
+// Step 6: Test both single-player and multiplayer
+// Step 7: Update file_layout.md
 ```
 
 ---
@@ -505,31 +535,54 @@ function updateAI() {
    - Note any new patterns
    - Document configuration options
 
-**Example: Adding AI Difficulty**
+**Example: Adding AI Difficulty (Testable Pattern)**
 
 ```javascript
-// 1. Create new module
+// 1. Create new module with pure logic
 // lib/ai/ai-difficulty.js
 var difficultySettings = {
-    easy: { reactionTime: 10, shotAccuracy: 0.7 },
-    medium: { reactionTime: 5, shotAccuracy: 1.0 },
-    hard: { reactionTime: 2, shotAccuracy: 1.2 }
+    easy: { reactionTime: 10, shotAccuracy: 0.7, shotThreshold: 0.9 },
+    medium: { reactionTime: 5, shotAccuracy: 1.0, shotThreshold: 0.7 },
+    hard: { reactionTime: 2, shotAccuracy: 1.2, shotThreshold: 0.5 }
 };
 
-function setDifficulty(level) {
-    currentDifficulty = difficultySettings[level];
+function getDifficultySettings(level) {
+    return difficultySettings[level] || difficultySettings.medium;
 }
 
-function getDifficulty() {
-    return currentDifficulty;
+function calculateAdjustedAccuracy(baseAccuracy, difficulty) {
+    return baseAccuracy * difficulty.shotAccuracy;
 }
 
-// 2. Integrate into AI decision making
+// Self-test
+function runTests() {
+    var easy = getDifficultySettings("easy");
+    console.print("Easy settings: " + (easy.reactionTime === 10 ? "PASS" : "FAIL") + "\n");
+    
+    var accuracy = calculateAdjustedAccuracy(0.8, easy);
+    console.print("Accuracy calc: " + (accuracy === 0.56 ? "PASS" : "FAIL") + "\n");
+}
+
+// 2. Integrate into AI decision making (with dependency injection)
 // lib/ai/ai-offensive.js
-var difficulty = getDifficulty();
-mswait(difficulty.reactionTime * 50);  // Reaction delay
+function makeShootDecision(shooter, defender, difficulty) {
+    var baseQuality = calculateShotQuality(shooter, defender);
+    var adjustedQuality = baseQuality * difficulty.shotAccuracy;
+    
+    return {
+        shouldShoot: adjustedQuality > difficulty.shotThreshold,
+        quality: adjustedQuality
+    };
+}
 
-// 3. Add UI for selection
+// TEST: Can verify without running game
+var mockShooter = { x: 10, y: 10, playerData: { shooting: 80 } };
+var mockDefender = { x: 15, y: 10 };
+var easyDifficulty = getDifficultySettings("easy");
+var decision = makeShootDecision(mockShooter, mockDefender, easyDifficulty);
+// Verify decision logic
+
+// 3. Add UI for selection (side effects isolated)
 // lib/ui/menu-difficulty.js
 function showDifficultyMenu() {
     console.print("Select Difficulty:\n");
@@ -539,7 +592,10 @@ function showDifficultyMenu() {
     // ...
 }
 
-// 4. Test all three difficulty levels
+// 4. Test at multiple levels:
+//    - Unit: Test getDifficultySettings(), calculateAdjustedAccuracy()
+//    - Integration: Test makeShootDecision() with mock data
+//    - E2E: Test all three difficulty levels in full game
 // 5. Update design_docs/file_layout.md
 ```
 
@@ -596,18 +652,254 @@ function showDifficultyMenu() {
 
 ## 🧪 Testing Guidelines
 
+### Write Testable Code
+
+**Goal**: Every module should be testable WITHOUT launching the full game
+
+**Testable Module Pattern**:
+```javascript
+// ✅ GOOD: Pure functions, testable in isolation
+// lib/utils/math-helpers.js
+function normalizeVector(dx, dy) {
+    var magnitude = Math.sqrt(dx * dx + dy * dy);
+    if (magnitude === 0) return { dx: 0, dy: 0 };
+    return {
+        dx: dx / magnitude,
+        dy: dy / magnitude
+    };
+}
+
+// TEST (can run standalone):
+var result = normalizeVector(3, 4);
+// result.dx === 0.6, result.dy === 0.8
+
+// ❌ BAD: Tightly coupled to game state
+function movePlayer() {
+    var dx = gameState.input.dx;  // Global dependency
+    var dy = gameState.input.dy;
+    var magnitude = Math.sqrt(dx * dx + dy * dy);
+    teamAPlayer1.x += dx / magnitude;  // Global sprite
+    // Can't test without full game running!
+}
+```
+
+**Dependency Injection for Testability**:
+```javascript
+// ✅ GOOD: Dependencies passed as parameters
+function calculateShotQuality(shooter, defender, basketX, basketY) {
+    var distanceToBasket = getDistance(shooter.x, shooter.y, basketX, basketY);
+    var distanceToDefender = getDistance(shooter.x, shooter.y, defender.x, defender.y);
+    
+    var quality = 1.0;
+    if (distanceToBasket > 10) quality -= 0.3;
+    if (distanceToDefender < 3) quality -= 0.4;
+    
+    return Math.max(0, Math.min(1, quality));
+}
+
+// TEST: Easy to verify with mock data
+var mockShooter = { x: 10, y: 10 };
+var mockDefender = { x: 15, y: 10 };
+var quality = calculateShotQuality(mockShooter, mockDefender, 5, 10);
+// quality === 0.6 (expected)
+
+// ❌ BAD: Hardcoded dependencies
+function calculateShotQuality() {
+    var shooter = teamAPlayer1;  // Can't substitute!
+    var defender = getDefender();  // Function call dependency
+    var basket = BASKET_A_POSITION;  // Global constant
+    // ... can't test without full game state
+}
+```
+
+**Separate Logic from Side Effects**:
+```javascript
+// ✅ GOOD: Logic separated from I/O
+// lib/game-logic/scoring-logic.js
+function calculatePoints(shotType, isFireMode) {
+    if (shotType === "dunk") return 2;
+    if (shotType === "3pt") return isFireMode ? 4 : 3;
+    return 2;
+}
+
+// lib/game-logic/scoring-effects.js
+function awardPoints(team, points) {
+    gameState.scores[team] += points;  // Side effect isolated
+    announceEvent("score", { team: team, points: points });
+    playScoreAnimation();
+}
+
+// TEST: Pure logic is easily testable
+var points = calculatePoints("3pt", true);  // 4 (expected)
+var points2 = calculatePoints("dunk", false);  // 2 (expected)
+
+// ❌ BAD: Logic and side effects mixed
+function scoreBasket(shotType, isFireMode, team) {
+    var points = shotType === "dunk" ? 2 : (shotType === "3pt" ? 3 : 2);
+    gameState.scores[team] += points;
+    announceEvent("score", { team: team, points: points });
+    playScoreAnimation();
+    updateScoreboard();
+    checkForWin();
+    // Too many side effects - can't test logic in isolation!
+}
+```
+
+**Use Data Transfer Objects (DTOs)**:
+```javascript
+// ✅ GOOD: Use plain objects for testability
+function evaluateAIShot(shotContext) {
+    var quality = shotContext.distanceToBasket < 10 ? 0.8 : 0.5;
+    quality -= shotContext.defenderDistance < 3 ? 0.3 : 0;
+    
+    return {
+        shouldShoot: quality > 0.6,
+        quality: quality,
+        reason: quality > 0.6 ? "good look" : "contested"
+    };
+}
+
+// TEST: Easy to create mock contexts
+var context = {
+    distanceToBasket: 8,
+    defenderDistance: 5,
+    shotClock: 10
+};
+var decision = evaluateAIShot(context);
+// decision.shouldShoot === true
+
+// ❌ BAD: Requires sprite objects
+function evaluateAIShot(sprite, defender) {
+    // Needs full sprite with playerData, x, y, etc.
+    // Can't test without creating complex mock sprites
+}
+```
+
+**Avoid Global State Access**:
+```javascript
+// ✅ GOOD: State passed explicitly
+function shouldTakeFoulShot(player, gameTime, teamFouls) {
+    return gameTime < 120 && teamFouls >= 7;
+}
+
+// TEST: Trivial to test
+var result = shouldTakeFoulShot({name: "Jordan"}, 100, 8);
+// result === true
+
+// ❌ BAD: Global state dependencies
+function shouldTakeFoulShot(player) {
+    return gameState.timeRemaining < 120 && 
+           gameState.teamFouls[player.team] >= 7;
+    // Requires gameState to exist - can't test in isolation
+}
+```
+
+### Unit Testing Pattern
+
+**Create testable modules with self-tests**:
+```javascript
+// lib/utils/collision-detection.js
+
+function checkCollision(sprite1, sprite2, threshold) {
+    return Math.abs(sprite1.x - sprite2.x) < threshold &&
+           Math.abs(sprite1.y - sprite2.y) < threshold;
+}
+
+function getDistance(x1, y1, x2, y2) {
+    var dx = x2 - x1;
+    var dy = y2 - y1;
+    return Math.sqrt(dx * dx + dy * dy);
+}
+
+// Self-test function (run during development)
+function runTests() {
+    var results = [];
+    
+    // Test 1: Collision detection
+    var s1 = { x: 10, y: 10 };
+    var s2 = { x: 11, y: 11 };
+    var collision = checkCollision(s1, s2, 2);
+    results.push({
+        test: "checkCollision - should detect collision",
+        passed: collision === true
+    });
+    
+    // Test 2: No collision
+    var s3 = { x: 10, y: 10 };
+    var s4 = { x: 20, y: 20 };
+    var noCollision = checkCollision(s3, s4, 2);
+    results.push({
+        test: "checkCollision - should not detect collision",
+        passed: noCollision === false
+    });
+    
+    // Test 3: Distance calculation
+    var dist = getDistance(0, 0, 3, 4);
+    results.push({
+        test: "getDistance - should calculate correctly",
+        passed: Math.abs(dist - 5) < 0.001
+    });
+    
+    // Print results
+    for (var r of results) {
+        console.print(r.test + ": " + (r.passed ? "PASS" : "FAIL") + "\n");
+    }
+    
+    return results.every(r => r.passed);
+}
+
+// Usage during development:
+// load("lib/utils/collision-detection.js");
+// runTests();  // Verify module works without full game
+```
+
+**Test stub for BBS-dependent code**:
+```javascript
+// lib/test-helpers.js
+
+// Mock Synchronet console for testing
+var mockConsole = {
+    buffer: [],
+    print: function(str) {
+        this.buffer.push(str);
+    },
+    getkey: function() {
+        return this.nextKey || '\r';
+    },
+    clear: function() {
+        this.buffer = [];
+    }
+};
+
+// Use in tests
+function testMenuDisplay() {
+    var originalConsole = console;
+    console = mockConsole;  // Swap to mock
+    
+    showMainMenu();  // Function under test
+    
+    var output = mockConsole.buffer.join("");
+    var passed = output.includes("1. Start Game");
+    
+    console = originalConsole;  // Restore
+    return passed;
+}
+```
+
 ### Test Before Committing
 
 **For each change, test**:
-1. Single-player human vs AI
-2. Single-player human vs human (local)
-3. Multiplayer (2+ nodes)
-4. CPU demo mode
+1. **Unit level** - Run module self-tests if available
+2. Single-player human vs AI
+3. Single-player human vs human (local)
+4. Multiplayer (2+ nodes)
+5. CPU demo mode
 
 **For bug fixes, test**:
-1. Original bug scenario (verify fix)
-2. Related functionality (no regressions)
-3. Edge cases (boundary conditions)
+1. **Unit test** - Create test case that reproduces bug
+2. Original bug scenario (verify fix)
+3. Related functionality (no regressions)
+4. Edge cases (boundary conditions)
 
 ### Critical Test Scenarios
 
@@ -789,10 +1081,11 @@ Does it break existing tests?
 2. **Patterns Over Cleverness** - Follow established patterns, not clever hacks
 3. **Clarity Over Brevity** - Readable code beats terse code
 4. **Testing Over Hoping** - Test all modes before committing
-5. **Refactor Over Bandaid** - Fix root causes, not symptoms
-6. **Documentation Over Memory** - Write it down, don't rely on memory
-7. **Prevention Over Cleanup** - Avoid tech debt rather than accumulate it
-8. **Architecture Over Features** - Good structure enables fast feature development
+5. **Testability Over Integration** - Write code that can be tested without running the whole program
+6. **Refactor Over Bandaid** - Fix root causes, not symptoms
+7. **Documentation Over Memory** - Write it down, don't rely on memory
+8. **Prevention Over Cleanup** - Avoid tech debt rather than accumulate it
+9. **Architecture Over Features** - Good structure enables fast feature development
 
 ---
 
