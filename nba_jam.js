@@ -31,6 +31,7 @@ load(js.exec_dir + "lib/game-logic/dead-dribble.js");
 load(js.exec_dir + "lib/game-logic/stats-tracker.js");
 load(js.exec_dir + "lib/game-logic/game-utils.js");
 load(js.exec_dir + "lib/game-logic/score-calculator.js");
+load(js.exec_dir + "lib/game-logic/fast-break-detection.js");
 load(js.exec_dir + "lib/bookie/bookie.js");
 load(js.exec_dir + "lib/utils/player-helpers.js");
 load(js.exec_dir + "lib/utils/positioning-helpers.js");
@@ -1093,12 +1094,21 @@ function main() {
 
             // Handle input
             var key = console.inkey(K_NONE, 0);
-            if (key) {
-                if (key.toUpperCase() === 'Q') {
-                    // Confirm quit
-                    if (confirmMultiplayerQuit()) {
-                        break;
+
+            // Handle quit menu (non-blocking to prevent multiplayer desync)
+            if (gameState.quitMenuOpen) {
+                if (key) {
+                    var upperKey = key.toUpperCase();
+                    if (upperKey === 'Y') {
+                        break;  // Quit game
+                    } else if (upperKey === 'N' || upperKey === 'Q') {
+                        gameState.quitMenuOpen = false;  // Resume game
                     }
+                }
+                // Draw quit confirmation overlay (will be rendered after game frame)
+            } else if (key) {
+                if (key.toUpperCase() === 'Q') {
+                    gameState.quitMenuOpen = true;
                 } else {
                     // Send input to client for prediction
                     playerClient.handleInput(key, frameNumber);
@@ -1280,6 +1290,11 @@ function main() {
             // Update non-blocking rebound scramble
             updateReboundScramble();
 
+            // Draw quit confirmation overlay if open
+            if (gameState.quitMenuOpen) {
+                drawQuitMenuOverlay();
+            }
+
             // Cycle trail frame to display animation trails
             if (trailFrame) {
                 cycleFrame(trailFrame);
@@ -1319,14 +1334,34 @@ function main() {
             display.latency), WHITE | BG_BLACK);
     }
 
-    function confirmMultiplayerQuit() {
-        console.clear();
-        console.print("\r\n\r\n\1h\1yQuit multiplayer game?\1n\r\n\r\n");
-        console.print("This will disconnect you from the game session.\r\n\r\n");
-        console.print("\1h\1wY\1n\1kes / \1h\1wN\1n\1ko: ");
-
-        var key = console.getkey();
-        return (key && key.toUpperCase() === 'Y');
+    function drawQuitMenuOverlay() {
+        // Draw overlay box in center of screen (non-blocking)
+        var centerY = Math.floor(console.screen_rows / 2);
+        var centerX = Math.floor(console.screen_columns / 2);
+        
+        console.gotoxy(centerX - 20, centerY - 3);
+        console.print("\1h\1w" + "=".repeat(40) + "\1n");
+        
+        console.gotoxy(centerX - 20, centerY - 2);
+        console.print("\1h\1w|\1n" + " ".repeat(38) + "\1h\1w|\1n");
+        
+        console.gotoxy(centerX - 20, centerY - 1);
+        console.print("\1h\1w|\1n     \1h\1yQuit multiplayer game?\1n          \1h\1w|\1n");
+        
+        console.gotoxy(centerX - 20, centerY);
+        console.print("\1h\1w|\1n" + " ".repeat(38) + "\1h\1w|\1n");
+        
+        console.gotoxy(centerX - 20, centerY + 1);
+        console.print("\1h\1w|\1n  This will disconnect from session.  \1h\1w|\1n");
+        
+        console.gotoxy(centerX - 20, centerY + 2);
+        console.print("\1h\1w|\1n" + " ".repeat(38) + "\1h\1w|\1n");
+        
+        console.gotoxy(centerX - 20, centerY + 3);
+        console.print("\1h\1w|\1n      \1h\1wY\1n\1kes / \1h\1wN\1n\1ko / \1h\1wQ\1n\1k=Cancel      \1h\1w|\1n");
+        
+        console.gotoxy(centerX - 20, centerY + 4);
+        console.print("\1h\1w" + "=".repeat(40) + "\1n");
     }
 
     // Cleanup
