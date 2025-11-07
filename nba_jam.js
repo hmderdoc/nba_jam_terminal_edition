@@ -7,6 +7,7 @@ load("sprite.js");
 load(js.exec_dir + "lib/utils/constants.js");
 load(js.exec_dir + "lib/utils/helpers.js");
 load(js.exec_dir + "lib/rendering/sprite-utils.js");
+load(js.exec_dir + "lib/rendering/uniform-system.js");
 load(js.exec_dir + "lib/rendering/animation-system.js");
 load(js.exec_dir + "lib/rendering/player-labels.js");
 load(js.exec_dir + "lib/rendering/shoe-colors.js");
@@ -26,13 +27,16 @@ load(js.exec_dir + "lib/game-logic/possession.js");
 load(js.exec_dir + "lib/game-logic/team-data.js");
 load(js.exec_dir + "lib/game-logic/input-handler.js");
 load(js.exec_dir + "lib/game-logic/violations.js");
+load(js.exec_dir + "lib/game-logic/dead-dribble.js");
 load(js.exec_dir + "lib/game-logic/stats-tracker.js");
 load(js.exec_dir + "lib/game-logic/game-utils.js");
 load(js.exec_dir + "lib/bookie/bookie.js");
 load(js.exec_dir + "lib/utils/player-helpers.js");
+load(js.exec_dir + "lib/utils/team-helpers.js");
 load(js.exec_dir + "lib/utils/positioning-helpers.js");
 load(js.exec_dir + "lib/utils/string-helpers.js");
 load(js.exec_dir + "lib/ui/score-display.js");
+load(js.exec_dir + "lib/ui/controller-labels.js");
 load(js.exec_dir + "lib/ui/demo-results.js");
 load(js.exec_dir + "lib/ui/game-over.js");
 load(js.exec_dir + "lib/ai/ai-decision-support.js");
@@ -72,192 +76,6 @@ load(js.exec_dir + "lib/ui/menus.js");
 load(js.exec_dir + "lib/ui/game-over.js");
 load(js.exec_dir + "lib/ui/halftime.js");
 
-// String utilities (padStart, padEnd, repeatChar) and getTimeMs loaded from lib/utils/string-helpers.js
-// Fire effects (FIRE_COLOR_SEQUENCE, getFireColorIndex, getFireFg, getOnFireTrailAttr) loaded from lib/rendering/fire-effects.js
-
-function applyUniformMask(sprite, options) {
-    if (!sprite || !sprite.frame || !sprite.ini || !sprite.ini.width || !sprite.ini.height) {
-        return;
-    }
-
-    var jerseyBg = options.jerseyBg || BG_RED;
-    var accentFg = (options.accentFg !== undefined && options.accentFg !== null) ? options.accentFg : WHITE;
-    var jerseyNumber = "";
-    if (options.jerseyNumber !== undefined && options.jerseyNumber !== null) {
-        jerseyNumber = String(options.jerseyNumber);
-    }
-    var digits = jerseyNumber.replace(/[^0-9]/g, "");
-    var leftDigit;
-    var rightDigit;
-
-    if (digits.length >= 2) {
-        leftDigit = digits.charAt(0);
-        rightDigit = digits.charAt(1);
-    } else if (digits.length === 1) {
-        leftDigit = "#";
-        rightDigit = digits.charAt(0);
-    } else {
-        leftDigit = "#";
-        rightDigit = "#";
-    }
-
-    var topNeckChar = ascii(223); // ▀
-    var shortsChar = ascii(220);  // ▄
-    var digitsAttr = accentFg | jerseyBg;
-    var width = parseInt(sprite.ini.width);
-    var height = parseInt(sprite.ini.height);
-    var bearingCount = (sprite.ini.bearings && sprite.ini.bearings.length) ? sprite.ini.bearings.length : 1;
-    var positionCount = (sprite.ini.positions && sprite.ini.positions.length) ? sprite.ini.positions.length : 1;
-    var eyeFg = (options.eyeColor !== undefined && options.eyeColor !== null) ? (options.eyeColor & FG_MASK) : null;
-    var eyebrowChar = (options.eyebrowChar !== undefined && options.eyebrowChar !== null) ? String(options.eyebrowChar).charAt(0) : null;
-    if (eyebrowChar !== null && eyebrowChar.length === 0) eyebrowChar = null;
-    var eyebrowFg = (options.eyebrowColor !== undefined && options.eyebrowColor !== null) ? (options.eyebrowColor & FG_MASK) : null;
-
-    function getAttrValue(cell, fallback) {
-        if (cell && typeof cell.attr === "number") {
-            return cell.attr;
-        }
-        return fallback;
-    }
-
-    sprite.__shoeCells = [];
-    sprite.__shoeBg = jerseyBg;
-    sprite.__shoeChar = shortsChar;
-
-    for (var bearingIndex = 0; bearingIndex < bearingCount; bearingIndex++) {
-        var yOffset = height * bearingIndex;
-        for (var positionIndex = 0; positionIndex < positionCount; positionIndex++) {
-            var xOffset = width * positionIndex;
-            var rowEyes = {};
-
-            // Row 3, col 2 (1-based)
-            sprite.frame.setData(xOffset + 1, yOffset + 2, leftDigit, digitsAttr);
-
-            // Row 3, col 3 neckline
-            var neckData = sprite.frame.getData(xOffset + 2, yOffset + 2, false);
-            var neckAttrRaw = getAttrValue(neckData, digitsAttr);
-            var skinFg = neckAttrRaw & FG_MASK;
-            var neckAttr = composeAttrWithColor(neckAttrRaw, skinFg, jerseyBg);
-            sprite.frame.setData(xOffset + 2, yOffset + 2, topNeckChar, neckAttr);
-
-            // Row 3, col 4 (second digit)
-            sprite.frame.setData(xOffset + 3, yOffset + 2, rightDigit, digitsAttr);
-
-            // Row 4, col 2 (left leg/shorts)
-            var leftLegData = sprite.frame.getData(xOffset + 1, yOffset + 3, false);
-            var leftLegAttrRaw = getAttrValue(leftLegData, jerseyBg);
-            var initialShoeColor = (options && typeof options.shoeColor === "number") ? options.shoeColor : (leftLegAttrRaw & FG_MASK);
-            var leftLegAttr = composeAttrWithColor(leftLegAttrRaw, initialShoeColor, jerseyBg);
-            sprite.frame.setData(xOffset + 1, yOffset + 3, shortsChar, leftLegAttr);
-            sprite.__shoeCells.push({ x: xOffset + 1, y: yOffset + 3 });
-
-            // Row 4, col 4 (right leg/shorts)
-            var rightLegData = sprite.frame.getData(xOffset + 3, yOffset + 3, false);
-            var rightLegAttrRaw = getAttrValue(rightLegData, jerseyBg);
-            var rightLegAttr = composeAttrWithColor(rightLegAttrRaw, initialShoeColor, jerseyBg);
-            sprite.frame.setData(xOffset + 3, yOffset + 3, shortsChar, rightLegAttr);
-            sprite.__shoeCells.push({ x: xOffset + 3, y: yOffset + 3 });
-
-            // Scan cells for eye/eyebrow overrides
-            function recordRowEye(rowIndex, globalX, attrValue) {
-                var entry = rowEyes[rowIndex];
-                if (!entry) {
-                    entry = { min: globalX, max: globalX, count: 1 };
-                    rowEyes[rowIndex] = entry;
-                } else {
-                    if (globalX < entry.min) entry.min = globalX;
-                    if (globalX > entry.max) entry.max = globalX;
-                    entry.count++;
-                }
-                if (typeof attrValue === "number") {
-                    var bgMask = attrValue & BG_MASK;
-                    if (bgMask !== 0 || entry.bg === undefined) {
-                        entry.bg = bgMask;
-                    }
-                }
-            }
-
-            for (var localY = 0; localY < height; localY++) {
-                for (var localX = 0; localX < width; localX++) {
-                    var globalX = xOffset + localX;
-                    var globalY = yOffset + localY;
-                    var cell = sprite.frame.getData(globalX, globalY, false) || {};
-                    var ch = cell.ch;
-                    if (ch === 'O' || ch === 'o') {
-                        var baseAttr = getAttrValue(cell, WHITE | WAS_BROWN);
-                        var appliedAttr = baseAttr;
-                        if (eyeFg !== null) {
-                            appliedAttr = composeAttrWithColor(baseAttr, eyeFg, baseAttr & BG_MASK);
-                            sprite.frame.setData(globalX, globalY, ch, appliedAttr);
-                        }
-                        var finalCell = sprite.frame.getData(globalX, globalY, false) || {};
-                        var finalAttr = getAttrValue(finalCell, appliedAttr);
-                        recordRowEye(localY, globalX, finalAttr);
-                    }
-                }
-            }
-
-            if (eyebrowChar) {
-                for (var rowKey in rowEyes) {
-                    if (!rowEyes.hasOwnProperty(rowKey)) continue;
-                    var eyeInfo = rowEyes[rowKey];
-                    if (!eyeInfo || eyeInfo.count < 2) continue;
-                    var browX = Math.round((eyeInfo.min + eyeInfo.max) / 2);
-                    var browY = yOffset + parseInt(rowKey, 10);
-                    var browCell = sprite.frame.getData(browX, browY, false) || {};
-                    var browAttr = getAttrValue(browCell, WHITE | WAS_BROWN);
-                    var fgValue = (eyebrowFg !== null) ? eyebrowFg : (browAttr & FG_MASK);
-                    var bgValue = (eyeInfo.bg !== undefined && eyeInfo.bg !== null)
-                        ? eyeInfo.bg
-                        : (browAttr & BG_MASK);
-                    var updatedAttr = composeAttrWithColor(browAttr, fgValue, bgValue);
-                    sprite.frame.setData(browX, browY, eyebrowChar, updatedAttr);
-                }
-            }
-        }
-    }
-
-    sprite.frame.invalidate();
-}
-
-function sanitizeControllerAlias(alias, maxLen) {
-    maxLen = maxLen || 8;
-    if (!alias)
-        return "";
-    var trimmed = String(alias).trim();
-    if (trimmed.length > maxLen)
-        trimmed = trimmed.substring(0, maxLen);
-    return trimmed;
-}
-
-function setSpriteControllerLabel(sprite, alias, isHuman) {
-    if (!sprite || !sprite.playerData)
-        return;
-    var clean = sanitizeControllerAlias(alias || "CPU", 7);
-    sprite.playerData.controllerLabel = "<" + clean + ">";
-    sprite.playerData.controllerIsHuman = !!isHuman;
-}
-
-function applyDefaultControllerLabels() {
-    var alias = (typeof user !== "undefined" && user && user.alias) ? user.alias : "YOU";
-    var sprites = [teamAPlayer1, teamAPlayer2, teamBPlayer1, teamBPlayer2];
-    for (var i = 0; i < sprites.length; i++) {
-        var sprite = sprites[i];
-        if (!sprite || !sprite.playerData)
-            continue;
-        if (sprite.isHuman) {
-            setSpriteControllerLabel(sprite, alias, true);
-        } else {
-            setSpriteControllerLabel(sprite, "CPU", false);
-        }
-    }
-}
-
-// Score display, turbo bars, and flash effects loaded from lib/ui/score-display.js
-// drawScore, drawTurboBar, getScoreFlashState, startScoreFlash, stopScoreFlash, 
-// enableScoreFlashRegainCheck, setFrontcourtEstablished, drawAnnouncerLine
-
-
 function initFrames() {
     if (typeof console !== 'undefined' && typeof console.clear === 'function') {
         console.clear();
@@ -284,9 +102,6 @@ function initFrames() {
     drawAnnouncerLine();
 }
 
-// Bearing frame injection and animation functions loaded from lib/animation/bearing-frames.js
-
-// Cleanup function for sprites
 function cleanupSprites() {
     if (teamAPlayer1) {
         if (teamAPlayer1.frame) teamAPlayer1.frame.close();
@@ -325,139 +140,7 @@ function cleanupSprites() {
     ballFrame = null;
 }
 
-// Load the shoved sprite template once for all players
-// initSprites function loaded from lib/core/sprite-init.js
-// Helper functions (getAllPlayers, getClosestPlayer, etc.) loaded from lib/utils/player-helpers.js
-// getTimeMs loaded from lib/utils/string-helpers.js
-
-// Stats tracking functions loaded from lib/game-logic/stats-tracker.js
-// clearPotentialAssist, recordTurnover, setPotentialAssist, maybeAwardAssist
-
-function getTeamSprites(teamName) {
-    return teamName === "teamA" ? getRedTeam() : getBlueTeam();
-}
-
-function getOpposingTeamSprites(teamName) {
-    return teamName === "teamA" ? getBlueTeam() : getRedTeam();
-}
-
-// clamp function loaded from lib/utils/positioning-helpers.js
-
-// Score rendering helper functions loaded from lib/ui/score-display.js
-// ensureScoreFontLoaded, ensureScoreFrame, sanitizeFontLine, fillFrameBackground,
-// renderScoreDigits, renderFallbackScore, cleanupScoreFrames
-
-function resetDeadDribbleTimer() {
-    gameState.ballHandlerDeadSince = null;
-    gameState.ballHandlerDeadFrames = 0;
-    gameState.ballHandlerDeadForcedShot = false;
-    var everyone = getAllPlayers ? getAllPlayers() : null;
-    if (everyone && everyone.length) {
-        for (var i = 0; i < everyone.length; i++) {
-            var sprite = everyone[i];
-            if (sprite && sprite.playerData) {
-                sprite.playerData.hasDribble = true;
-            }
-        }
-    } else if (gameState.ballCarrier && gameState.ballCarrier.playerData) {
-        gameState.ballCarrier.playerData.hasDribble = true;
-    }
-}
-
-function isBallHandlerDribbleDead() {
-    var handler = gameState.ballCarrier;
-    return !!(handler && handler.playerData && handler.playerData.hasDribble === false);
-}
-
-function getBallHandlerDeadElapsed() {
-    if (!gameState.ballHandlerDeadSince) return 0;
-    var now = getTimeMs();
-    return Math.max(0, now - gameState.ballHandlerDeadSince);
-}
-
-// Positioning helper functions loaded from lib/utils/positioning-helpers.js
-// getSpriteDistanceToBasket, getBaseAttribute, getEffectiveAttribute, getSpriteDistance
-
-// ===== NEW AI HELPER FUNCTIONS =====
-
-/**
- * Check if player is in frontcourt or backcourt
- * @param {Object} player - The sprite to check
- * @param {string} teamName - "teamA" or "teamB"
- * @returns {boolean} true if in backcourt
- */
-// isInBackcourt and wouldBeOverAndBack are in lib/game-logic/violations.js
-
-// getTeammate is in lib/utils/player-helpers.js as getPlayerTeammate
-
-// AI Decision Support Functions loaded from lib/ai/ai-decision-support.js
-// Violations functions loaded from lib/game-logic/violations.js
-// All AI helper functions loaded from lib/ai/ai-decision-support.js
-// AI Movement utilities loaded from lib/ai/ai-movement-utils.js
-// AI Ball Handler loaded from lib/ai/ai-ball-handler.js
-// AI Off-Ball and Defense handlers loaded from lib/ai/ai-movement.js
-
-// ============================================================================
-// moveAITowards function is in lib/ai/ai-movement-utils.js
-
-/**
- * Unified violation checking logic
- * Extracted from duplicate code in single-player and multiplayer loops
- * Returns true if a violation was triggered this frame
- */
-function checkViolations(violationTriggeredThisFrame) {
-    // Backcourt violation checks
-    if (gameState.ballCarrier && !gameState.inbounding) {
-        // DEFENSIVE FIX: Verify ballCarrier is on the current team
-        var carrierTeam = getPlayerTeamName(gameState.ballCarrier);
-        if (carrierTeam !== gameState.currentTeam) {
-            // Data corruption - ballCarrier points to wrong team
-            log(LOG_WARNING, "NBA JAM: ballCarrier team mismatch in checkViolations! " +
-                "currentTeam=" + gameState.currentTeam + " but carrier is on " + carrierTeam);
-            // Reset ballCarrier to prevent false violation
-            gameState.ballCarrier = null;
-            return violationTriggeredThisFrame;
-        }
-
-        var inBackcourt = isInBackcourt(gameState.ballCarrier, gameState.currentTeam);
-        if (!gameState.frontcourtEstablished) {
-            if (!inBackcourt && gameState.inboundGracePeriod === 0) {
-                // Only establish frontcourt after grace period expires
-                setFrontcourtEstablished(gameState.currentTeam);
-                gameState.backcourtTimer = 0;
-            } else {
-                // Check if player is near half court line (within 6 pixels)
-                var midCourt = Math.floor(COURT_WIDTH / 2);
-                var distanceToMidcourt = Math.abs(gameState.ballCarrier.x - midCourt);
-                var nearHalfCourt = distanceToMidcourt < 6;
-
-                gameState.backcourtTimer++;
-
-                // Increased from 200 to 210 frames (adds 500ms buffer for network latency)
-                // Also pause timer increment if player is near half court line
-                if (gameState.backcourtTimer >= 210 && !nearHalfCourt) {  // 10.5 seconds at 20 FPS
-                    enforceBackcourtViolation("10-SECOND BACKCOURT VIOLATION!");
-                    violationTriggeredThisFrame = true;
-                } else if (nearHalfCourt && gameState.backcourtTimer >= 205) {
-                    // Near half court - cap timer at 205 frames to give grace period
-                    gameState.backcourtTimer = 205;
-                }
-            }
-        } else if (inBackcourt) {
-            // Check grace period before enforcing violation
-            if (gameState.inboundGracePeriod > 0) {
-                gameState.inboundGracePeriod--;
-            } else {
-                enforceBackcourtViolation("OVER AND BACK!");
-                violationTriggeredThisFrame = true;
-            }
-        }
-    } else if (!gameState.inbounding) {
-        gameState.backcourtTimer = 0;
-    }
-
-    return violationTriggeredThisFrame;
-}
+// Violation checking (checkViolations, enforceBackcourtViolation, etc.) loaded from lib/game-logic/violations.js
 
 function gameLoop() {
     gameState.gameRunning = true;
@@ -820,21 +503,6 @@ function gameLoop() {
     gameState.gameRunning = false;
 }
 
-// Knockback animation system loaded from lib/animation/knockback-system.js
-// knockBack, updateKnockbackAnimations
-
-// getTouchingOpponents and getBearingVector loaded from lib/utils/positioning-helpers.js
-
-/**
- * AI SHOVE DECISION SYSTEM
- * Evaluates offensive and defensive shove opportunities with weighted priorities
- */
-
-// Evaluate offensive shove opportunities per shove_documentation.md
-// Evaluate defensive shove opportunities per shove_documentation.md
-// Trigger defensive rotation when a defender is shoved (per shove_documentation.md)
-
-// === DEMO MODE ===
 function runCPUDemo() {
     while (true) {
         // Pick random teams for demo
@@ -933,8 +601,6 @@ function runCPUDemo() {
         resetGameState({ allCPUMode: true });
     }
 }
-
-// Collect game results for betting resolution - loaded from lib/ui/demo-results.js
 
 function main() {
     resetGameState();
