@@ -32,7 +32,6 @@ load(js.exec_dir + "lib/game-logic/stats-tracker.js");
 load(js.exec_dir + "lib/game-logic/game-utils.js");
 load(js.exec_dir + "lib/bookie/bookie.js");
 load(js.exec_dir + "lib/utils/player-helpers.js");
-load(js.exec_dir + "lib/utils/team-helpers.js");
 load(js.exec_dir + "lib/utils/positioning-helpers.js");
 load(js.exec_dir + "lib/utils/string-helpers.js");
 load(js.exec_dir + "lib/ui/score-display.js");
