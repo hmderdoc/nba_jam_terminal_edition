@@ -40,6 +40,7 @@ load(js.exec_dir + "lib/ui/controller-labels.js");
 load(js.exec_dir + "lib/ui/demo-results.js");
 load(js.exec_dir + "lib/ui/game-over.js");
 load(js.exec_dir + "lib/ai/ai-decision-support.js");
+load(js.exec_dir + "lib/ai/ai-difficulty.js");
 load(js.exec_dir + "lib/ai/ai-movement-utils.js");
 load(js.exec_dir + "lib/ai/ai-ball-handler.js");
 load(js.exec_dir + "lib/ai/ai-movement.js");
@@ -781,8 +782,12 @@ function main() {
 
         // Cleanup
         mpCoordinator = null; // Clear global reference
-        coordinator.cleanup();
-        playerClient.cleanup();
+        if (coordinator && typeof coordinator.cleanup === "function") {
+            coordinator.cleanup();
+        }
+        if (playerClient && typeof playerClient.cleanup === "function") {
+            playerClient.cleanup();
+        }
         cleanupSprites();
 
         // Show game over screen
@@ -1072,7 +1077,7 @@ function main() {
             }
 
             // Coordinator processes inputs and runs game logic
-            if (coordinator.isCoordinator) {
+            if (coordinator && coordinator.isCoordinator) {
                 var recoveryList = getAllPlayers();
                 for (var r = 0; r < recoveryList.length; r++) {
                     decrementStealRecovery(recoveryList[r]);
