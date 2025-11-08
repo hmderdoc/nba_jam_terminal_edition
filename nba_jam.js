@@ -668,6 +668,27 @@ function setupEventSubscriptions() {
 function main() {
     resetGameState();
 
+    // Wave 23: Initialize architecture foundation systems
+    // Wrap gameState with state manager for change tracking and testability
+    var stateManager = createStateManager(gameState);
+    
+    // Create event bus for decoupled system communication
+    var eventBus = createEventBus();
+    
+    // TODO: Wire up event handlers (announcer, stats, etc) to eventBus
+    // Example: eventBus.on('pass_complete', function(data) { announceEvent('pass', data); });
+    
+    // Store in global scope for now (will be passed as deps in migrated systems)
+    // TODO: Remove these globals once all systems migrated to dependency injection
+    if (typeof globalThis !== 'undefined') {
+        globalThis.stateManager = stateManager;
+        globalThis.eventBus = eventBus;
+    } else {
+        // Fallback for older JavaScript engines
+        this.stateManager = stateManager;
+        this.eventBus = eventBus;
+    }
+
     // Subscribe to game events (Observer pattern)
     setupEventSubscriptions();
 
