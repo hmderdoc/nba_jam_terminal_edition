@@ -496,7 +496,7 @@ function gameLoop(systems) {
 
         // Update AI (slower than rendering)
         if (now - gameState.lastAIUpdateTime >= aiInterval) {
-            updateAI();
+            updateAI(systems);
             stateManager.set("lastAIUpdateTime", now, "ai_update");
         }
 
@@ -1353,7 +1353,7 @@ function main() {
                 checkSpriteCollision();
 
                 // Update AI for non-player-controlled sprites
-                updateAI();
+                updateAI(systems);
             }
 
             // Client reconciles with server state
