@@ -101,3 +101,1162 @@
 [2025-11-08T02:25:13.608Z] [SHOT PATH] Normal miss - calling createRebound() at basket
 [2025-11-08T02:25:13.608Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
 [2025-11-08T02:25:13.608Z] [REBOUND] Scramble activated - reboundX: 76.19676267027077, reboundY: 13.023340748845188
+[2025-11-08T02:28:46.573Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:28:46.574Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:28:46.775Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T02:28:46.775Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T02:28:46.775Z] [REBOUND] Scramble activated - reboundX: 76.86293257268606, reboundY: 13.843058888498096
+[2025-11-08T02:28:46.775Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T02:28:49.084Z] [DUNK CHANCE] Player: Scottie Pippen, Base: NaN%, Skill: 9, Distance: 5.0, InKey: true
+[2025-11-08T02:28:49.084Z] [DUNK ROLL] Chance: NaN%, Roll: 7.1, Made: false
+[2025-11-08T02:28:49.793Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:28:50.194Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:28:50.195Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:28:50.195Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T02:28:50.195Z] [REBOUND] Scramble activated - reboundX: 74.12625258042317, reboundY: 7.890818986645627
+[2025-11-08T02:28:50.205Z] [DUNK CHANCE] Player: Scottie Pippen, Base: NaN%, Skill: 9, Distance: 2.0, InKey: true
+[2025-11-08T02:28:50.205Z] [DUNK ROLL] Chance: NaN%, Roll: 13.0, Made: false
+[2025-11-08T02:28:50.903Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:28:51.304Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:28:51.305Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:28:51.305Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T02:28:51.305Z] [REBOUND] Scramble activated - reboundX: 76.20665824100209, reboundY: 7.595945204087493
+[2025-11-08T02:28:51.315Z] [DUNK CHANCE] Player: Scottie Pippen, Base: NaN%, Skill: 9, Distance: 2.0, InKey: true
+[2025-11-08T02:28:51.315Z] [DUNK ROLL] Chance: NaN%, Roll: 62.7, Made: false
+[2025-11-08T02:28:52.030Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:28:52.432Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:28:52.432Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:28:52.432Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T02:28:52.432Z] [REBOUND] Scramble activated - reboundX: 78, reboundY: 8.67605136072835
+[2025-11-08T02:29:10.488Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:29:10.488Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:29:10.690Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T02:29:10.690Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T02:29:10.690Z] [REBOUND] Scramble activated - reboundX: 78, reboundY: 10.095899533307229
+[2025-11-08T02:29:10.690Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T02:29:14.147Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:29:14.147Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:29:14.348Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T02:29:14.348Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:14.348Z] [REBOUND] Scramble activated - reboundX: 6.368974784097384, reboundY: 12.516937880322361
+[2025-11-08T02:29:14.348Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T02:29:15.630Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 7.6, InKey: true
+[2025-11-08T02:29:15.630Z] [DUNK ROLL] Chance: NaN%, Roll: 6.7, Made: false
+[2025-11-08T02:29:16.761Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:17.162Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:17.162Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:17.162Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:17.162Z] [REBOUND] Scramble activated - reboundX: 4.981137190549694, reboundY: 6.321716797611846
+[2025-11-08T02:29:17.222Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:29:17.222Z] [DUNK ROLL] Chance: NaN%, Roll: 23.5, Made: false
+[2025-11-08T02:29:17.871Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:18.273Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:18.273Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:18.273Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:18.273Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.587966654619512
+[2025-11-08T02:29:18.924Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.6, InKey: true
+[2025-11-08T02:29:18.924Z] [DUNK ROLL] Chance: NaN%, Roll: 12.6, Made: false
+[2025-11-08T02:29:19.321Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:19.723Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:19.723Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:19.723Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:19.723Z] [REBOUND] Scramble activated - reboundX: 5.517055107398894, reboundY: 9.857185417589525
+[2025-11-08T02:29:19.783Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:29:19.783Z] [DUNK ROLL] Chance: NaN%, Roll: 70.6, Made: false
+[2025-11-08T02:29:20.431Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:20.832Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:20.832Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:20.832Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:20.832Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 8.159430968717617
+[2025-11-08T02:29:21.010Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.0, InKey: true
+[2025-11-08T02:29:21.010Z] [DUNK ROLL] Chance: NaN%, Roll: 80.8, Made: false
+[2025-11-08T02:29:21.402Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:21.803Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:21.803Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:21.803Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:21.803Z] [REBOUND] Scramble activated - reboundX: 8.256111576346639, reboundY: 8.027102893889943
+[2025-11-08T02:29:21.981Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:29:21.981Z] [DUNK ROLL] Chance: NaN%, Roll: 56.4, Made: false
+[2025-11-08T02:29:22.373Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:22.774Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:22.774Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:22.774Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:22.774Z] [REBOUND] Scramble activated - reboundX: 7.63155958963117, reboundY: 12.433234934757348
+[2025-11-08T02:29:23.069Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.5, InKey: true
+[2025-11-08T02:29:23.069Z] [DUNK ROLL] Chance: NaN%, Roll: 13.5, Made: false
+[2025-11-08T02:29:23.651Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:24.052Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:24.052Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:24.053Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:24.053Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 9.306272187184057
+[2025-11-08T02:29:24.230Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.0, InKey: true
+[2025-11-08T02:29:24.230Z] [DUNK ROLL] Chance: NaN%, Roll: 86.9, Made: false
+[2025-11-08T02:29:24.777Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:25.178Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:25.179Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:25.179Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:25.179Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 10.212536333520404
+[2025-11-08T02:29:25.592Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.2, InKey: true
+[2025-11-08T02:29:25.593Z] [DUNK ROLL] Chance: NaN%, Roll: 94.1, Made: false
+[2025-11-08T02:29:26.143Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:26.544Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:26.544Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:26.544Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:26.544Z] [REBOUND] Scramble activated - reboundX: 2.9441311164579473, reboundY: 9.60471785076915
+[2025-11-08T02:29:26.722Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.6, InKey: true
+[2025-11-08T02:29:26.722Z] [DUNK ROLL] Chance: NaN%, Roll: 51.9, Made: false
+[2025-11-08T02:29:27.271Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:27.672Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:27.673Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:27.673Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:27.673Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.338602812032153
+[2025-11-08T02:29:27.968Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 5.0, InKey: true
+[2025-11-08T02:29:27.968Z] [DUNK ROLL] Chance: NaN%, Roll: 28.4, Made: false
+[2025-11-08T02:29:28.432Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:28.834Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:28.834Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:28.834Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:28.834Z] [REBOUND] Scramble activated - reboundX: 5.210251382617996, reboundY: 6.024465034904605
+[2025-11-08T02:29:28.894Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 5.0, InKey: true
+[2025-11-08T02:29:28.895Z] [DUNK ROLL] Chance: NaN%, Roll: 17.3, Made: false
+[2025-11-08T02:29:29.358Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:29.759Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:29.759Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:29.759Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:29.759Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 13.129433039212428
+[2025-11-08T02:29:30.625Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 5.0, InKey: true
+[2025-11-08T02:29:30.625Z] [DUNK ROLL] Chance: NaN%, Roll: 38.3, Made: false
+[2025-11-08T02:29:31.410Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:31.811Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:31.811Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:31.811Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:31.811Z] [REBOUND] Scramble activated - reboundX: 8.84031052482492, reboundY: 8.416780550782102
+[2025-11-08T02:29:31.871Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:29:31.871Z] [DUNK ROLL] Chance: NaN%, Roll: 33.1, Made: false
+[2025-11-08T02:29:32.419Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:32.820Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:32.821Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:32.821Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:32.821Z] [REBOUND] Scramble activated - reboundX: 7.029069611726042, reboundY: 11.18667090581582
+[2025-11-08T02:29:33.351Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 5.7, InKey: true
+[2025-11-08T02:29:33.351Z] [DUNK ROLL] Chance: NaN%, Roll: 22.4, Made: false
+[2025-11-08T02:29:34.239Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:34.642Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:34.643Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:34.643Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:34.643Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 8.244467368381056
+[2025-11-08T02:29:35.055Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 2.8, InKey: true
+[2025-11-08T02:29:35.056Z] [DUNK ROLL] Chance: NaN%, Roll: 61.8, Made: false
+[2025-11-08T02:29:35.705Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:36.106Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:36.106Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:36.106Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:36.107Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 8.850416419907178
+[2025-11-08T02:29:36.284Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 3.6, InKey: true
+[2025-11-08T02:29:36.284Z] [DUNK ROLL] Chance: NaN%, Roll: 43.9, Made: false
+[2025-11-08T02:29:36.834Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:37.235Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:37.235Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:37.235Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:37.236Z] [REBOUND] Scramble activated - reboundX: 3.956833426026845, reboundY: 8.4203603177186
+[2025-11-08T02:29:37.530Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 3.2, InKey: true
+[2025-11-08T02:29:37.530Z] [DUNK ROLL] Chance: NaN%, Roll: 57.0, Made: false
+[2025-11-08T02:29:38.180Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:38.582Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:38.582Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:38.582Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:38.582Z] [REBOUND] Scramble activated - reboundX: 3.0876056078504783, reboundY: 10.599325983247805
+[2025-11-08T02:29:38.877Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 3.6, InKey: true
+[2025-11-08T02:29:38.877Z] [DUNK ROLL] Chance: NaN%, Roll: 59.8, Made: false
+[2025-11-08T02:29:39.427Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:39.829Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:39.829Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:39.829Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:39.829Z] [REBOUND] Scramble activated - reboundX: 6.039129651619365, reboundY: 5.949958918444059
+[2025-11-08T02:29:39.888Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 6.3, InKey: true
+[2025-11-08T02:29:39.889Z] [DUNK ROLL] Chance: NaN%, Roll: 76.9, Made: false
+[2025-11-08T02:29:40.843Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:41.245Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:41.245Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:41.245Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:41.245Z] [REBOUND] Scramble activated - reboundX: 6.380442923922175, reboundY: 6.648986678770536
+[2025-11-08T02:29:41.305Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:29:41.305Z] [DUNK ROLL] Chance: NaN%, Roll: 8.8, Made: false
+[2025-11-08T02:29:41.855Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:42.256Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:42.256Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:42.256Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:42.256Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 7.456883150071596
+[2025-11-08T02:29:42.433Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 2.0, InKey: true
+[2025-11-08T02:29:42.434Z] [DUNK ROLL] Chance: NaN%, Roll: 19.0, Made: false
+[2025-11-08T02:29:43.086Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:43.488Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:43.488Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:43.488Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:43.488Z] [REBOUND] Scramble activated - reboundX: 2.7255075214096234, reboundY: 12.458595809377334
+[2025-11-08T02:29:44.252Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 4.2, InKey: true
+[2025-11-08T02:29:44.252Z] [DUNK ROLL] Chance: NaN%, Roll: 45.9, Made: false
+[2025-11-08T02:29:44.969Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:45.370Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:45.370Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:45.370Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:45.370Z] [REBOUND] Scramble activated - reboundX: 3.9673905837107424, reboundY: 8.59744570077255
+[2025-11-08T02:29:45.431Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:29:45.431Z] [DUNK ROLL] Chance: NaN%, Roll: 91.4, Made: false
+[2025-11-08T02:29:46.084Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:46.485Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:46.486Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:46.486Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:46.486Z] [REBOUND] Scramble activated - reboundX: 4.491548232751398, reboundY: 9.26017360680885
+[2025-11-08T02:29:46.546Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:29:46.546Z] [DUNK ROLL] Chance: NaN%, Roll: 51.7, Made: false
+[2025-11-08T02:29:47.096Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:47.498Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:47.498Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:47.498Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:47.498Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 13.64859861205484
+[2025-11-08T02:29:48.536Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 4.5, InKey: true
+[2025-11-08T02:29:48.537Z] [DUNK ROLL] Chance: NaN%, Roll: 4.9, Made: false
+[2025-11-08T02:29:48.950Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:49.351Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:49.351Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:49.351Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:49.351Z] [REBOUND] Scramble activated - reboundX: 3.7489070428371982, reboundY: 8.52871879474555
+[2025-11-08T02:29:49.411Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.6, InKey: true
+[2025-11-08T02:29:49.411Z] [DUNK ROLL] Chance: NaN%, Roll: 13.2, Made: false
+[2025-11-08T02:29:50.060Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:50.461Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:50.461Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:50.461Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:50.461Z] [REBOUND] Scramble activated - reboundX: 4.307354495514389, reboundY: 11.145761391937967
+[2025-11-08T02:29:50.755Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:29:50.755Z] [DUNK ROLL] Chance: NaN%, Roll: 61.3, Made: false
+[2025-11-08T02:29:51.302Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:51.703Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:51.703Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:51.703Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:51.704Z] [REBOUND] Scramble activated - reboundX: 8.774014205924786, reboundY: 10.022231318283044
+[2025-11-08T02:29:51.763Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 3.2, InKey: true
+[2025-11-08T02:29:51.763Z] [DUNK ROLL] Chance: NaN%, Roll: 87.6, Made: false
+[2025-11-08T02:29:52.154Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:52.556Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:52.556Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:52.556Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:52.556Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 6.602906441852198
+[2025-11-08T02:29:52.971Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 3.6, InKey: true
+[2025-11-08T02:29:52.971Z] [DUNK ROLL] Chance: NaN%, Roll: 56.1, Made: false
+[2025-11-08T02:29:53.363Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:53.764Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:53.764Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:53.765Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:53.765Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 8.55436623234684
+[2025-11-08T02:29:53.943Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 3.0, InKey: true
+[2025-11-08T02:29:53.943Z] [DUNK ROLL] Chance: NaN%, Roll: 42.9, Made: false
+[2025-11-08T02:29:54.334Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:54.735Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:54.735Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:54.735Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:54.735Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 10.628058842586746
+[2025-11-08T02:29:54.795Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.6, InKey: true
+[2025-11-08T02:29:54.795Z] [DUNK ROLL] Chance: NaN%, Roll: 21.9, Made: false
+[2025-11-08T02:29:55.344Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:55.745Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:55.745Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:55.745Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:55.745Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 8.382227367779324
+[2025-11-08T02:29:55.922Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.0, InKey: true
+[2025-11-08T02:29:55.922Z] [DUNK ROLL] Chance: NaN%, Roll: 11.1, Made: false
+[2025-11-08T02:29:56.315Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:56.716Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:56.716Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:56.716Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:56.716Z] [REBOUND] Scramble activated - reboundX: 6.156645502954575, reboundY: 14.328017455193226
+[2025-11-08T02:29:57.246Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 5.7, InKey: true
+[2025-11-08T02:29:57.246Z] [DUNK ROLL] Chance: NaN%, Roll: 30.2, Made: false
+[2025-11-08T02:29:57.761Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:58.163Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:58.163Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:58.163Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:58.163Z] [REBOUND] Scramble activated - reboundX: 4.5852865844835655, reboundY: 7.595166282472449
+[2025-11-08T02:29:58.225Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:29:58.225Z] [DUNK ROLL] Chance: NaN%, Roll: 74.3, Made: false
+[2025-11-08T02:29:58.774Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:29:59.175Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:29:59.176Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:29:59.176Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:29:59.176Z] [REBOUND] Scramble activated - reboundX: 4.750783359873904, reboundY: 9.02423273461321
+[2025-11-08T02:29:59.236Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:29:59.237Z] [DUNK ROLL] Chance: NaN%, Roll: 35.6, Made: false
+[2025-11-08T02:29:59.626Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:00.028Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:00.028Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:00.028Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:00.028Z] [REBOUND] Scramble activated - reboundX: 4.877056115942572, reboundY: 10.628989399613552
+[2025-11-08T02:30:00.088Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:30:00.088Z] [DUNK ROLL] Chance: NaN%, Roll: 19.7, Made: false
+[2025-11-08T02:30:00.479Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:00.881Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:00.881Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:00.881Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:00.881Z] [REBOUND] Scramble activated - reboundX: 3.5523641536731887, reboundY: 8.620921070073027
+[2025-11-08T02:30:00.941Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:30:00.941Z] [DUNK ROLL] Chance: NaN%, Roll: 75.9, Made: false
+[2025-11-08T02:30:01.491Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:01.893Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:01.893Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:01.893Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:01.893Z] [REBOUND] Scramble activated - reboundX: 5.407209918115601, reboundY: 13.627061667745501
+[2025-11-08T02:30:01.953Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 3.6, InKey: true
+[2025-11-08T02:30:01.954Z] [DUNK ROLL] Chance: NaN%, Roll: 47.5, Made: false
+[2025-11-08T02:30:02.346Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:02.747Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:02.747Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:02.747Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:02.747Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 7.117338492648295
+[2025-11-08T02:30:03.043Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 3.6, InKey: true
+[2025-11-08T02:30:03.043Z] [DUNK ROLL] Chance: NaN%, Roll: 50.0, Made: false
+[2025-11-08T02:30:03.593Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:03.995Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:03.995Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:03.995Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:03.995Z] [REBOUND] Scramble activated - reboundX: 4.077329502862, reboundY: 11.271414582684129
+[2025-11-08T02:30:04.055Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:30:04.055Z] [DUNK ROLL] Chance: NaN%, Roll: 21.5, Made: false
+[2025-11-08T02:30:04.706Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:05.108Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:05.108Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:05.108Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:05.108Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 8.425567575743388
+[2025-11-08T02:30:05.285Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 2.0, InKey: true
+[2025-11-08T02:30:05.286Z] [DUNK ROLL] Chance: NaN%, Roll: 34.9, Made: false
+[2025-11-08T02:30:05.890Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:06.291Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:06.291Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:06.291Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:06.291Z] [REBOUND] Scramble activated - reboundX: 4.580653551894743, reboundY: 5.07525182866036
+[2025-11-08T02:30:06.468Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:30:06.468Z] [DUNK ROLL] Chance: NaN%, Roll: 92.2, Made: false
+[2025-11-08T02:30:07.018Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:07.419Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:07.419Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:07.419Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:07.419Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.580420550112233
+[2025-11-08T02:30:08.182Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.6, InKey: true
+[2025-11-08T02:30:08.182Z] [DUNK ROLL] Chance: NaN%, Roll: 76.1, Made: false
+[2025-11-08T02:30:08.834Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:09.236Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:09.236Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:09.236Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:09.236Z] [REBOUND] Scramble activated - reboundX: 2.2274089088443385, reboundY: 8.886158839560562
+[2025-11-08T02:30:09.296Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 2.8, InKey: true
+[2025-11-08T02:30:09.297Z] [DUNK ROLL] Chance: NaN%, Roll: 35.2, Made: false
+[2025-11-08T02:30:09.946Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:10.347Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:10.348Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:10.348Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:10.348Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 9.762456321406972
+[2025-11-08T02:30:10.643Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.2, InKey: true
+[2025-11-08T02:30:10.644Z] [DUNK ROLL] Chance: NaN%, Roll: 2.1, Made: false
+[2025-11-08T02:30:11.035Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:11.436Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:11.436Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:11.436Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:11.436Z] [REBOUND] Scramble activated - reboundX: 5.737674691631993, reboundY: 10.023474882033735
+[2025-11-08T02:30:11.496Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:30:11.497Z] [DUNK ROLL] Chance: NaN%, Roll: 2.1, Made: false
+[2025-11-08T02:30:12.045Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:12.446Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:12.446Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:12.446Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:12.446Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 8.893072109662075
+[2025-11-08T02:30:12.860Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 2.8, InKey: true
+[2025-11-08T02:30:12.860Z] [DUNK ROLL] Chance: NaN%, Roll: 63.8, Made: false
+[2025-11-08T02:30:13.251Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:13.653Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:13.653Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:13.653Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:13.653Z] [REBOUND] Scramble activated - reboundX: 4.336176554987112, reboundY: 9.036304303783677
+[2025-11-08T02:30:13.713Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.2, InKey: true
+[2025-11-08T02:30:13.713Z] [DUNK ROLL] Chance: NaN%, Roll: 29.8, Made: false
+[2025-11-08T02:30:14.106Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:14.507Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:14.507Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:14.507Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:14.507Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 13.6027895059887
+[2025-11-08T02:30:15.371Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 5.0, InKey: true
+[2025-11-08T02:30:15.371Z] [DUNK ROLL] Chance: NaN%, Roll: 76.6, Made: false
+[2025-11-08T02:30:15.837Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:16.238Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:16.238Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:16.238Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:16.238Z] [REBOUND] Scramble activated - reboundX: 4.251763871901451, reboundY: 11.453006029412899
+[2025-11-08T02:30:16.298Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 4.2, InKey: true
+[2025-11-08T02:30:16.298Z] [DUNK ROLL] Chance: NaN%, Roll: 16.3, Made: false
+[2025-11-08T02:30:17.015Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:17.416Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:17.416Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:17.416Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:17.416Z] [REBOUND] Scramble activated - reboundX: 3.580590578325254, reboundY: 13.44435611189115
+[2025-11-08T02:30:17.945Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 5.7, InKey: true
+[2025-11-08T02:30:17.945Z] [DUNK ROLL] Chance: NaN%, Roll: 97.8, Made: false
+[2025-11-08T02:30:18.459Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:18.860Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:18.861Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:18.861Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:18.861Z] [REBOUND] Scramble activated - reboundX: 6.567322554971235, reboundY: 4.67517631228781
+[2025-11-08T02:30:18.920Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:30:18.920Z] [DUNK ROLL] Chance: NaN%, Roll: 31.4, Made: false
+[2025-11-08T02:30:19.469Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:19.871Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:19.871Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:19.871Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:19.872Z] [REBOUND] Scramble activated - reboundX: 11.285094719408296, reboundY: 8.721178511636657
+[2025-11-08T02:30:20.283Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 6.3, InKey: true
+[2025-11-08T02:30:20.284Z] [DUNK ROLL] Chance: NaN%, Roll: 56.6, Made: false
+[2025-11-08T02:30:21.053Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:21.454Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:21.454Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:21.455Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:21.455Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 14.30847816491006
+[2025-11-08T02:30:22.517Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.5, InKey: true
+[2025-11-08T02:30:22.517Z] [DUNK ROLL] Chance: NaN%, Roll: 27.6, Made: false
+[2025-11-08T02:30:22.931Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:23.332Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:23.332Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:23.332Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:23.332Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 9.72608105111495
+[2025-11-08T02:30:23.628Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 2.0, InKey: true
+[2025-11-08T02:30:23.628Z] [DUNK ROLL] Chance: NaN%, Roll: 70.9, Made: false
+[2025-11-08T02:30:24.176Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:24.577Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:24.577Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:24.577Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:24.577Z] [REBOUND] Scramble activated - reboundX: 3.8530443159288175, reboundY: 6.536836251254876
+[2025-11-08T02:30:24.637Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:30:24.637Z] [DUNK ROLL] Chance: NaN%, Roll: 17.9, Made: false
+[2025-11-08T02:30:25.027Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:25.428Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:25.428Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:25.428Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:25.428Z] [REBOUND] Scramble activated - reboundX: 2.2550609075532217, reboundY: 15.067413786956886
+[2025-11-08T02:30:26.075Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 5.4, InKey: true
+[2025-11-08T02:30:26.075Z] [DUNK ROLL] Chance: NaN%, Roll: 69.9, Made: false
+[2025-11-08T02:30:26.750Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:27.151Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:27.151Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:27.152Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:27.152Z] [REBOUND] Scramble activated - reboundX: 7.207947929046002, reboundY: 10.924513782405974
+[2025-11-08T02:30:27.212Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.2, InKey: true
+[2025-11-08T02:30:27.212Z] [DUNK ROLL] Chance: NaN%, Roll: 60.0, Made: false
+[2025-11-08T02:30:27.625Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:28.026Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:28.027Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:28.027Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:28.027Z] [REBOUND] Scramble activated - reboundX: 2.8158357875558653, reboundY: 12.068222921368312
+[2025-11-08T02:30:28.555Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.6, InKey: true
+[2025-11-08T02:30:28.555Z] [DUNK ROLL] Chance: NaN%, Roll: 97.9, Made: false
+[2025-11-08T02:30:28.947Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:29.348Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:29.348Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:29.348Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:29.348Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.70522674033974
+[2025-11-08T02:30:29.525Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 2.8, InKey: true
+[2025-11-08T02:30:29.525Z] [DUNK ROLL] Chance: NaN%, Roll: 96.9, Made: false
+[2025-11-08T02:30:30.175Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:30.576Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:30.576Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:30.576Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:30.576Z] [REBOUND] Scramble activated - reboundX: 8.30916790165005, reboundY: 10.000189338948221
+[2025-11-08T02:30:30.636Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:30:30.636Z] [DUNK ROLL] Chance: NaN%, Roll: 23.7, Made: false
+[2025-11-08T02:30:31.185Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:31.586Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:31.586Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:31.586Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:31.586Z] [REBOUND] Scramble activated - reboundX: 6.296308417812047, reboundY: 10.774786249979533
+[2025-11-08T02:30:31.646Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:30:31.646Z] [DUNK ROLL] Chance: NaN%, Roll: 97.3, Made: false
+[2025-11-08T02:30:32.296Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:32.697Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:32.697Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:32.698Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:32.698Z] [REBOUND] Scramble activated - reboundX: 6.905600920999005, reboundY: 8.304521080808353
+[2025-11-08T02:30:32.758Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:30:32.758Z] [DUNK ROLL] Chance: NaN%, Roll: 15.7, Made: false
+[2025-11-08T02:30:33.407Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:33.808Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:33.808Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:33.808Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:33.808Z] [REBOUND] Scramble activated - reboundX: 2.7453766776180286, reboundY: 8.174879544712557
+[2025-11-08T02:30:33.868Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:30:33.868Z] [DUNK ROLL] Chance: NaN%, Roll: 59.2, Made: false
+[2025-11-08T02:30:34.519Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:34.920Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:34.920Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:34.920Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:34.920Z] [REBOUND] Scramble activated - reboundX: 3.5752152311374066, reboundY: 11.655536828576995
+[2025-11-08T02:30:35.214Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.5, InKey: true
+[2025-11-08T02:30:35.214Z] [DUNK ROLL] Chance: NaN%, Roll: 59.3, Made: false
+[2025-11-08T02:30:35.793Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:36.195Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:36.195Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:36.195Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:36.195Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.099986467634464
+[2025-11-08T02:30:36.609Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 2.8, InKey: true
+[2025-11-08T02:30:36.609Z] [DUNK ROLL] Chance: NaN%, Roll: 51.0, Made: false
+[2025-11-08T02:30:37.260Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:37.661Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:37.661Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:37.661Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:37.661Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 10.657827535161294
+[2025-11-08T02:30:38.191Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 2.2, InKey: true
+[2025-11-08T02:30:38.191Z] [DUNK ROLL] Chance: NaN%, Roll: 2.9, Made: false
+[2025-11-08T02:30:38.582Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:38.983Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:38.983Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:38.983Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:38.983Z] [REBOUND] Scramble activated - reboundX: 2.551204710746835, reboundY: 13.223995445323272
+[2025-11-08T02:30:39.394Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 4.2, InKey: true
+[2025-11-08T02:30:39.394Z] [DUNK ROLL] Chance: NaN%, Roll: 34.0, Made: false
+[2025-11-08T02:30:40.110Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:40.511Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:40.511Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:40.511Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:40.511Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 9.894460250351578
+[2025-11-08T02:30:40.804Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.6, InKey: true
+[2025-11-08T02:30:40.805Z] [DUNK ROLL] Chance: NaN%, Roll: 90.3, Made: false
+[2025-11-08T02:30:41.198Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:41.599Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:41.599Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:41.599Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:41.599Z] [REBOUND] Scramble activated - reboundX: 7.031106599437802, reboundY: 7.775806844226461
+[2025-11-08T02:30:41.659Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:30:41.659Z] [DUNK ROLL] Chance: NaN%, Roll: 0.7, Made: false
+[2025-11-08T02:30:42.207Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:42.609Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:42.609Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:42.609Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:42.609Z] [REBOUND] Scramble activated - reboundX: 6.712867091875535, reboundY: 11.313358640233066
+[2025-11-08T02:30:42.787Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:30:42.787Z] [DUNK ROLL] Chance: NaN%, Roll: 48.9, Made: false
+[2025-11-08T02:30:43.178Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:43.579Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:43.579Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:43.579Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:43.580Z] [REBOUND] Scramble activated - reboundX: 5.878905984560163, reboundY: 10.012557785915915
+[2025-11-08T02:30:43.640Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:30:43.640Z] [DUNK ROLL] Chance: NaN%, Roll: 28.5, Made: false
+[2025-11-08T02:30:44.289Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:44.690Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:44.690Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:44.690Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:44.691Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 7.506158399915606
+[2025-11-08T02:30:44.867Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 2.8, InKey: true
+[2025-11-08T02:30:44.867Z] [DUNK ROLL] Chance: NaN%, Roll: 66.5, Made: false
+[2025-11-08T02:30:45.418Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:45.819Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:45.819Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:45.819Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:45.819Z] [REBOUND] Scramble activated - reboundX: 6.128594871570074, reboundY: 6.790980740470611
+[2025-11-08T02:30:45.879Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.2, InKey: true
+[2025-11-08T02:30:45.879Z] [DUNK ROLL] Chance: NaN%, Roll: 61.3, Made: false
+[2025-11-08T02:30:46.528Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:46.929Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:46.929Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:46.929Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:46.929Z] [REBOUND] Scramble activated - reboundX: 4.409704941128036, reboundY: 7.603151573491024
+[2025-11-08T02:30:46.989Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:30:46.989Z] [DUNK ROLL] Chance: NaN%, Roll: 3.3, Made: false
+[2025-11-08T02:30:47.639Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:48.041Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:48.041Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:48.041Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:48.041Z] [REBOUND] Scramble activated - reboundX: 5.242675430083444, reboundY: 11.658432998597155
+[2025-11-08T02:30:48.219Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 3.2, InKey: true
+[2025-11-08T02:30:48.219Z] [DUNK ROLL] Chance: NaN%, Roll: 46.9, Made: false
+[2025-11-08T02:30:48.767Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:49.168Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:49.168Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:49.168Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:49.168Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 7.995255301085801
+[2025-11-08T02:30:49.463Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 3.6, InKey: true
+[2025-11-08T02:30:49.463Z] [DUNK ROLL] Chance: NaN%, Roll: 64.0, Made: false
+[2025-11-08T02:30:50.013Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:50.414Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:50.414Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:50.414Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:50.414Z] [REBOUND] Scramble activated - reboundX: 4.891506322095311, reboundY: 10.452043819733166
+[2025-11-08T02:30:50.474Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:30:50.474Z] [DUNK ROLL] Chance: NaN%, Roll: 35.8, Made: false
+[2025-11-08T02:30:50.863Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:51.265Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:51.265Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:51.265Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:51.265Z] [REBOUND] Scramble activated - reboundX: 7.9747843501076785, reboundY: 9.707439696646844
+[2025-11-08T02:30:51.325Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 6.0, InKey: true
+[2025-11-08T02:30:51.325Z] [DUNK ROLL] Chance: NaN%, Roll: 15.9, Made: false
+[2025-11-08T02:30:52.063Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:52.465Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:52.465Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:52.465Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:52.465Z] [REBOUND] Scramble activated - reboundX: 5.133358098310896, reboundY: 9.322301935255654
+[2025-11-08T02:30:52.524Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:30:52.525Z] [DUNK ROLL] Chance: NaN%, Roll: 1.2, Made: false
+[2025-11-08T02:30:53.174Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:53.575Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:53.575Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:53.575Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:53.575Z] [REBOUND] Scramble activated - reboundX: 6.9130694828485275, reboundY: 8.96048817036592
+[2025-11-08T02:30:53.752Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:30:53.752Z] [DUNK ROLL] Chance: NaN%, Roll: 79.8, Made: false
+[2025-11-08T02:30:54.300Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:54.701Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:54.702Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:54.702Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:54.702Z] [REBOUND] Scramble activated - reboundX: 7.737488297794506, reboundY: 8.946438715170888
+[2025-11-08T02:30:54.761Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:30:54.761Z] [DUNK ROLL] Chance: NaN%, Roll: 29.6, Made: false
+[2025-11-08T02:30:55.309Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:55.711Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:55.711Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:55.711Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:55.711Z] [REBOUND] Scramble activated - reboundX: 2.9202292055496835, reboundY: 12.661479944616051
+[2025-11-08T02:30:56.390Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.2, InKey: true
+[2025-11-08T02:30:56.390Z] [DUNK ROLL] Chance: NaN%, Roll: 15.7, Made: false
+[2025-11-08T02:30:56.971Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:57.372Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:57.372Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:57.372Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:57.372Z] [REBOUND] Scramble activated - reboundX: 6.845814561142948, reboundY: 8.672190809114461
+[2025-11-08T02:30:57.432Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:30:57.432Z] [DUNK ROLL] Chance: NaN%, Roll: 91.8, Made: false
+[2025-11-08T02:30:58.081Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:58.483Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:58.483Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:58.483Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:58.483Z] [REBOUND] Scramble activated - reboundX: 7.231870007924757, reboundY: 11.2599764148327
+[2025-11-08T02:30:58.896Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 4.2, InKey: true
+[2025-11-08T02:30:58.896Z] [DUNK ROLL] Chance: NaN%, Roll: 65.0, Made: false
+[2025-11-08T02:30:59.480Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:30:59.882Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:30:59.882Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:30:59.882Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:30:59.882Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 9.486016839236912
+[2025-11-08T02:31:00.061Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 3.2, InKey: true
+[2025-11-08T02:31:00.061Z] [DUNK ROLL] Chance: NaN%, Roll: 94.6, Made: false
+[2025-11-08T02:31:00.453Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:00.854Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:00.854Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:00.855Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:00.855Z] [REBOUND] Scramble activated - reboundX: 3.1767713527307526, reboundY: 7.181070056974523
+[2025-11-08T02:31:01.267Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 3.6, InKey: true
+[2025-11-08T02:31:01.267Z] [DUNK ROLL] Chance: NaN%, Roll: 39.9, Made: false
+[2025-11-08T02:31:01.659Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:02.060Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:02.061Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:02.061Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:02.061Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 10.418840322954253
+[2025-11-08T02:31:02.473Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 3.2, InKey: true
+[2025-11-08T02:31:02.474Z] [DUNK ROLL] Chance: NaN%, Roll: 33.7, Made: false
+[2025-11-08T02:31:02.866Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:03.267Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:03.267Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:03.268Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:03.268Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 6.896169387338945
+[2025-11-08T02:31:03.564Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 3.0, InKey: true
+[2025-11-08T02:31:03.565Z] [DUNK ROLL] Chance: NaN%, Roll: 97.2, Made: false
+[2025-11-08T02:31:03.958Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:04.360Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:04.360Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:04.360Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:04.360Z] [REBOUND] Scramble activated - reboundX: 3.5830116246078427, reboundY: 8.52675497122375
+[2025-11-08T02:31:04.420Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:31:04.420Z] [DUNK ROLL] Chance: NaN%, Roll: 66.9, Made: false
+[2025-11-08T02:31:05.071Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:05.473Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:05.473Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:05.473Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:05.473Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 5.470812571158645
+[2025-11-08T02:31:05.651Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 2.0, InKey: true
+[2025-11-08T02:31:05.651Z] [DUNK ROLL] Chance: NaN%, Roll: 36.6, Made: false
+[2025-11-08T02:31:06.302Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:06.703Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:06.703Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:06.703Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:06.703Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.54097189748887
+[2025-11-08T02:31:07.471Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 3.6, InKey: true
+[2025-11-08T02:31:07.471Z] [DUNK ROLL] Chance: NaN%, Roll: 5.6, Made: false
+[2025-11-08T02:31:07.861Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:08.262Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:08.262Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:08.262Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:08.263Z] [REBOUND] Scramble activated - reboundX: 6.946866058304915, reboundY: 10.305147161226746
+[2025-11-08T02:31:08.322Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:31:08.322Z] [DUNK ROLL] Chance: NaN%, Roll: 36.0, Made: false
+[2025-11-08T02:31:08.870Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:09.271Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:09.271Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:09.271Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:09.271Z] [REBOUND] Scramble activated - reboundX: 9.06749039986365, reboundY: 10.865504188922065
+[2025-11-08T02:31:09.565Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 5.1, InKey: true
+[2025-11-08T02:31:09.565Z] [DUNK ROLL] Chance: NaN%, Roll: 37.6, Made: false
+[2025-11-08T02:31:10.354Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:10.756Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:10.756Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:10.756Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:10.756Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 8.462144052861793
+[2025-11-08T02:31:10.934Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.0, InKey: true
+[2025-11-08T02:31:10.934Z] [DUNK ROLL] Chance: NaN%, Roll: 75.4, Made: false
+[2025-11-08T02:31:11.485Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:11.887Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:11.887Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:11.887Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:11.887Z] [REBOUND] Scramble activated - reboundX: 4.461399633342147, reboundY: 14.164200107616697
+[2025-11-08T02:31:12.418Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 5.7, InKey: true
+[2025-11-08T02:31:12.418Z] [DUNK ROLL] Chance: NaN%, Roll: 73.8, Made: false
+[2025-11-08T02:31:13.124Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:13.526Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:13.526Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:13.526Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:13.526Z] [REBOUND] Scramble activated - reboundX: 4.986876738261676, reboundY: 8.623904370847436
+[2025-11-08T02:31:13.585Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.5, InKey: true
+[2025-11-08T02:31:13.586Z] [DUNK ROLL] Chance: NaN%, Roll: 35.6, Made: false
+[2025-11-08T02:31:14.005Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:14.406Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:14.406Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:14.406Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:14.406Z] [REBOUND] Scramble activated - reboundX: 4.921407354791025, reboundY: 3.2966482728419146
+[2025-11-08T02:31:14.465Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:31:14.465Z] [DUNK ROLL] Chance: NaN%, Roll: 65.0, Made: false
+[2025-11-08T02:31:14.854Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:15.255Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:15.255Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:15.255Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:15.255Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 9.573651925666528
+[2025-11-08T02:31:15.433Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.0, InKey: true
+[2025-11-08T02:31:15.433Z] [DUNK ROLL] Chance: NaN%, Roll: 16.7, Made: false
+[2025-11-08T02:31:15.825Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:16.227Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:16.227Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:16.227Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:16.227Z] [REBOUND] Scramble activated - reboundX: 4.733028896701767, reboundY: 10.515587643638025
+[2025-11-08T02:31:16.287Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:31:16.287Z] [DUNK ROLL] Chance: NaN%, Roll: 96.2, Made: false
+[2025-11-08T02:31:16.837Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:17.238Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:17.238Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:17.238Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:17.238Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 10.221733585690956
+[2025-11-08T02:31:18.000Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 3.6, InKey: true
+[2025-11-08T02:31:18.000Z] [DUNK ROLL] Chance: NaN%, Roll: 44.5, Made: false
+[2025-11-08T02:31:18.548Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:18.949Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:18.949Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:18.949Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:18.949Z] [REBOUND] Scramble activated - reboundX: 9.40555276397513, reboundY: 13.103314336022175
+[2025-11-08T02:31:19.627Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 6.7, InKey: true
+[2025-11-08T02:31:19.627Z] [DUNK ROLL] Chance: NaN%, Roll: 38.6, Made: false
+[2025-11-08T02:31:20.429Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:20.830Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:20.830Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:20.830Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:20.830Z] [REBOUND] Scramble activated - reboundX: 8.986122976714112, reboundY: 9.903541266133379
+[2025-11-08T02:31:21.124Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 6.4, InKey: true
+[2025-11-08T02:31:21.124Z] [DUNK ROLL] Chance: NaN%, Roll: 27.2, Made: false
+[2025-11-08T02:31:22.083Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:22.484Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:22.484Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:22.484Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:22.484Z] [REBOUND] Scramble activated - reboundX: 8.253294533953483, reboundY: 5.182176809068899
+[2025-11-08T02:31:22.544Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 5.1, InKey: true
+[2025-11-08T02:31:22.544Z] [DUNK ROLL] Chance: NaN%, Roll: 59.6, Made: false
+[2025-11-08T02:31:23.007Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:23.409Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:23.409Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:23.409Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:23.409Z] [REBOUND] Scramble activated - reboundX: 5.379955555608554, reboundY: 10.006435472246697
+[2025-11-08T02:31:23.468Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:31:23.468Z] [DUNK ROLL] Chance: NaN%, Roll: 55.1, Made: false
+[2025-11-08T02:31:24.017Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:24.418Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:24.418Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:24.418Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:24.418Z] [REBOUND] Scramble activated - reboundX: 2.857076415998652, reboundY: 5.32879540627759
+[2025-11-08T02:31:24.595Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:31:24.595Z] [DUNK ROLL] Chance: NaN%, Roll: 58.7, Made: false
+[2025-11-08T02:31:25.144Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:25.545Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:25.545Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:25.545Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:25.545Z] [REBOUND] Scramble activated - reboundX: 4.816040126891901, reboundY: 8.993126275451122
+[2025-11-08T02:31:25.605Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:31:25.605Z] [DUNK ROLL] Chance: NaN%, Roll: 94.3, Made: false
+[2025-11-08T02:31:26.258Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:26.659Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:26.659Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:26.659Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:26.659Z] [REBOUND] Scramble activated - reboundX: 8.567719015885801, reboundY: 12.126888108865753
+[2025-11-08T02:31:27.306Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 4.2, InKey: true
+[2025-11-08T02:31:27.306Z] [DUNK ROLL] Chance: NaN%, Roll: 26.2, Made: false
+[2025-11-08T02:31:27.891Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:28.292Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:28.292Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:28.293Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:28.293Z] [REBOUND] Scramble activated - reboundX: 6.200317189361065, reboundY: 9.961922451920632
+[2025-11-08T02:31:28.352Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 5.1, InKey: true
+[2025-11-08T02:31:28.353Z] [DUNK ROLL] Chance: NaN%, Roll: 65.7, Made: false
+[2025-11-08T02:31:28.995Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:29.396Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:29.396Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:29.396Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:29.396Z] [REBOUND] Scramble activated - reboundX: 5.416145227251912, reboundY: 10.021586920857295
+[2025-11-08T02:31:29.456Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:31:29.456Z] [DUNK ROLL] Chance: NaN%, Roll: 75.9, Made: false
+[2025-11-08T02:31:30.003Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:30.405Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:30.405Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:30.405Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:30.405Z] [REBOUND] Scramble activated - reboundX: 5.9318338511938995, reboundY: 6.04315979983764
+[2025-11-08T02:31:30.466Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:31:30.466Z] [DUNK ROLL] Chance: NaN%, Roll: 52.5, Made: false
+[2025-11-08T02:31:31.120Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:31.522Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:31.522Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:31.522Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:31.522Z] [REBOUND] Scramble activated - reboundX: 7.581384437724555, reboundY: 6.799232207716843
+[2025-11-08T02:31:31.583Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:31:31.583Z] [DUNK ROLL] Chance: NaN%, Roll: 12.2, Made: false
+[2025-11-08T02:31:32.138Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:32.540Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:32.540Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:32.540Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:32.540Z] [REBOUND] Scramble activated - reboundX: 5.607771435587509, reboundY: 11.329969415223363
+[2025-11-08T02:31:33.070Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 4.2, InKey: true
+[2025-11-08T02:31:33.070Z] [DUNK ROLL] Chance: NaN%, Roll: 94.7, Made: false
+[2025-11-08T02:31:33.652Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:34.054Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:34.054Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:34.054Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:34.054Z] [REBOUND] Scramble activated - reboundX: 3.1489892602840945, reboundY: 6.618283574972538
+[2025-11-08T02:31:34.114Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:31:34.114Z] [DUNK ROLL] Chance: NaN%, Roll: 89.3, Made: false
+[2025-11-08T02:31:34.506Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:34.908Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:34.908Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:34.908Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:34.908Z] [REBOUND] Scramble activated - reboundX: 9.184695869041137, reboundY: 10.844906910199294
+[2025-11-08T02:31:35.204Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 6.1, InKey: true
+[2025-11-08T02:31:35.204Z] [DUNK ROLL] Chance: NaN%, Roll: 2.5, Made: false
+[2025-11-08T02:31:35.744Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:36.146Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:36.146Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:36.146Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:36.146Z] [REBOUND] Scramble activated - reboundX: 2.206634535241859, reboundY: 10.809636675852591
+[2025-11-08T02:31:36.442Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 3.6, InKey: true
+[2025-11-08T02:31:36.442Z] [DUNK ROLL] Chance: NaN%, Roll: 98.5, Made: false
+[2025-11-08T02:31:36.836Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:37.237Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:37.237Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:37.238Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:37.238Z] [REBOUND] Scramble activated - reboundX: 2.6499054953571366, reboundY: 8.401318490041838
+[2025-11-08T02:31:37.297Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:31:37.297Z] [DUNK ROLL] Chance: NaN%, Roll: 46.2, Made: false
+[2025-11-08T02:31:37.847Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:38.248Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:38.248Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:38.248Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:38.249Z] [REBOUND] Scramble activated - reboundX: 3.6858162131857957, reboundY: 6.095487063978597
+[2025-11-08T02:31:38.309Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:31:38.309Z] [DUNK ROLL] Chance: NaN%, Roll: 17.2, Made: false
+[2025-11-08T02:31:38.699Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:39.101Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:39.101Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:39.101Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:39.101Z] [REBOUND] Scramble activated - reboundX: 6.036426752437277, reboundY: 5.600084802545381
+[2025-11-08T02:31:39.161Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:31:39.161Z] [DUNK ROLL] Chance: NaN%, Roll: 48.7, Made: false
+[2025-11-08T02:31:39.710Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:40.111Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:40.111Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:40.111Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:40.112Z] [REBOUND] Scramble activated - reboundX: 5.654615452640004, reboundY: 7.583089189499429
+[2025-11-08T02:31:40.172Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:31:40.172Z] [DUNK ROLL] Chance: NaN%, Roll: 53.0, Made: false
+[2025-11-08T02:31:40.561Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:40.963Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:40.963Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:40.963Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:40.963Z] [REBOUND] Scramble activated - reboundX: 4.515530254663087, reboundY: 8.87313066044958
+[2025-11-08T02:31:41.023Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:31:41.023Z] [DUNK ROLL] Chance: NaN%, Roll: 20.7, Made: false
+[2025-11-08T02:31:41.413Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:41.814Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:41.814Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:41.815Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:41.815Z] [REBOUND] Scramble activated - reboundX: 3.420232781990368, reboundY: 12.882152593884712
+[2025-11-08T02:31:43.050Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 6.4, InKey: true
+[2025-11-08T02:31:43.051Z] [DUNK ROLL] Chance: NaN%, Roll: 79.2, Made: false
+[2025-11-08T02:31:44.012Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:44.414Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:44.414Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:44.414Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:44.414Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.034581508591831
+[2025-11-08T02:31:45.063Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 2.8, InKey: true
+[2025-11-08T02:31:45.063Z] [DUNK ROLL] Chance: NaN%, Roll: 89.8, Made: false
+[2025-11-08T02:31:45.612Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:46.013Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:46.013Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:46.013Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:46.014Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 7.972096474234574
+[2025-11-08T02:31:46.193Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.2, InKey: true
+[2025-11-08T02:31:46.193Z] [DUNK ROLL] Chance: NaN%, Roll: 34.3, Made: false
+[2025-11-08T02:31:46.586Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:46.988Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:46.988Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:46.988Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:46.989Z] [REBOUND] Scramble activated - reboundX: 4.370510213586325, reboundY: 7.717641309331141
+[2025-11-08T02:31:47.048Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:31:47.048Z] [DUNK ROLL] Chance: NaN%, Roll: 16.7, Made: false
+[2025-11-08T02:31:47.699Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:48.101Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:48.101Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:48.101Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:48.101Z] [REBOUND] Scramble activated - reboundX: 7.598061576407623, reboundY: 11.200296101391341
+[2025-11-08T02:31:48.396Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:31:48.396Z] [DUNK ROLL] Chance: NaN%, Roll: 57.7, Made: false
+[2025-11-08T02:31:48.946Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:49.348Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:49.348Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:49.348Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:49.348Z] [REBOUND] Scramble activated - reboundX: 6.8787471846670005, reboundY: 9.868430532582373
+[2025-11-08T02:31:49.408Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:31:49.408Z] [DUNK ROLL] Chance: NaN%, Roll: 6.9, Made: false
+[2025-11-08T02:31:49.802Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:50.204Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:50.204Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:50.204Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:50.204Z] [REBOUND] Scramble activated - reboundX: 3.2947704021977113, reboundY: 7.731590592047994
+[2025-11-08T02:31:50.498Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:31:50.498Z] [DUNK ROLL] Chance: NaN%, Roll: 50.5, Made: false
+[2025-11-08T02:31:51.052Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:51.454Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:51.454Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:51.454Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:51.454Z] [REBOUND] Scramble activated - reboundX: 6.991157704760766, reboundY: 8.54507052740351
+[2025-11-08T02:31:51.514Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:31:51.514Z] [DUNK ROLL] Chance: NaN%, Roll: 88.9, Made: false
+[2025-11-08T02:31:52.166Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:52.567Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:52.568Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:52.568Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:52.568Z] [REBOUND] Scramble activated - reboundX: 7.832116800255307, reboundY: 9.893574143580866
+[2025-11-08T02:31:52.628Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:31:52.628Z] [DUNK ROLL] Chance: NaN%, Roll: 40.5, Made: false
+[2025-11-08T02:31:53.176Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:53.578Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:53.578Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:53.578Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:53.578Z] [REBOUND] Scramble activated - reboundX: 2.015064937913175, reboundY: 11.239922038971713
+[2025-11-08T02:31:54.109Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 2.8, InKey: true
+[2025-11-08T02:31:54.110Z] [DUNK ROLL] Chance: NaN%, Roll: 75.0, Made: false
+[2025-11-08T02:31:54.761Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:55.162Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:55.162Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:55.162Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:55.163Z] [REBOUND] Scramble activated - reboundX: 6.318901493336889, reboundY: 7.120968926354767
+[2025-11-08T02:31:55.222Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:31:55.223Z] [DUNK ROLL] Chance: NaN%, Roll: 49.4, Made: false
+[2025-11-08T02:31:55.616Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:56.017Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:56.017Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:56.017Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:56.017Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 8.181798903112334
+[2025-11-08T02:31:56.195Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.0, InKey: true
+[2025-11-08T02:31:56.195Z] [DUNK ROLL] Chance: NaN%, Roll: 60.5, Made: false
+[2025-11-08T02:31:56.743Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:57.145Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:57.145Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:57.145Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:57.145Z] [REBOUND] Scramble activated - reboundX: 6.877717623175985, reboundY: 10.99757634006703
+[2025-11-08T02:31:57.440Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.5, InKey: true
+[2025-11-08T02:31:57.441Z] [DUNK ROLL] Chance: NaN%, Roll: 15.4, Made: false
+[2025-11-08T02:31:58.023Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:58.424Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:58.424Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:58.424Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:58.424Z] [REBOUND] Scramble activated - reboundX: 10.112016325050622, reboundY: 7.304983661196115
+[2025-11-08T02:31:58.719Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 5.0, InKey: true
+[2025-11-08T02:31:58.719Z] [DUNK ROLL] Chance: NaN%, Roll: 75.6, Made: false
+[2025-11-08T02:31:59.504Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:31:59.905Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:31:59.905Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:31:59.905Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:31:59.905Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 8.566036923195732
+[2025-11-08T02:32:00.083Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.0, InKey: true
+[2025-11-08T02:32:00.083Z] [DUNK ROLL] Chance: NaN%, Roll: 57.2, Made: false
+[2025-11-08T02:32:00.633Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:01.034Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:01.034Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:01.034Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:01.035Z] [REBOUND] Scramble activated - reboundX: 6.818165435566723, reboundY: 7.2997058945013755
+[2025-11-08T02:32:01.095Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:32:01.095Z] [DUNK ROLL] Chance: NaN%, Roll: 45.4, Made: false
+[2025-11-08T02:32:01.747Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:02.148Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:02.148Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:02.148Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:02.148Z] [REBOUND] Scramble activated - reboundX: 7.7243536083792765, reboundY: 11.984786092912367
+[2025-11-08T02:32:02.443Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 3.6, InKey: true
+[2025-11-08T02:32:02.443Z] [DUNK ROLL] Chance: NaN%, Roll: 8.0, Made: false
+[2025-11-08T02:32:02.992Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:03.393Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:03.393Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:03.393Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:03.393Z] [REBOUND] Scramble activated - reboundX: 4.785378889293395, reboundY: 9.248090108516873
+[2025-11-08T02:32:03.453Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.2, InKey: true
+[2025-11-08T02:32:03.453Z] [DUNK ROLL] Chance: NaN%, Roll: 59.7, Made: false
+[2025-11-08T02:32:04.102Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:04.504Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:04.504Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:04.504Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:04.504Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 8.916316783550549
+[2025-11-08T02:32:04.681Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.0, InKey: true
+[2025-11-08T02:32:04.681Z] [DUNK ROLL] Chance: NaN%, Roll: 57.6, Made: false
+[2025-11-08T02:32:05.332Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:05.734Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:05.734Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:05.734Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:05.734Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.231951581248378
+[2025-11-08T02:32:06.028Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 2.8, InKey: true
+[2025-11-08T02:32:06.028Z] [DUNK ROLL] Chance: NaN%, Roll: 89.5, Made: false
+[2025-11-08T02:32:06.678Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:07.079Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:07.079Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:07.079Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:07.079Z] [REBOUND] Scramble activated - reboundX: 4.177709227764175, reboundY: 8.475761938739353
+[2025-11-08T02:32:07.139Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:32:07.140Z] [DUNK ROLL] Chance: NaN%, Roll: 41.8, Made: false
+[2025-11-08T02:32:07.790Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:08.192Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:08.192Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:08.192Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:08.192Z] [REBOUND] Scramble activated - reboundX: 5.105461640241911, reboundY: 10.593394054601845
+[2025-11-08T02:32:08.487Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:32:08.487Z] [DUNK ROLL] Chance: NaN%, Roll: 88.1, Made: false
+[2025-11-08T02:32:09.038Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:09.439Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:09.439Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:09.440Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:09.440Z] [REBOUND] Scramble activated - reboundX: 3.0145547707799136, reboundY: 6.832771726120475
+[2025-11-08T02:32:09.735Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:32:09.735Z] [DUNK ROLL] Chance: NaN%, Roll: 44.3, Made: false
+[2025-11-08T02:32:10.285Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:10.686Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:10.686Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:10.686Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:10.686Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 8.844865216597116
+[2025-11-08T02:32:10.864Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 2.2, InKey: true
+[2025-11-08T02:32:10.864Z] [DUNK ROLL] Chance: NaN%, Roll: 75.5, Made: false
+[2025-11-08T02:32:11.515Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:11.917Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:11.917Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:11.917Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:11.917Z] [REBOUND] Scramble activated - reboundX: 9.899495925935, reboundY: 10.956625326665378
+[2025-11-08T02:32:12.095Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 5.1, InKey: true
+[2025-11-08T02:32:12.095Z] [DUNK ROLL] Chance: NaN%, Roll: 12.2, Made: false
+[2025-11-08T02:32:12.561Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:12.963Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:12.963Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:12.963Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:12.963Z] [REBOUND] Scramble activated - reboundX: 7.494385815283686, reboundY: 9.978759085891316
+[2025-11-08T02:32:13.022Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:32:13.023Z] [DUNK ROLL] Chance: NaN%, Roll: 45.0, Made: false
+[2025-11-08T02:32:13.412Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:13.813Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:13.813Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:13.813Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:13.813Z] [REBOUND] Scramble activated - reboundX: 2.189260761622991, reboundY: 8.193053164219533
+[2025-11-08T02:32:13.873Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:32:13.873Z] [DUNK ROLL] Chance: NaN%, Roll: 99.2, Made: false
+[2025-11-08T02:32:14.421Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:14.823Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:14.823Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:14.823Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:14.823Z] [REBOUND] Scramble activated - reboundX: 6.212067111334712, reboundY: 10.65865125502404
+[2025-11-08T02:32:14.883Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:32:14.883Z] [DUNK ROLL] Chance: NaN%, Roll: 95.2, Made: false
+[2025-11-08T02:32:15.431Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:15.833Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:15.833Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:15.833Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:15.833Z] [REBOUND] Scramble activated - reboundX: 6.1523970415262745, reboundY: 6.315887042390036
+[2025-11-08T02:32:16.012Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:32:16.012Z] [DUNK ROLL] Chance: NaN%, Roll: 68.7, Made: false
+[2025-11-08T02:32:16.563Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:16.964Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:16.964Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:16.964Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:16.964Z] [REBOUND] Scramble activated - reboundX: 6.353973742049895, reboundY: 7.922983470340882
+[2025-11-08T02:32:17.141Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:32:17.141Z] [DUNK ROLL] Chance: NaN%, Roll: 41.9, Made: false
+[2025-11-08T02:32:17.690Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:18.092Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:18.092Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:18.092Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:18.092Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.095660516803761
+[2025-11-08T02:32:18.861Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 2.8, InKey: true
+[2025-11-08T02:32:18.861Z] [DUNK ROLL] Chance: NaN%, Roll: 74.6, Made: false
+[2025-11-08T02:32:19.410Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:19.811Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:19.811Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:19.811Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:19.811Z] [REBOUND] Scramble activated - reboundX: 4.9059095046187835, reboundY: 7.02310108063167
+[2025-11-08T02:32:19.871Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 3.2, InKey: true
+[2025-11-08T02:32:19.871Z] [DUNK ROLL] Chance: NaN%, Roll: 91.2, Made: false
+[2025-11-08T02:32:20.262Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:20.663Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:20.663Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:20.663Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:20.664Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 9.883709930233103
+[2025-11-08T02:32:20.841Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 2.0, InKey: true
+[2025-11-08T02:32:20.841Z] [DUNK ROLL] Chance: NaN%, Roll: 50.2, Made: false
+[2025-11-08T02:32:21.390Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:21.792Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:21.792Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:21.792Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:21.792Z] [REBOUND] Scramble activated - reboundX: 6.351579265051129, reboundY: 8.3090700517226
+[2025-11-08T02:32:21.852Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:32:21.852Z] [DUNK ROLL] Chance: NaN%, Roll: 2.5, Made: false
+[2025-11-08T02:32:22.401Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:22.803Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:22.803Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:22.803Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:22.803Z] [REBOUND] Scramble activated - reboundX: 3.8130814599247786, reboundY: 9.526205716884826
+[2025-11-08T02:32:22.981Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.1, InKey: true
+[2025-11-08T02:32:22.981Z] [DUNK ROLL] Chance: NaN%, Roll: 85.6, Made: false
+[2025-11-08T02:32:23.631Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:24.033Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:24.033Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:24.033Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:24.033Z] [REBOUND] Scramble activated - reboundX: 9.141869145339015, reboundY: 5.122098419653826
+[2025-11-08T02:32:24.092Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.0, InKey: true
+[2025-11-08T02:32:24.092Z] [DUNK ROLL] Chance: NaN%, Roll: 28.6, Made: false
+[2025-11-08T02:32:24.638Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:25.039Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:25.040Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:25.040Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:25.040Z] [REBOUND] Scramble activated - reboundX: 2.349555686658117, reboundY: 11.696253339100602
+[2025-11-08T02:32:25.451Z] [DUNK CHANCE] Player: Bradley Beal, Base: NaN%, Skill: 6, Distance: 2.8, InKey: true
+[2025-11-08T02:32:25.452Z] [DUNK ROLL] Chance: NaN%, Roll: 28.1, Made: false
+[2025-11-08T02:32:26.101Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:26.503Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:26.503Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:26.503Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:26.503Z] [REBOUND] Scramble activated - reboundX: 2.195196175678521, reboundY: 8.091658078868306
+[2025-11-08T02:32:26.563Z] [DUNK CHANCE] Player: Gilbert Arenas, Base: NaN%, Skill: 6, Distance: 4.5, InKey: true
+[2025-11-08T02:32:26.563Z] [DUNK ROLL] Chance: NaN%, Roll: 39.9, Made: false
+[2025-11-08T02:32:27.147Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:32:27.549Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:32:27.549Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:32:27.549Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:32:27.549Z] [REBOUND] Scramble activated - reboundX: 7.359527211370374, reboundY: 10.907737590609324
