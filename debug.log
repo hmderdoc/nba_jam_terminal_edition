@@ -1,0 +1,103 @@
+[2025-11-08T02:19:53.353Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: true
+[2025-11-08T02:19:58.141Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:19:58.141Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:19:58.342Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T02:19:58.342Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:19:58.342Z] [REBOUND] Scramble activated - reboundX: 3.5560922954959855, reboundY: 5.702336659795834
+[2025-11-08T02:19:58.343Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T02:20:00.460Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:20:00.861Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:20:00.861Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:20:00.861Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:20:00.861Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.43305209546801
+[2025-11-08T02:20:02.431Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:20:02.833Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:20:02.833Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:20:02.833Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:20:02.833Z] [REBOUND] Scramble activated - reboundX: 6.017621843469451, reboundY: 6.726522452640747
+[2025-11-08T02:20:23.951Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:20:23.951Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:20:28.266Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:20:28.266Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:20:51.086Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:20:51.086Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:21:14.632Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:21:14.633Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:22:08.597Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:22:08.597Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:22:11.902Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:22:11.902Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:22:12.103Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T02:22:12.103Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T02:22:12.103Z] [REBOUND] Scramble activated - reboundX: 73.35036211178613, reboundY: 11.467765814551898
+[2025-11-08T02:22:12.103Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T02:22:14.412Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:22:14.814Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:22:14.814Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:22:14.814Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T02:22:14.814Z] [REBOUND] Scramble activated - reboundX: 75.635863062183, reboundY: 7.332853555338222
+[2025-11-08T02:22:15.391Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:22:15.793Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:22:15.793Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:22:15.793Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T02:22:15.793Z] [REBOUND] Scramble activated - reboundX: 78, reboundY: 4.647355781760759
+[2025-11-08T02:22:39.457Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:22:39.858Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:22:39.859Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:22:39.859Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T02:22:39.859Z] [REBOUND] Scramble activated - reboundX: 78, reboundY: 8.929278960910732
+[2025-11-08T02:22:43.360Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:22:43.360Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:22:46.984Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:22:46.984Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:23:09.654Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:23:09.655Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:23:13.284Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:23:13.284Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:23:20.347Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:23:20.347Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:23:20.548Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T02:23:20.548Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:23:20.548Z] [REBOUND] Scramble activated - reboundX: 2.8061716897947235, reboundY: 7.631657213465088
+[2025-11-08T02:23:20.548Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T02:23:24.267Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:23:24.267Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:23:38.675Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:23:38.676Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:24:01.674Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:24:01.674Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:24:01.876Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T02:24:01.877Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:24:01.877Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 10.341572445424454
+[2025-11-08T02:24:01.877Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T02:24:03.282Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:24:03.684Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:24:03.684Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:24:03.684Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:24:03.684Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 9.682789509598791
+[2025-11-08T02:24:04.506Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:24:04.907Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:24:04.908Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:24:04.908Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:24:04.908Z] [REBOUND] Scramble activated - reboundX: 7.0118652730007485, reboundY: 8.788013195606583
+[2025-11-08T02:24:05.491Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:24:05.894Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:24:05.894Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:24:05.894Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:24:05.894Z] [REBOUND] Scramble activated - reboundX: 2.430825536075564, reboundY: 9.722837446311038
+[2025-11-08T02:24:06.592Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:24:06.994Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:24:06.994Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:24:06.994Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:24:06.994Z] [REBOUND] Scramble activated - reboundX: 3.8447993907924456, reboundY: 10.269484269955717
+[2025-11-08T02:24:43.242Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:24:43.242Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:24:43.443Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T02:24:43.443Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T02:24:43.443Z] [REBOUND] Scramble activated - reboundX: 77.19268578556394, reboundY: 8.012174216799876
+[2025-11-08T02:24:43.443Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T02:25:13.206Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:25:13.608Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:25:13.608Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:25:13.608Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T02:25:13.608Z] [REBOUND] Scramble activated - reboundX: 76.19676267027077, reboundY: 13.023340748845188
