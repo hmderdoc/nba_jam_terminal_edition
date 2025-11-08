@@ -3558,3 +3558,1056 @@
 [2025-11-08T02:45:12.599Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
 [2025-11-08T02:45:12.600Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 3.6, InKey: true
 [2025-11-08T02:45:12.600Z] [DUNK ROLL] Chance: NaN%, Roll: 2.4, Made: false
+[2025-11-08T02:45:13.338Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:45:13.740Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:45:13.740Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:45:13.740Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:45:13.740Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 9.753409456874659
+[2025-11-08T02:45:13.918Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:45:13.918Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 2.8, InKey: true
+[2025-11-08T02:45:13.918Z] [DUNK ROLL] Chance: NaN%, Roll: 94.0, Made: false
+[2025-11-08T02:45:14.502Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:45:14.903Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:45:14.903Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:45:14.903Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:45:14.903Z] [REBOUND] Scramble activated - reboundX: 3.6809668241024767, reboundY: 9.238782576220906
+[2025-11-08T02:45:14.963Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:45:14.964Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 4.1, InKey: true
+[2025-11-08T02:45:14.964Z] [DUNK ROLL] Chance: NaN%, Roll: 17.1, Made: false
+[2025-11-08T02:45:15.962Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:45:16.363Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:45:16.363Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:45:16.364Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:45:16.364Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 8.258550499045432
+[2025-11-08T02:45:16.542Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:45:16.543Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 2.0, InKey: true
+[2025-11-08T02:45:16.543Z] [DUNK ROLL] Chance: NaN%, Roll: 83.9, Made: false
+[2025-11-08T02:45:17.542Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:45:17.943Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:45:17.943Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:45:17.943Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:45:17.944Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 13.496238050297004
+[2025-11-08T02:45:18.832Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:45:18.832Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 5.0, InKey: true
+[2025-11-08T02:45:18.832Z] [DUNK ROLL] Chance: NaN%, Roll: 68.7, Made: false
+[2025-11-08T02:45:19.325Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:45:19.727Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:45:19.727Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:45:19.727Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:45:19.727Z] [REBOUND] Scramble activated - reboundX: 6.101272101552276, reboundY: 9.893643749789888
+[2025-11-08T02:45:19.787Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:45:19.787Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 3.6, InKey: true
+[2025-11-08T02:45:19.787Z] [DUNK ROLL] Chance: NaN%, Roll: 69.3, Made: false
+[2025-11-08T02:45:20.525Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:45:20.926Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:45:20.926Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:45:20.926Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:45:20.926Z] [REBOUND] Scramble activated - reboundX: 7.969302857327104, reboundY: 7.322114861326852
+[2025-11-08T02:45:20.986Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:45:20.986Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.0, InKey: true
+[2025-11-08T02:45:20.986Z] [DUNK ROLL] Chance: NaN%, Roll: 39.1, Made: false
+[2025-11-08T02:45:21.707Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:45:22.108Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:45:22.109Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:45:22.109Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:45:22.109Z] [REBOUND] Scramble activated - reboundX: 6.397280139553322, reboundY: 8.845114001165527
+[2025-11-08T02:45:22.169Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:45:22.169Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:45:22.169Z] [DUNK ROLL] Chance: NaN%, Roll: 93.1, Made: false
+[2025-11-08T02:45:22.609Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:45:23.010Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:45:23.011Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:45:23.011Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:45:23.011Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 9.894181353627076
+[2025-11-08T02:45:23.307Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:45:23.308Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 2.0, InKey: true
+[2025-11-08T02:45:23.308Z] [DUNK ROLL] Chance: NaN%, Roll: 88.6, Made: false
+[2025-11-08T02:45:24.029Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:45:24.430Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:45:24.431Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:45:24.431Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:45:24.431Z] [REBOUND] Scramble activated - reboundX: 10.126084552649472, reboundY: 9.808796758572694
+[2025-11-08T02:45:24.846Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:45:24.846Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 6.0, InKey: true
+[2025-11-08T02:45:24.846Z] [DUNK ROLL] Chance: NaN%, Roll: 89.2, Made: false
+[2025-11-08T02:45:25.885Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:45:26.287Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:45:26.287Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:45:26.287Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:45:26.287Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 8.608511212314275
+[2025-11-08T02:45:26.464Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:45:26.464Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 3.0, InKey: true
+[2025-11-08T02:45:26.464Z] [DUNK ROLL] Chance: NaN%, Roll: 77.4, Made: false
+[2025-11-08T02:45:27.512Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:45:27.914Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:45:27.914Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:45:27.914Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:45:27.914Z] [REBOUND] Scramble activated - reboundX: 5.786866286567383, reboundY: 5.851927189332725
+[2025-11-08T02:45:27.974Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:45:27.974Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:45:27.974Z] [DUNK ROLL] Chance: NaN%, Roll: 78.6, Made: false
+[2025-11-08T02:45:28.693Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:45:29.095Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:45:29.095Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:45:29.095Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:45:29.095Z] [REBOUND] Scramble activated - reboundX: 7.292179353244283, reboundY: 10.206321294737382
+[2025-11-08T02:45:29.273Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:45:29.273Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:45:29.273Z] [DUNK ROLL] Chance: NaN%, Roll: 23.2, Made: false
+[2025-11-08T02:45:30.012Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:45:30.414Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:45:30.414Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:45:30.414Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:45:30.414Z] [REBOUND] Scramble activated - reboundX: 3.772776151190706, reboundY: 15.691358349341924
+[2025-11-08T02:45:31.396Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:45:31.396Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 5.8, InKey: true
+[2025-11-08T02:45:31.396Z] [DUNK ROLL] Chance: NaN%, Roll: 32.0, Made: false
+[2025-11-08T02:45:32.715Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:45:33.116Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:45:33.116Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:45:33.116Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:45:33.116Z] [REBOUND] Scramble activated - reboundX: 4.156411066325159, reboundY: 12.474323375291915
+[2025-11-08T02:45:33.294Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:45:33.294Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 5.0, InKey: true
+[2025-11-08T02:45:33.294Z] [DUNK ROLL] Chance: NaN%, Roll: 41.9, Made: false
+[2025-11-08T02:45:34.457Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:45:34.859Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:45:34.859Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:45:34.859Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:45:34.859Z] [REBOUND] Scramble activated - reboundX: 8.29805203697001, reboundY: 12.123386320085832
+[2025-11-08T02:45:35.155Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:45:35.155Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 3.6, InKey: true
+[2025-11-08T02:45:35.155Z] [DUNK ROLL] Chance: NaN%, Roll: 51.9, Made: false
+[2025-11-08T02:45:35.856Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:45:36.258Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:45:36.258Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:45:36.258Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:45:36.258Z] [REBOUND] Scramble activated - reboundX: 5.067332829015341, reboundY: 7.259046525871374
+[2025-11-08T02:45:36.319Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:45:36.320Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 5.1, InKey: true
+[2025-11-08T02:45:36.320Z] [DUNK ROLL] Chance: NaN%, Roll: 86.9, Made: false
+[2025-11-08T02:45:37.213Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:45:37.614Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:45:37.615Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:45:37.615Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:45:37.615Z] [REBOUND] Scramble activated - reboundX: 3.1720827776109757, reboundY: 9.240505357352964
+[2025-11-08T02:45:37.625Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:45:37.625Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.0, InKey: true
+[2025-11-08T02:45:37.625Z] [DUNK ROLL] Chance: NaN%, Roll: 44.7, Made: false
+[2025-11-08T02:45:38.343Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:45:38.745Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:45:38.745Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:45:38.745Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:45:38.745Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.494348145796021
+[2025-11-08T02:45:42.274Z] [DUNKS.JS] Loaded version 1.1 - constants.js and game-balance.js loaded
+[2025-11-08T02:45:42.274Z] [DUNKS.JS] DUNK_DISTANCE_BASE=4.2
+[2025-11-08T02:45:42.274Z] [DUNKS.JS] GAME_BALANCE.DUNKS=defined
+[2025-11-08T02:46:00.235Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:46:00.235Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:46:00.436Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T02:46:00.436Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T02:46:00.437Z] [REBOUND] Scramble activated - reboundX: 78, reboundY: 7.186285747376495
+[2025-11-08T02:46:00.437Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T02:46:05.089Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:46:05.089Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:46:05.291Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T02:46:05.291Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:05.291Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 12.052576737641566
+[2025-11-08T02:46:05.291Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T02:46:07.155Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:07.155Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:07.155Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:07.155Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:07.155Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:07.155Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 4.2, InKey: true
+[2025-11-08T02:46:07.156Z] [DUNK ROLL] Chance: NaN%, Roll: 64.8, Made: false
+[2025-11-08T02:46:07.937Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:08.338Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:08.339Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:08.339Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:08.339Z] [REBOUND] Scramble activated - reboundX: 4.0511650180806384, reboundY: 11.107648864372306
+[2025-11-08T02:46:08.636Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:08.636Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:08.636Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:08.636Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:08.636Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:08.636Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 4.5, InKey: true
+[2025-11-08T02:46:08.636Z] [DUNK ROLL] Chance: NaN%, Roll: 54.2, Made: false
+[2025-11-08T02:46:09.414Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:09.816Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:09.816Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:09.816Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:09.817Z] [REBOUND] Scramble activated - reboundX: 5.617577438520984, reboundY: 9.173479716966995
+[2025-11-08T02:46:09.877Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:09.877Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:09.877Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:09.877Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:09.877Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:09.878Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:46:09.878Z] [DUNK ROLL] Chance: NaN%, Roll: 59.4, Made: false
+[2025-11-08T02:46:10.323Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:10.724Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:10.726Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:10.726Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:10.726Z] [REBOUND] Scramble activated - reboundX: 5.988629443331983, reboundY: 11.042462325308323
+[2025-11-08T02:46:11.027Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:11.027Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:11.027Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:11.028Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:11.028Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:11.028Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:46:11.028Z] [DUNK ROLL] Chance: NaN%, Roll: 39.9, Made: false
+[2025-11-08T02:46:11.472Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:11.874Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:11.874Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:11.874Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:11.874Z] [REBOUND] Scramble activated - reboundX: 8.631903936739313, reboundY: 14.258380098800213
+[2025-11-08T02:46:12.644Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:12.644Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:12.644Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:12.644Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:12.644Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:12.645Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 6.4, InKey: true
+[2025-11-08T02:46:12.645Z] [DUNK ROLL] Chance: NaN%, Roll: 16.4, Made: false
+[2025-11-08T02:46:14.097Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:14.499Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:14.499Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:14.499Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:14.499Z] [REBOUND] Scramble activated - reboundX: 6.476637022410493, reboundY: 6.805570904924257
+[2025-11-08T02:46:14.560Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:14.560Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:14.560Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:14.561Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:14.561Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:14.561Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 4.0, InKey: true
+[2025-11-08T02:46:14.561Z] [DUNK ROLL] Chance: NaN%, Roll: 81.6, Made: false
+[2025-11-08T02:46:15.285Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:15.687Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:15.687Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:15.687Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:15.688Z] [REBOUND] Scramble activated - reboundX: 8.145910134398624, reboundY: 7.699132767140046
+[2025-11-08T02:46:15.749Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:15.749Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:15.749Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:15.749Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:15.749Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:15.749Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 4.0, InKey: true
+[2025-11-08T02:46:15.749Z] [DUNK ROLL] Chance: NaN%, Roll: 78.9, Made: false
+[2025-11-08T02:46:16.798Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:17.199Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:17.199Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:17.199Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:17.199Z] [REBOUND] Scramble activated - reboundX: 5.432257454855595, reboundY: 8.371021921869595
+[2025-11-08T02:46:17.261Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:17.261Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:17.261Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:17.261Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:17.261Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:17.261Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:46:17.261Z] [DUNK ROLL] Chance: NaN%, Roll: 91.7, Made: false
+[2025-11-08T02:46:17.984Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:18.387Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:18.387Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:18.387Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:18.387Z] [REBOUND] Scramble activated - reboundX: 2.473889354515483, reboundY: 11.21199121711326
+[2025-11-08T02:46:19.090Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:19.090Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:19.090Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:19.090Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:19.090Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:19.090Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 3.6, InKey: true
+[2025-11-08T02:46:19.090Z] [DUNK ROLL] Chance: NaN%, Roll: 30.5, Made: false
+[2025-11-08T02:46:19.817Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:20.219Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:20.219Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:20.219Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:20.219Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 12.030790918687416
+[2025-11-08T02:46:21.116Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:21.116Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:21.116Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:21.116Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:21.116Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:21.116Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 4.2, InKey: true
+[2025-11-08T02:46:21.116Z] [DUNK ROLL] Chance: NaN%, Roll: 0.4, Made: false
+[2025-11-08T02:46:21.584Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:21.986Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:21.986Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:21.986Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:21.986Z] [REBOUND] Scramble activated - reboundX: 5.48593145521329, reboundY: 8.752706545101853
+[2025-11-08T02:46:22.046Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:22.046Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:22.046Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:22.046Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:22.047Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:22.047Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 4.0, InKey: true
+[2025-11-08T02:46:22.047Z] [DUNK ROLL] Chance: NaN%, Roll: 99.9, Made: false
+[2025-11-08T02:46:22.489Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:22.891Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:22.891Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:22.891Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:22.891Z] [REBOUND] Scramble activated - reboundX: 6.927703609626997, reboundY: 7.064032950972684
+[2025-11-08T02:46:22.951Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:22.952Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:22.952Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:46:22.952Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:46:22.952Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:46:22.952Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 7.1, InKey: true
+[2025-11-08T02:46:22.952Z] [DUNK ROLL] Chance: NaN%, Roll: 99.2, Made: false
+[2025-11-08T02:46:23.757Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:24.158Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:24.159Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:24.159Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:24.159Z] [REBOUND] Scramble activated - reboundX: 3.32875513649341, reboundY: 8.768235482234358
+[2025-11-08T02:46:24.219Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:24.219Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:24.219Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:46:24.219Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:46:24.219Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:46:24.219Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.0, InKey: true
+[2025-11-08T02:46:24.219Z] [DUNK ROLL] Chance: NaN%, Roll: 95.4, Made: false
+[2025-11-08T02:46:24.739Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:25.140Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:25.140Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:25.140Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:25.140Z] [REBOUND] Scramble activated - reboundX: 6.920607018951243, reboundY: 9.350404795511745
+[2025-11-08T02:46:25.200Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:25.201Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:25.201Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:46:25.201Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:46:25.201Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:46:25.201Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.0, InKey: true
+[2025-11-08T02:46:25.201Z] [DUNK ROLL] Chance: NaN%, Roll: 23.0, Made: false
+[2025-11-08T02:46:25.719Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:26.121Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:26.121Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:26.121Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:26.122Z] [REBOUND] Scramble activated - reboundX: 2.2028497573511534, reboundY: 9.44741081699351
+[2025-11-08T02:46:26.301Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:26.301Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:26.301Z] [DUNK CALC] Close dunk bonus: adjustedDistance=3 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T02:46:26.301Z] [DUNK CALC] After close bonus, baseChance: 74
+[2025-11-08T02:46:26.301Z] [DUNK CALC] After insideKey check, baseChance: 74
+[2025-11-08T02:46:26.301Z] [DUNK CALC] After distance penalty, baseChance: 74
+[2025-11-08T02:46:26.301Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 3.0, InKey: true
+[2025-11-08T02:46:26.302Z] [DUNK ROLL] Chance: NaN%, Roll: 83.4, Made: false
+[2025-11-08T02:46:26.697Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:27.098Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:27.099Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:27.099Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:27.099Z] [REBOUND] Scramble activated - reboundX: 6.629373593584764, reboundY: 9.695255749270325
+[2025-11-08T02:46:27.159Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:27.159Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:27.159Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:46:27.159Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:46:27.159Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:46:27.159Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.1, InKey: true
+[2025-11-08T02:46:27.159Z] [DUNK ROLL] Chance: NaN%, Roll: 94.0, Made: false
+[2025-11-08T02:46:27.681Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:28.083Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:28.083Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:28.083Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:28.083Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 4.116936433555416
+[2025-11-08T02:46:28.615Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:28.615Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:28.615Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:28.615Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:28.615Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:28.615Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:46:28.615Z] [DUNK ROLL] Chance: NaN%, Roll: 93.8, Made: false
+[2025-11-08T02:46:29.200Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:29.602Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:29.602Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:29.602Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:29.602Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 10.301438725034796
+[2025-11-08T02:46:29.896Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:29.896Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:29.897Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:46:29.897Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:46:29.897Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:46:29.897Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 3.6, InKey: true
+[2025-11-08T02:46:29.897Z] [DUNK ROLL] Chance: NaN%, Roll: 24.6, Made: false
+[2025-11-08T02:46:30.290Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:30.692Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:30.692Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:30.692Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:30.692Z] [REBOUND] Scramble activated - reboundX: 3.6306890089132513, reboundY: 10.3005033281251
+[2025-11-08T02:46:30.753Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:30.753Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:30.753Z] [DUNK CALC] Close dunk bonus: adjustedDistance=2.8284271247461903 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T02:46:30.753Z] [DUNK CALC] After close bonus, baseChance: 104
+[2025-11-08T02:46:30.753Z] [DUNK CALC] After insideKey check, baseChance: 104
+[2025-11-08T02:46:30.753Z] [DUNK CALC] After distance penalty, baseChance: 104
+[2025-11-08T02:46:30.753Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 2.8, InKey: true
+[2025-11-08T02:46:30.753Z] [DUNK ROLL] Chance: NaN%, Roll: 37.9, Made: false
+[2025-11-08T02:46:31.476Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:31.877Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:31.878Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:31.878Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:31.878Z] [REBOUND] Scramble activated - reboundX: 2.3550323067837926, reboundY: 8.535761490298686
+[2025-11-08T02:46:31.939Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:31.939Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:31.939Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:46:31.939Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:46:31.939Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:46:31.939Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.1, InKey: true
+[2025-11-08T02:46:31.939Z] [DUNK ROLL] Chance: NaN%, Roll: 25.5, Made: false
+[2025-11-08T02:46:32.335Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:32.736Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:32.737Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:32.737Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:32.737Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 7.131097862557253
+[2025-11-08T02:46:32.915Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:32.916Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:32.916Z] [DUNK CALC] Close dunk bonus: adjustedDistance=3 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T02:46:32.916Z] [DUNK CALC] After close bonus, baseChance: 74
+[2025-11-08T02:46:32.916Z] [DUNK CALC] After insideKey check, baseChance: 74
+[2025-11-08T02:46:32.916Z] [DUNK CALC] After distance penalty, baseChance: 74
+[2025-11-08T02:46:32.916Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 3.0, InKey: true
+[2025-11-08T02:46:32.916Z] [DUNK ROLL] Chance: NaN%, Roll: 14.0, Made: false
+[2025-11-08T02:46:33.436Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:33.838Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:33.838Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:33.838Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:33.838Z] [REBOUND] Scramble activated - reboundX: 6.702529236245119, reboundY: 8.725376595689777
+[2025-11-08T02:46:33.898Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:33.898Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:33.898Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:46:33.898Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:46:33.898Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:46:33.898Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.0, InKey: true
+[2025-11-08T02:46:33.898Z] [DUNK ROLL] Chance: NaN%, Roll: 25.7, Made: false
+[2025-11-08T02:46:34.291Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:34.693Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:34.693Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:34.693Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:34.694Z] [REBOUND] Scramble activated - reboundX: 8.670144646676484, reboundY: 8.353984559768804
+[2025-11-08T02:46:34.873Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:34.873Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:34.873Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:46:34.873Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:46:34.873Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:46:34.873Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.1, InKey: true
+[2025-11-08T02:46:34.873Z] [DUNK ROLL] Chance: NaN%, Roll: 79.7, Made: false
+[2025-11-08T02:46:35.393Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:35.794Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:35.795Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:35.795Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:35.795Z] [REBOUND] Scramble activated - reboundX: 2.571351916584262, reboundY: 7.518182997861704
+[2025-11-08T02:46:35.974Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:35.974Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:35.974Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:46:35.974Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:46:35.974Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:46:35.974Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.0, InKey: true
+[2025-11-08T02:46:35.974Z] [DUNK ROLL] Chance: NaN%, Roll: 81.0, Made: false
+[2025-11-08T02:46:36.372Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:36.774Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:36.774Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:36.774Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:36.774Z] [REBOUND] Scramble activated - reboundX: 7.467214272279696, reboundY: 10.068510727275093
+[2025-11-08T02:46:36.952Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:36.952Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:36.952Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:46:36.952Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:46:36.952Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:46:36.952Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.1, InKey: true
+[2025-11-08T02:46:36.952Z] [DUNK ROLL] Chance: NaN%, Roll: 33.4, Made: false
+[2025-11-08T02:46:37.474Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:37.875Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:37.875Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:37.875Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:37.876Z] [REBOUND] Scramble activated - reboundX: 6.271158963724994, reboundY: 5.526132834311328
+[2025-11-08T02:46:37.936Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:37.936Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:37.936Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:46:37.936Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:46:37.936Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:46:37.936Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.0, InKey: true
+[2025-11-08T02:46:37.936Z] [DUNK ROLL] Chance: NaN%, Roll: 98.2, Made: false
+[2025-11-08T02:46:38.455Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:38.856Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:38.856Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:38.856Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:38.856Z] [REBOUND] Scramble activated - reboundX: 11.33375217566361, reboundY: 11.311779796897788
+[2025-11-08T02:46:39.390Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:39.390Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:39.390Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:39.390Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:39.390Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:39.390Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 5.4, InKey: true
+[2025-11-08T02:46:39.390Z] [DUNK ROLL] Chance: NaN%, Roll: 88.2, Made: false
+[2025-11-08T02:46:39.932Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:40.333Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:40.333Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:40.333Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:40.333Z] [REBOUND] Scramble activated - reboundX: 3.262602159686277, reboundY: 5.291277798827013
+[2025-11-08T02:46:40.512Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:40.512Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:40.512Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:40.512Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:40.512Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:40.512Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:46:40.512Z] [DUNK ROLL] Chance: NaN%, Roll: 57.3, Made: false
+[2025-11-08T02:46:41.618Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:42.019Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:42.019Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:42.019Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:42.019Z] [REBOUND] Scramble activated - reboundX: 2.260562975125202, reboundY: 5.603484594691379
+[2025-11-08T02:46:42.197Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:42.198Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:42.198Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:42.198Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:42.198Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:42.198Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:46:42.198Z] [DUNK ROLL] Chance: NaN%, Roll: 22.0, Made: false
+[2025-11-08T02:46:42.780Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:43.182Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:43.182Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:43.182Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:43.182Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.804197332185646
+[2025-11-08T02:46:43.832Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:43.832Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:43.832Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:46:43.832Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:46:43.832Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:46:43.832Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 5.8, InKey: true
+[2025-11-08T02:46:43.832Z] [DUNK ROLL] Chance: NaN%, Roll: 38.6, Made: false
+[2025-11-08T02:46:44.507Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:44.909Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:44.909Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:44.909Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:44.909Z] [REBOUND] Scramble activated - reboundX: 7.014206274541991, reboundY: 11.960045605906132
+[2025-11-08T02:46:45.205Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:45.206Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:45.206Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:45.206Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:45.206Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:45.206Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 3.6, InKey: true
+[2025-11-08T02:46:45.206Z] [DUNK ROLL] Chance: NaN%, Roll: 58.9, Made: false
+[2025-11-08T02:46:45.928Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:46.330Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:46.330Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:46.330Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:46.330Z] [REBOUND] Scramble activated - reboundX: 2.815338760385144, reboundY: 5.465254443570257
+[2025-11-08T02:46:46.509Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:46.509Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:46.509Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:46.510Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:46.510Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:46.510Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 4.0, InKey: true
+[2025-11-08T02:46:46.510Z] [DUNK ROLL] Chance: NaN%, Roll: 20.3, Made: false
+[2025-11-08T02:46:46.955Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:47.357Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:47.357Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:47.357Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:47.357Z] [REBOUND] Scramble activated - reboundX: 4.4341559617122, reboundY: 6.760065942472303
+[2025-11-08T02:46:47.418Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:47.418Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:47.418Z] [DUNK CALC] Close dunk bonus: adjustedDistance=2.8284271247461903 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T02:46:47.418Z] [DUNK CALC] After close bonus, baseChance: 74
+[2025-11-08T02:46:47.418Z] [DUNK CALC] After insideKey check, baseChance: 74
+[2025-11-08T02:46:47.418Z] [DUNK CALC] After distance penalty, baseChance: 74
+[2025-11-08T02:46:47.418Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 2.8, InKey: true
+[2025-11-08T02:46:47.418Z] [DUNK ROLL] Chance: NaN%, Roll: 70.9, Made: false
+[2025-11-08T02:46:47.939Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:48.340Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:48.340Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:48.340Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:48.340Z] [REBOUND] Scramble activated - reboundX: 7.069254226313264, reboundY: 6.318737727998713
+[2025-11-08T02:46:48.401Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:48.402Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:48.402Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:46:48.402Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:46:48.402Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:46:48.402Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.0, InKey: true
+[2025-11-08T02:46:48.402Z] [DUNK ROLL] Chance: NaN%, Roll: 29.4, Made: false
+[2025-11-08T02:46:48.926Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:49.328Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:49.328Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:49.328Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:49.328Z] [REBOUND] Scramble activated - reboundX: 7.020346825197338, reboundY: 9.409346413957008
+[2025-11-08T02:46:49.388Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:49.388Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:49.388Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:46:49.388Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:46:49.388Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:46:49.388Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.0, InKey: true
+[2025-11-08T02:46:49.389Z] [DUNK ROLL] Chance: NaN%, Roll: 4.9, Made: false
+[2025-11-08T02:46:49.914Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:50.315Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:50.316Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:50.316Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:50.316Z] [REBOUND] Scramble activated - reboundX: 4.930908952088468, reboundY: 12.144152390383832
+[2025-11-08T02:46:50.612Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:50.612Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:50.612Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:46:50.612Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:46:50.612Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:46:50.612Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.5, InKey: true
+[2025-11-08T02:46:50.612Z] [DUNK ROLL] Chance: NaN%, Roll: 32.5, Made: false
+[2025-11-08T02:46:51.169Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:51.571Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:51.571Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:51.572Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:51.572Z] [REBOUND] Scramble activated - reboundX: 10.185392326866214, reboundY: 6.831308283815397
+[2025-11-08T02:46:51.868Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:51.868Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:51.868Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:46:51.868Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:46:51.868Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:46:51.869Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 5.0, InKey: true
+[2025-11-08T02:46:51.869Z] [DUNK ROLL] Chance: NaN%, Roll: 62.5, Made: false
+[2025-11-08T02:46:52.485Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:52.887Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:52.888Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:52.888Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:52.888Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 13.166634440944481
+[2025-11-08T02:46:53.816Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:53.817Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:53.817Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:46:53.817Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:46:53.817Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:46:53.817Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 5.0, InKey: true
+[2025-11-08T02:46:53.817Z] [DUNK ROLL] Chance: NaN%, Roll: 14.1, Made: false
+[2025-11-08T02:46:54.433Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:54.835Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:54.835Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:54.835Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:54.836Z] [REBOUND] Scramble activated - reboundX: 9.016703599406148, reboundY: 8.845763506483078
+[2025-11-08T02:46:54.896Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:54.896Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:54.896Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:46:54.896Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:46:54.896Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:46:54.896Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.0, InKey: true
+[2025-11-08T02:46:54.897Z] [DUNK ROLL] Chance: NaN%, Roll: 5.4, Made: false
+[2025-11-08T02:46:55.418Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:55.820Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:55.821Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:55.821Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:55.821Z] [REBOUND] Scramble activated - reboundX: 6.395036861555114, reboundY: 10.836851620040443
+[2025-11-08T02:46:55.881Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:46:55.882Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:46:55.882Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:46:55.882Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:46:55.882Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:46:55.882Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.0, InKey: true
+[2025-11-08T02:46:55.882Z] [DUNK ROLL] Chance: NaN%, Roll: 58.9, Made: false
+[2025-11-08T02:46:56.404Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:56.805Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:56.806Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:56.806Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:56.806Z] [REBOUND] Scramble activated - reboundX: 3.4866118205076027, reboundY: 12.77800976918335
+[2025-11-08T02:46:56.866Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:56.867Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:56.867Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:56.867Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:56.867Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:56.867Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 4.2, InKey: true
+[2025-11-08T02:46:56.867Z] [DUNK ROLL] Chance: NaN%, Roll: 29.0, Made: false
+[2025-11-08T02:46:57.657Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:58.059Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:58.059Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:58.059Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:58.059Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 6.877354716935034
+[2025-11-08T02:46:58.239Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:58.240Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:58.240Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:58.240Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:58.240Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:58.240Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 3.6, InKey: true
+[2025-11-08T02:46:58.240Z] [DUNK ROLL] Chance: NaN%, Roll: 73.4, Made: false
+[2025-11-08T02:46:58.980Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:46:59.383Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:46:59.383Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:46:59.383Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:46:59.383Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 8.155750989029324
+[2025-11-08T02:46:59.916Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:46:59.916Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:46:59.916Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:46:59.916Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:46:59.916Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:46:59.916Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 4.0, InKey: true
+[2025-11-08T02:46:59.916Z] [DUNK ROLL] Chance: NaN%, Roll: 17.7, Made: false
+[2025-11-08T02:47:00.500Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:00.902Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:00.902Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:00.902Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:00.902Z] [REBOUND] Scramble activated - reboundX: 9.071929841195884, reboundY: 12.274948821905227
+[2025-11-08T02:47:00.963Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:00.963Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:00.963Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:00.963Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:00.963Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:00.963Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 5.8, InKey: true
+[2025-11-08T02:47:00.963Z] [DUNK ROLL] Chance: NaN%, Roll: 22.9, Made: false
+[2025-11-08T02:47:01.459Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:01.861Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:01.861Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:01.861Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:01.861Z] [REBOUND] Scramble activated - reboundX: 2.9025063336659076, reboundY: 7.318804012285917
+[2025-11-08T02:47:01.921Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:01.921Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:01.921Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:01.921Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:01.921Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:01.921Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.0, InKey: true
+[2025-11-08T02:47:01.921Z] [DUNK ROLL] Chance: NaN%, Roll: 3.4, Made: false
+[2025-11-08T02:47:02.318Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:02.719Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:02.720Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:02.720Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:02.720Z] [REBOUND] Scramble activated - reboundX: 5.272182467930106, reboundY: 12.529370404646974
+[2025-11-08T02:47:03.136Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:03.136Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:03.136Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:03.136Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:03.136Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:03.136Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.5, InKey: true
+[2025-11-08T02:47:03.136Z] [DUNK ROLL] Chance: NaN%, Roll: 58.8, Made: false
+[2025-11-08T02:47:03.692Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:04.093Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:04.094Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:04.094Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:04.094Z] [REBOUND] Scramble activated - reboundX: 3.315891673297818, reboundY: 8.52198388132013
+[2025-11-08T02:47:04.154Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:04.155Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:04.155Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:04.155Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:04.155Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:04.155Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.0, InKey: true
+[2025-11-08T02:47:04.155Z] [DUNK ROLL] Chance: NaN%, Roll: 3.9, Made: false
+[2025-11-08T02:47:04.551Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:04.952Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:04.952Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:04.953Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:04.953Z] [REBOUND] Scramble activated - reboundX: 8.094266810334744, reboundY: 10.49666964640385
+[2025-11-08T02:47:05.015Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:47:05.015Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:47:05.015Z] [DUNK CALC] Close dunk bonus: adjustedDistance=2.8284271247461903 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T02:47:05.015Z] [DUNK CALC] After close bonus, baseChance: 104
+[2025-11-08T02:47:05.015Z] [DUNK CALC] After insideKey check, baseChance: 104
+[2025-11-08T02:47:05.015Z] [DUNK CALC] After distance penalty, baseChance: 104
+[2025-11-08T02:47:05.015Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 2.8, InKey: true
+[2025-11-08T02:47:05.015Z] [DUNK ROLL] Chance: NaN%, Roll: 72.8, Made: false
+[2025-11-08T02:47:06.067Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:06.469Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:06.469Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:06.469Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:06.469Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 5.072234906236051
+[2025-11-08T02:47:06.649Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:47:06.649Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:47:06.649Z] [DUNK CALC] Close dunk bonus: adjustedDistance=2.8284271247461903 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T02:47:06.649Z] [DUNK CALC] After close bonus, baseChance: 104
+[2025-11-08T02:47:06.649Z] [DUNK CALC] After insideKey check, baseChance: 104
+[2025-11-08T02:47:06.649Z] [DUNK CALC] After distance penalty, baseChance: 104
+[2025-11-08T02:47:06.649Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 2.8, InKey: true
+[2025-11-08T02:47:06.649Z] [DUNK ROLL] Chance: NaN%, Roll: 42.2, Made: false
+[2025-11-08T02:47:07.094Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:07.495Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:07.495Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:07.495Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:07.496Z] [REBOUND] Scramble activated - reboundX: 7.524871370682774, reboundY: 6.363234071540488
+[2025-11-08T02:47:07.556Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:07.556Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:07.556Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:07.556Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:07.556Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:07.556Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.1, InKey: true
+[2025-11-08T02:47:07.556Z] [DUNK ROLL] Chance: NaN%, Roll: 73.1, Made: false
+[2025-11-08T02:47:08.077Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:08.479Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:08.480Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:08.480Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:08.480Z] [REBOUND] Scramble activated - reboundX: 3.0153185629765558, reboundY: 9.950914151215986
+[2025-11-08T02:47:08.659Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:08.660Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:08.660Z] [DUNK CALC] Close dunk bonus: adjustedDistance=3 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T02:47:08.660Z] [DUNK CALC] After close bonus, baseChance: 74
+[2025-11-08T02:47:08.660Z] [DUNK CALC] After insideKey check, baseChance: 74
+[2025-11-08T02:47:08.660Z] [DUNK CALC] After distance penalty, baseChance: 74
+[2025-11-08T02:47:08.660Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 3.0, InKey: true
+[2025-11-08T02:47:08.660Z] [DUNK ROLL] Chance: NaN%, Roll: 86.9, Made: false
+[2025-11-08T02:47:09.054Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:09.455Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:09.455Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:09.455Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:09.455Z] [REBOUND] Scramble activated - reboundX: 5.08081814281552, reboundY: 5.960159024037705
+[2025-11-08T02:47:09.516Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:09.516Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:09.516Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:09.516Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:09.516Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:09.516Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.1, InKey: true
+[2025-11-08T02:47:09.516Z] [DUNK ROLL] Chance: NaN%, Roll: 39.0, Made: false
+[2025-11-08T02:47:10.038Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:10.440Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:10.440Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:10.440Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:10.440Z] [REBOUND] Scramble activated - reboundX: 11.014135552151775, reboundY: 5.11246692536915
+[2025-11-08T02:47:10.737Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:10.737Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:10.737Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:10.737Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:10.737Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:10.737Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 6.0, InKey: true
+[2025-11-08T02:47:10.737Z] [DUNK ROLL] Chance: NaN%, Roll: 50.9, Made: false
+[2025-11-08T02:47:11.453Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:11.854Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:11.855Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:11.855Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:11.855Z] [REBOUND] Scramble activated - reboundX: 4.466508751846561, reboundY: 8.48201977030469
+[2025-11-08T02:47:11.915Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:11.916Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:11.916Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:11.916Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:11.916Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:11.916Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.1, InKey: true
+[2025-11-08T02:47:11.916Z] [DUNK ROLL] Chance: NaN%, Roll: 1.8, Made: false
+[2025-11-08T02:47:12.439Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:12.840Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:12.841Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:12.841Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:12.841Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.569194964290958
+[2025-11-08T02:47:13.494Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:13.494Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:13.494Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:13.494Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:13.494Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:13.494Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 3.6, InKey: true
+[2025-11-08T02:47:13.495Z] [DUNK ROLL] Chance: NaN%, Roll: 31.0, Made: false
+[2025-11-08T02:47:13.889Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:14.291Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:14.291Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:14.291Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:14.291Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 10.846808076029422
+[2025-11-08T02:47:14.353Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:47:14.353Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:47:14.353Z] [DUNK CALC] Close dunk bonus: adjustedDistance=2.8284271247461903 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T02:47:14.353Z] [DUNK CALC] After close bonus, baseChance: 104
+[2025-11-08T02:47:14.353Z] [DUNK CALC] After insideKey check, baseChance: 104
+[2025-11-08T02:47:14.353Z] [DUNK CALC] After distance penalty, baseChance: 104
+[2025-11-08T02:47:14.353Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 2.8, InKey: true
+[2025-11-08T02:47:14.353Z] [DUNK ROLL] Chance: NaN%, Roll: 42.9, Made: false
+[2025-11-08T02:47:15.078Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:15.480Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:15.481Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:15.481Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:15.481Z] [REBOUND] Scramble activated - reboundX: 3.3941544160338935, reboundY: 9.570062785369947
+[2025-11-08T02:47:15.542Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:15.542Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:15.542Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:15.542Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:15.542Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:15.542Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.1, InKey: true
+[2025-11-08T02:47:15.542Z] [DUNK ROLL] Chance: NaN%, Roll: 59.6, Made: false
+[2025-11-08T02:47:16.064Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:16.465Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:16.466Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:16.466Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:16.466Z] [REBOUND] Scramble activated - reboundX: 5.428841683216786, reboundY: 8.782062949226711
+[2025-11-08T02:47:16.526Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:16.526Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:16.526Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:16.526Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:16.526Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:16.527Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.0, InKey: true
+[2025-11-08T02:47:16.527Z] [DUNK ROLL] Chance: NaN%, Roll: 62.7, Made: false
+[2025-11-08T02:47:16.920Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:17.322Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:17.322Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:17.322Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:17.322Z] [REBOUND] Scramble activated - reboundX: 3.99271565091742, reboundY: 8.161395154748442
+[2025-11-08T02:47:17.619Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:17.619Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:17.619Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:17.619Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:17.619Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:17.619Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.0, InKey: true
+[2025-11-08T02:47:17.619Z] [DUNK ROLL] Chance: NaN%, Roll: 42.4, Made: false
+[2025-11-08T02:47:18.140Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:18.542Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:18.542Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:18.542Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:18.542Z] [REBOUND] Scramble activated - reboundX: 2.4718135435629414, reboundY: 8.460459741526687
+[2025-11-08T02:47:18.719Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:18.719Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:18.719Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:18.719Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:18.719Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:18.719Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.1, InKey: true
+[2025-11-08T02:47:18.719Z] [DUNK ROLL] Chance: NaN%, Roll: 96.6, Made: false
+[2025-11-08T02:47:19.112Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:19.513Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:19.513Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:19.513Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:19.513Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 5.409086556219121
+[2025-11-08T02:47:19.691Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:19.691Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:19.691Z] [DUNK CALC] Close dunk bonus: adjustedDistance=3 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T02:47:19.691Z] [DUNK CALC] After close bonus, baseChance: 74
+[2025-11-08T02:47:19.691Z] [DUNK CALC] After insideKey check, baseChance: 74
+[2025-11-08T02:47:19.691Z] [DUNK CALC] After distance penalty, baseChance: 74
+[2025-11-08T02:47:19.691Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 3.0, InKey: true
+[2025-11-08T02:47:19.691Z] [DUNK ROLL] Chance: NaN%, Roll: 74.1, Made: false
+[2025-11-08T02:47:20.212Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:20.614Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:20.614Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:20.614Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:20.614Z] [REBOUND] Scramble activated - reboundX: 2.973682500926399, reboundY: 5.672979314325044
+[2025-11-08T02:47:20.674Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:20.674Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:20.674Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:20.674Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:20.674Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:20.674Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.1, InKey: true
+[2025-11-08T02:47:20.674Z] [DUNK ROLL] Chance: NaN%, Roll: 78.2, Made: false
+[2025-11-08T02:47:21.194Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:21.596Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:21.596Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:21.596Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:21.597Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 7.530662401522841
+[2025-11-08T02:47:21.657Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:47:21.657Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:47:21.657Z] [DUNK CALC] Close dunk bonus: adjustedDistance=2.8284271247461903 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T02:47:21.657Z] [DUNK CALC] After close bonus, baseChance: 104
+[2025-11-08T02:47:21.658Z] [DUNK CALC] After insideKey check, baseChance: 104
+[2025-11-08T02:47:21.658Z] [DUNK CALC] After distance penalty, baseChance: 104
+[2025-11-08T02:47:21.658Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 2.8, InKey: true
+[2025-11-08T02:47:21.658Z] [DUNK ROLL] Chance: NaN%, Roll: 40.6, Made: false
+[2025-11-08T02:47:22.102Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:22.503Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:22.503Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:22.503Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:22.503Z] [REBOUND] Scramble activated - reboundX: 11.240649530110039, reboundY: 8.219755162912268
+[2025-11-08T02:47:22.801Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:22.801Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:22.801Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:22.801Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:22.801Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:22.801Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 6.0, InKey: true
+[2025-11-08T02:47:22.801Z] [DUNK ROLL] Chance: NaN%, Roll: 7.5, Made: false
+[2025-11-08T02:47:23.512Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:23.913Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:23.913Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:23.913Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:23.913Z] [REBOUND] Scramble activated - reboundX: 5.597473227929859, reboundY: 12.70423518167896
+[2025-11-08T02:47:24.328Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:24.328Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:24.328Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:24.328Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:24.328Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:24.328Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.5, InKey: true
+[2025-11-08T02:47:24.328Z] [DUNK ROLL] Chance: NaN%, Roll: 48.8, Made: false
+[2025-11-08T02:47:24.880Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:25.282Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:25.282Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:25.282Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:25.282Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 9.576646121927833
+[2025-11-08T02:47:25.462Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:25.462Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:25.462Z] [DUNK CALC] Close dunk bonus: adjustedDistance=3 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T02:47:25.462Z] [DUNK CALC] After close bonus, baseChance: 74
+[2025-11-08T02:47:25.462Z] [DUNK CALC] After insideKey check, baseChance: 74
+[2025-11-08T02:47:25.462Z] [DUNK CALC] After distance penalty, baseChance: 74
+[2025-11-08T02:47:25.462Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 3.0, InKey: true
+[2025-11-08T02:47:25.462Z] [DUNK ROLL] Chance: NaN%, Roll: 97.9, Made: false
+[2025-11-08T02:47:25.986Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:26.387Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:26.387Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:26.387Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:26.387Z] [REBOUND] Scramble activated - reboundX: 5.49373222392048, reboundY: 12.355703383205192
+[2025-11-08T02:47:26.450Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:47:26.450Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:47:26.450Z] [DUNK CALC] Close dunk bonus: adjustedDistance=2.8284271247461903 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T02:47:26.450Z] [DUNK CALC] After close bonus, baseChance: 104
+[2025-11-08T02:47:26.450Z] [DUNK CALC] After insideKey check, baseChance: 104
+[2025-11-08T02:47:26.450Z] [DUNK CALC] After distance penalty, baseChance: 104
+[2025-11-08T02:47:26.450Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 2.8, InKey: true
+[2025-11-08T02:47:26.450Z] [DUNK ROLL] Chance: NaN%, Roll: 90.7, Made: false
+[2025-11-08T02:47:27.502Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:27.904Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:27.904Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:27.904Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:27.904Z] [REBOUND] Scramble activated - reboundX: 4.671184400015467, reboundY: 11.347098212815126
+[2025-11-08T02:47:28.083Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:28.083Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:28.083Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:28.083Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:28.083Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:28.083Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.5, InKey: true
+[2025-11-08T02:47:28.083Z] [DUNK ROLL] Chance: NaN%, Roll: 6.1, Made: false
+[2025-11-08T02:47:28.636Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:29.038Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:29.038Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:29.038Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:29.038Z] [REBOUND] Scramble activated - reboundX: 2.4365122052147687, reboundY: 10.638751419752081
+[2025-11-08T02:47:29.454Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:47:29.455Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:47:29.455Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T02:47:29.455Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T02:47:29.455Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T02:47:29.455Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 3.6, InKey: true
+[2025-11-08T02:47:29.455Z] [DUNK ROLL] Chance: NaN%, Roll: 33.0, Made: false
+[2025-11-08T02:47:30.196Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:30.597Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:30.598Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:30.598Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:30.598Z] [REBOUND] Scramble activated - reboundX: 8.264754913365199, reboundY: 6.959318661568408
+[2025-11-08T02:47:30.658Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:30.658Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:30.658Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:30.658Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:30.658Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:30.658Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.1, InKey: true
+[2025-11-08T02:47:30.658Z] [DUNK ROLL] Chance: NaN%, Roll: 49.2, Made: false
+[2025-11-08T02:47:31.053Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:31.454Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:31.454Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:31.454Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:31.454Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 9.482444748482328
+[2025-11-08T02:47:31.633Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:31.633Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:31.633Z] [DUNK CALC] Close dunk bonus: adjustedDistance=2 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T02:47:31.633Z] [DUNK CALC] After close bonus, baseChance: 74
+[2025-11-08T02:47:31.634Z] [DUNK CALC] After insideKey check, baseChance: 74
+[2025-11-08T02:47:31.634Z] [DUNK CALC] After distance penalty, baseChance: 74
+[2025-11-08T02:47:31.634Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 2.0, InKey: true
+[2025-11-08T02:47:31.634Z] [DUNK ROLL] Chance: NaN%, Roll: 65.7, Made: false
+[2025-11-08T02:47:32.027Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:32.429Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:32.429Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:32.429Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:32.429Z] [REBOUND] Scramble activated - reboundX: 3.5989830632364246, reboundY: 4.301818460581963
+[2025-11-08T02:47:32.608Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:32.608Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:32.608Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:32.608Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:32.608Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:32.608Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.1, InKey: true
+[2025-11-08T02:47:32.608Z] [DUNK ROLL] Chance: NaN%, Roll: 70.6, Made: false
+[2025-11-08T02:47:33.132Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:33.533Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:33.533Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:33.533Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:33.533Z] [REBOUND] Scramble activated - reboundX: 6.176485040879591, reboundY: 8.51738260995613
+[2025-11-08T02:47:33.592Z] [DUNK CALC] Initial baseChance: 68, effectiveSkill: 4, rawSkill: 4, dunkRange: 8
+[2025-11-08T02:47:33.592Z] [DUNK CALC] After skill penalty, baseChance: 68
+[2025-11-08T02:47:33.593Z] [DUNK CALC] After close bonus, baseChance: 68
+[2025-11-08T02:47:33.593Z] [DUNK CALC] After insideKey check, baseChance: 68
+[2025-11-08T02:47:33.593Z] [DUNK CALC] After distance penalty, baseChance: 68
+[2025-11-08T02:47:33.593Z] [DUNK CHANCE] Player: Trae Young, Base: NaN%, Skill: 4, Distance: 4.0, InKey: true
+[2025-11-08T02:47:33.593Z] [DUNK ROLL] Chance: NaN%, Roll: 17.1, Made: false
+[2025-11-08T02:47:34.113Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:47:34.515Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:47:34.515Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:47:34.515Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:47:34.515Z] [REBOUND] Scramble activated - reboundX: 7.455565960656841, reboundY: 11.664495413056875
+[2025-11-08T02:47:34.694Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:47:34.694Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T02:47:34.694Z] [DUNK CALC] Close dunk bonus: adjustedDistance=2.8284271247461903 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T02:47:34.694Z] [DUNK CALC] After close bonus, baseChance: 104
+[2025-11-08T02:47:34.694Z] [DUNK CALC] After insideKey check, baseChance: 104
+[2025-11-08T02:47:34.694Z] [DUNK CALC] After distance penalty, baseChance: 104
+[2025-11-08T02:47:34.694Z] [DUNK CHANCE] Player: Dominique Wilkins, Base: NaN%, Skill: 10, Distance: 2.8, InKey: true
+[2025-11-08T02:47:34.694Z] [DUNK ROLL] Chance: NaN%, Roll: 59.2, Made: false
