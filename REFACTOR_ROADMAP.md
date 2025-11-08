@@ -20,8 +20,20 @@
    - Test suite: 5/5 passing (testPassingSystemCreation, testSuccessfulPass, testOutOfBoundsPass, testPassTiming, testInboundPass)
    - **Status**: Logic working, integration has side effects from legacy code
 
-4. **Integration** (nba_jam.js lines 676-721)
-   - Systems created in main()
+4. **Possession System** (lib/systems/possession-system.js)
+   - Centralized possession management with explicit dependencies
+   - Test suite: 15/15 passing
+   - **Status**: Working, integrated
+
+5. **Shooting System** (lib/systems/shooting-system.js)
+   - Testable shooting logic with explicit dependencies
+   - Handles shot attempts, dunks, 3-pointers, blocking
+   - Test suite: 32/32 passing (test-shooting-system.js)
+   - Tests cover: shot probability, 3-pointer detection, dunk detection, OOB prevention, hot streak bonus, blocked shots
+   - **Status**: Working, integrated via system-init.js
+
+6. **Integration** (nba_jam.js, lib/core/system-init.js)
+   - Systems created in main() via initializeSystems()
    - Dependencies injected
    - Exposed via globalThis for legacy code
    - **Status**: Wired up
@@ -34,80 +46,23 @@
 
 ### 📋 Remaining Work
 
-#### Phase 1: Possession System (Next)
-**Goal**: Centralize all possession-related state changes
-
-**Files to Extract**:
-- `lib/game-logic/possession.js`: switchPossession(), setupInbound(), assignDefensiveMatchups()
-- Related logic from nba_jam.js main game loop
-
-**System API**:
-```javascript
-createPossessionSystem({
-  state: stateManager,
-  events: eventBus,
-  rules: { COURT_WIDTH, COURT_HEIGHT, positions },
-  helpers: {
-    getPlayerTeamName,
-    getOpposingTeamSprites,
-    flushKeyboardBuffer,
-    triggerPossessionBeep,
-    // etc
-  }
-})
-
-// Public methods:
-.switchPossession(reason)  // 'turnover', 'violation', 'score', etc
-.setupInbound(team, reason)
-.assignDefensiveMatchups()
-```
-
-**Test Cases**:
-- testPossessionSwitch: teamA → teamB, verify ballCarrier set to correct team
-- testInboundSetup: verify positions, ball carrier, state flags
-- testDefensiveAssignments: verify nearest-defender logic
-- testPossessionPreservation: if ballCarrier already on team, preserve them
-
-**Success Criteria**:
-- All tests passing
-- No direct `gameState.ballCarrier =` in possession.js
-- switchPossession() uses state.set()
-
-#### Phase 2: Shooting System
-**Goal**: Centralize shot logic
-
-**Files to Extract**:
-- `lib/game-logic/shots.js`: attemptShot(), shot calculations
-- Shot animation coordination
-- Rebound triggering
-
-**System API**:
-```javascript
-createShootingSystem({
-  state: stateManager,
-  animations: animationSystem,
-  events: eventBus,
-  rules: { shooting percentages, distance modifiers },
-  helpers: {
-    getPlayerTeamName,
-    calculateShotDistance,
-    checkBlockAttempt,
-    // etc
-  }
-})
-
-// Public methods:
-.attemptShot(shooter, targetX, targetY, options)
-```
-
-**Test Cases**:
-- testSuccessfulShot: high percentage, verify made = true
-- testMissedShot: low percentage, verify made = false
-- testBlockedShot: defender close, verify blocked = true
-- testShotCallback: verify state changes after animation
-
-#### Phase 3: Remove Legacy State Mutations
+#### Phase 3: Remove Legacy State Mutations (Next)
 **Goal**: Eliminate all direct gameState modifications
+
+**Search Pattern**: `gameState\\.\\w+\\s*=` (regex)
+
+**Files to Audit**:
+- nba_jam.js (main game loop)
+- lib/game-logic/*.js
+- lib/ai/*.js
+- lib/multiplayer/*.js
+
+**Strategy**:
+- Replace with system calls where systems exist
+- Use state.set() for remaining cases
+- Document any that can't be migrated yet
+
+**Estimated Locations**: 50-100 assignments
 
 **Search Pattern**: `gameState\\.\\w+\\s*=` (regex)
 
