@@ -717,9 +717,6 @@ function main() {
         }
     });
 
-    // Expose systems globally (temporary during migration to dependency injection)
-    exposeSystemsGlobally(systems);
-
     // Subscribe to game events (Observer pattern)
     setupEventSubscriptions();    // Show ANSI splash screen first
     showSplashScreen();
