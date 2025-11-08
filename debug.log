@@ -6944,3 +6944,433 @@
 [2025-11-08T02:58:43.282Z] [DUNK CHANCE] Player: Trae Young, Base: 34%, Skill: 4, Distance: 5.4, InKey: true
 [2025-11-08T02:58:43.282Z] [DUNK ROLL] Chance: 34.0%, Roll: 14.0, Made: true
 [2025-11-08T02:58:43.806Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: true
+[2025-11-08T02:59:53.479Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:59:53.479Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:00:16.422Z] [DUNKS.JS] Loaded version 1.1 - constants.js and game-balance.js loaded
+[2025-11-08T03:00:16.422Z] [DUNKS.JS] DUNK_DISTANCE_BASE=4.2
+[2025-11-08T03:00:16.422Z] [DUNKS.JS] GAME_BALANCE.DUNKS=defined
+[2025-11-08T03:00:33.686Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:00:33.686Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:00:44.816Z] [DUNK CALC] Initial baseChance: 78, effectiveSkill: 6, rawSkill: 6, dunkRange: 9.899999999999999
+[2025-11-08T03:00:44.816Z] [DUNK CALC] After skill penalty, baseChance: 78
+[2025-11-08T03:00:44.816Z] [DUNK CALC] After close bonus, baseChance: 78
+[2025-11-08T03:00:44.816Z] [DUNK CALC] After insideKey check, baseChance: 78
+[2025-11-08T03:00:44.816Z] [DUNK CALC] After distance penalty, baseChance: 78
+[2025-11-08T03:00:44.816Z] [DUNK CALC] Defender coords: x=16, y=11, dunkInfo.centerX=12, dunkInfo.centerY=6
+[2025-11-08T03:00:44.816Z] [DUNK CALC] Defender penalty: 0 (separation: 6.4031242374328485, blockAttr: 7)
+[2025-11-08T03:00:44.816Z] [DUNK CALC] After defender penalty, baseChance: 78
+[2025-11-08T03:00:44.816Z] [DUNK CALC] After heat streak, baseChance: 78
+[2025-11-08T03:00:44.816Z] [DUNK CALC] After onFire bonus, baseChance: 78
+[2025-11-08T03:00:44.816Z] [DUNK CHANCE] Player: Chris Mullin, Base: 78%, Skill: 6, Distance: 8.5, InKey: true
+[2025-11-08T03:00:44.816Z] [DUNK ROLL] Chance: 78.0%, Roll: 37.7, Made: true
+[2025-11-08T03:00:46.147Z] [DUNK] Dunk made - ballCarrier remains: Chris Mullin
+[2025-11-08T03:00:50.837Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T03:00:50.837Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T03:00:50.838Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T03:00:50.838Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T03:00:50.838Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T03:00:50.838Z] [DUNK CALC] Defender coords: x=60, y=12, dunkInfo.centerX=75, dunkInfo.centerY=12
+[2025-11-08T03:00:50.838Z] [DUNK CALC] Defender penalty: 0 (separation: 15, blockAttr: 8)
+[2025-11-08T03:00:50.838Z] [DUNK CALC] After defender penalty, baseChance: 98
+[2025-11-08T03:00:50.838Z] [DUNK CALC] After heat streak, baseChance: 98
+[2025-11-08T03:00:50.838Z] [DUNK CALC] After onFire bonus, baseChance: 98
+[2025-11-08T03:00:50.838Z] [DUNK CHANCE] Player: Vince Carter, Base: 98%, Skill: 10, Distance: 3.6, InKey: true
+[2025-11-08T03:00:50.838Z] [DUNK ROLL] Chance: 98.0%, Roll: 25.7, Made: true
+[2025-11-08T03:00:51.356Z] [DUNK] Dunk made - ballCarrier remains: Vince Carter
+[2025-11-08T03:00:53.136Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:00:53.136Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:00:53.337Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:00:53.337Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T03:00:53.338Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 9.80123920005018
+[2025-11-08T03:00:53.338Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T03:00:57.135Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:00:57.135Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:00:59.688Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:00:59.688Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:01:02.966Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:01:02.966Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:01:09.865Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:01:09.865Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:01:10.067Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:01:10.067Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T03:01:10.067Z] [REBOUND] Scramble activated - reboundX: 8.302967829287702, reboundY: 10.152428559848794
+[2025-11-08T03:01:10.067Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T03:01:11.422Z] [DUNK CALC] Initial baseChance: 93, effectiveSkill: 9, rawSkill: 9, dunkRange: 12.75
+[2025-11-08T03:01:11.422Z] [DUNK CALC] After skill penalty, baseChance: 93
+[2025-11-08T03:01:11.422Z] [DUNK CALC] After close bonus, baseChance: 93
+[2025-11-08T03:01:11.422Z] [DUNK CALC] After insideKey check, baseChance: 93
+[2025-11-08T03:01:11.422Z] [DUNK CALC] After distance penalty, baseChance: 93
+[2025-11-08T03:01:11.422Z] [DUNK CALC] Defender coords: x=14, y=11, dunkInfo.centerX=11, dunkInfo.centerY=13
+[2025-11-08T03:01:11.422Z] [DUNK CALC] Defender penalty: 14.845582092123268 (separation: 3.605551275463989, blockAttr: 7)
+[2025-11-08T03:01:11.423Z] [DUNK CALC] After defender penalty, baseChance: 78.15441790787673
+[2025-11-08T03:01:11.423Z] [DUNK CALC] After heat streak, baseChance: 78.15441790787673
+[2025-11-08T03:01:11.423Z] [DUNK CALC] After onFire bonus, baseChance: 78.15441790787673
+[2025-11-08T03:01:11.423Z] [DUNK CHANCE] Player: Kevin Durant (2017), Base: 78.15441790787673%, Skill: 9, Distance: 8.1, InKey: true
+[2025-11-08T03:01:11.423Z] [DUNK ROLL] Chance: 78.2%, Roll: 78.5, Made: false
+[2025-11-08T03:01:12.728Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T03:01:13.129Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T03:01:13.129Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T03:01:13.129Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T03:01:13.130Z] [REBOUND] Scramble activated - reboundX: 5.464849376708228, reboundY: 10.018664786810396
+[2025-11-08T03:01:13.309Z] [DUNK CALC] Initial baseChance: 93, effectiveSkill: 9, rawSkill: 9, dunkRange: 12.75
+[2025-11-08T03:01:13.309Z] [DUNK CALC] After skill penalty, baseChance: 93
+[2025-11-08T03:01:13.309Z] [DUNK CALC] After close bonus, baseChance: 93
+[2025-11-08T03:01:13.309Z] [DUNK CALC] After insideKey check, baseChance: 93
+[2025-11-08T03:01:13.309Z] [DUNK CALC] After distance penalty, baseChance: 93
+[2025-11-08T03:01:13.309Z] [DUNK CALC] Defender coords: x=14, y=9, dunkInfo.centerX=8, dunkInfo.centerY=9
+[2025-11-08T03:01:13.309Z] [DUNK CALC] Defender penalty: 0 (separation: 6, blockAttr: 7)
+[2025-11-08T03:01:13.309Z] [DUNK CALC] After defender penalty, baseChance: 93
+[2025-11-08T03:01:13.309Z] [DUNK CALC] After heat streak, baseChance: 93
+[2025-11-08T03:01:13.310Z] [DUNK CALC] After onFire bonus, baseChance: 93
+[2025-11-08T03:01:13.310Z] [DUNK CHANCE] Player: Kevin Durant (2017), Base: 93%, Skill: 9, Distance: 4.0, InKey: true
+[2025-11-08T03:01:13.310Z] [DUNK ROLL] Chance: 93.0%, Roll: 21.6, Made: true
+[2025-11-08T03:01:14.385Z] [DUNK] Dunk made - ballCarrier remains: Kevin Durant (2017)
+[2025-11-08T03:01:18.650Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T03:01:18.650Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T03:01:18.650Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T03:01:18.650Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T03:01:18.650Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T03:01:18.650Z] [DUNK CALC] Defender coords: x=59, y=11, dunkInfo.centerX=75, dunkInfo.centerY=14
+[2025-11-08T03:01:18.650Z] [DUNK CALC] Defender penalty: 0 (separation: 16.278820596099706, blockAttr: 8)
+[2025-11-08T03:01:18.650Z] [DUNK CALC] After defender penalty, baseChance: 98
+[2025-11-08T03:01:18.650Z] [DUNK CALC] After heat streak, baseChance: 98
+[2025-11-08T03:01:18.650Z] [DUNK CALC] After onFire bonus, baseChance: 98
+[2025-11-08T03:01:18.651Z] [DUNK CHANCE] Player: Vince Carter, Base: 98%, Skill: 10, Distance: 5.4, InKey: true
+[2025-11-08T03:01:18.651Z] [DUNK ROLL] Chance: 98.0%, Roll: 68.9, Made: true
+[2025-11-08T03:01:19.468Z] [DUNK] Dunk made - ballCarrier remains: Vince Carter
+[2025-11-08T03:01:41.532Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:01:41.532Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:01:46.029Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:01:46.029Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:01:48.841Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:01:48.841Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:01:49.044Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:01:49.044Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T03:01:49.044Z] [REBOUND] Scramble activated - reboundX: 2.8429210219933587, reboundY: 10.692361419493716
+[2025-11-08T03:01:49.044Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T03:01:50.866Z] [DUNK CALC] Initial baseChance: 93, effectiveSkill: 9, rawSkill: 9, dunkRange: 12.75
+[2025-11-08T03:01:50.866Z] [DUNK CALC] After skill penalty, baseChance: 93
+[2025-11-08T03:01:50.866Z] [DUNK CALC] After close bonus, baseChance: 93
+[2025-11-08T03:01:50.866Z] [DUNK CALC] After insideKey check, baseChance: 93
+[2025-11-08T03:01:50.866Z] [DUNK CALC] After distance penalty, baseChance: 93
+[2025-11-08T03:01:50.866Z] [DUNK CALC] Defender coords: x=8, y=10, dunkInfo.centerX=8, dunkInfo.centerY=14
+[2025-11-08T03:01:50.866Z] [DUNK CALC] Defender penalty: 11.2 (separation: 4, blockAttr: 6)
+[2025-11-08T03:01:50.866Z] [DUNK CALC] After defender penalty, baseChance: 81.8
+[2025-11-08T03:01:50.866Z] [DUNK CALC] After heat streak, baseChance: 81.8
+[2025-11-08T03:01:50.866Z] [DUNK CALC] After onFire bonus, baseChance: 81.8
+[2025-11-08T03:01:50.866Z] [DUNK CHANCE] Player: Kevin Durant (2017), Base: 81.8%, Skill: 9, Distance: 6.4, InKey: true
+[2025-11-08T03:01:50.866Z] [DUNK ROLL] Chance: 81.8%, Roll: 12.8, Made: true
+[2025-11-08T03:01:51.779Z] [DUNK] Dunk made - ballCarrier remains: Kevin Durant (2017)
+[2025-11-08T03:01:53.438Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:01:53.438Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:01:53.639Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:01:53.639Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T03:01:53.639Z] [REBOUND] Scramble activated - reboundX: 77.21389646382838, reboundY: 10.482216412962268
+[2025-11-08T03:01:53.639Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T03:01:58.424Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:01:58.424Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:01:58.625Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:01:58.626Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T03:01:58.626Z] [REBOUND] Scramble activated - reboundX: 6.76919688555293, reboundY: 10.669342937158033
+[2025-11-08T03:01:58.626Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T03:01:59.631Z] [DUNK CALC] Initial baseChance: 93, effectiveSkill: 9, rawSkill: 9, dunkRange: 12.75
+[2025-11-08T03:01:59.631Z] [DUNK CALC] After skill penalty, baseChance: 93
+[2025-11-08T03:01:59.631Z] [DUNK CALC] After close bonus, baseChance: 93
+[2025-11-08T03:01:59.631Z] [DUNK CALC] After insideKey check, baseChance: 93
+[2025-11-08T03:01:59.631Z] [DUNK CALC] After distance penalty, baseChance: 93
+[2025-11-08T03:01:59.631Z] [DUNK CALC] Defender coords: x=29, y=10, dunkInfo.centerX=12, dunkInfo.centerY=11
+[2025-11-08T03:01:59.631Z] [DUNK CALC] Defender penalty: 0 (separation: 17.029386365926403, blockAttr: 6)
+[2025-11-08T03:01:59.631Z] [DUNK CALC] After defender penalty, baseChance: 93
+[2025-11-08T03:01:59.631Z] [DUNK CALC] After heat streak, baseChance: 97
+[2025-11-08T03:01:59.631Z] [DUNK CALC] After onFire bonus, baseChance: 97
+[2025-11-08T03:01:59.631Z] [DUNK CHANCE] Player: Kevin Durant (2017), Base: 97%, Skill: 9, Distance: 8.2, InKey: true
+[2025-11-08T03:01:59.631Z] [DUNK ROLL] Chance: 97.0%, Roll: 22.7, Made: true
+[2025-11-08T03:02:01.514Z] [DUNK] Dunk made - ballCarrier remains: Kevin Durant (2017)
+[2025-11-08T03:02:04.150Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:02:04.150Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:02:07.686Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:02:07.688Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:02:30.624Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:02:30.624Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:02:30.825Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:02:30.825Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T03:02:30.825Z] [REBOUND] Scramble activated - reboundX: 71.10914413225852, reboundY: 4.270563852240076
+[2025-11-08T03:02:30.825Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T03:02:30.884Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T03:02:30.885Z] [DUNK CALC] After skill penalty, baseChance: 88
+[2025-11-08T03:02:30.885Z] [DUNK CALC] After close bonus, baseChance: 88
+[2025-11-08T03:02:30.885Z] [DUNK CALC] After insideKey check, baseChance: 88
+[2025-11-08T03:02:30.885Z] [DUNK CALC] After distance penalty, baseChance: 88
+[2025-11-08T03:02:30.885Z] [DUNK CALC] Defender coords: x=63, y=8, dunkInfo.centerX=72, dunkInfo.centerY=6
+[2025-11-08T03:02:30.885Z] [DUNK CALC] Defender penalty: 0 (separation: 9.219544457292887, blockAttr: 8)
+[2025-11-08T03:02:30.885Z] [DUNK CALC] After defender penalty, baseChance: 88
+[2025-11-08T03:02:30.885Z] [DUNK CALC] After heat streak, baseChance: 88
+[2025-11-08T03:02:30.885Z] [DUNK CALC] After onFire bonus, baseChance: 88
+[2025-11-08T03:02:30.885Z] [DUNK CHANCE] Player: Kevin Durant (2021), Base: 88%, Skill: 8, Distance: 5.8, InKey: true
+[2025-11-08T03:02:30.885Z] [DUNK ROLL] Chance: 88.0%, Roll: 83.8, Made: true
+[2025-11-08T03:02:32.228Z] [DUNK] Dunk made - ballCarrier remains: Kevin Durant (2021)
+[2025-11-08T03:02:35.408Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:02:35.408Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:02:38.769Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:02:38.769Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:02:41.760Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:02:41.760Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:02:41.961Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:02:41.961Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T03:02:41.961Z] [REBOUND] Scramble activated - reboundX: 8.748698606439458, reboundY: 7.38856376796261
+[2025-11-08T03:02:41.961Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T03:02:44.923Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:02:44.923Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:02:45.124Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:02:45.124Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T03:02:45.124Z] [REBOUND] Scramble activated - reboundX: 73.22889577314622, reboundY: 11.64915687555279
+[2025-11-08T03:02:45.124Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T03:02:46.600Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T03:02:46.600Z] [DUNK CALC] After skill penalty, baseChance: 88
+[2025-11-08T03:02:46.600Z] [DUNK CALC] After close bonus, baseChance: 88
+[2025-11-08T03:02:46.600Z] [DUNK CALC] After insideKey check, baseChance: 88
+[2025-11-08T03:02:46.600Z] [DUNK CALC] After distance penalty, baseChance: 88
+[2025-11-08T03:02:46.600Z] [DUNK CALC] Defender coords: x=59, y=10, dunkInfo.centerX=73, dunkInfo.centerY=13
+[2025-11-08T03:02:46.600Z] [DUNK CALC] Defender penalty: 0 (separation: 14.317821063276353, blockAttr: 8)
+[2025-11-08T03:02:46.600Z] [DUNK CALC] After defender penalty, baseChance: 88
+[2025-11-08T03:02:46.600Z] [DUNK CALC] After heat streak, baseChance: 88
+[2025-11-08T03:02:46.600Z] [DUNK CALC] After onFire bonus, baseChance: 88
+[2025-11-08T03:02:46.600Z] [DUNK CHANCE] Player: Kevin Durant (2021), Base: 88%, Skill: 8, Distance: 5.7, InKey: true
+[2025-11-08T03:02:46.600Z] [DUNK ROLL] Chance: 88.0%, Roll: 54.9, Made: true
+[2025-11-08T03:02:47.421Z] [DUNK] Dunk made - ballCarrier remains: Kevin Durant (2021)
+[2025-11-08T03:02:49.897Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:02:49.897Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:02:50.098Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:02:50.098Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T03:02:50.098Z] [REBOUND] Scramble activated - reboundX: 2.2144600532392387, reboundY: 10.757949151054813
+[2025-11-08T03:02:50.098Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T03:02:52.079Z] [DUNK CALC] Initial baseChance: 93, effectiveSkill: 9, rawSkill: 9, dunkRange: 12.75
+[2025-11-08T03:02:52.079Z] [DUNK CALC] After skill penalty, baseChance: 93
+[2025-11-08T03:02:52.079Z] [DUNK CALC] Close dunk bonus: adjustedDistance=2.8284271247461903 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T03:02:52.079Z] [DUNK CALC] After close bonus, baseChance: 99
+[2025-11-08T03:02:52.079Z] [DUNK CALC] After insideKey check, baseChance: 99
+[2025-11-08T03:02:52.079Z] [DUNK CALC] After distance penalty, baseChance: 99
+[2025-11-08T03:02:52.079Z] [DUNK CALC] Defender coords: x=13, y=4, dunkInfo.centerX=6, dunkInfo.centerY=11
+[2025-11-08T03:02:52.079Z] [DUNK CALC] Defender penalty: 0 (separation: 9.899494936611665, blockAttr: 7)
+[2025-11-08T03:02:52.079Z] [DUNK CALC] After defender penalty, baseChance: 99
+[2025-11-08T03:02:52.079Z] [DUNK CALC] After heat streak, baseChance: 99
+[2025-11-08T03:02:52.079Z] [DUNK CALC] After onFire bonus, baseChance: 99
+[2025-11-08T03:02:52.079Z] [DUNK CHANCE] Player: Kevin Durant (2017), Base: 98%, Skill: 9, Distance: 2.8, InKey: true
+[2025-11-08T03:02:52.079Z] [DUNK ROLL] Chance: 98.0%, Roll: 46.4, Made: true
+[2025-11-08T03:02:52.733Z] [DUNK] Dunk made - ballCarrier remains: Kevin Durant (2017)
+[2025-11-08T03:03:17.294Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:03:17.294Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:03:21.390Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T03:03:21.390Z] [DUNK CALC] After skill penalty, baseChance: 88
+[2025-11-08T03:03:21.390Z] [DUNK CALC] After close bonus, baseChance: 88
+[2025-11-08T03:03:21.390Z] [DUNK CALC] After insideKey check, baseChance: 88
+[2025-11-08T03:03:21.390Z] [DUNK CALC] After distance penalty, baseChance: 88
+[2025-11-08T03:03:21.390Z] [DUNK CALC] Defender coords: x=60, y=12, dunkInfo.centerX=75, dunkInfo.centerY=13
+[2025-11-08T03:03:21.390Z] [DUNK CALC] Defender penalty: 0 (separation: 15.033296378372908, blockAttr: 4)
+[2025-11-08T03:03:21.390Z] [DUNK CALC] After defender penalty, baseChance: 88
+[2025-11-08T03:03:21.390Z] [DUNK CALC] After heat streak, baseChance: 88
+[2025-11-08T03:03:21.390Z] [DUNK CALC] After onFire bonus, baseChance: 88
+[2025-11-08T03:03:21.390Z] [DUNK CHANCE] Player: Kevin Durant (2021), Base: 88%, Skill: 8, Distance: 4.5, InKey: true
+[2025-11-08T03:03:21.390Z] [DUNK ROLL] Chance: 88.0%, Roll: 65.6, Made: true
+[2025-11-08T03:03:22.199Z] [DUNK] Dunk made - ballCarrier remains: Kevin Durant (2021)
+[2025-11-08T03:03:26.378Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:03:26.378Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:03:49.082Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:03:49.082Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:03:49.283Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:03:49.283Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T03:03:49.283Z] [REBOUND] Scramble activated - reboundX: 70.82739812694314, reboundY: 12.27608488795768
+[2025-11-08T03:03:49.283Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T03:03:50.049Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T03:03:50.049Z] [DUNK CALC] After skill penalty, baseChance: 88
+[2025-11-08T03:03:50.049Z] [DUNK CALC] After close bonus, baseChance: 88
+[2025-11-08T03:03:50.049Z] [DUNK CALC] After insideKey check, baseChance: 88
+[2025-11-08T03:03:50.049Z] [DUNK CALC] After distance penalty, baseChance: 88
+[2025-11-08T03:03:50.049Z] [DUNK CALC] Defender coords: x=70, y=9, dunkInfo.centerX=75, dunkInfo.centerY=12
+[2025-11-08T03:03:50.049Z] [DUNK CALC] Defender penalty: 0.7438116626806768 (separation: 5.830951894845301, blockAttr: 4)
+[2025-11-08T03:03:50.049Z] [DUNK CALC] After defender penalty, baseChance: 87.25618833731933
+[2025-11-08T03:03:50.049Z] [DUNK CALC] After heat streak, baseChance: 87.25618833731933
+[2025-11-08T03:03:50.049Z] [DUNK CALC] After onFire bonus, baseChance: 87.25618833731933
+[2025-11-08T03:03:50.049Z] [DUNK CHANCE] Player: Kevin Durant (2021), Base: 87.25618833731933%, Skill: 8, Distance: 3.6, InKey: true
+[2025-11-08T03:03:50.049Z] [DUNK ROLL] Chance: 87.3%, Roll: 14.1, Made: true
+[2025-11-08T03:03:50.812Z] [DUNK] Dunk made - ballCarrier remains: Kevin Durant (2021)
+[2025-11-08T03:04:00.427Z] [DUNK CALC] Initial baseChance: 78, effectiveSkill: 6, rawSkill: 6, dunkRange: 9.899999999999999
+[2025-11-08T03:04:00.427Z] [DUNK CALC] After skill penalty, baseChance: 78
+[2025-11-08T03:04:00.427Z] [DUNK CALC] After close bonus, baseChance: 78
+[2025-11-08T03:04:00.427Z] [DUNK CALC] After insideKey check, baseChance: 78
+[2025-11-08T03:04:00.427Z] [DUNK CALC] After distance penalty, baseChance: 78
+[2025-11-08T03:04:00.427Z] [DUNK CALC] Defender coords: x=14, y=12, dunkInfo.centerX=11, dunkInfo.centerY=10
+[2025-11-08T03:04:00.427Z] [DUNK CALC] Defender penalty: 14.845582092123268 (separation: 3.605551275463989, blockAttr: 7)
+[2025-11-08T03:04:00.427Z] [DUNK CALC] After defender penalty, baseChance: 63.154417907876734
+[2025-11-08T03:04:00.427Z] [DUNK CALC] After heat streak, baseChance: 63.154417907876734
+[2025-11-08T03:04:00.427Z] [DUNK CALC] After onFire bonus, baseChance: 63.154417907876734
+[2025-11-08T03:04:00.427Z] [DUNK CHANCE] Player: Chris Mullin, Base: 63.154417907876734%, Skill: 6, Distance: 7.1, InKey: true
+[2025-11-08T03:04:00.427Z] [DUNK ROLL] Chance: 63.2%, Roll: 59.1, Made: true
+[2025-11-08T03:04:01.093Z] [DUNK] Dunk made - ballCarrier remains: Chris Mullin
+[2025-11-08T03:04:04.720Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:04:04.720Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:04:07.713Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:04:07.713Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:04:07.914Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:04:07.914Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T03:04:07.914Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 5.636481570314367
+[2025-11-08T03:04:07.914Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T03:04:11.187Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:04:11.187Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:04:11.388Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:04:11.388Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T03:04:11.389Z] [REBOUND] Scramble activated - reboundX: 78, reboundY: 6.58127284930358
+[2025-11-08T03:04:11.389Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T03:04:13.655Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T03:04:13.655Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T03:04:13.655Z] [DUNK CALC] Close dunk bonus: adjustedDistance=2 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T03:04:13.655Z] [DUNK CALC] After close bonus, baseChance: 104
+[2025-11-08T03:04:13.655Z] [DUNK CALC] After insideKey check, baseChance: 104
+[2025-11-08T03:04:13.655Z] [DUNK CALC] After distance penalty, baseChance: 104
+[2025-11-08T03:04:13.655Z] [DUNK CALC] Defender coords: x=72, y=11, dunkInfo.centerX=75, dunkInfo.centerY=9
+[2025-11-08T03:04:13.655Z] [DUNK CALC] Defender penalty: 10.535574387958448 (separation: 3.605551275463989, blockAttr: 4)
+[2025-11-08T03:04:13.655Z] [DUNK CALC] After defender penalty, baseChance: 93.46442561204155
+[2025-11-08T03:04:13.655Z] [DUNK CALC] After heat streak, baseChance: 93.46442561204155
+[2025-11-08T03:04:13.655Z] [DUNK CALC] After onFire bonus, baseChance: 93.46442561204155
+[2025-11-08T03:04:13.655Z] [DUNK CHANCE] Player: Vince Carter, Base: 93.46442561204155%, Skill: 10, Distance: 2.0, InKey: true
+[2025-11-08T03:04:13.656Z] [DUNK ROLL] Chance: 93.5%, Roll: 29.2, Made: true
+[2025-11-08T03:04:14.449Z] [DUNK] Dunk made - ballCarrier remains: Vince Carter
+[2025-11-08T03:04:16.300Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:04:16.300Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:04:16.501Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:04:16.502Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T03:04:16.502Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 6.834972138338494
+[2025-11-08T03:04:16.502Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T03:04:20.962Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:04:20.962Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:04:29.962Z] [DUNK CALC] Initial baseChance: 93, effectiveSkill: 9, rawSkill: 9, dunkRange: 12.75
+[2025-11-08T03:04:29.962Z] [DUNK CALC] After skill penalty, baseChance: 93
+[2025-11-08T03:04:29.962Z] [DUNK CALC] After close bonus, baseChance: 93
+[2025-11-08T03:04:29.962Z] [DUNK CALC] After insideKey check, baseChance: 93
+[2025-11-08T03:04:29.962Z] [DUNK CALC] After distance penalty, baseChance: 93
+[2025-11-08T03:04:29.962Z] [DUNK CALC] Defender coords: x=8, y=12, dunkInfo.centerX=9, dunkInfo.centerY=14
+[2025-11-08T03:04:29.962Z] [DUNK CALC] Defender penalty: 21.078019326001176 (separation: 2.23606797749979, blockAttr: 6)
+[2025-11-08T03:04:29.962Z] [DUNK CALC] After defender penalty, baseChance: 71.92198067399883
+[2025-11-08T03:04:29.963Z] [DUNK CALC] After heat streak, baseChance: 71.92198067399883
+[2025-11-08T03:04:29.963Z] [DUNK CALC] After onFire bonus, baseChance: 71.92198067399883
+[2025-11-08T03:04:29.963Z] [DUNK CHANCE] Player: Kevin Durant (2017), Base: 71.92198067399883%, Skill: 9, Distance: 7.1, InKey: true
+[2025-11-08T03:04:29.963Z] [DUNK ROLL] Chance: 71.9%, Roll: 56.0, Made: true
+[2025-11-08T03:04:30.599Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: true
+[2025-11-08T03:04:50.012Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:04:50.012Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:04:50.213Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:04:50.213Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T03:04:50.213Z] [REBOUND] Scramble activated - reboundX: 73.82224078515539, reboundY: 8.433824455241623
+[2025-11-08T03:04:50.213Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T03:04:52.129Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T03:04:52.129Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T03:04:52.129Z] [DUNK CALC] After close bonus, baseChance: 98
+[2025-11-08T03:04:52.129Z] [DUNK CALC] After insideKey check, baseChance: 98
+[2025-11-08T03:04:52.129Z] [DUNK CALC] After distance penalty, baseChance: 98
+[2025-11-08T03:04:52.129Z] [DUNK CALC] Defender coords: x=61, y=12, dunkInfo.centerX=75, dunkInfo.centerY=12
+[2025-11-08T03:04:52.129Z] [DUNK CALC] Defender penalty: 0 (separation: 14, blockAttr: 8)
+[2025-11-08T03:04:52.129Z] [DUNK CALC] After defender penalty, baseChance: 98
+[2025-11-08T03:04:52.129Z] [DUNK CALC] After heat streak, baseChance: 106
+[2025-11-08T03:04:52.129Z] [DUNK CALC] After onFire bonus, baseChance: 106
+[2025-11-08T03:04:52.129Z] [DUNK CHANCE] Player: Vince Carter, Base: 98%, Skill: 10, Distance: 3.6, InKey: true
+[2025-11-08T03:04:52.129Z] [DUNK ROLL] Chance: 98.0%, Roll: 72.6, Made: true
+[2025-11-08T03:04:52.921Z] [DUNK] Dunk made - ballCarrier remains: Vince Carter
+[2025-11-08T03:05:03.766Z] [DUNK CALC] Initial baseChance: 78, effectiveSkill: 6, rawSkill: 6, dunkRange: 9.899999999999999
+[2025-11-08T03:05:03.766Z] [DUNK CALC] After skill penalty, baseChance: 78
+[2025-11-08T03:05:03.766Z] [DUNK CALC] After close bonus, baseChance: 78
+[2025-11-08T03:05:03.766Z] [DUNK CALC] After insideKey check, baseChance: 78
+[2025-11-08T03:05:03.766Z] [DUNK CALC] After distance penalty, baseChance: 78
+[2025-11-08T03:05:03.766Z] [DUNK CALC] Defender coords: x=12, y=13, dunkInfo.centerX=9, dunkInfo.centerY=10
+[2025-11-08T03:05:03.766Z] [DUNK CALC] Defender penalty: 14.058874503045722 (separation: 4.242640687119285, blockAttr: 10)
+[2025-11-08T03:05:03.766Z] [DUNK CALC] After defender penalty, baseChance: 63.94112549695428
+[2025-11-08T03:05:03.766Z] [DUNK CALC] After heat streak, baseChance: 63.94112549695428
+[2025-11-08T03:05:03.766Z] [DUNK CALC] After onFire bonus, baseChance: 63.94112549695428
+[2025-11-08T03:05:03.766Z] [DUNK CHANCE] Player: Chris Mullin, Base: 63.94112549695428%, Skill: 6, Distance: 5.1, InKey: true
+[2025-11-08T03:05:03.766Z] [DUNK ROLL] Chance: 63.9%, Roll: 36.4, Made: true
+[2025-11-08T03:05:04.309Z] [DUNK] Dunk made - ballCarrier remains: Chris Mullin
+[2025-11-08T03:05:06.705Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:05:06.705Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:05:06.906Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:05:06.906Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T03:05:06.906Z] [REBOUND] Scramble activated - reboundX: 73.57406179478693, reboundY: 10.24114116636875
+[2025-11-08T03:05:06.906Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T03:05:08.656Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T03:05:08.656Z] [DUNK CALC] After skill penalty, baseChance: 98
+[2025-11-08T03:05:08.656Z] [DUNK CALC] Close dunk bonus: adjustedDistance=2.8284271247461903 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T03:05:08.656Z] [DUNK CALC] After close bonus, baseChance: 104
+[2025-11-08T03:05:08.656Z] [DUNK CALC] After insideKey check, baseChance: 104
+[2025-11-08T03:05:08.656Z] [DUNK CALC] After distance penalty, baseChance: 104
+[2025-11-08T03:05:08.656Z] [DUNK CALC] Defender coords: x=72, y=4, dunkInfo.centerX=75, dunkInfo.centerY=11
+[2025-11-08T03:05:08.656Z] [DUNK CALC] Defender penalty: 0 (separation: 7.615773105863909, blockAttr: 8)
+[2025-11-08T03:05:08.656Z] [DUNK CALC] After defender penalty, baseChance: 104
+[2025-11-08T03:05:08.656Z] [DUNK CALC] After heat streak, baseChance: 104
+[2025-11-08T03:05:08.657Z] [DUNK CALC] After onFire bonus, baseChance: 104
+[2025-11-08T03:05:08.657Z] [DUNK CHANCE] Player: Vince Carter, Base: 98%, Skill: 10, Distance: 2.8, InKey: true
+[2025-11-08T03:05:08.657Z] [DUNK ROLL] Chance: 98.0%, Roll: 9.2, Made: true
+[2025-11-08T03:05:09.451Z] [DUNK] Dunk made - ballCarrier remains: Vince Carter
+[2025-11-08T03:05:14.498Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:05:14.498Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:05:23.056Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T03:05:23.056Z] [DUNK CALC] After skill penalty, baseChance: 88
+[2025-11-08T03:05:23.056Z] [DUNK CALC] After close bonus, baseChance: 88
+[2025-11-08T03:05:23.056Z] [DUNK CALC] After insideKey check, baseChance: 88
+[2025-11-08T03:05:23.056Z] [DUNK CALC] After distance penalty, baseChance: 88
+[2025-11-08T03:05:23.056Z] [DUNK CALC] Defender coords: x=73, y=11, dunkInfo.centerX=74, dunkInfo.centerY=13
+[2025-11-08T03:05:23.056Z] [DUNK CALC] Defender penalty: 25.59473775300143 (separation: 2.23606797749979, blockAttr: 8)
+[2025-11-08T03:05:23.056Z] [DUNK CALC] After defender penalty, baseChance: 62.405262246998575
+[2025-11-08T03:05:23.056Z] [DUNK CALC] After heat streak, baseChance: 62.405262246998575
+[2025-11-08T03:05:23.056Z] [DUNK CALC] After onFire bonus, baseChance: 62.405262246998575
+[2025-11-08T03:05:23.056Z] [DUNK CHANCE] Player: Kevin Durant (2021), Base: 62.405262246998575%, Skill: 8, Distance: 5.0, InKey: true
+[2025-11-08T03:05:23.056Z] [DUNK ROLL] Chance: 62.4%, Roll: 79.9, Made: false
+[2025-11-08T03:05:23.878Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T03:05:24.279Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T03:05:24.279Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T03:05:24.279Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T03:05:24.280Z] [REBOUND] Scramble activated - reboundX: 78, reboundY: 8.26224951138461
+[2025-11-08T03:05:26.452Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T03:05:26.452Z] [DUNK CALC] After skill penalty, baseChance: 88
+[2025-11-08T03:05:26.452Z] [DUNK CALC] Close dunk bonus: adjustedDistance=2.8284271247461903 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T03:05:26.452Z] [DUNK CALC] After close bonus, baseChance: 94
+[2025-11-08T03:05:26.452Z] [DUNK CALC] After insideKey check, baseChance: 94
+[2025-11-08T03:05:26.452Z] [DUNK CALC] After distance penalty, baseChance: 94
+[2025-11-08T03:05:26.452Z] [DUNK CALC] Defender coords: x=75, y=15, dunkInfo.centerX=75, dunkInfo.centerY=11
+[2025-11-08T03:05:26.453Z] [DUNK CALC] Defender penalty: 13.6 (separation: 4, blockAttr: 8)
+[2025-11-08T03:05:26.453Z] [DUNK CALC] After defender penalty, baseChance: 80.4
+[2025-11-08T03:05:26.453Z] [DUNK CALC] After heat streak, baseChance: 80.4
+[2025-11-08T03:05:26.453Z] [DUNK CALC] After onFire bonus, baseChance: 80.4
+[2025-11-08T03:05:26.453Z] [DUNK CHANCE] Player: Kevin Durant (2021), Base: 80.4%, Skill: 8, Distance: 2.8, InKey: true
+[2025-11-08T03:05:26.453Z] [DUNK ROLL] Chance: 80.4%, Roll: 8.5, Made: true
+[2025-11-08T03:05:26.957Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: true
+[2025-11-08T03:06:11.650Z] [DUNK CALC] Initial baseChance: 83, effectiveSkill: 7, rawSkill: 7, dunkRange: 10.85
+[2025-11-08T03:06:11.650Z] [DUNK CALC] After skill penalty, baseChance: 83
+[2025-11-08T03:06:11.650Z] [DUNK CALC] Close dunk bonus: adjustedDistance=2.8284271247461903 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T03:06:11.650Z] [DUNK CALC] After close bonus, baseChance: 89
+[2025-11-08T03:06:11.650Z] [DUNK CALC] After insideKey check, baseChance: 89
+[2025-11-08T03:06:11.650Z] [DUNK CALC] After distance penalty, baseChance: 89
+[2025-11-08T03:06:11.650Z] [DUNK CALC] Defender coords: x=74, y=15, dunkInfo.centerX=75, dunkInfo.centerY=11
+[2025-11-08T03:06:11.650Z] [DUNK CALC] Defender penalty: 11.636745121170504 (separation: 4.123105625617661, blockAttr: 7)
+[2025-11-08T03:06:11.651Z] [DUNK CALC] After defender penalty, baseChance: 77.3632548788295
+[2025-11-08T03:06:11.651Z] [DUNK CALC] After heat streak, baseChance: 77.3632548788295
+[2025-11-08T03:06:11.651Z] [DUNK CALC] After onFire bonus, baseChance: 77.3632548788295
+[2025-11-08T03:06:11.651Z] [DUNK CHANCE] Player: Paul Pierce, Base: 77.3632548788295%, Skill: 7, Distance: 2.8, InKey: true
+[2025-11-08T03:06:11.651Z] [DUNK ROLL] Chance: 77.4%, Roll: 14.2, Made: true
+[2025-11-08T03:06:12.412Z] [DUNK] Dunk made - ballCarrier remains: Paul Pierce
+[2025-11-08T03:06:14.339Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:06:14.339Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:06:14.540Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:06:14.540Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T03:06:14.540Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 4.746209998849416
+[2025-11-08T03:06:14.540Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T03:06:16.717Z] [DUNK CALC] Initial baseChance: 83, effectiveSkill: 7, rawSkill: 7, dunkRange: 10.85
+[2025-11-08T03:06:16.717Z] [DUNK CALC] After skill penalty, baseChance: 83
+[2025-11-08T03:06:16.717Z] [DUNK CALC] After close bonus, baseChance: 83
+[2025-11-08T03:06:16.717Z] [DUNK CALC] After insideKey check, baseChance: 83
+[2025-11-08T03:06:16.717Z] [DUNK CALC] After distance penalty, baseChance: 83
+[2025-11-08T03:06:16.717Z] [DUNK CALC] Defender coords: x=10, y=13, dunkInfo.centerX=10, dunkInfo.centerY=11
+[2025-11-08T03:06:16.717Z] [DUNK CALC] Defender penalty: 22.4 (separation: 2, blockAttr: 6)
+[2025-11-08T03:06:16.718Z] [DUNK CALC] After defender penalty, baseChance: 60.6
+[2025-11-08T03:06:16.718Z] [DUNK CALC] After heat streak, baseChance: 60.6
+[2025-11-08T03:06:16.718Z] [DUNK CALC] After onFire bonus, baseChance: 60.6
+[2025-11-08T03:06:16.718Z] [DUNK CHANCE] Player: James Harden (2012), Base: 60.6%, Skill: 7, Distance: 6.3, InKey: true
+[2025-11-08T03:06:16.718Z] [DUNK ROLL] Chance: 60.6%, Roll: 75.0, Made: false
+[2025-11-08T03:06:17.221Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: true
