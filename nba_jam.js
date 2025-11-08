@@ -24,6 +24,9 @@ load(js.exec_dir + "lib/utils/validation.js");  // WAVE 21: Input validation uti
 load(js.exec_dir + "lib/core/state-manager.js");
 load(js.exec_dir + "lib/core/event-bus.js");
 
+// Wave 23: Load new systems (testable architecture)
+load(js.exec_dir + "lib/systems/passing-system.js");
+
 load(js.exec_dir + "lib/rendering/sprite-utils.js");
 load(js.exec_dir + "lib/rendering/uniform-system.js");
 load(js.exec_dir + "lib/rendering/animation-system.js");
@@ -671,28 +674,51 @@ function main() {
     // Wave 23: Initialize architecture foundation systems
     // Wrap gameState with state manager for change tracking and testability
     var stateManager = createStateManager(gameState);
-
+    
     // Create event bus for decoupled system communication
     var eventBus = createEventBus();
-
+    
+    // Wave 23: Create passing system with explicit dependencies
+    var passingSystem = createPassingSystem({
+        state: stateManager,
+        animations: animationSystem,
+        events: eventBus,
+        rules: {
+            COURT_WIDTH: COURT_WIDTH,
+            COURT_HEIGHT: COURT_HEIGHT
+        },
+        helpers: {
+            getPlayerTeamName: getPlayerTeamName,
+            recordTurnover: recordTurnover,
+            triggerPossessionBeep: triggerPossessionBeep,
+            resetBackcourtState: resetBackcourtState,
+            setPotentialAssist: setPotentialAssist,
+            clearPotentialAssist: clearPotentialAssist,
+            enableScoreFlashRegainCheck: enableScoreFlashRegainCheck,
+            primeInboundOffense: primeInboundOffense,
+            assignDefensiveMatchups: assignDefensiveMatchups,
+            announceEvent: announceEvent
+        }
+    });
+    
     // TODO: Wire up event handlers (announcer, stats, etc) to eventBus
     // Example: eventBus.on('pass_complete', function(data) { announceEvent('pass', data); });
-
+    
     // Store in global scope for now (will be passed as deps in migrated systems)
     // TODO: Remove these globals once all systems migrated to dependency injection
     if (typeof globalThis !== 'undefined') {
         globalThis.stateManager = stateManager;
         globalThis.eventBus = eventBus;
+        globalThis.passingSystem = passingSystem;
     } else {
         // Fallback for older JavaScript engines
         this.stateManager = stateManager;
         this.eventBus = eventBus;
+        this.passingSystem = passingSystem;
     }
 
     // Subscribe to game events (Observer pattern)
-    setupEventSubscriptions();
-
-    // Show ANSI splash screen first
+    setupEventSubscriptions();    // Show ANSI splash screen first
     showSplashScreen();
 
     // Load team data first
