@@ -2410,3 +2410,432 @@
 [2025-11-08T02:40:49.922Z] [DUNK CHANCE] Player: Scottie Pippen, Base: NaN%, Skill: 9, Distance: 2.0, InKey: true
 [2025-11-08T02:40:49.922Z] [DUNK ROLL] Chance: NaN%, Roll: 17.1, Made: false
 [2025-11-08T02:40:50.427Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: true
+[2025-11-08T02:41:31.306Z] [DUNKS.JS] Loaded version 1.1 - constants.js and game-balance.js loaded
+[2025-11-08T02:41:31.306Z] [DUNKS.JS] DUNK_DISTANCE_BASE=4.2
+[2025-11-08T02:41:31.306Z] [DUNKS.JS] GAME_BALANCE.DUNKS=defined
+[2025-11-08T02:41:51.354Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:41:51.354Z] [DUNK CHANCE] Player: Michael Jordan, Base: NaN%, Skill: 10, Distance: 3.6, InKey: true
+[2025-11-08T02:41:51.354Z] [DUNK ROLL] Chance: NaN%, Roll: 59.2, Made: false
+[2025-11-08T02:41:52.072Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:41:52.474Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:41:52.474Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:41:52.474Z] [REBOUND] createRebound() called at (77,9), ballCarrier: null
+[2025-11-08T02:41:52.474Z] [REBOUND] Scramble activated - reboundX: 78, reboundY: 8.678921511087136
+[2025-11-08T02:41:55.940Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T02:41:55.940Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T02:41:56.141Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T02:41:56.141Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:41:56.141Z] [REBOUND] Scramble activated - reboundX: 5.297714195455482, reboundY: 7.893444177370113
+[2025-11-08T02:41:56.141Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T02:41:57.305Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:41:57.305Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.5, InKey: true
+[2025-11-08T02:41:57.306Z] [DUNK ROLL] Chance: NaN%, Roll: 7.3, Made: false
+[2025-11-08T02:41:57.963Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:41:58.365Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:41:58.365Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:41:58.365Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:41:58.365Z] [REBOUND] Scramble activated - reboundX: 5.013509125964072, reboundY: 7.1680826036586955
+[2025-11-08T02:41:58.426Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:41:58.426Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:41:58.426Z] [DUNK ROLL] Chance: NaN%, Roll: 23.2, Made: false
+[2025-11-08T02:41:59.010Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:41:59.411Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:41:59.412Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:41:59.412Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:41:59.412Z] [REBOUND] Scramble activated - reboundX: 2.577781234298799, reboundY: 11.078799475777945
+[2025-11-08T02:42:00.120Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:00.120Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 3.2, InKey: true
+[2025-11-08T02:42:00.121Z] [DUNK ROLL] Chance: NaN%, Roll: 79.2, Made: false
+[2025-11-08T02:42:00.708Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:01.109Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:01.109Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:01.109Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:01.110Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 10.329915537189889
+[2025-11-08T02:42:01.869Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:01.869Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 3.2, InKey: true
+[2025-11-08T02:42:01.869Z] [DUNK ROLL] Chance: NaN%, Roll: 97.5, Made: false
+[2025-11-08T02:42:02.919Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:03.321Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:03.321Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:03.321Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:03.321Z] [REBOUND] Scramble activated - reboundX: 4.0882598789208044, reboundY: 8.726241528486192
+[2025-11-08T02:42:03.381Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:03.381Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:42:03.381Z] [DUNK ROLL] Chance: NaN%, Roll: 57.9, Made: false
+[2025-11-08T02:42:04.101Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:04.502Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:04.503Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:04.503Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:04.503Z] [REBOUND] Scramble activated - reboundX: 2.203759767221111, reboundY: 7.1869349869093275
+[2025-11-08T02:42:04.563Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:04.563Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:42:04.563Z] [DUNK ROLL] Chance: NaN%, Roll: 4.2, Made: false
+[2025-11-08T02:42:05.284Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:05.686Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:05.686Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:05.686Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:05.686Z] [REBOUND] Scramble activated - reboundX: 7.40383305505963, reboundY: 9.77735224484667
+[2025-11-08T02:42:05.746Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:05.746Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:42:05.746Z] [DUNK ROLL] Chance: NaN%, Roll: 2.1, Made: false
+[2025-11-08T02:42:06.467Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:06.868Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:06.868Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:06.868Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:06.868Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 9.560953061589332
+[2025-11-08T02:42:07.165Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:07.165Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 3.0, InKey: true
+[2025-11-08T02:42:07.165Z] [DUNK ROLL] Chance: NaN%, Roll: 75.0, Made: false
+[2025-11-08T02:42:07.607Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:08.008Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:08.008Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:08.008Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:08.008Z] [REBOUND] Scramble activated - reboundX: 5.704861818412203, reboundY: 6.74823347902643
+[2025-11-08T02:42:08.069Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:08.069Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:42:08.069Z] [DUNK ROLL] Chance: NaN%, Roll: 13.9, Made: false
+[2025-11-08T02:42:08.805Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:09.206Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:09.206Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:09.206Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:09.206Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.064888323464688
+[2025-11-08T02:42:09.856Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:09.856Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 3.6, InKey: true
+[2025-11-08T02:42:09.856Z] [DUNK ROLL] Chance: NaN%, Roll: 94.9, Made: false
+[2025-11-08T02:42:10.577Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:10.979Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:10.979Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:10.979Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:10.979Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 10.596429227561655
+[2025-11-08T02:42:11.275Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:11.275Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 3.2, InKey: true
+[2025-11-08T02:42:11.275Z] [DUNK ROLL] Chance: NaN%, Roll: 25.0, Made: false
+[2025-11-08T02:42:12.323Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:12.725Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:12.725Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:12.725Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:12.725Z] [REBOUND] Scramble activated - reboundX: 2.266627091843219, reboundY: 9.780773575209935
+[2025-11-08T02:42:12.903Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:12.903Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 3.0, InKey: true
+[2025-11-08T02:42:12.903Z] [DUNK ROLL] Chance: NaN%, Roll: 39.6, Made: false
+[2025-11-08T02:42:13.346Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:13.748Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:13.748Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:13.748Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:13.748Z] [REBOUND] Scramble activated - reboundX: 2.89442336937121, reboundY: 11.641240689100798
+[2025-11-08T02:42:14.046Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:42:14.046Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 2.8, InKey: true
+[2025-11-08T02:42:14.046Z] [DUNK ROLL] Chance: NaN%, Roll: 51.7, Made: false
+[2025-11-08T02:42:15.048Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:15.449Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:15.450Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:15.450Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:15.450Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.561617618379541
+[2025-11-08T02:42:15.862Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:15.862Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 3.6, InKey: true
+[2025-11-08T02:42:15.862Z] [DUNK ROLL] Chance: NaN%, Roll: 86.3, Made: false
+[2025-11-08T02:42:16.913Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:17.314Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:17.314Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:17.314Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:17.314Z] [REBOUND] Scramble activated - reboundX: 2.6806873296533014, reboundY: 12.535257510986892
+[2025-11-08T02:42:17.846Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:42:17.846Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 3.6, InKey: true
+[2025-11-08T02:42:17.846Z] [DUNK ROLL] Chance: NaN%, Roll: 85.8, Made: false
+[2025-11-08T02:42:18.432Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:18.833Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:18.833Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:18.833Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:18.833Z] [REBOUND] Scramble activated - reboundX: 5.759172760647417, reboundY: 6.694629086524033
+[2025-11-08T02:42:18.893Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:18.893Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 5.0, InKey: true
+[2025-11-08T02:42:18.893Z] [DUNK ROLL] Chance: NaN%, Roll: 93.5, Made: false
+[2025-11-08T02:42:20.094Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:20.495Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:20.495Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:20.496Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:20.496Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 7.606440455964012
+[2025-11-08T02:42:20.674Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:20.674Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 3.0, InKey: true
+[2025-11-08T02:42:20.674Z] [DUNK ROLL] Chance: NaN%, Roll: 68.7, Made: false
+[2025-11-08T02:42:21.115Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:21.517Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:21.517Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:21.517Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:21.517Z] [REBOUND] Scramble activated - reboundX: 6.095364096035494, reboundY: 7.202001332257366
+[2025-11-08T02:42:21.577Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:21.577Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.0, InKey: true
+[2025-11-08T02:42:21.577Z] [DUNK ROLL] Chance: NaN%, Roll: 61.0, Made: false
+[2025-11-08T02:42:22.159Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:22.561Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:22.561Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:22.561Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:22.561Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 5.8411051536507355
+[2025-11-08T02:42:22.621Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:42:22.621Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 3.6, InKey: true
+[2025-11-08T02:42:22.622Z] [DUNK ROLL] Chance: NaN%, Roll: 92.6, Made: false
+[2025-11-08T02:42:23.041Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:23.442Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:23.442Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:23.442Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:23.443Z] [REBOUND] Scramble activated - reboundX: 4.845364373692738, reboundY: 11.514551555970183
+[2025-11-08T02:42:23.739Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:23.739Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:42:23.739Z] [DUNK ROLL] Chance: NaN%, Roll: 73.4, Made: false
+[2025-11-08T02:42:24.478Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:24.880Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:24.880Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:24.880Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:24.880Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 10.099983301008864
+[2025-11-08T02:42:25.175Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:25.176Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 3.2, InKey: true
+[2025-11-08T02:42:25.176Z] [DUNK ROLL] Chance: NaN%, Roll: 68.8, Made: false
+[2025-11-08T02:42:25.911Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:26.312Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:26.312Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:26.312Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:26.312Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 10.425995181790727
+[2025-11-08T02:42:26.491Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:42:26.491Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 2.8, InKey: true
+[2025-11-08T02:42:26.491Z] [DUNK ROLL] Chance: NaN%, Roll: 90.6, Made: false
+[2025-11-08T02:42:27.176Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:27.578Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:27.578Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:27.578Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:27.578Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 8.267964431228279
+[2025-11-08T02:42:27.873Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:42:27.873Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 3.6, InKey: true
+[2025-11-08T02:42:27.873Z] [DUNK ROLL] Chance: NaN%, Roll: 21.6, Made: false
+[2025-11-08T02:42:28.574Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:28.976Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:28.976Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:28.976Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:28.976Z] [REBOUND] Scramble activated - reboundX: 2.154025046340581, reboundY: 5.712364476971417
+[2025-11-08T02:42:29.153Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:42:29.153Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 3.6, InKey: true
+[2025-11-08T02:42:29.153Z] [DUNK ROLL] Chance: NaN%, Roll: 1.7, Made: false
+[2025-11-08T02:42:29.839Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:30.240Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:30.240Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:30.240Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:30.240Z] [REBOUND] Scramble activated - reboundX: 3.0775203665646096, reboundY: 5.911756112707622
+[2025-11-08T02:42:30.300Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:30.300Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 3.2, InKey: true
+[2025-11-08T02:42:30.300Z] [DUNK ROLL] Chance: NaN%, Roll: 94.2, Made: false
+[2025-11-08T02:42:31.038Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:31.439Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:31.439Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:31.439Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:31.439Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 8.543501822655735
+[2025-11-08T02:42:31.616Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:31.616Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 3.0, InKey: true
+[2025-11-08T02:42:31.616Z] [DUNK ROLL] Chance: NaN%, Roll: 68.3, Made: false
+[2025-11-08T02:42:32.336Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:32.737Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:32.737Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:32.737Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:32.738Z] [REBOUND] Scramble activated - reboundX: 2.531127256121767, reboundY: 5.692911138136183
+[2025-11-08T02:42:32.797Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:32.797Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.0, InKey: true
+[2025-11-08T02:42:32.797Z] [DUNK ROLL] Chance: NaN%, Roll: 87.2, Made: false
+[2025-11-08T02:42:33.378Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:33.779Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:33.779Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:33.779Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:33.780Z] [REBOUND] Scramble activated - reboundX: 4.450584226417879, reboundY: 6.011638917961639
+[2025-11-08T02:42:33.840Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:33.840Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.0, InKey: true
+[2025-11-08T02:42:33.840Z] [DUNK ROLL] Chance: NaN%, Roll: 53.2, Made: false
+[2025-11-08T02:42:34.421Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:34.826Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:34.826Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:34.826Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:34.826Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.023789035273236
+[2025-11-08T02:42:35.123Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:42:35.123Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 2.8, InKey: true
+[2025-11-08T02:42:35.123Z] [DUNK ROLL] Chance: NaN%, Roll: 10.8, Made: false
+[2025-11-08T02:42:35.811Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:36.213Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:36.213Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:36.213Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:36.213Z] [REBOUND] Scramble activated - reboundX: 7.510883995870353, reboundY: 11.085186507189427
+[2025-11-08T02:42:36.274Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:36.274Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:42:36.274Z] [DUNK ROLL] Chance: NaN%, Roll: 32.4, Made: false
+[2025-11-08T02:42:36.996Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:37.397Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:37.398Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:37.398Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:37.398Z] [REBOUND] Scramble activated - reboundX: 9.756126349599082, reboundY: 10.081929698424831
+[2025-11-08T02:42:37.813Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:37.813Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 5.1, InKey: true
+[2025-11-08T02:42:37.813Z] [DUNK ROLL] Chance: NaN%, Roll: 8.6, Made: false
+[2025-11-08T02:42:39.018Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:39.419Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:39.419Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:39.419Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:39.419Z] [REBOUND] Scramble activated - reboundX: 3.4747364497092756, reboundY: 9.158361828045736
+[2025-11-08T02:42:39.480Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:39.480Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:42:39.480Z] [DUNK ROLL] Chance: NaN%, Roll: 19.9, Made: false
+[2025-11-08T02:42:40.059Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:40.460Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:40.460Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:40.461Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:40.461Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 6.562034278678541
+[2025-11-08T02:42:40.639Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:40.639Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 3.0, InKey: true
+[2025-11-08T02:42:40.639Z] [DUNK ROLL] Chance: NaN%, Roll: 16.8, Made: false
+[2025-11-08T02:42:41.361Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:41.763Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:41.763Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:41.763Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:41.763Z] [REBOUND] Scramble activated - reboundX: 4.970552286409561, reboundY: 8.408706672314343
+[2025-11-08T02:42:42.060Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:42.060Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 5.0, InKey: true
+[2025-11-08T02:42:42.060Z] [DUNK ROLL] Chance: NaN%, Roll: 7.2, Made: false
+[2025-11-08T02:42:43.263Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:43.664Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:43.664Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:43.664Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:43.664Z] [REBOUND] Scramble activated - reboundX: 3.6431460616215348, reboundY: 8.969505564274083
+[2025-11-08T02:42:43.724Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:43.724Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:42:43.724Z] [DUNK ROLL] Chance: NaN%, Roll: 63.5, Made: false
+[2025-11-08T02:42:44.776Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:45.178Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:45.178Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:45.178Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:45.178Z] [REBOUND] Scramble activated - reboundX: 4.937707933063548, reboundY: 10.123082807542671
+[2025-11-08T02:42:45.239Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:45.240Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:42:45.240Z] [DUNK ROLL] Chance: NaN%, Roll: 31.8, Made: false
+[2025-11-08T02:42:45.963Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:46.364Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:46.364Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:46.364Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:46.364Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.760050474268864
+[2025-11-08T02:42:47.248Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:47.248Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 2.8, InKey: true
+[2025-11-08T02:42:47.248Z] [DUNK ROLL] Chance: NaN%, Roll: 3.1, Made: false
+[2025-11-08T02:42:47.695Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:48.097Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:48.097Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:48.097Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:48.097Z] [REBOUND] Scramble activated - reboundX: 2.2807471197322315, reboundY: 8.675402410090877
+[2025-11-08T02:42:48.274Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:42:48.274Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 3.6, InKey: true
+[2025-11-08T02:42:48.274Z] [DUNK ROLL] Chance: NaN%, Roll: 51.6, Made: false
+[2025-11-08T02:42:48.858Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:49.259Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:49.260Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:49.260Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:49.260Z] [REBOUND] Scramble activated - reboundX: 3.613918396825947, reboundY: 12.566540295261696
+[2025-11-08T02:42:50.148Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:42:50.148Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 4.2, InKey: true
+[2025-11-08T02:42:50.148Z] [DUNK ROLL] Chance: NaN%, Roll: 73.4, Made: false
+[2025-11-08T02:42:51.199Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:51.600Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:51.600Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:51.600Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:51.600Z] [REBOUND] Scramble activated - reboundX: 5.260785213374142, reboundY: 8.93156628961991
+[2025-11-08T02:42:51.660Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:51.660Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:42:51.660Z] [DUNK ROLL] Chance: NaN%, Roll: 63.3, Made: false
+[2025-11-08T02:42:52.380Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:52.782Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:52.782Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:52.782Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:52.782Z] [REBOUND] Scramble activated - reboundX: 2.5280832448586827, reboundY: 6.907530531551293
+[2025-11-08T02:42:52.842Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:52.842Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.0, InKey: true
+[2025-11-08T02:42:52.842Z] [DUNK ROLL] Chance: NaN%, Roll: 68.9, Made: false
+[2025-11-08T02:42:53.422Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:53.823Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:53.823Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:53.823Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:53.823Z] [REBOUND] Scramble activated - reboundX: 3.1319727285708074, reboundY: 8.021312011287952
+[2025-11-08T02:42:53.883Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:53.884Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.1, InKey: true
+[2025-11-08T02:42:53.884Z] [DUNK ROLL] Chance: NaN%, Roll: 80.4, Made: false
+[2025-11-08T02:42:54.931Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:55.332Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:55.332Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:55.332Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:55.332Z] [REBOUND] Scramble activated - reboundX: 5.050285978851504, reboundY: 8.36466296478322
+[2025-11-08T02:42:55.392Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:55.392Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.0, InKey: true
+[2025-11-08T02:42:55.392Z] [DUNK ROLL] Chance: NaN%, Roll: 74.4, Made: false
+[2025-11-08T02:42:56.112Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:56.513Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:56.513Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:56.513Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:56.513Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.598441896033087
+[2025-11-08T02:42:57.194Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:42:57.194Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 2.8, InKey: true
+[2025-11-08T02:42:57.194Z] [DUNK ROLL] Chance: NaN%, Roll: 23.2, Made: false
+[2025-11-08T02:42:57.884Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:58.285Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:58.285Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:58.285Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:58.285Z] [REBOUND] Scramble activated - reboundX: 3.7985528065848078, reboundY: 11.693056655469825
+[2025-11-08T02:42:58.579Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:42:58.579Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 4.5, InKey: true
+[2025-11-08T02:42:58.579Z] [DUNK ROLL] Chance: NaN%, Roll: 44.4, Made: false
+[2025-11-08T02:42:59.369Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:42:59.771Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:42:59.771Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:42:59.771Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:42:59.771Z] [REBOUND] Scramble activated - reboundX: 5.91722240535425, reboundY: 13.115892381897883
+[2025-11-08T02:43:00.184Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:43:00.184Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 4.2, InKey: true
+[2025-11-08T02:43:00.184Z] [DUNK ROLL] Chance: NaN%, Roll: 75.2, Made: false
+[2025-11-08T02:43:00.627Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:43:01.028Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:43:01.029Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:43:01.029Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:43:01.029Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 10.857632787630823
+[2025-11-08T02:43:01.795Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:43:01.795Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 2.8, InKey: true
+[2025-11-08T02:43:01.795Z] [DUNK ROLL] Chance: NaN%, Roll: 56.2, Made: false
+[2025-11-08T02:43:02.482Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:43:02.883Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:43:02.884Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:43:02.884Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:43:02.884Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.903843071755883
+[2025-11-08T02:43:03.691Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:43:03.692Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 2.8, InKey: true
+[2025-11-08T02:43:03.692Z] [DUNK ROLL] Chance: NaN%, Roll: 38.8, Made: false
+[2025-11-08T02:43:04.276Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:43:04.678Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:43:04.678Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:43:04.678Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:43:04.678Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 11.293214043200267
+[2025-11-08T02:43:04.738Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:43:04.738Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 2.8, InKey: true
+[2025-11-08T02:43:04.738Z] [DUNK ROLL] Chance: NaN%, Roll: 43.3, Made: false
+[2025-11-08T02:43:05.736Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:43:06.137Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:43:06.138Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:43:06.138Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:43:06.138Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 7.46250159830586
+[2025-11-08T02:43:06.316Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:43:06.316Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 3.6, InKey: true
+[2025-11-08T02:43:06.316Z] [DUNK ROLL] Chance: NaN%, Roll: 49.1, Made: false
+[2025-11-08T02:43:06.734Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:43:07.135Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:43:07.135Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:43:07.135Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:43:07.135Z] [REBOUND] Scramble activated - reboundX: 7.314903920982074, reboundY: 13.204334279491986
+[2025-11-08T02:43:07.665Z] [DUNK CALC] Initial baseChance: 98, effectiveSkill: 10, rawSkill: 10, dunkRange: 13.7
+[2025-11-08T02:43:07.665Z] [DUNK CHANCE] Player: Vince Carter, Base: NaN%, Skill: 10, Distance: 5.8, InKey: true
+[2025-11-08T02:43:07.665Z] [DUNK ROLL] Chance: NaN%, Roll: 38.2, Made: false
+[2025-11-08T02:43:08.469Z] [DUNK] Dunk missed - clearing ballCarrier
+[2025-11-08T02:43:08.870Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: false
+[2025-11-08T02:43:08.871Z] [SHOT PATH] Normal miss - calling createRebound() at basket
+[2025-11-08T02:43:08.871Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T02:43:08.871Z] [REBOUND] Scramble activated - reboundX: 8.23615049199087, reboundY: 11.87542943889369
+[2025-11-08T02:43:09.049Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T02:43:09.050Z] [DUNK CHANCE] Player: Kawhi Leonard (2019), Base: NaN%, Skill: 8, Distance: 4.2, InKey: true
+[2025-11-08T02:43:09.050Z] [DUNK ROLL] Chance: NaN%, Roll: 67.1, Made: false
+[2025-11-08T02:43:09.494Z] [DUNK] Dunk missed - clearing ballCarrier
