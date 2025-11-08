@@ -7374,3 +7374,103 @@
 [2025-11-08T03:06:16.718Z] [DUNK CHANCE] Player: James Harden (2012), Base: 60.6%, Skill: 7, Distance: 6.3, InKey: true
 [2025-11-08T03:06:16.718Z] [DUNK ROLL] Chance: 60.6%, Roll: 75.0, Made: false
 [2025-11-08T03:06:17.221Z] [SHOT PATH] Single-player miss handling - attemptType: dunk, blocked: true
+[2025-11-08T03:06:48.158Z] [DUNKS.JS] Loaded version 1.1 - constants.js and game-balance.js loaded
+[2025-11-08T03:06:48.158Z] [DUNKS.JS] DUNK_DISTANCE_BASE=4.2
+[2025-11-08T03:06:48.158Z] [DUNKS.JS] GAME_BALANCE.DUNKS=defined
+[2025-11-08T03:07:06.127Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:07:06.127Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:07:06.128Z] [SHOT ANIMATION] Broadcasting shot_executed for made shot
+[2025-11-08T03:07:06.128Z] [SHOT ANIMATION] animationSystem exists: true
+[2025-11-08T03:07:06.128Z] [SHOT ANIMATION] Queueing shot animation: startX=63, startY=7, targetX=77, targetY=9
+[2025-11-08T03:07:11.568Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:07:11.568Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:07:11.770Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:07:11.771Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T03:07:11.771Z] [REBOUND] Scramble activated - reboundX: 2, reboundY: 10.093193229779699
+[2025-11-08T03:07:11.771Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T03:07:41.665Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:07:41.665Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:07:41.866Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:07:41.866Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T03:07:41.866Z] [REBOUND] Scramble activated - reboundX: 4.341668864969663, reboundY: 6.2166175643715
+[2025-11-08T03:07:41.866Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T03:07:42.748Z] [DUNK CALC] Initial baseChance: 93, effectiveSkill: 9, rawSkill: 9, dunkRange: 12.75
+[2025-11-08T03:07:42.748Z] [DUNK CALC] After skill penalty, baseChance: 93
+[2025-11-08T03:07:42.748Z] [DUNK CALC] After close bonus, baseChance: 93
+[2025-11-08T03:07:42.748Z] [DUNK CALC] After insideKey check, baseChance: 93
+[2025-11-08T03:07:42.748Z] [DUNK CALC] After distance penalty, baseChance: 93
+[2025-11-08T03:07:42.748Z] [DUNK CALC] Defender coords: x=11, y=9, dunkInfo.centerX=9, dunkInfo.centerY=6
+[2025-11-08T03:07:42.748Z] [DUNK CALC] Defender penalty: 17.718920561566478 (separation: 3.605551275463989, blockAttr: 9)
+[2025-11-08T03:07:42.748Z] [DUNK CALC] After defender penalty, baseChance: 75.28107943843352
+[2025-11-08T03:07:42.748Z] [DUNK CALC] After heat streak, baseChance: 75.28107943843352
+[2025-11-08T03:07:42.748Z] [DUNK CALC] After onFire bonus, baseChance: 75.28107943843352
+[2025-11-08T03:07:42.748Z] [DUNK CHANCE] Player: Pascal Siakam, Base: 75.28107943843352%, Skill: 9, Distance: 5.8, InKey: true
+[2025-11-08T03:07:42.748Z] [DUNK ROLL] Chance: 75.3%, Roll: 67.0, Made: true
+[2025-11-08T03:07:43.365Z] [DUNK] Dunk made - ballCarrier remains: Pascal Siakam
+[2025-11-08T03:08:05.502Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:08:05.502Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:08:05.503Z] [SHOT ANIMATION] Broadcasting shot_executed for made shot
+[2025-11-08T03:08:05.503Z] [SHOT ANIMATION] animationSystem exists: true
+[2025-11-08T03:08:05.503Z] [SHOT ANIMATION] Queueing shot animation: startX=57, startY=9, targetX=77, targetY=9
+[2025-11-08T03:08:27.943Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:08:27.943Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:08:27.944Z] [SHOT ANIMATION] Broadcasting shot_executed for made shot
+[2025-11-08T03:08:27.944Z] [SHOT ANIMATION] animationSystem exists: true
+[2025-11-08T03:08:27.944Z] [SHOT ANIMATION] Queueing shot animation: startX=27, startY=9, targetX=4, targetY=9
+[2025-11-08T03:08:34.873Z] [DUNK CALC] Initial baseChance: 88, effectiveSkill: 8, rawSkill: 8, dunkRange: 11.8
+[2025-11-08T03:08:34.873Z] [DUNK CALC] After skill penalty, baseChance: 88
+[2025-11-08T03:08:34.873Z] [DUNK CALC] After close bonus, baseChance: 88
+[2025-11-08T03:08:34.873Z] [DUNK CALC] After insideKey check, baseChance: 88
+[2025-11-08T03:08:34.873Z] [DUNK CALC] After distance penalty, baseChance: 88
+[2025-11-08T03:08:34.873Z] [DUNK CALC] Defender coords: x=74, y=11, dunkInfo.centerX=74, dunkInfo.centerY=13
+[2025-11-08T03:08:34.873Z] [DUNK CALC] Defender penalty: 24.8 (separation: 2, blockAttr: 7)
+[2025-11-08T03:08:34.873Z] [DUNK CALC] After defender penalty, baseChance: 63.2
+[2025-11-08T03:08:34.873Z] [DUNK CALC] After heat streak, baseChance: 63.2
+[2025-11-08T03:08:34.873Z] [DUNK CALC] After onFire bonus, baseChance: 63.2
+[2025-11-08T03:08:34.873Z] [DUNK CHANCE] Player: Lauri Markkanen, Base: 63.2%, Skill: 8, Distance: 5.0, InKey: true
+[2025-11-08T03:08:34.873Z] [DUNK ROLL] Chance: 63.2%, Roll: 7.9, Made: true
+[2025-11-08T03:08:35.802Z] [DUNK] Dunk made - ballCarrier remains: Lauri Markkanen
+[2025-11-08T03:08:38.299Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:08:38.299Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:08:38.500Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:08:38.500Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T03:08:38.500Z] [REBOUND] Scramble activated - reboundX: 4.099528373855472, reboundY: 8.435999618231246
+[2025-11-08T03:08:38.500Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
+[2025-11-08T03:08:39.737Z] [DUNK CALC] Initial baseChance: 93, effectiveSkill: 9, rawSkill: 9, dunkRange: 12.75
+[2025-11-08T03:08:39.737Z] [DUNK CALC] After skill penalty, baseChance: 93
+[2025-11-08T03:08:39.737Z] [DUNK CALC] After close bonus, baseChance: 93
+[2025-11-08T03:08:39.737Z] [DUNK CALC] After insideKey check, baseChance: 93
+[2025-11-08T03:08:39.737Z] [DUNK CALC] After distance penalty, baseChance: 93
+[2025-11-08T03:08:39.737Z] [DUNK CALC] Defender coords: x=13, y=9, dunkInfo.centerX=10, dunkInfo.centerY=11
+[2025-11-08T03:08:39.737Z] [DUNK CALC] Defender penalty: 11.972243622680054 (separation: 3.605551275463989, blockAttr: 5)
+[2025-11-08T03:08:39.737Z] [DUNK CALC] After defender penalty, baseChance: 81.02775637731995
+[2025-11-08T03:08:39.737Z] [DUNK CALC] After heat streak, baseChance: 81.02775637731995
+[2025-11-08T03:08:39.737Z] [DUNK CALC] After onFire bonus, baseChance: 81.02775637731995
+[2025-11-08T03:08:39.737Z] [DUNK CHANCE] Player: Pascal Siakam, Base: 81.02775637731995%, Skill: 9, Distance: 6.3, InKey: true
+[2025-11-08T03:08:39.737Z] [DUNK ROLL] Chance: 81.0%, Roll: 53.7, Made: true
+[2025-11-08T03:08:40.647Z] [DUNK] Dunk made - ballCarrier remains: Pascal Siakam
+[2025-11-08T03:08:44.484Z] [DUNK CALC] Initial baseChance: 83, effectiveSkill: 7, rawSkill: 7, dunkRange: 10.85
+[2025-11-08T03:08:44.484Z] [DUNK CALC] After skill penalty, baseChance: 83
+[2025-11-08T03:08:44.484Z] [DUNK CALC] Close dunk bonus: adjustedDistance=2.8284271247461903 < CLOSE_DUNK_DISTANCE=3.5
+[2025-11-08T03:08:44.484Z] [DUNK CALC] After close bonus, baseChance: 89
+[2025-11-08T03:08:44.484Z] [DUNK CALC] After insideKey check, baseChance: 89
+[2025-11-08T03:08:44.484Z] [DUNK CALC] After distance penalty, baseChance: 89
+[2025-11-08T03:08:44.484Z] [DUNK CALC] Defender coords: x=61, y=12, dunkInfo.centerX=75, dunkInfo.centerY=11
+[2025-11-08T03:08:44.484Z] [DUNK CALC] Defender penalty: 0 (separation: 14.035668847618199, blockAttr: 7)
+[2025-11-08T03:08:44.484Z] [DUNK CALC] After defender penalty, baseChance: 89
+[2025-11-08T03:08:44.484Z] [DUNK CALC] After heat streak, baseChance: 89
+[2025-11-08T03:08:44.484Z] [DUNK CALC] After onFire bonus, baseChance: 89
+[2025-11-08T03:08:44.484Z] [DUNK CHANCE] Player: Andrei Kirilenko, Base: 89%, Skill: 7, Distance: 2.8, InKey: true
+[2025-11-08T03:08:44.484Z] [DUNK ROLL] Chance: 89.0%, Roll: 40.2, Made: true
+[2025-11-08T03:08:45.243Z] [DUNK] Dunk made - ballCarrier remains: Andrei Kirilenko
+[2025-11-08T03:09:07.492Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:09:07.492Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:09:07.493Z] [SHOT ANIMATION] Broadcasting shot_executed for made shot
+[2025-11-08T03:09:07.493Z] [SHOT ANIMATION] animationSystem exists: true
+[2025-11-08T03:09:07.493Z] [SHOT ANIMATION] Queueing shot animation: startX=27, startY=9, targetX=4, targetY=9
+[2025-11-08T03:09:33.941Z] [SHOT PATH] mpCoordinator: exists, isCoordinator: true
+[2025-11-08T03:09:33.941Z] [SHOT PATH] Taking MULTIPLAYER COORDINATOR path
+[2025-11-08T03:09:34.141Z] [SHOT PATH] Miss - calling createRebound(), reboundActive before: true
+[2025-11-08T03:09:34.142Z] [REBOUND] createRebound() called at (4,9), ballCarrier: null
+[2025-11-08T03:09:34.142Z] [REBOUND] Scramble activated - reboundX: 3.81396385759214, reboundY: 10.539725037819599
+[2025-11-08T03:09:34.142Z] [SHOT PATH] After createRebound(), reboundScramble.active: true
