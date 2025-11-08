@@ -672,12 +672,8 @@ function runCPUDemo(systems) {
                 getAllPlayers: getAllPlayers,
             },
             constants: {
-                PHASE_NORMAL: PHASE_NORMAL,
-                PHASE_SHOT: PHASE_SHOT,
-                PHASE_REBOUND: PHASE_REBOUND,
-                PHASE_DUNK: PHASE_DUNK,
-                PHASE_STEAL: PHASE_STEAL,
-                PHASE_PASS: PHASE_PASS
+                COURT_WIDTH: COURT_WIDTH,
+                COURT_HEIGHT: COURT_HEIGHT
             }
         });
         resetGameState({ allCPUMode: true }, systems);
