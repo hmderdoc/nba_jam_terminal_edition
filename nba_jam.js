@@ -28,6 +28,7 @@ load(js.exec_dir + "lib/core/system-init.js");  // Centralized system initializa
 // Wave 23: Load new systems (testable architecture)
 load(js.exec_dir + "lib/systems/passing-system.js");
 load(js.exec_dir + "lib/systems/possession-system.js");
+load(js.exec_dir + "lib/systems/shooting-system.js");
 
 load(js.exec_dir + "lib/rendering/sprite-utils.js");
 load(js.exec_dir + "lib/rendering/uniform-system.js");
