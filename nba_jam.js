@@ -29,6 +29,8 @@ load(js.exec_dir + "lib/utils/validation.js");  // WAVE 21: Input validation uti
 // Wave 23: Architecture Foundation - Load new core systems
 load(js.exec_dir + "lib/core/state-manager.js");
 load(js.exec_dir + "lib/core/event-bus.js");
+load(js.exec_dir + "lib/core/frame-scheduler.js");  // Wave 23D: Centralized frame timing
+load(js.exec_dir + "lib/core/game-loop-core.js");  // Wave 23D: Unified game loop logic
 load(js.exec_dir + "lib/core/system-init.js");  // Centralized system initialization
 
 // Wave 23: Load new systems (testable architecture)
@@ -188,17 +190,17 @@ function cleanupSprites() {
 
 // Violation checking (checkViolations, enforceBackcourtViolation, etc.) loaded from lib/game-logic/violations.js
 
+// Wave 23D Phase 3: Refactored to use unified game loop core
 function gameLoop(systems) {
-    // Wave 23: Wrap entire game loop with error handler for automatic logging
     try {
-        // Wave 23: Systems are REQUIRED - fail loudly if not provided
+        // Validate systems
         if (!systems || !systems.stateManager) {
             throw new Error("ARCHITECTURE ERROR: gameLoop requires systems parameter with stateManager");
         }
 
         var stateManager = systems.stateManager;
 
-        // Use state manager for all state changes
+        // Initialize game state
         stateManager.set("gameRunning", true, "game_loop_start");
         stateManager.set("lastUpdateTime", Date.now(), "game_loop_start");
         stateManager.set("lastSecondTime", Date.now(), "game_loop_start");
@@ -206,8 +208,6 @@ function gameLoop(systems) {
         clearPotentialAssist(systems);
 
         var tempo = getSinglePlayerTempo();
-        var frameDelay = tempo.frameDelayMs;
-        var aiInterval = tempo.aiIntervalMs;
 
         // Initial draw
         drawCourt(systems);
@@ -218,381 +218,43 @@ function gameLoop(systems) {
             teamB: (teamNames.teamB || "TEAM B").toUpperCase()
         }, systems);
 
+        // Configure for single-player mode
+        var config = {
+            isAuthority: true, // SP is always authoritative
+            handleInput: function () {
+                var key = console.inkey(K_NONE, 5);
+                if (key) handleInput(key, systems);
+            },
+            aiInterval: tempo.aiIntervalMs, // Throttled AI for performance
+            frameDelay: tempo.frameDelayMs  // Variable frame rate
+        };
+
+        // Main game loop using unified core
         while (stateManager.get("gameRunning") && stateManager.get("timeRemaining") > 0) {
-            var now = Date.now();
-            var violationTriggeredThisFrame = false;
-            var tickCounter = stateManager.get("tickCounter");
-            stateManager.set("tickCounter", (tickCounter + 1) % 1000000, "game_tick");
+            var result = runGameFrame(systems, config);
 
-            var recoveryList = getAllPlayers();
-            for (var r = 0; r < recoveryList.length; r++) {
-                decrementStealRecovery(recoveryList[r]);
-            }
+            if (result === "halftime") {
+                showHalftimeScreen(systems);
+                if (!stateManager.get("gameRunning")) break; // User quit during halftime
 
-            // Update timer
-            var lastSecondTime = stateManager.get("lastSecondTime");
-            if (now - lastSecondTime >= 1000) {
-                var timeRemaining = stateManager.get("timeRemaining");
-                var shotClock = stateManager.get("shotClock");
-                stateManager.set("timeRemaining", timeRemaining - 1, "timer_tick");
-                stateManager.set("shotClock", shotClock - 1, "shot_clock_tick");
-                stateManager.set("lastSecondTime", now, "timer_tick");
-
-                // Check for halftime (when first half time expires)
-                var currentHalf = stateManager.get("currentHalf");
-                var totalGameTime = stateManager.get("totalGameTime");
-                timeRemaining = stateManager.get("timeRemaining"); // Get updated value
-                if (currentHalf === 1 && timeRemaining <= totalGameTime / 2) {
-                    stateManager.set("currentHalf", 2, "halftime");
-                    showHalftimeScreen(systems);
-                    if (!stateManager.get("gameRunning")) break; // User quit during halftime
-
-                    // Reset for second half
-                    if (stateManager.get("pendingSecondHalfInbound")) {
-                        startSecondHalfInbound(systems);
-                    }
-                    drawCourt(systems);
-                    drawScore(systems);
-                    stateManager.set("lastUpdateTime", Date.now(), "halftime_reset");
-                    stateManager.set("lastSecondTime", Date.now(), "halftime_reset");
-                    stateManager.set("lastAIUpdateTime", Date.now(), "halftime_reset");
-                    continue;
+                // Reset for second half
+                if (stateManager.get("pendingSecondHalfInbound")) {
+                    startSecondHalfInbound(systems);
                 }
-
-                // Shot clock violation
-                shotClock = stateManager.get("shotClock"); // Get updated value
-                if (shotClock <= 0) {
-                    var currentTeam = stateManager.get("currentTeam");
-                    announceEvent("shot_clock_violation", { team: currentTeam }, systems);
-                    mswait(1000);
-                    switchPossession(systems);
-                    stateManager.set("shotClock", 24, "shot_clock_reset"); // Reset for new possession
-                }
-
-                // Track ball handler movement to detect stuck AI
-                var ballCarrier = stateManager.get("ballCarrier");
-                var inbounding = stateManager.get("inbounding");
-                if (ballCarrier && !inbounding) {
-                    var ballHandler = ballCarrier;
-                    var ballHandlerLastX = stateManager.get("ballHandlerLastX");
-                    var ballHandlerLastY = stateManager.get("ballHandlerLastY");
-                    var distanceMoved = Math.sqrt(
-                        Math.pow(ballHandler.x - ballHandlerLastX, 2) +
-                        Math.pow(ballHandler.y - ballHandlerLastY, 2)
-                    );
-
-                    // If ball handler barely moved (less than 3 units), increment stuck timer
-                    currentTeam = stateManager.get("currentTeam");
-                    var opponentTeamName = (currentTeam === "teamA") ? "teamB" : "teamA";
-                    var closestDefender = getClosestPlayer(ballHandler.x, ballHandler.y, opponentTeamName);
-                    var guardDistance = closestDefender ? getSpriteDistance(ballHandler, closestDefender) : 999;
-                    var closelyGuarded = guardDistance <= 4;
-
-                    if (distanceMoved < 3) {
-                        var ballHandlerStuckTimer = stateManager.get("ballHandlerStuckTimer");
-                        stateManager.set("ballHandlerStuckTimer", ballHandlerStuckTimer + 1, "stuck_timer_increment");
-                        // AI picks up dribble when stuck
-                        if (!ballHandler.isHuman &&
-                            ballHandler.playerData &&
-                            ballHandler.playerData.hasDribble !== false &&
-                            closelyGuarded &&
-                            stateManager.get("ballHandlerStuckTimer") >= 3) {
-                            pickUpDribble(ballHandler, "stuck", systems);
-                        }
-                    } else {
-                        // Ball handler is moving, reset timer
-                        stateManager.set("ballHandlerStuckTimer", 0, "ball_handler_moving");
-                    }
-
-                    // Update last position
-                    stateManager.set("ballHandlerLastX", ballHandler.x, "ball_handler_track");
-                    stateManager.set("ballHandlerLastY", ballHandler.y, "ball_handler_track");
-
-                    if (ballHandler.playerData && ballHandler.playerData.hasDribble === false) {
-                        if (!closelyGuarded) {
-                            stateManager.set("ballHandlerDeadSince", null, "dead_dribble_clear");
-                            stateManager.set("ballHandlerDeadFrames", 0, "dead_dribble_clear");
-                            stateManager.set("ballHandlerDeadForcedShot", false, "dead_dribble_clear");
-                        } else if (!stateManager.get("ballHandlerDeadSince")) {
-                            stateManager.set("ballHandlerDeadSince", now, "dead_dribble_start");
-                            stateManager.set("ballHandlerDeadFrames", 1, "dead_dribble_start");
-                        } else {
-                            var ballHandlerDeadFrames = stateManager.get("ballHandlerDeadFrames");
-                            stateManager.set("ballHandlerDeadFrames", ballHandlerDeadFrames + 1, "dead_dribble_frames");
-
-                            // MULTIPLAYER: Broadcast dead dribble timer every 30 frames
-                            if (mpCoordinator && mpCoordinator.isCoordinator) {
-                                tickCounter = stateManager.get("tickCounter");
-                                if (tickCounter - mpSyncState.lastDeadDribbleBroadcast >= 30) {
-                                    ballHandlerDeadFrames = stateManager.get("ballHandlerDeadFrames");
-                                    var ballHandlerDeadSince = stateManager.get("ballHandlerDeadSince");
-                                    var ballHandlerDeadForcedShot = stateManager.get("ballHandlerDeadForcedShot");
-                                    mpCoordinator.broadcastGameState({
-                                        type: 'deadDribbleUpdate',
-                                        frames: ballHandlerDeadFrames,
-                                        since: ballHandlerDeadSince,
-                                        forced: ballHandlerDeadForcedShot,
-                                        timestamp: Date.now()
-                                    });
-                                    mpSyncState.lastDeadDribbleBroadcast = tickCounter;
-                                }
-                            }
-
-                            var deadElapsed = now - stateManager.get("ballHandlerDeadSince");
-                            if (!stateManager.get("ballHandlerDeadForcedShot") && deadElapsed >= 4500) {
-                                if (ballHandler && !ballHandler.isHuman) {
-                                    stateManager.set("ballHandlerDeadForcedShot", true, "dead_dribble_force_shot");
-                                    attemptShot(systems);
-                                    stateManager.set("ballHandlerDeadSince", now, "dead_dribble_reset");
-                                    stateManager.set("ballHandlerDeadFrames", 0, "dead_dribble_reset");
-                                    continue;
-                                }
-                            }
-                            if (!violationTriggeredThisFrame && deadElapsed >= 5000) {
-                                enforceFiveSecondViolation(systems);
-                                violationTriggeredThisFrame = true;
-                            }
-                        }
-                    } else {
-                        resetDeadDribbleTimer(systems);
-                    }
-
-                    // Track frontcourt progress for smarter passing
-                    currentTeam = stateManager.get("currentTeam");
-                    var attackDir = (currentTeam === "teamA") ? 1 : -1;
-                    var ballHandlerProgressOwner = stateManager.get("ballHandlerProgressOwner");
-                    if (ballHandlerProgressOwner !== ballHandler) {
-                        stateManager.set("ballHandlerProgressOwner", ballHandler, "progress_owner_change");
-                        stateManager.set("ballHandlerFrontcourtStartX", ballHandler.x, "progress_owner_change");
-                        stateManager.set("ballHandlerAdvanceTimer", 0, "progress_owner_change");
-                    }
-
-                    var handlerInBackcourt = isInBackcourt(ballHandler, currentTeam);
-
-                    if (!stateManager.get("frontcourtEstablished") || handlerInBackcourt) {
-                        stateManager.set("ballHandlerFrontcourtStartX", ballHandler.x, "backcourt_progress");
-                        stateManager.set("ballHandlerAdvanceTimer", 0, "backcourt_progress");
-                    } else {
-                        var ballHandlerFrontcourtStartX = stateManager.get("ballHandlerFrontcourtStartX");
-                        var forwardDelta = (ballHandler.x - ballHandlerFrontcourtStartX) * attackDir;
-                        if (forwardDelta < -1) {
-                            stateManager.set("ballHandlerFrontcourtStartX", ballHandler.x, "retreat_reset");
-                            forwardDelta = 0;
-                        }
-                        if (forwardDelta < 4) {
-                            var ballHandlerAdvanceTimer = stateManager.get("ballHandlerAdvanceTimer");
-                            stateManager.set("ballHandlerAdvanceTimer", ballHandlerAdvanceTimer + 1, "advance_timer_increment");
-                        } else {
-                            stateManager.set("ballHandlerFrontcourtStartX", ballHandler.x, "advance_progress");
-                            stateManager.set("ballHandlerAdvanceTimer", 0, "advance_progress");
-                        }
-                    }
-                } else {
-                    stateManager.set("ballHandlerAdvanceTimer", 0, "no_ball_carrier");
-                    stateManager.set("ballHandlerProgressOwner", null, "no_ball_carrier");
-                    resetDeadDribbleTimer(systems);
-                }
-
-                // Unified violation checking (extracted to shared function)
-                violationTriggeredThisFrame = checkViolations(violationTriggeredThisFrame, systems);
-            }
-
-            if (violationTriggeredThisFrame) {
-                stateManager.set("lastAIUpdateTime", now, "violation_triggered");
-                stateManager.set("lastUpdateTime", now, "violation_triggered");
+                drawCourt(systems);
+                drawScore(systems);
+                stateManager.set("lastUpdateTime", Date.now(), "halftime_reset");
+                stateManager.set("lastSecondTime", Date.now(), "halftime_reset");
+                stateManager.set("lastAIUpdateTime", Date.now(), "halftime_reset");
                 continue;
             }
 
-            // Handle block jump animation
-            var blockJumpTimer = stateManager.get("blockJumpTimer");
-            if (blockJumpTimer > 0) {
-                var blocker = stateManager.get("activeBlock");
-                if (blocker && blocker.frame) {
-
-                    var duration = stateManager.get("activeBlockDuration") || BLOCK_JUMP_DURATION;
-                    if (duration < 1) duration = BLOCK_JUMP_DURATION;
-                    var elapsed = duration - blockJumpTimer;
-                    if (elapsed < 0) elapsed = 0;
-                    var progress = elapsed / duration;
-                    if (progress > 1) progress = 1;
-                    var totalHeight = BLOCK_JUMP_HEIGHT + (blocker.blockJumpHeightBoost || 0);
-                    var jumpHeight = Math.sin(progress * Math.PI) * totalHeight;
-                    var spriteHeight = (blocker.frame && blocker.frame.height) ? blocker.frame.height : 4;
-                    var spriteWidth = (blocker.frame && blocker.frame.width) ? blocker.frame.width : 4;
-                    var jumpY = blocker.blockOriginalY - Math.round(jumpHeight);
-                    blocker.moveTo(blocker.x, jumpY);
-
-                    var groundBottom = blocker.blockOriginalY + spriteHeight;
-                    var currentBottom = jumpY + spriteHeight;
-                    var previousBottom = (typeof blocker.prevJumpBottomY === "number") ? blocker.prevJumpBottomY : groundBottom;
-                    var ascending = currentBottom <= previousBottom;
-                    var blockPatternAsc = "^   ^";
-                    var blockPatternDesc = "v   v";
-                    var patternWidth = blockPatternAsc.length;
-                    var centerColumn = blocker.x + Math.floor(spriteWidth / 2);
-                    var minBase = 1;
-                    var maxBase = Math.max(1, COURT_WIDTH - patternWidth + 1);
-                    var baseColumn = clamp(centerColumn - Math.floor(patternWidth / 2), minBase, maxBase);
-                    updateJumpIndicator(blocker, {
-                        groundBottom: groundBottom,
-                        currentBottom: currentBottom,
-                        ascending: ascending,
-                        horizontalDir: blocker.jumpIndicatorDir,
-                        spriteWidth: spriteWidth,
-                        spriteHeight: spriteHeight,
-                        spriteHalfWidth: Math.floor(spriteWidth / 2),
-                        spriteHalfHeight: Math.floor(spriteHeight / 2),
-                        baseColumn: baseColumn,
-                        patternAscend: blockPatternAsc,
-                        patternDescend: blockPatternDesc
-                    });
-                    blocker.prevJumpBottomY = currentBottom;
-
-                    blockJumpTimer = stateManager.get("blockJumpTimer");
-                    stateManager.set("blockJumpTimer", blockJumpTimer - 1, "block_timer_decrement");
-
-                    if (stateManager.get("blockJumpTimer") <= 0) {
-                        clearJumpIndicator(blocker);
-                        blocker.moveTo(blocker.x, blocker.blockOriginalY);
-                        blocker.prevJumpBottomY = null;
-                        blocker.blockJumpHeightBoost = 0;
-                        stateManager.set("activeBlock", null, "block_complete");
-                        stateManager.set("activeBlockDuration", null, "block_complete");
-                    }
-                } else {
-                    stateManager.set("blockJumpTimer", 0, "block_invalid");
-                    stateManager.set("activeBlock", null, "block_invalid");
-                    stateManager.set("activeBlockDuration", null, "block_invalid");
-                }
+            if (result === "game_over") {
+                break;
             }
 
-            // Store previous positions before movement
-            var allPlayers = getAllPlayers();
-            for (var p = 0; p < allPlayers.length; p++) {
-                allPlayers[p].prevX = allPlayers[p].x;
-                allPlayers[p].prevY = allPlayers[p].y;
-                if (allPlayers[p] && allPlayers[p].playerData) {
-                    var pdata = allPlayers[p].playerData;
-                    if (pdata.shakeCooldown && pdata.shakeCooldown > 0) pdata.shakeCooldown--;
-                    if (pdata.shoveCooldown && pdata.shoveCooldown > 0) pdata.shoveCooldown--;
-                    if (pdata.shoveAttemptCooldown && pdata.shoveAttemptCooldown > 0) pdata.shoveAttemptCooldown--;
-                    if (pdata.shoverCooldown && pdata.shoverCooldown > 0) pdata.shoverCooldown--;
-                    if (pdata.shoveFailureStun && pdata.shoveFailureStun > 0) pdata.shoveFailureStun--;
-                    if (allPlayers[p].isHuman && pdata.knockdownTimer && pdata.knockdownTimer > 0) {
-                        pdata.knockdownTimer--;
-                        if (pdata.knockdownTimer < 0) pdata.knockdownTimer = 0;
-                    }
-                }
-            }
-
-            // MULTIPLAYER: Broadcast cooldown batch every 60 frames (~1 second)
-            if (mpCoordinator && mpCoordinator.isCoordinator) {
-                tickCounter = stateManager.get("tickCounter");
-                if (tickCounter - mpSyncState.lastCooldownBroadcast >= 60) {
-                    var cooldownData = {};
-                    for (var p = 0; p < allPlayers.length; p++) {
-                        var player = allPlayers[p];
-                        if (player && player.playerData) {
-                            var playerId = getPlayerGlobalId(player);
-                            if (playerId) {
-                                cooldownData[playerId] = {
-                                    shake: player.playerData.shakeCooldown || 0,
-                                    shove: player.playerData.shoveCooldown || 0,
-                                    shoveAttempt: player.playerData.shoveAttemptCooldown || 0,
-                                    shover: player.playerData.shoverCooldown || 0,
-                                    stun: player.playerData.shoveFailureStun || 0,
-                                    knockdown: player.playerData.knockdownTimer || 0
-                                };
-                            }
-                        }
-                    }
-                    mpCoordinator.broadcastGameState({
-                        type: 'cooldownSync',
-                        cooldowns: cooldownData,
-                        timestamp: Date.now()
-                    });
-                    mpSyncState.lastCooldownBroadcast = tickCounter;
-                }
-            }
-
-            ballCarrier = stateManager.get("ballCarrier");
-            inbounding = stateManager.get("inbounding");
-            var frontcourtEstablished = stateManager.get("frontcourtEstablished");
-            if (ballCarrier && !inbounding && !frontcourtEstablished) {
-                currentTeam = stateManager.get("currentTeam");
-                if (!isInBackcourt(ballCarrier, currentTeam)) {
-                    setFrontcourtEstablished(currentTeam, systems);
-                    stateManager.set("backcourtTimer", 0, "frontcourt_established");
-                }
-            }
-
-            // Get input
-            var key = console.inkey(K_NONE, 50);
-            if (key) {
-                handleInput(key, systems);
-            }
-
-            // Update AI (slower than rendering)
-            var lastAIUpdateTime = stateManager.get("lastAIUpdateTime");
-            if (now - lastAIUpdateTime >= aiInterval) {
-                updateAI(systems);
-                stateManager.set("lastAIUpdateTime", now, "ai_update");
-            }
-
-            // Update turbo for all players
-            for (var p = 0; p < allPlayers.length; p++) {
-                var player = allPlayers[p];
-                if (player.playerData) {
-                    // Recharge turbo if not active
-                    if (!player.playerData.turboActive) {
-                        player.playerData.rechargeTurbo(TURBO_RECHARGE_RATE);
-                    }
-                }
-            }
-
-            // Update announcer timer
-            updateAnnouncer(systems);
-
-            // Check collisions and boundaries
-            checkSpriteCollision();
-            for (var p = 0; p < allPlayers.length; p++) {
-                checkBoundaries(allPlayers[p]);
-            }
-
-            // Cycle sprites more frequently for smoother animation
-            Sprite.cycle();
-
-            // Update non-blocking animations
-            animationSystem.update();
-
-            // Wave 22B: Update game phase (handles shot animations, scoring, rebounds, inbound)
-            updateGamePhase(frameDelay, systems);
-
-            // Update non-blocking rebound scramble
-            updateReboundScramble(systems);
-
-            // Update non-blocking knockback animations
-            updateKnockbackAnimations();
-
-            // Redraw court and score less frequently to balance performance
-            // Skip during active animations to allow trails to accumulate
-            var lastUpdateTime = stateManager.get("lastUpdateTime");
-            if (now - lastUpdateTime >= 60 && !animationSystem.isBallAnimating()) {
-                drawCourt(systems);
-                drawScore(systems);
-                stateManager.set("lastUpdateTime", now, "render_update");
-            }
-
-            // Cycle trail frame AFTER drawCourt so trails appear on top
-            if (trailFrame) {
-                cycleFrame(trailFrame);
-                // Keep ball on top of trail layer
-                if (ballFrame && ballFrame.is_open) {
-                    ballFrame.top();
-                }
-            }
-
-            mswait(frameDelay);
+            // Frame timing
+            systems.frameScheduler.waitForNextFrame(config.frameDelay);
         }
 
         stateManager.set("gameRunning", false, "game_loop_end");
@@ -600,28 +262,17 @@ function gameLoop(systems) {
     } catch (e) {
         // Log error with full game state context
         if (typeof logError === "function") {
-            logError(e, ErrorSeverity.FATAL, {
-                function: "gameLoop",
-                systems: systems,
-                tick: systems.stateManager ? systems.stateManager.get("tickCounter") : "unknown"
-            });
+            logError(e, "gameLoop");
         }
-
-        // Show error to user
-        console.print("\r\n\1r\1hFATAL ERROR in game loop\1n\r\n");
-        console.print("Error: " + e.toString() + "\r\n");
-        console.print("Check error.log for details and state snapshot\r\n\r\n");
-        console.pause();
-
-        // Set game as not running
-        if (systems && systems.stateManager) {
-            systems.stateManager.set("gameRunning", false, "game_loop_error");
+        if (typeof logErrorWithSnapshot === "function") {
+            logErrorWithSnapshot(e, "gameLoop", systems);
         }
-
-        // Re-throw
+        console.print("\r\n\x01r\x01hFATAL ERROR in game loop\x01n\r\n");
         throw e;
     }
 }
+
+// Wave 23D: Removed ~400 lines of duplicated logic - now using unified game-loop-core.js
 
 function runCPUDemo(systems) {
     if (!systems || !systems.stateManager) {
@@ -721,7 +372,7 @@ function runCPUDemo(systems) {
 
         // Display "DEMO MODE" message
         announce("DEMO MODE - Press Q to exit", YELLOW, systems);
-        mswait(1500);
+        systems.frameScheduler.waitForNextFrame(1500);
 
         // Run the game loop (all AI controlled)
         gameLoop(systems);
@@ -1255,6 +906,7 @@ function main() {
         return map;
     }
 
+    // Wave 23D Phase 3: Refactored to use unified game loop core
     function runMultiplayerGameLoop(coordinator, playerClient, myId, systems) {
         // Wave 23: Systems are REQUIRED
         if (!systems || !systems.stateManager) {
@@ -1264,256 +916,82 @@ function main() {
         var stateManager = systems.stateManager;
         var frameNumber = 0;
         stateManager.set("gameRunning", true, "mp_game_start");
-        var lastSecond = Date.now();
+        stateManager.set("lastSecondTime", Date.now(), "mp_game_start");
 
-        while (stateManager.get("gameRunning") && !js.terminated) {
-            var frameStart = Date.now();
+        // Initial draw
+        drawCourt(systems);
+        drawScore(systems);
 
-            var tickCounter = stateManager.get("tickCounter");
-            stateManager.set("tickCounter", (tickCounter + 1) % 1000000, "mp_game_tick");
+        // Configure for multiplayer mode
+        var config = {
+            isAuthority: coordinator && coordinator.isCoordinator, // Only coordinator runs authoritative logic
+            handleInput: function () {
+                var key = console.inkey(K_NONE, 0);
 
-            // Handle input
-            var key = console.inkey(K_NONE, 0);
-
-            // Handle quit menu (non-blocking to prevent multiplayer desync)
-            if (stateManager.get("quitMenuOpen")) {
-                if (key) {
-                    var upperKey = key.toUpperCase();
-                    if (upperKey === 'Y') {
-                        break;  // Quit game
-                    } else if (upperKey === 'N' || upperKey === 'Q') {
-                        stateManager.set("quitMenuOpen", false, "mp_quit_cancel");
+                // Handle quit menu (non-blocking to prevent multiplayer desync)
+                if (stateManager.get("quitMenuOpen")) {
+                    if (key) {
+                        var upperKey = key.toUpperCase();
+                        if (upperKey === 'Y') {
+                            stateManager.set("gameRunning", false, "mp_quit_confirmed");
+                        } else if (upperKey === 'N' || upperKey === 'Q') {
+                            stateManager.set("quitMenuOpen", false, "mp_quit_cancel");
+                        }
+                    }
+                } else if (key) {
+                    if (key.toUpperCase() === 'Q') {
+                        stateManager.set("quitMenuOpen", true, "mp_quit_open");
+                    } else {
+                        // Send input to client for prediction
+                        playerClient.handleInput(key, frameNumber);
                     }
                 }
-                // Draw quit confirmation overlay (will be rendered after game frame)
-            } else if (key) {
-                if (key.toUpperCase() === 'Q') {
-                    stateManager.set("quitMenuOpen", true, "mp_quit_open");
-                } else {
-                    // Send input to client for prediction
-                    playerClient.handleInput(key, frameNumber);
-                }
+            },
+            aiInterval: 100, // MP always updates AI (coordinator throttles internally)
+            frameDelay: 50   // 20 FPS for multiplayer
+        };
+
+        // Main multiplayer loop using unified core
+        while (stateManager.get("gameRunning") && !js.terminated) {
+            // Coordinator updates network coordination
+            if (coordinator && coordinator.isCoordinator) {
+                coordinator.update();
             }
 
-            // Coordinator processes inputs and runs game logic
-            if (coordinator && coordinator.isCoordinator) {
-                var recoveryList = getAllPlayers();
-                for (var r = 0; r < recoveryList.length; r++) {
-                    decrementStealRecovery(recoveryList[r]);
+            // Run unified game frame
+            var result = runGameFrame(systems, config);
+
+            if (result === "halftime") {
+                showHalftimeScreen(systems);
+                if (!stateManager.get("gameRunning")) break; // User quit during halftime
+
+                // Reset for second half
+                if (stateManager.get("pendingSecondHalfInbound")) {
+                    startSecondHalfInbound(systems);
                 }
-                coordinator.update();
+                drawCourt(systems);
+                drawScore(systems);
+                stateManager.set("lastSecondTime", Date.now(), "halftime_reset");
+                continue;
+            }
 
-                // Game clock management (only coordinator advances authoritative timers)
-                var now = Date.now();
-                if (now - lastSecond >= 1000) {
-                    var timeRemaining = stateManager.get("timeRemaining");
-                    var shotClock = stateManager.get("shotClock");
-                    stateManager.set("timeRemaining", timeRemaining - 1, "mp_timer_tick");
-                    stateManager.set("shotClock", shotClock - 1, "mp_shot_clock_tick");
-                    lastSecond = now;
-
-                    // Handle halftime transition
-                    var currentHalf = stateManager.get("currentHalf");
-                    var totalGameTime = stateManager.get("totalGameTime");
-                    timeRemaining = stateManager.get("timeRemaining"); // Get updated value
-                    if (currentHalf === 1 && timeRemaining <= totalGameTime / 2) {
-                        stateManager.set("currentHalf", 2, "mp_halftime");
-                        showHalftimeScreen(systems);
-                        if (!stateManager.get("gameRunning")) {
-                            break;
-                        }
-
-                        if (stateManager.get("pendingSecondHalfInbound")) {
-                            startSecondHalfInbound(systems);
-                        }
-                        drawCourt(systems);
-                        drawScore(systems);
-                        lastSecond = Date.now();
-                    }
-                }
-
-                var violationTriggeredThisFrame = false;
-
-                // Shot clock violation handling (authoritative on coordinator)
-                shotClock = stateManager.get("shotClock");
-                if (shotClock <= 0) {
-                    var currentTeam = stateManager.get("currentTeam");
-                    announceEvent("shot_clock_violation", { team: currentTeam }, systems);
-                    switchPossession(systems);
-                    stateManager.set("shotClock", 24, "shot_clock_violation");
-                }
-
-                // Track ball handler movement / five-second logic
-                var ballCarrier = stateManager.get("ballCarrier");
-                var inbounding = stateManager.get("inbounding");
-                if (ballCarrier && !inbounding) {
-                    var ballHandler = ballCarrier;
-                    var ballHandlerLastX = stateManager.get("ballHandlerLastX");
-                    var ballHandlerLastY = stateManager.get("ballHandlerLastY");
-                    var distanceMoved = Math.sqrt(
-                        Math.pow(ballHandler.x - ballHandlerLastX, 2) +
-                        Math.pow(ballHandler.y - ballHandlerLastY, 2)
-                    );
-
-                    currentTeam = stateManager.get("currentTeam");
-                    var opponentTeamName = (currentTeam === "teamA") ? "teamB" : "teamA";
-                    var closestDefender = getClosestPlayer(ballHandler.x, ballHandler.y, opponentTeamName);
-                    var guardDistance = closestDefender ? getSpriteDistance(ballHandler, closestDefender) : 999;
-                    var closelyGuarded = guardDistance <= 4;
-
-                    if (distanceMoved < 3) {
-                        var ballHandlerStuckTimer = stateManager.get("ballHandlerStuckTimer");
-                        stateManager.set("ballHandlerStuckTimer", ballHandlerStuckTimer + 1, "mp_stuck_timer_increment");
-                        if (!ballHandler.isHuman &&
-                            ballHandler.playerData &&
-                            ballHandler.playerData.hasDribble !== false &&
-                            closelyGuarded &&
-                            stateManager.get("ballHandlerStuckTimer") >= 8) {
-                            pickUpDribble(ballHandler, "stuck", systems);
-                        }
-                    } else {
-                        stateManager.set("ballHandlerStuckTimer", 0, "ball_handler_moving");
-                    }
-
-                    stateManager.set("ballHandlerLastX", ballHandler.x, "ball_handler_tracking");
-                    stateManager.set("ballHandlerLastY", ballHandler.y, "ball_handler_tracking");
-
-                    if (ballHandler.playerData && ballHandler.playerData.hasDribble === false) {
-                        // Store closely guarded distance for multiplayer synchronization
-                        stateManager.set("closelyGuardedDistance", guardDistance, "closely_guarded_tracking");
-
-                        if (!closelyGuarded) {
-                            stateManager.set("ballHandlerDeadSince", null, "not_closely_guarded");
-                            stateManager.set("ballHandlerDeadFrames", 0, "not_closely_guarded");
-                            stateManager.set("ballHandlerDeadForcedShot", false, "not_closely_guarded");
-                        } else if (!stateManager.get("ballHandlerDeadSince")) {
-                            stateManager.set("ballHandlerDeadSince", now, "closely_guarded_start");
-                            stateManager.set("ballHandlerDeadFrames", 1, "closely_guarded_start");
-                        } else {
-                            var ballHandlerDeadFrames = stateManager.get("ballHandlerDeadFrames");
-                            stateManager.set("ballHandlerDeadFrames", ballHandlerDeadFrames + 1, "mp_dead_dribble_frames");
-                            var deadElapsed = now - stateManager.get("ballHandlerDeadSince");
-                            if (!stateManager.get("ballHandlerDeadForcedShot") && deadElapsed >= 4500) {
-                                if (ballHandler && !ballHandler.isHuman) {
-                                    stateManager.set("ballHandlerDeadForcedShot", true, "forced_shot_triggered");
-                                    attemptShot(systems);
-                                    stateManager.set("ballHandlerDeadSince", now, "forced_shot_reset");
-                                    stateManager.set("ballHandlerDeadFrames", 0, "forced_shot_reset");
-                                    continue;
-                                }
-                            }
-                            if (!violationTriggeredThisFrame && deadElapsed >= 5000) {
-                                enforceFiveSecondViolation();
-                                violationTriggeredThisFrame = true;
-                            }
-                        }
-                    } else {
-                        resetDeadDribbleTimer(systems);
-                    }
-
-                    currentTeam = stateManager.get("currentTeam");
-                    var attackDir = (currentTeam === "teamA") ? 1 : -1;
-                    var ballHandlerProgressOwner = stateManager.get("ballHandlerProgressOwner");
-                    if (ballHandlerProgressOwner !== ballHandler) {
-                        stateManager.set("ballHandlerProgressOwner", ballHandler, "new_ball_handler");
-                        stateManager.set("ballHandlerFrontcourtStartX", ballHandler.x, "new_ball_handler");
-                        stateManager.set("ballHandlerAdvanceTimer", 0, "new_ball_handler");
-                    }
-
-                    var handlerInBackcourt = isInBackcourt(ballHandler, currentTeam);
-
-                    if (!stateManager.get("frontcourtEstablished") || handlerInBackcourt) {
-                        stateManager.set("ballHandlerFrontcourtStartX", ballHandler.x, "backcourt_position");
-                        stateManager.set("ballHandlerAdvanceTimer", 0, "backcourt_position");
-                    } else {
-                        var ballHandlerFrontcourtStartX = stateManager.get("ballHandlerFrontcourtStartX");
-                        var forwardDelta = (ballHandler.x - ballHandlerFrontcourtStartX) * attackDir;
-                        if (forwardDelta < -1) {
-                            stateManager.set("ballHandlerFrontcourtStartX", ballHandler.x, "backward_movement");
-                            forwardDelta = 0;
-                        }
-                        if (forwardDelta < 4) {
-                            var ballHandlerAdvanceTimer = stateManager.get("ballHandlerAdvanceTimer");
-                            stateManager.set("ballHandlerAdvanceTimer", ballHandlerAdvanceTimer + 1, "mp_advance_timer_increment");
-                        } else {
-                            stateManager.set("ballHandlerFrontcourtStartX", ballHandler.x, "forward_progress");
-                            stateManager.set("ballHandlerAdvanceTimer", 0, "forward_progress");
-                        }
-                    }
-                } else {
-                    stateManager.set("ballHandlerAdvanceTimer", 0, "no_ball_carrier");
-                    stateManager.set("ballHandlerProgressOwner", null, "no_ball_carrier");
-                    resetDeadDribbleTimer(systems);
-                }
-
-                // Unified violation checking (extracted to shared function)
-                violationTriggeredThisFrame = checkViolations(violationTriggeredThisFrame, systems);
-
-                // Skip rest of frame if violation occurred (prevents re-triggering)
-                if (violationTriggeredThisFrame) {
-                    lastSecond = Date.now();
-                    frameNumber++;
-                    continue;
-                }
-
-                // Run core game logic (physics, AI, collisions) - coordinator only
-                checkSpriteCollision();
-
-                // Update AI for non-player-controlled sprites
-                updateAI(systems);
+            if (result === "game_over") {
+                break;
             }
 
             // Client reconciles with server state
             playerClient.update(frameNumber);
 
-            // Update visuals (all clients render)
-            updateAnnouncer(systems);
-
-            // Only redraw court when no animations are active (allows trails to accumulate)
-            if (!animationSystem.isBallAnimating()) {
-                drawCourt(systems);
-            }
-
-            drawScore(systems);
-
             // Draw network quality HUD
             drawMultiplayerNetworkHUD(playerClient);
-
-            // Sprite cycle
-            Sprite.cycle();
-
-            // Update non-blocking animations
-            animationSystem.update();
-
-            // Update non-blocking rebound scramble
-            updateReboundScramble();
 
             // Draw quit confirmation overlay if open
             if (stateManager.get("quitMenuOpen")) {
                 drawQuitMenuOverlay();
             }
 
-            // Cycle trail frame to display animation trails
-            if (trailFrame) {
-                cycleFrame(trailFrame);
-                // Keep ball on top of trail layer
-                if (ballFrame && ballFrame.is_open) {
-                    ballFrame.top();
-                }
-            }
-
-            // Check game end conditions
-            if (stateManager.get("timeRemaining") <= 0) {
-                stateManager.set("gameRunning", false, "game_ended");
-            }
-
-            // Frame timing (20 FPS - appropriate for terminal gameplay)
-            var frameTime = Date.now() - frameStart;
-            var targetFrameTime = 50; // ~20 FPS
-            if (frameTime < targetFrameTime) {
-                mswait(targetFrameTime - frameTime);
-            }
-
+            // Frame timing
+            systems.frameScheduler.waitForNextFrame(config.frameDelay);
             frameNumber++;
         }
     }
