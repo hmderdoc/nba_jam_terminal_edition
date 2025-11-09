@@ -1,6 +1,7 @@
 # Ignore config, text, and ini files
 data/nba_jam.json
 data/nba_jam.json.*
+data/error-snapshots/*
 data/*.log
 nba_jam.json
 visual_notes.md
