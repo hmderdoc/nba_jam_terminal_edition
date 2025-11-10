@@ -505,6 +505,16 @@ function main() {
         // Initialize sprites for multiplayer
         initMultiplayerSprites(session, playerAssignments, myId);
 
+        // Debug: Log sprite frame states after init
+        debugLog("[MP INIT] Sprite frames after initMultiplayerSprites:");
+        var allSprites = getAllPlayers();
+        for (var i = 0; i < allSprites.length; i++) {
+            if (allSprites[i] && allSprites[i].playerData) {
+                debugLog("  - " + allSprites[i].playerData.name + ": frame.is_open=" +
+                    (allSprites[i].frame ? allSprites[i].frame.is_open : "null"));
+            }
+        }
+
         // Create sprite map (global player ID -> sprite)
         var spriteMap = createMultiplayerSpriteMap(playerAssignments);
         coordinator.setPlayerSpriteMap(spriteMap);
@@ -536,32 +546,19 @@ function main() {
         // Tell client if we're coordinator (disables prediction to avoid double input)
         playerClient.setCoordinatorStatus(coordinator.isCoordinator);
 
-        // BUGFIX: Close sprite frames temporarily so court can be drawn without being obscured
-        debugLog("[MP INIT] Closing sprite frames before drawing court");
-        var allSprites = getAllPlayers();
-        for (var i = 0; i < allSprites.length; i++) {
-            if (allSprites[i] && allSprites[i].frame && allSprites[i].frame.is_open) {
-                allSprites[i].frame.close();
-            }
-        }
-
-        // Draw court (now visible since sprites are closed)
+        // Draw court before matchup (may not be visible due to sprite z-order)
         debugLog("[MP INIT] Drawing court before matchup screen (isCoordinator: " + coordinator.isCoordinator + ")");
+        debugLog("[MP INIT] courtFrame state: exists=" + !!courtFrame +
+            ", is_open=" + (courtFrame ? courtFrame.is_open : "N/A"));
         systems.stateManager.set("courtNeedsRedraw", true, "mp_pre_game_init");
         drawCourt(systems);
-        debugLog("[MP INIT] Court drawn, showing matchup screen");
+        debugLog("[MP INIT] Court drawn, courtNeedsRedraw now=" +
+            systems.stateManager.get("courtNeedsRedraw"));
 
         // Show matchup screen
         showMatchupScreen();
 
-        // Reopen sprite frames after matchup screen (ready for game loop)
-        debugLog("[MP INIT] Reopening sprite frames for game loop");
-        for (var i = 0; i < allSprites.length; i++) {
-            if (allSprites[i] && allSprites[i].frame && !allSprites[i].frame.is_open) {
-                allSprites[i].frame.open();
-            }
-        }
-        debugLog("[MP INIT] Sprite frames reopened, court should remain visible");
+        debugLog("[MP INIT] After matchup screen, about to start game loop");
 
         // Run multiplayer game loop
         runMultiplayerGameLoop(coordinator, playerClient, myId, systems);
@@ -852,11 +849,18 @@ function main() {
         stateManager.set("lastSecondTime", Date.now(), "mp_game_start");
 
         // Initial draw - force court redraw flag
-        debugLog("[MP GAME LOOP] Drawing court at game loop start (isCoordinator: " + coordinator.isCoordinator + ")");
+        debugLog("[MP GAME LOOP] === GAME LOOP START ===");
+        debugLog("[MP GAME LOOP] isCoordinator: " + coordinator.isCoordinator);
+        debugLog("[MP GAME LOOP] courtFrame: exists=" + !!courtFrame +
+            ", is_open=" + (courtFrame ? courtFrame.is_open : "N/A"));
+        debugLog("[MP GAME LOOP] Sprite frames open count: " +
+            getAllPlayers().filter(function (s) { return s && s.frame && s.frame.is_open; }).length);
+
+        // Set flags for first frame render - let game loop handle the draw
         stateManager.set("courtNeedsRedraw", true, "mp_game_init");
-        drawCourt(systems);
-        drawScore(systems);
-        debugLog("[MP GAME LOOP] Court drawn, starting game loop");
+        stateManager.set("lastUpdateTime", 0, "mp_game_init"); // Force immediate render on first frame
+
+        debugLog("[MP GAME LOOP] Flags set for first frame render, entering game loop");
 
         // Configure for multiplayer mode
         var config = {
