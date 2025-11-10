@@ -552,7 +552,14 @@ function main() {
         // Show matchup screen
         showMatchupScreen();
 
-        debugLog("[MP INIT] After matchup screen, about to start game loop");
+        debugLog("[MP INIT] After matchup screen, drawing court before game loop");
+
+        // Draw court AFTER matchup screen ends (like single-player does)
+        // matchup screen calls console.clear() which wipes frame content
+        drawCourt(systems);
+        drawScore(systems);
+
+        debugLog("[MP INIT] Court drawn, starting game loop");
 
         // Run multiplayer game loop
         runMultiplayerGameLoop(coordinator, playerClient, myId, systems);
@@ -841,20 +848,10 @@ function main() {
         var frameNumber = 0;
         stateManager.set("gameRunning", true, "mp_game_start");
         stateManager.set("lastSecondTime", Date.now(), "mp_game_start");
+        stateManager.set("lastUpdateTime", Date.now(), "mp_game_start"); // Initialize to now
 
-        // Initial draw - force court redraw flag
         debugLog("[MP GAME LOOP] === GAME LOOP START ===");
         debugLog("[MP GAME LOOP] isCoordinator: " + coordinator.isCoordinator);
-        debugLog("[MP GAME LOOP] courtFrame: exists=" + !!courtFrame +
-            ", is_open=" + (courtFrame ? courtFrame.is_open : "N/A"));
-        debugLog("[MP GAME LOOP] Sprite frames open count: " +
-            getAllPlayers().filter(function (s) { return s && s.frame && s.frame.is_open; }).length);
-
-        // Set flags for first frame render - let game loop handle the draw
-        stateManager.set("courtNeedsRedraw", true, "mp_game_init");
-        stateManager.set("lastUpdateTime", 0, "mp_game_init"); // Force immediate render on first frame
-
-        debugLog("[MP GAME LOOP] Flags set for first frame render, entering game loop");
 
         // Configure for multiplayer mode
         var config = {
