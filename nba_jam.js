@@ -536,6 +536,10 @@ function main() {
         // Tell client if we're coordinator (disables prediction to avoid double input)
         playerClient.setCoordinatorStatus(coordinator.isCoordinator);
 
+        // Draw court before showing sprites (prevents artifacts)
+        systems.stateManager.set("courtNeedsRedraw", true, "mp_pre_game_init");
+        drawCourt(systems);
+
         // Show matchup screen
         showMatchupScreen();
 
@@ -827,7 +831,8 @@ function main() {
         stateManager.set("gameRunning", true, "mp_game_start");
         stateManager.set("lastSecondTime", Date.now(), "mp_game_start");
 
-        // Initial draw
+        // Initial draw - force court redraw flag
+        stateManager.set("courtNeedsRedraw", true, "mp_game_init");
         drawCourt(systems);
         drawScore(systems);
 
