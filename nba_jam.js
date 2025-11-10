@@ -537,8 +537,10 @@ function main() {
         playerClient.setCoordinatorStatus(coordinator.isCoordinator);
 
         // Draw court before showing sprites (prevents artifacts)
+        debugLog("[MP INIT] Drawing court before matchup screen (isCoordinator: " + coordinator.isCoordinator + ")");
         systems.stateManager.set("courtNeedsRedraw", true, "mp_pre_game_init");
         drawCourt(systems);
+        debugLog("[MP INIT] Court drawn, showing matchup screen");
 
         // Show matchup screen
         showMatchupScreen();
@@ -832,9 +834,11 @@ function main() {
         stateManager.set("lastSecondTime", Date.now(), "mp_game_start");
 
         // Initial draw - force court redraw flag
+        debugLog("[MP GAME LOOP] Drawing court at game loop start (isCoordinator: " + coordinator.isCoordinator + ")");
         stateManager.set("courtNeedsRedraw", true, "mp_game_init");
         drawCourt(systems);
         drawScore(systems);
+        debugLog("[MP GAME LOOP] Court drawn, starting game loop");
 
         // Configure for multiplayer mode
         var config = {
