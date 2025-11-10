@@ -1,0 +1,180 @@
+{
+  "timestamp": "2025-11-08T21:36:41.337Z",
+  "severity": "FATAL",
+  "message": "TypeError: systems is undefined",
+  "stack": "clearPotentialAssist()@/sbbs/xtrn/nba_jam/lib/game-logic/stats-tracker.js:12\u000agameLoop([object Object])@/sbbs/xtrn/nba_jam/nba_jam.js:208\u000arunCPUDemo([object Object])@/sbbs/xtrn/nba_jam/nba_jam.js:695\u000amain()@/sbbs/xtrn/nba_jam/nba_jam.js:795\u000a()@/sbbs/xtrn/nba_jam/lib/utils/error-handler.js:256\u000a@/sbbs/xtrn/nba_jam/nba_jam.js:1533\u000a",
+  "context": {
+    "function": "gameLoop",
+    "systems": {
+      "stateManager": {
+        "raw": {
+          "gameRunning": true,
+          "ballCarrier": null,
+          "score": {
+            "teamA": 0,
+            "teamB": 0
+          },
+          "consecutivePoints": {
+            "teamA": 0,
+            "teamB": 0
+          },
+          "onFire": {
+            "teamA": false,
+            "teamB": false
+          },
+          "timeRemaining": 360,
+          "totalGameTime": 360,
+          "currentHalf": 1,
+          "isHalftime": false,
+          "shotClock": 24,
+          "currentTeam": "teamA",
+          "ballX": 0,
+          "ballY": 0,
+          "reboundActive": false,
+          "reboundX": 0,
+          "reboundY": 0,
+          "reboundScramble": {
+            "active": false,
+            "startTime": 0,
+            "maxDuration": 2000,
+            "reboundX": 0,
+            "reboundY": 0,
+            "bounceAnimComplete": false,
+            "anticipating": false,
+            "anticipatedX": 0,
+            "anticipatedY": 0
+          },
+          "inbounding": false,
+          "inboundPasser": null,
+          "teamNames": {
+            "teamA": "TEAM A",
+            "teamB": "TEAM B"
+          },
+          "teamAbbrs": {
+            "teamA": "TEMA",
+            "teamB": "TEMB"
+          },
+          "teamColors": {
+            "teamA": {
+              "fg": 15,
+              "bg": 512,
+              "fg_accent": 15,
+              "bg_alt": 512,
+              "fg_code": "\u0001h\u0001w",
+              "fg_accent_code": "\u0001h\u0001w"
+            },
+            "teamB": {
+              "fg": 15,
+              "bg": 512,
+              "fg_accent": 15,
+              "bg_alt": 512,
+              "fg_code": "\u0001h\u0001w",
+              "fg_accent_code": "\u0001h\u0001w"
+            }
+          },
+          "announcer": {
+            "text": "",
+            "color": 15,
+            "timer": 0
+          },
+          "lastKeyTime": 0,
+          "lastKey": "",
+          "ballHandlerStuckTimer": 0,
+          "ballHandlerLastX": 0,
+          "ballHandlerLastY": 0,
+          "ballHandlerAdvanceTimer": 0,
+          "ballHandlerFrontcourtStartX": 0,
+          "ballHandlerProgressOwner": null,
+          "inboundAlternateIndex": {
+            "teamA": 0,
+            "teamB": 0
+          },
+          "backcourtTimer": 0,
+          "frontcourtEstablished": false,
+          "inboundGracePeriod": 0,
+          "defensiveAssignments": {},
+          "activeBlock": null,
+          "blockJumpTimer": 0,
+          "activeBlockDuration": 0,
+          "lastBlocker": null,
+          "shotInProgress": false,
+          "shotStartX": 0,
+          "shotStartY": 0,
+          "potentialAssist": null,
+          "availablePlayers": {
+            "teamA": [],
+            "teamB": []
+          },
+          "activePlayerIndices": {
+            "teamA": [
+              0,
+              1
+            ],
+            "teamB": [
+              0,
+              1
+            ]
+          },
+          "ballHandlerDeadSince": null,
+          "ballHandlerDeadFrames": 0,
+          "ballHandlerDeadForcedShot": false,
+          "tickCounter": 0,
+          "lastUpdateTime": 1762637801337,
+          "lastSecondTime": 1762637801337,
+          "lastAIUpdateTime": 1762637801337,
+          "allCPUMode": false,
+          "firstHalfStartTeam": null,
+          "secondHalfInitDone": false,
+          "pendingSecondHalfInbound": false,
+          "scoreFlash": {
+            "active": false,
+            "activeTeam": null,
+            "stopTeam": null,
+            "startedTick": 0,
+            "regainCheckEnabled": false
+          },
+          "beepEnabled": false,
+          "quitMenuOpen": false,
+          "phase": {
+            "current": "NORMAL",
+            "data": {},
+            "frameCounter": 0,
+            "targetFrames": 0
+          }
+        }
+      },
+      "eventBus": {},
+      "passingSystem": {
+        "_test": {}
+      },
+      "possessionSystem": {},
+      "shootingSystem": {}
+    },
+    "tick": 0
+  },
+  "gameStateSnapshot": {
+    "phase": {
+      "current": "NORMAL",
+      "data": {},
+      "frameCounter": 0,
+      "targetFrames": 0
+    },
+    "currentTeam": "teamA",
+    "currentHalf": 1,
+    "timeRemaining": 360,
+    "shotClock": 24,
+    "score": {},
+    "ballCarrier": null,
+    "ballPosition": {
+      "x": 0,
+      "y": 0
+    },
+    "shotInProgress": false,
+    "reboundActive": false,
+    "inbounding": false,
+    "consecutivePoints": {
+      "teamA": 0,
+      "teamB": 0
+    }
+  }
+}

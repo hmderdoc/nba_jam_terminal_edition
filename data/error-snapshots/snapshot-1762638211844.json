@@ -1,0 +1,11 @@
+{
+  "timestamp": "2025-11-08T21:43:31.844Z",
+  "severity": "FATAL",
+  "message": "TypeError: systems is undefined",
+  "stack": "getScoreFlashState()@/sbbs/xtrn/nba_jam/lib/game-logic/score-calculator.js:172\u000adrawScore()@/sbbs/xtrn/nba_jam/lib/ui/scoreboard.js:316\u000agameLoop([object Object])@/sbbs/xtrn/nba_jam/nba_jam.js:216\u000arunCPUDemo([object Object])@/sbbs/xtrn/nba_jam/nba_jam.js:695\u000amain()@/sbbs/xtrn/nba_jam/nba_jam.js:795\u000a()@/sbbs/xtrn/nba_jam/lib/utils/error-handler.js:256\u000a@/sbbs/xtrn/nba_jam/nba_jam.js:1533\u000a",
+  "context": {
+    "function": "main",
+    "arguments": []
+  },
+  "gameStateSnapshot": null
+}

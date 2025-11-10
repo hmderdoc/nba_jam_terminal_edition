@@ -1,0 +1,30 @@
+# NBA JAM - Multiplayer Server Configuration
+# Copy this file to mp_config.ini and customize
+
+# Local server (this BBS)
+[local]
+name=Local BBS
+addr=localhost
+port=10088
+description=Games with players on this BBS only
+
+# Vertrauen BBS (example inter-BBS server)
+[vertrauen]
+name=Vertrauen BBS
+addr=vert.synchro.net
+port=10088
+description=Inter-BBS games hosted by Vertrauen
+
+# Dedicated game server (example)
+[dedicated]
+name=NBA JAM Central
+addr=nbajam.example.com
+port=10088
+description=Dedicated NBA JAM game server
+
+# You can add your own custom servers below
+# [myserver]
+# name=My Game Server
+# addr=192.168.1.100
+# port=10088
+# description=My local game server

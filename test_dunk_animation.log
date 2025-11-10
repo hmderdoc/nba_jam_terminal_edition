@@ -1,0 +1,23 @@
+
+JSexec v3.21a-Linux master/869dac47e - Execute Synchronet JavaScript Module
+Compiled Sep 15 2025 04:46 with GCC 12.2.0
+
+Loading configuration files from /sbbs/ctrl
+JavaScript-C 1.8.5 2011-03-31
+JavaScript: Creating runtime: 167772160 bytes
+
+Reading script from /sbbs/repo/xtrn/nba_jam/nba_jam.js
+/sbbs/repo/xtrn/nba_jam/nba_jam.js compiled in 0.00 seconds
+Error handler initialized. Logs will be written to: /sbbs/repo/xtrn/nba_jam/data/error.log
+Successfully wrote to error.log
+Snapshot saved to: /sbbs/repo/xtrn/nba_jam/data/error-snapshots/snapshot-1762729542997.json
+Reproduction test saved to: /sbbs/repo/xtrn/nba_jam/data/error-snapshots/test-reproduction-1762729542997.js
+
+FATAL ERROR: Game crashed. Check error.log for details.
+
+Error: ReferenceError: console is not defined
+
+/sbbs/repo/xtrn/nba_jam/nba_jam.js executed in 0.05 seconds
+
+JavaScript: Destroying context
+JavaScript: Destroying runtime
