@@ -1,128 +1,25 @@
 // NBA JAM - Terminal Basketball Arcade Game
 // A Synchronet BBS door game using sprite.js
+//
+// Wave 23D: Centralized module loading - see lib/core/module-loader.js
 
-load("sbbsdefs.js");
-load("frame.js");
-load("sprite.js");
+// Load centralized module loader
+load(js.exec_dir + "lib/core/module-loader.js");
 
-// WAVE 23: Load error handler FIRST for global error capture
-load(js.exec_dir + "lib/utils/error-handler.js");
-load(js.exec_dir + "lib/utils/safe-game-loop.js");
-initErrorHandler();
-setupGlobalErrorHandler();
-
-// WAVE 21: Load order guards for critical dependencies
-load(js.exec_dir + "lib/utils/constants.js");
-if (typeof COURT_WIDTH === "undefined") {
-    throw new Error("LOAD ORDER ERROR: constants.js failed to load. Check file path and syntax.");
+// Load all game modules with validation
+var loadResult = loadGameModules();
+if (!loadResult.success) {
+    console.print("\n\nCRITICAL ERROR: Failed to load required game modules.\n");
+    console.print("Error: " + loadResult.criticalError + "\n");
+    console.print("\nPress any key to exit...\n");
+    console.getkey();
+    exit(1);
 }
 
-// WAVE 21: Load game balance configuration (centralized magic numbers)
-load(js.exec_dir + "lib/config/game-balance.js");
-if (typeof GAME_BALANCE === "undefined") {
-    throw new Error("LOAD ORDER ERROR: game-balance.js failed to load. This is a critical dependency.");
+var multiplayerEnabled = loadResult.multiplayerEnabled;
+if (!multiplayerEnabled) {
+    log(LOG_INFO, "NBA JAM: Running in single-player mode (multiplayer not available)");
 }
-
-load(js.exec_dir + "lib/utils/helpers.js");
-load(js.exec_dir + "lib/utils/validation.js");  // WAVE 21: Input validation utilities
-
-// Wave 23: Architecture Foundation - Load new core systems
-load(js.exec_dir + "lib/core/state-manager.js");
-load(js.exec_dir + "lib/core/event-bus.js");
-load(js.exec_dir + "lib/core/frame-scheduler.js");  // Wave 23D: Centralized frame timing
-load(js.exec_dir + "lib/core/game-loop-core.js");  // Wave 23D: Unified game loop logic
-load(js.exec_dir + "lib/core/system-init.js");  // Centralized system initialization
-
-// Wave 23: Load new systems (testable architecture)
-load(js.exec_dir + "lib/systems/passing-system.js");
-load(js.exec_dir + "lib/systems/possession-system.js");
-load(js.exec_dir + "lib/systems/shooting-system.js");
-
-load(js.exec_dir + "lib/rendering/sprite-utils.js");
-load(js.exec_dir + "lib/rendering/uniform-system.js");
-load(js.exec_dir + "lib/rendering/animation-system.js");
-load(js.exec_dir + "lib/rendering/player-labels.js");
-load(js.exec_dir + "lib/rendering/shoe-colors.js");
-load(js.exec_dir + "lib/rendering/ball.js");
-load(js.exec_dir + "lib/rendering/court-rendering.js");
-load(js.exec_dir + "lib/rendering/jump-indicators.js");
-load(js.exec_dir + "lib/game-logic/game-state.js");
-load(js.exec_dir + "lib/game-logic/phase-handler.js");  // Wave 22B: State machine phase handler
-load(js.exec_dir + "lib/game-logic/player-class.js");
-load(js.exec_dir + "lib/game-logic/movement-physics.js");
-load(js.exec_dir + "lib/game-logic/passing.js");
-load(js.exec_dir + "lib/game-logic/defense-actions.js");
-load(js.exec_dir + "lib/game-logic/physical-play.js");
-load(js.exec_dir + "lib/game-logic/rebounds.js");
-load(js.exec_dir + "lib/game-logic/dunks.js");
-load(js.exec_dir + "lib/game-logic/shooting.js");
-load(js.exec_dir + "lib/game-logic/possession.js");
-load(js.exec_dir + "lib/game-logic/team-data.js");
-load(js.exec_dir + "lib/game-logic/input-handler.js");
-load(js.exec_dir + "lib/game-logic/violations.js");
-load(js.exec_dir + "lib/game-logic/dead-dribble.js");
-load(js.exec_dir + "lib/game-logic/stats-tracker.js");
-load(js.exec_dir + "lib/game-logic/game-utils.js");
-load(js.exec_dir + "lib/game-logic/score-calculator.js");
-load(js.exec_dir + "lib/game-logic/hot-streak.js");
-load(js.exec_dir + "lib/game-logic/fast-break-detection.js");
-load(js.exec_dir + "lib/bookie/bookie.js");
-load(js.exec_dir + "lib/utils/player-helpers.js");
-load(js.exec_dir + "lib/utils/positioning-helpers.js");
-load(js.exec_dir + "lib/utils/string-helpers.js");
-load(js.exec_dir + "lib/ui/score-display.js");
-load(js.exec_dir + "lib/ui/controller-labels.js");
-load(js.exec_dir + "lib/ui/demo-results.js");
-load(js.exec_dir + "lib/ui/game-over.js");
-load(js.exec_dir + "lib/ai/ai-decision-support.js");
-load(js.exec_dir + "lib/ai/ai-difficulty.js");
-load(js.exec_dir + "lib/ai/ai-movement-utils.js");
-load(js.exec_dir + "lib/ai/ai-corner-escape.js");
-load(js.exec_dir + "lib/core/sprite-registry.js");
-// WAVE 21: Guard for sprite registry (critical dependency for sprite management)
-if (typeof spriteRegistry === "undefined") {
-    throw new Error("LOAD ORDER ERROR: sprite-registry.js failed to load. This is a critical dependency.");
-}
-load(js.exec_dir + "lib/core/sprite-init.js");
-load(js.exec_dir + "lib/animation/bearing-frames.js");
-load(js.exec_dir + "lib/animation/knockback-system.js");
-load(js.exec_dir + "lib/rendering/fire-effects.js");
-load(js.exec_dir + "lib/core/event-system.js");
-load(js.exec_dir + "lib/core/input-buffer.js");
-
-// Multiplayer modules
-
-// Multiplayer support (optional - loaded on demand)
-var multiplayerEnabled = false;
-try {
-    load(js.exec_dir + "lib/multiplayer/mp_identity.js");
-    load(js.exec_dir + "lib/multiplayer/mp_team_data.js");
-    load(js.exec_dir + "lib/multiplayer/mp_config.js");
-    load(js.exec_dir + "lib/multiplayer/mp_network.js");
-    load(js.exec_dir + "lib/multiplayer/mp_sessions.js");
-    load(js.exec_dir + "lib/multiplayer/mp_lobby.js");
-    load(js.exec_dir + "lib/multiplayer/mp_failover.js");
-    load(js.exec_dir + "lib/multiplayer/mp_coordinator.js");
-    load(js.exec_dir + "lib/multiplayer/mp_client.js");
-    load(js.exec_dir + "lib/multiplayer/mp_input_replay.js");
-    multiplayerEnabled = true;
-} catch (mpLoadError) {
-    log(LOG_WARNING, "NBA JAM: Multiplayer load failed: " + mpLoadError + " (at " + (mpLoadError.fileName || "?") + ":" + (mpLoadError.lineNumber || "?") + ")");
-}
-
-load(js.exec_dir + "lib/ai/game-context.js");
-// WAVE 21 FIX: Removed duplicate load of ai-decision-support.js (was also at line 44)
-// This file is now loaded only once at line 44 to avoid redefining functions
-load(js.exec_dir + "lib/ai/offense-ball-handler.js");
-load(js.exec_dir + "lib/ai/offense-off-ball.js");
-load(js.exec_dir + "lib/ai/defense-on-ball.js");
-load(js.exec_dir + "lib/ai/defense-help.js");
-load(js.exec_dir + "lib/ai/coordinator.js");
-load(js.exec_dir + "lib/ui/announcer.js");
-load(js.exec_dir + "lib/ui/scoreboard.js");
-load(js.exec_dir + "lib/ui/menus.js");
-load(js.exec_dir + "lib/ui/game-over.js");
-load(js.exec_dir + "lib/ui/halftime.js");
 
 function initFrames(systems) {
     if (typeof console !== 'undefined' && typeof console.clear === 'function') {
