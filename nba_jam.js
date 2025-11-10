@@ -536,7 +536,16 @@ function main() {
         // Tell client if we're coordinator (disables prediction to avoid double input)
         playerClient.setCoordinatorStatus(coordinator.isCoordinator);
 
-        // Draw court before showing sprites (prevents artifacts)
+        // BUGFIX: Close sprite frames temporarily so court can be drawn without being obscured
+        debugLog("[MP INIT] Closing sprite frames before drawing court");
+        var allSprites = getAllPlayers();
+        for (var i = 0; i < allSprites.length; i++) {
+            if (allSprites[i] && allSprites[i].frame && allSprites[i].frame.is_open) {
+                allSprites[i].frame.close();
+            }
+        }
+
+        // Draw court (now visible since sprites are closed)
         debugLog("[MP INIT] Drawing court before matchup screen (isCoordinator: " + coordinator.isCoordinator + ")");
         systems.stateManager.set("courtNeedsRedraw", true, "mp_pre_game_init");
         drawCourt(systems);
@@ -544,6 +553,15 @@ function main() {
 
         // Show matchup screen
         showMatchupScreen();
+
+        // Reopen sprite frames after matchup screen (ready for game loop)
+        debugLog("[MP INIT] Reopening sprite frames for game loop");
+        for (var i = 0; i < allSprites.length; i++) {
+            if (allSprites[i] && allSprites[i].frame && !allSprites[i].frame.is_open) {
+                allSprites[i].frame.open();
+            }
+        }
+        debugLog("[MP INIT] Sprite frames reopened, court should remain visible");
 
         // Run multiplayer game loop
         runMultiplayerGameLoop(coordinator, playerClient, myId, systems);
