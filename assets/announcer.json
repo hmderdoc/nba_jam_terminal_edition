@@ -210,6 +210,12 @@
     ]
   },
   {
+    "event_type": "loose_ball_secured",
+    "quotes": [
+      "${playerName} gets the loose ball!"
+    ]
+  },
+  {
     "event_type": "violation_backcourt",
     "quotes": [
       "Backcourt violation!",
