@@ -138,7 +138,7 @@ function gameLoop(systems) {
             var result = runGameFrame(systems, config);
 
             if (result === "halftime") {
-                var halftimeResult = showHalftimeScreen(systems, null, null); // Single-player: no coordinator
+                var halftimeResult = showHalftimeScreen(systems, null, null, null, null); // Single-player: no coordinator or playerClient
                 if (halftimeResult === "quit" || !stateManager.get("gameRunning")) break;
 
                 // Reset for second half
@@ -288,7 +288,7 @@ function runCPUDemo(systems) {
         }
 
         // After game ends, check what user wants to do
-        var choice = showGameOver(true, systems, null, null); // Demo mode: no coordinator
+        var choice = showGameOver(true, systems, null, null, null); // Demo mode: no coordinator
 
         if (choice === "quit") {
             break; // Exit demo loop
@@ -315,9 +315,18 @@ function setupEventSubscriptions(systems) {
         }
     });
 
+    // Subscribe to interception events from passing system
+    systems.eventBus.on("interception", function (data) {
+        debugLog("[EVENT] Interception event received, announcing steal");
+        announceEvent("steal", {
+            playerName: data.interceptor && data.interceptor.playerData ? data.interceptor.playerData.name : "unknown",
+            player: data.interceptor,
+            team: data.team
+        }, systems);
+    });
+
     // Future: Can add more event subscriptions here
     // - onGameEvent("score", ...) for stats tracking
-    // - onGameEvent("steal", ...) for multiplayer sync
     // - onGameEvent("turnover", ...) for analytics
 }
 
@@ -436,7 +445,7 @@ function main() {
             showMatchupScreen(false, systems, null, null); // Single-player: no coordinator
 
             gameLoop(systems);
-            var choice = showGameOver(false, systems, null, null); // Single-player: no coordinator
+            var choice = showGameOver(false, systems, null, null, null); // Single-player: no coordinator
 
             if (choice === "quit") {
                 playAgain = false;
@@ -572,7 +581,7 @@ function main() {
         debugLog("[MP INIT] Court drawn, starting game loop");
 
         // Run multiplayer game loop
-        runMultiplayerGameLoop(coordinator, playerClient, myId, systems);
+        runMultiplayerGameLoop(coordinator, playerClient, myId, systems, mpScreenCoordinator);
 
         // Cleanup
         mpCoordinator = null; // Clear global reference
@@ -585,7 +594,7 @@ function main() {
         cleanupSprites();
 
         // Show game over screen with multiplayer coordination
-        var gameOverChoice = showGameOver(false, systems, mpScreenCoordinator, myId.globalId);
+        var gameOverChoice = showGameOver(false, systems, mpScreenCoordinator, myId.globalId, coordinator);
 
         // Note: In multiplayer, we currently exit after game over
         // Future: Could handle "playagain" and "newteams" for rematch
@@ -851,7 +860,7 @@ function main() {
     }
 
     // Wave 23D Phase 3: Refactored to use unified game loop core
-    function runMultiplayerGameLoop(coordinator, playerClient, myId, systems) {
+    function runMultiplayerGameLoop(coordinator, playerClient, myId, systems, mpScreenCoordinator) {
         // Wave 23: Systems are REQUIRED
         if (!systems || !systems.stateManager) {
             throw new Error("ARCHITECTURE ERROR: runMultiplayerGameLoop requires systems parameter");
@@ -914,8 +923,16 @@ function main() {
                     coordinator.broadcastState();
                 }
 
-                var halftimeResult = showHalftimeScreen(systems, mpScreenCoordinator, myId.globalId);
+                var halftimeResult = showHalftimeScreen(systems, mpScreenCoordinator, myId.globalId, coordinator, null);
                 if (halftimeResult === "quit" || !stateManager.get("gameRunning")) break;
+
+                // Clear halftime flag for second half
+                stateManager.set("isHalftime", false, "second_half_start");
+
+                // Broadcast halftime clear to clients
+                if (coordinator && coordinator.isCoordinator) {
+                    coordinator.broadcastState();
+                }
 
                 // Reset for second half
                 if (stateManager.get("pendingSecondHalfInbound")) {
@@ -929,6 +946,31 @@ function main() {
 
             if (result === "game_over") {
                 break;
+            }
+
+            // NON-COORDINATOR: Check for halftime transition
+            if (!coordinator.isCoordinator) {
+                var isHalftime = stateManager.get("isHalftime");
+                var halftimeHandled = stateManager.get("halftimeHandled");
+
+                if (isHalftime && !halftimeHandled) {
+                    debugLog("[MP GAME LOOP] Non-coordinator detected halftime, showing screen");
+                    stateManager.set("halftimeHandled", true, "mp_halftime_detected");
+
+                    var halftimeResult = showHalftimeScreen(systems, mpScreenCoordinator, myId.globalId, null, playerClient);
+                    if (halftimeResult === "quit" || !stateManager.get("gameRunning")) {
+                        break;
+                    }
+
+                    // Redraw court after halftime
+                    drawCourt(systems);
+                    drawScore(systems);
+                }
+
+                // Clear halftime flag when coordinator clears it
+                if (!isHalftime && halftimeHandled) {
+                    stateManager.set("halftimeHandled", false, "mp_halftime_reset");
+                }
             }
 
             // Client reconciles with server state

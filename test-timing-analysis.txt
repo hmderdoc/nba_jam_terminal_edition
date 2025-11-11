@@ -1,0 +1,112 @@
+TIMING ANALYSIS: Why non-coordinator doesn't exit halftime
+
+SCENARIO: Both players press space at halftime
+
+===============================================================================
+COORDINATOR TIMELINE
+===============================================================================
+
+T=0ms: User presses space in halftime screen
+  - Line 93 of halftime.js: mpScreenCoordinator.setReady(myPlayerId)
+  - localReady = true
+
+T=100ms: Next iteration of while loop (line 49)
+  - Line 61: isCoordinator && mpScreenCoordinator.canDismiss()
+  - canDismiss() checks if ALL players ready
+  - Returns true (both pressed space)
+  
+T=100ms: Coordinator dismisses
+  - Line 62: mpScreenCoordinator.dismissScreen()
+    -> Line 197 of mp-screen-coordinator.js: broadcastScreenState()
+      -> Line 219: stateManager.set("mpScreen", null)  [screenState when dismissed]
+      -> Line 222: coordinator.broadcastState()
+        -> Line 428 of mp_coordinator.js: queue.write(state) for each player
+        
+T=100ms: Break from loop
+  - Line 63: break
+  
+T=100ms: Exit showHalftimeScreen
+  - Line 119: debugLog("[HALFTIME] Exiting halftime screen")
+  - Line 121: stateManager.set("isHalftime", false)  [COORDINATOR CLEARS IT]
+  - Line 122: stateManager.set("pendingSecondHalfInbound", true)
+  - Return "continue"
+  
+T=100ms: Back to nba_jam.js line 918
+  - halftimeResult = "continue"
+  - Line 920: stateManager.set("isHalftime", false)  [REDUNDANT - already false]
+  - Line 924: coordinator.broadcastState()  [BROADCASTS isHalftime=false]
+  - Line 928: startSecondHalfInbound(systems)
+  - Line 933: continue [back to game loop]
+
+===============================================================================
+NON-COORDINATOR TIMELINE
+===============================================================================
+
+T=0ms: User presses space in halftime screen
+  - Line 93 of halftime.js: mpScreenCoordinator.setReady(myPlayerId)
+  - This sends a vote to coordinator via Queue
+  - localReady = true
+
+T=100ms: Next iteration of while loop (line 49)
+  - Line 53: mpScreenAction = stateManager.get("mpScreenAction")
+  - Q: Is mpScreenAction set yet?
+  - A: NO - coordinator hasn't broadcast yet!
+  
+T=100ms: Loop continues
+  - Line 71: Re-render indicators
+  - Line 77: Check for input (none)
+  - Line 113: coordinator.update() - NOT CALLED (coordinator param is null!)
+  - Loop back to line 49
+  
+T=200ms: Next iteration
+  - Line 53: mpScreenAction = stateManager.get("mpScreenAction")
+  - Q: Is it set NOW?
+  - Need to check when playerClient.update() is called!
+  
+WAIT - when does non-coordinator receive the broadcast?
+
+Looking at nba_jam.js non-coordinator path:
+  - Line 951: showHalftimeScreen() is called
+  - Inside showHalftimeScreen, the while loop runs
+  - Line 113: coordinator && coordinator.update() - BUT coordinator param is NULL!
+  - So coordinator.update() is NEVER called inside halftime screen!
+  
+  - playerClient.update() is called at line 983 of nba_jam.js
+  - But that's OUTSIDE the halftime screen!
+  - The halftime screen is BLOCKING - it's in a while loop!
+  
+BUG FOUND:
+  Non-coordinator is stuck in halftime.js while loop (line 49-114)
+  This loop NEVER calls playerClient.update()
+  So it NEVER receives the mpScreen=null broadcast
+  So mpScreenAction is NEVER set
+  So the dismissal check at line 55 NEVER succeeds
+  DEADLOCK!
+
+===============================================================================
+THE FIX
+===============================================================================
+
+Option 1: Call playerClient.update() inside halftime loop
+  - But we don't have playerClient reference in halftime.js
+  - Would need to pass it as a parameter
+  
+Option 2: Check mpScreen state directly (not mpScreenAction)
+  - mpScreen is in stateManager
+  - Can check if it's null or if activeScreen changed
+  - But this is still set by playerClient.update()
+  
+Option 3: Non-blocking halftime screen
+  - Return immediately after showing screen
+  - Let main loop handle dismissal detection
+  - This is a major architectural change
+  
+Option 4: Pass playerClient and call update in loop
+  - Modify showHalftimeScreen signature
+  - Add playerClient.update() at line 113
+  - This allows receiving broadcasts while in loop
+
+CORRECT FIX: Option 4
+  - showHalftimeScreen needs playerClient parameter
+  - Call playerClient.update() in the while loop
+  - This unblocks state sync
