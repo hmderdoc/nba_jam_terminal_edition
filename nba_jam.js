@@ -138,8 +138,8 @@ function gameLoop(systems) {
             var result = runGameFrame(systems, config);
 
             if (result === "halftime") {
-                showHalftimeScreen(systems);
-                if (!stateManager.get("gameRunning")) break; // User quit during halftime
+                var halftimeResult = showHalftimeScreen(systems, null, null); // Single-player: no coordinator
+                if (halftimeResult === "quit" || !stateManager.get("gameRunning")) break;
 
                 // Reset for second half
                 if (stateManager.get("pendingSecondHalfInbound")) {
@@ -288,7 +288,7 @@ function runCPUDemo(systems) {
         }
 
         // After game ends, check what user wants to do
-        var choice = showGameOver(true, systems); // Pass true for demo mode
+        var choice = showGameOver(true, systems, null, null); // Demo mode: no coordinator
 
         if (choice === "quit") {
             break; // Exit demo loop
@@ -361,8 +361,8 @@ function main() {
     // Subscribe to game events (Observer pattern)
     setupEventSubscriptions(systems);
 
-    // Show ANSI splash screen first
-    showSplashScreen();
+    // Show ANSI splash screen first (no coordination - shown before multiplayer setup)
+    showSplashScreen(systems, null, null);
 
     // Load team data first
     loadTeamData();
@@ -433,10 +433,10 @@ function main() {
                 systems
             );
 
-            showMatchupScreen(false, systems); // false = no betting, pass systems
+            showMatchupScreen(false, systems, null, null); // Single-player: no coordinator
 
             gameLoop(systems);
-            var choice = showGameOver(false, systems); // Pass false for player mode
+            var choice = showGameOver(false, systems, null, null); // Single-player: no coordinator
 
             if (choice === "quit") {
                 playAgain = false;
@@ -484,6 +484,16 @@ function main() {
         // Sync coordinator status to client (so client knows if it's authoritative)
         playerClient.isCoordinator = coordinator.isCoordinator;
         playerClient.disablePrediction = coordinator.isCoordinator;
+
+        // Initialize screen coordinator (Wave 24: Screen synchronization)
+        var mpScreenCoordinator = new MPScreenCoordinator(
+            systems,
+            coordinator.isCoordinator ? coordinator : null,
+            playerClient
+        );
+        coordinator.mpScreenCoordinator = mpScreenCoordinator;
+        playerClient.mpScreenCoordinator = mpScreenCoordinator;
+        debugLog("[MP INIT] Screen coordinator initialized");
 
         // Reset game state for multiplayer
         resetGameState({ allCPUMode: false }, systems);
@@ -549,8 +559,8 @@ function main() {
         // Don't draw court before matchup - showMatchupScreen() calls console.clear() 
         // which would wipe it out. Let game loop draw it fresh like single-player does.
 
-        // Show matchup screen (pass systems parameter - regression fix)
-        showMatchupScreen(false, systems); // false = no betting in multiplayer
+        // Show matchup screen with multiplayer coordination
+        showMatchupScreen(false, systems, mpScreenCoordinator, myId.globalId);
 
         debugLog("[MP INIT] After matchup screen, drawing court before game loop");
 
@@ -574,8 +584,11 @@ function main() {
         }
         cleanupSprites();
 
-        // Show game over screen
-        showGameOver(false, systems);
+        // Show game over screen with multiplayer coordination
+        var gameOverChoice = showGameOver(false, systems, mpScreenCoordinator, myId.globalId);
+
+        // Note: In multiplayer, we currently exit after game over
+        // Future: Could handle "playagain" and "newteams" for rematch
     }
 
     function assignMultiplayerPlayers(session, myId) {
@@ -895,14 +908,14 @@ function main() {
             if (result === "halftime") {
                 // Set halftime flag BEFORE showing screen so next state broadcast includes it
                 stateManager.set("isHalftime", true, "halftime_start_mp");
-                
+
                 // Broadcast halftime state to clients before blocking
                 if (coordinator && coordinator.isCoordinator) {
                     coordinator.broadcastState();
                 }
-                
-                showHalftimeScreen(systems);
-                if (!stateManager.get("gameRunning")) break; // User quit during halftime
+
+                var halftimeResult = showHalftimeScreen(systems, mpScreenCoordinator, myId.globalId);
+                if (halftimeResult === "quit" || !stateManager.get("gameRunning")) break;
 
                 // Reset for second half
                 if (stateManager.get("pendingSecondHalfInbound")) {
