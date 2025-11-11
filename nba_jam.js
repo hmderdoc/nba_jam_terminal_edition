@@ -893,6 +893,14 @@ function main() {
             var result = runGameFrame(systems, config);
 
             if (result === "halftime") {
+                // Set halftime flag BEFORE showing screen so next state broadcast includes it
+                stateManager.set("isHalftime", true, "halftime_start_mp");
+                
+                // Broadcast halftime state to clients before blocking
+                if (coordinator && coordinator.isCoordinator) {
+                    coordinator.broadcastState();
+                }
+                
                 showHalftimeScreen(systems);
                 if (!stateManager.get("gameRunning")) break; // User quit during halftime
 
