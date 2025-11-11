@@ -433,7 +433,7 @@ function main() {
                 systems
             );
 
-            showMatchupScreen();
+            showMatchupScreen(false, systems); // false = no betting, pass systems
 
             gameLoop(systems);
             var choice = showGameOver(false, systems); // Pass false for player mode
@@ -549,8 +549,8 @@ function main() {
         // Don't draw court before matchup - showMatchupScreen() calls console.clear() 
         // which would wipe it out. Let game loop draw it fresh like single-player does.
 
-        // Show matchup screen
-        showMatchupScreen();
+        // Show matchup screen (pass systems parameter - regression fix)
+        showMatchupScreen(false, systems); // false = no betting in multiplayer
 
         debugLog("[MP INIT] After matchup screen, drawing court before game loop");
 
