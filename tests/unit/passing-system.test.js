@@ -11,8 +11,16 @@ if (typeof console === "undefined") {
     };
 }
 
-// Determine base path - go up from __tests__ directory
-var basePath = js.exec_dir.replace(/lib\/systems\/__tests__\/?$/, "");
+// Determine repository base path regardless of test location
+var basePath = js.exec_dir;
+if (/tests\/unit\/?$/.test(basePath)) {
+    basePath = basePath.replace(/tests\/unit\/?$/, "");
+} else if (/lib\/systems\/__tests__\/?$/.test(basePath)) {
+    basePath = basePath.replace(/lib\/systems\/__tests__\/?$/, "");
+}
+if (basePath.slice(-1) !== '/') {
+    basePath += '/';
+}
 
 // Load dependencies
 load(basePath + "lib/core/state-manager.js");
@@ -27,6 +35,7 @@ function runTests() {
     testOutOfBoundsPass();
     testPassTiming();
     testInboundPass();
+    testQueuedPassWhileAnimating();
 
     console.log("\n✓ All passing system tests passed!");
 }
@@ -214,6 +223,60 @@ function testInboundPass() {
     assert(eventsEmitted.indexOf('inbound_complete') >= 0, "Should emit inbound complete");
 
     console.log("  ✓ Inbound pass handled correctly");
+}
+
+function testQueuedPassWhileAnimating() {
+    console.log("\nTest: Queued pass executes after animation");
+
+    var passer = { x: 10, y: 10, team: 'teamA', playerData: { name: 'Passer' } };
+    var receiver = { x: 18, y: 12, team: 'teamA', playerData: { name: 'Receiver' } };
+
+    var mockState = createStateManager({
+        ballCarrier: passer,
+        currentTeam: 'teamA'
+    });
+
+    var animState = { animating: true };
+    var animationQueued = 0;
+
+    var mockAnimations = {
+        isBallAnimating: function () {
+            return animState.animating;
+        },
+        queuePassAnimation: function (sx, sy, ex, ey, stateData, duration, callback) {
+            animationQueued++;
+            callback(stateData);
+        }
+    };
+
+    var system = createPassingSystem({
+        state: mockState,
+        animations: mockAnimations,
+        events: createEventBus(),
+        rules: { COURT_WIDTH: 66, COURT_HEIGHT: 40 },
+        helpers: { getPlayerTeamName: function (p) { return p.team; } }
+    });
+
+    var firstResult = system.attemptPass(passer, receiver, {});
+    assert(firstResult.success === false, "Initial attempt should not succeed while animating");
+    assert(firstResult.queued === true, "Initial attempt should queue pass intent");
+    assert(animationQueued === 0, "No animation should queue while blocked");
+
+    var queuedIntent = mockState.get('queuedPassIntent');
+    assert(queuedIntent !== undefined && queuedIntent !== null, "Queued intent should be stored in state");
+    assert(queuedIntent.passer === passer, "Queued intent should reference passer");
+
+    // Animation completes next frame
+    animState.animating = false;
+    mockState.set('ballCarrier', passer, 'test_queue_flush');
+
+    var processed = system.processQueuedPass();
+    assert(processed && processed.success === true, "Queued pass should execute successfully once animations clear");
+    assert(animationQueued === 1, "Queued pass should trigger animation exactly once");
+    assert(mockState.get('queuedPassIntent') === null, "Queued intent should clear after execution");
+    assert(mockState.get('ballCarrier') === receiver, "Receiver should become new ball carrier");
+
+    console.log("  ✓ Queued pass executes after animation");
 }
 
 function assert(condition, message) {
