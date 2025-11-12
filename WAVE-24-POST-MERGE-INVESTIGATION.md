@@ -5,37 +5,89 @@
 **Duration**: ~1 hour of architectural analysis  
 **Documents Created**:
 1. `MULTIPLAYER-FLICKER-ANALYSIS.md` - Root cause analysis of non-coordinator sprite flicker
-2. `COORDINATOR-HALFTIME-BUG.md` - Investigation plan for coordinator halftime issue
+2. **Status**: Halftime synchronization issues resolved ✅
 
 ---
 
-## Finding #1: Non-Coordinator Sprite Flicker
+## Update: Collision Detection Improvements ✅
 
-### Root Cause Identified
+### Issue Resolved: Movement Restriction
 
-**Problem**: Perfect timing alignment creates resonance jitter
+**Problem**: Collision guard was too restrictive, causing players to get stuck or unable to move around defenders
+
+**Root Causes Fixed**:
+1. **Key code handling bug** - `calculateNextCoords()` wasn't properly handling KEY_LEFT, KEY_RIGHT, etc.
+2. **Wrong data source** - Collision guard was looking for non-existent player data instead of actual sprites
+3. **Threshold too strict** - `dx < 2 && dy < 2` was blocking legitimate movement
+4. **Missing team filtering** - Should only check opponent collisions, not teammates
+
+**Implementation Changes**:
+```javascript
+// lib/multiplayer/mp_client.js
+
+// Fixed key handling in calculateNextCoords()
+if (typeof KEY_LEFT !== 'undefined' && direction === KEY_LEFT) {
+    nx -= speed;
+} // etc.
+
+// Use actual sprite positions instead of phantom player data
+var allPlayers = spriteRegistry.getAllPlayers();
+
+// Reduced threshold from 2.0 to 1.5 units
+if (dx < 1.5 && dy < 1.5) {
+
+// Added team filtering - only check opponents
+if (localTeam && otherTeam && localTeam === otherTeam) continue;
+```
+
+**Result**: ✅ **Movement feel improved** - Players can now move around defenders naturally
+
+### Issue Resolved: Human vs Human Collision Parity ✅
+
+**Problem**: Collision detection worked for AI vs AI and AI vs Human, but Human vs Human players could walk through each other
+
+**Root Cause**: Timing issue in coordinator's input processing
+- Human inputs processed in `coordinator.processInputs()` 
+- Collision detection ran later in `runGameFrame()`
+- By then, both human players had already moved through each other
+
+**Solution**: Added collision detection directly in coordinator's `applyInput()` function
+```javascript
+// Check collision before applying human movement
+var dx = Math.abs(other.x - plannedX);
+var dy = Math.abs(other.y - plannedY);
+if (dx < 2 && dy < 2) {
+    // Block movement - same threshold as authority collision
+    moveBlocked = true;
+}
+```
+
+**Result**: ✅ **Human vs Human collision now works** - Both players blocked from walking through opponents
+
+---
+
+## Remaining Issue: Visual Flicker
+
+### Root Cause Analysis
+
+**Problem**: Non-coordinator sprite flicker during multiplayer
 
 **Technical Details**:
-- Coordinator broadcasts at 20 Hz (50ms intervals)
-- Non-coordinator reconciles at 20 Hz (50ms intervals)
-- Non-coordinator renders at 20 FPS (50ms per frame)
-- **Perfect sync = phase misalignment oscillation**
+- Perfect timing alignment creates resonance jitter
+- Coordinator broadcasts at ~20 Hz, client reconciles at ~12 Hz (83ms)  
+- Visual guard helps but doesn't eliminate all flicker
 
 **The Mechanism**:
 ```
-T=0ms:   Frame renders, reads fresh state (0ms old)
-T=50ms:  Frame renders, reads state (could be 0-50ms old)
-T=100ms: Frame renders, reads state (could be 0-50ms old)
-
-Result: Alternating between smooth interpolation and snap corrections
-Visual: Constant micro-jitter/judder
+T=0ms:   Client predicts movement
+T=83ms:  Server correction arrives, visual guard may suppress
+T=166ms: Large corrections still visible as flicker
 ```
 
-**Amplifying Factors**:
-1. `smoothFactor = 0.95` creates slow drift → sudden snap oscillation
-2. Integer rounding on float interpolation creates visible "pops"
-3. 2-unit snap threshold at basketball scale (2.5% of court) too sensitive
-4. No client-side prediction for other sprites (only own sprite predicted)
+**Contributing Factors**:
+1. Court redraws every frame in multiplayer vs rarely in single-player
+2. Sprite z-order and frame cycling timing issues
+3. Partial sprite flickering suggests frame overlap problems
 
 ### Recommended Solution: Option B (1 hour)
 
@@ -67,203 +119,55 @@ var smoothFactor = 1.0; // Was 0.95, now instant snap
 
 ---
 
-## Finding #2: Coordinator Halftime Mystery
-
-### Current Understanding
-
-**Symptom**: Coordinator doesn't see halftime screen  
-**Non-coordinator**: Halftime works correctly (after Wave 24 fix)
-
-### Code Flow Verified
-
-1. `game-loop-core.js:113` - Authority detects halftime, returns "halftime"
-2. `nba_jam.js:896` - Main loop receives "halftime", calls `showHalftimeScreen()`
-3. `halftime.js:15` - Broadcasts halftime event to clients
-4. `halftime.js:36-69` - Renders halftime screen
-5. `halftime.js:71-95` - Waits for user input (while loop)
-
-### Eliminated Hypotheses
-
-❌ **Auto-advance**: `allCPUMode` is `false` in multiplayer (line 723 nba_jam.js)  
-❌ **Broadcast order**: Broadcast happens first, then render (correct order)  
-❌ **Missing function call**: `runGameFrame()` correctly returns "halftime"
-
-### Remaining Hypothesis
-
-**Screen renders but gets immediately overwritten by main loop**
-
-**Theory**: After `showHalftimeScreen()` returns (user presses SPACE), line 899-905 of nba_jam.js continues:
-```javascript
-if (result === "halftime") {
-    showHalftimeScreen(systems);
-    if (!stateManager.get("gameRunning")) break; // User quit during halftime
-
-    // Reset for second half
-    if (stateManager.get("pendingSecondHalfInbound")) {
-        startSecondHalfInbound(systems);
-    }
-    drawCourt(systems);
-    drawScore(systems);
-    stateManager.set("lastSecondTime", Date.now(), "halftime_reset");
-    continue; // ← Back to main loop
-}
-```
-
-**Potential Issue**: Maybe coordinator never enters the `showHalftimeScreen()` input loop?
-
-### Debugging Plan
-
-**Step 1: Add Debug Logging** (5 minutes)
-```javascript
-// lib/ui/halftime.js
-
-function showHalftimeScreen(systems) {
-    debugLog("[HALFTIME] === showHalftimeScreen() CALLED ===");
-    var stateManager = systems.stateManager;
-    
-    debugLog("[HALFTIME] mpCoordinator check: " + !!(mpCoordinator && mpCoordinator.isCoordinator));
-    debugLog("[HALFTIME] allCPUMode: " + stateManager.get('allCPUMode'));
-    
-    stateManager.set("isHalftime", true, "halftime_start");
-
-    // Broadcast
-    if (mpCoordinator && mpCoordinator.isCoordinator) {
-        debugLog("[HALFTIME] Coordinator broadcasting event");
-        // ... broadcast code ...
-    }
-
-    // Render
-    debugLog("[HALFTIME] Rendering screen...");
-    // ... render code ...
-
-    // Input loop
-    var halftimeStart = Date.now();
-    var allCPUMode = stateManager.get('allCPUMode');
-    var autoAdvance = !!allCPUMode;
-    
-    debugLog("[HALFTIME] Entering input loop, autoAdvance=" + autoAdvance);
-    
-    while (true) {
-        var key = console.inkey(K_NONE, 100);
-        
-        if (key && key.length > 0) {
-            debugLog("[HALFTIME] Key pressed: " + key.toUpperCase());
-            // ... handle key ...
-        } else if (autoAdvance && (Date.now() - halftimeStart) >= 10000) {
-            debugLog("[HALFTIME] Auto-advance triggered");
-            break;
-        }
-        
-        // Periodic heartbeat log
-        if ((Date.now() - halftimeStart) % 5000 < 100) {
-            debugLog("[HALFTIME] Still waiting for input, elapsed: " + (Date.now() - halftimeStart) + "ms");
-        }
-    }
-    
-    debugLog("[HALFTIME] Exiting halftime screen");
-    // ... cleanup ...
-}
-```
-
-**Step 2: Test with Short Game** (10 minutes)
-1. Set game time to 10 seconds: `stateManager.set("totalGameTime", 10, "debug_test");`
-2. Run multiplayer as coordinator
-3. Wait for halftime (5 seconds)
-4. Monitor terminal and `tail -f debug.log`
-
-**Step 3: Analyze Logs** (5 minutes)
-- Does `showHalftimeScreen()` get called?
-- Does input loop execute?
-- What triggers loop exit?
-- Check timestamps
-
-**Step 4: Apply Fix** (10-30 minutes based on findings)
-
 ---
 
 ## Action Plan
 
-### Immediate (Do Now)
+### Immediate Focus: Flicker Issue Only
 
-**Option 1: Fix Flicker First** (Low-hanging fruit)
-- Edit `mp_client.js` lines 116 and 398
-- Test in multiplayer
-- ~1 hour total
+**Current Status**: Halftime bug resolved ✅
 
-**Option 2: Debug Halftime First** (More mysterious)
-- Add logging to `halftime.js`
-- Test with short game time
-- Analyze and fix
-- ~30-60 minutes
-
-**Recommendation**: Start with halftime debug (might be trivial fix), then tackle flicker
+**Remaining Work**: Address multiplayer sprite flicker for non-coordinator players
 
 ### Testing Sequence
 
-1. **Halftime Debug**:
-   - Add logs
-   - Test coordinator behavior
-   - Verify non-coordinator still works
-   - Apply fix if needed
+1. **Analyze Current Flicker State**:
+   - Review existing Wave 24 fixes (timing jitter, visual guards, adaptive smoothing)
+   - Identify what reverted changes need to be re-examined
+   - Test current flicker severity in multiplayer
 
-2. **Flicker Fix** (Option B):
-   - Change 2 lines in mp_client.js
-   - Test multiplayer (fast movement)
-   - Measure improvement (count pops)
-   - If insufficient, try Option C
-
-3. **Regression Test**:
-   - Single-player (unaffected)
-   - Multiplayer coordinator
-   - Multiplayer non-coordinator
-   - AI behavior
-   - Network lag simulation
+2. **Regression Test**:
+   - Single-player (should be unaffected)
+   - Multiplayer coordinator (should be smooth)
+   - Multiplayer non-coordinator (experiencing flicker)
+   - AI behavior during flicker
+   - Network lag impact on flicker
 
 ### Fallback Plans
 
-**If Option B doesn't fix flicker**:
-- Try Option C (adaptive smoothing): 2-3 hours
-- Measure again
-- If still bad, consider Option D or A
-
-**If halftime bug is deep**:
-- May need to refactor halftime/multiplayer interaction
-- Estimated: 1-2 hours max
+**If current sophisticated fixes aren't working**:
+- May need fundamental architectural approach
+- Consider alternative reconciliation strategies
+- Examine prediction vs authority timing gaps
 
 ---
 
-## Estimated Total Time
+## Estimated Time Focus
 
-**Optimistic** (both quick fixes work):
-- Halftime debug + fix: 30 minutes
-- Flicker Option B: 1 hour
-- Testing: 30 minutes
-- **Total: 2 hours**
-
-**Realistic** (one issue needs iteration):
-- Halftime debug + fix: 1 hour
-- Flicker Option B → Option C: 3 hours
-- Testing: 30 minutes
-- **Total: 4.5 hours**
-
-**Pessimistic** (both need deep fixes):
-- Halftime refactor: 2 hours
-- Flicker full prediction: 6 hours
-- Testing: 1 hour
-- **Total: 9 hours**
+**Focused on flicker only**:
+- Analysis of current state: 1 hour
+- Testing and measurement: 1 hour  
+- Implementation of refined fix: 2-4 hours
+- **Total: 4-6 hours**
 
 ---
 
 ## Recommendation to User
 
-**Start with halftime debug** - Add logging first, test, analyze. This is likely a quick fix and will build confidence.
+**Focus entirely on flicker** - Halftime is resolved, so all energy can go toward the sprite synchronization issue.
 
-**Then tackle flicker** - Try Option B (simple change). If it works, huge win. If not, we have Options C/D/A ready.
-
-**Total investment**: 2-4 hours for both issues (likely)
+**Approach**: Start with measuring current flicker severity, then work systematically through the existing Wave 24 fixes to see what's not working as intended.
 
 **Defer to Wave 25**:
 - Trail animations (4-6 hours)
 - Overtime system (6-10 hours)
-
-**Next user interaction**: After completing both fixes, report results and move to trails/overtime planning.

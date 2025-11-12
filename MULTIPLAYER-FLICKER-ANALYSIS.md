@@ -1,29 +1,58 @@
-# Multiplayer Non-Coordinator Flicker Analysis
+# Multiplayer Non-Coordinator Flicker Analysis (Wave 24 Update)
 
 ## Problem Statement
 
-**Symptom**: Non-coordinator sees constant sprite flicker/judder during multiplayer gameplay  
-**Observation**: Coordinator's view is flawless, non-coordinator experience is degraded  
-**Impact**: Makes game uncomfortable to play as non-coordinator client  
-**Age**: Old debt from pre-Wave23 blocking architecture  
+**Symptom**: Non-coordinator sees their own sprite flicker/judder, especially after a game state reset (inbound, violation).
+**Observation**: The flicker is not present at the start of the game but begins after the first major state reset.
+**User Insight**: "When we are in a startup state it doesn't happen, if we can get from our broken state back to that one, the flicker would be gone."
+**Impact**: Makes game uncomfortable to play as non-coordinator client.
 
 ---
 
-## Root Cause Analysis
+## Root Cause Analysis (Post-Wave 24 Debugging)
+
+The initial analysis (below) focused on reconciliation frequency and smoothing, but extensive debugging has revealed the root cause is more nuanced and relates to **incomplete client state resets**.
+
+### The Core Problem: Corrupted Prediction State
+
+The client-side prediction system (`PlayerClient` in `mp_client.js`) maintains a complex internal state:
+- `pendingInputs`: A buffer of inputs applied locally but not yet confirmed by the server.
+- `visualGuard`: Logic to prevent small, immediate server corrections from overwriting recent predictions.
+- `lastServerFrame`: The last server frame processed.
+- And more...
+
+**The Bug**: When the server forces a major game state change (like setting up for an inbound pass), the client's prediction state is not being **fully and perfectly reset**.
+
+**How it happens:**
+1.  **Game Start**: The `PlayerClient` is in a clean, "startup state". Prediction and reconciliation work correctly.
+2.  **Gameplay**: The player moves, `pendingInputs` accumulates, and `visualGuard` state is actively managed.
+3.  **Inbound Play**: The server makes a basket. It authoritatively moves the player sprite to the baseline. It sends a state packet with `inbounding: true` and the player's new `x, y` coordinates.
+4.  **Client Receives State**: The client snaps the player sprite to the new position.
+5.  **INCOMPLETE RESET**: The `resetPredictionState` function is called, but it fails to clear *all* the latent state from before the inbound. For example, it might not clear `pendingInputs` or fully reset the `visualGuard` object.
+6.  **Post-Reset Flicker**: The player tries to move. The client applies a new prediction. However, the reconciliation logic is now operating with corrupted state. It might try to re-apply an old input from *before* the inbound, or the `visualGuard` might incorrectly suppress a valid server correction.
+7.  **Result**: The client is now in a permanent desync loop. It predicts a move, the server corrects it, but the correction is either wrong or is fighting with stale prediction data. This causes the sprite to flicker between its predicted position and the server's authoritative position.
+
+**Architectural Analogy**: It's like trying to fix a running engine by just resetting the spark plugs. If the pistons are in the wrong position, the engine will immediately seize again. We need to stop the engine, reset everything to top-dead-center, and then restart. `resetPredictionState` is our attempt to get to top-dead-center, and it's failing.
+
+---
+
+## Previous Analysis (Still Relevant but Not the Root Cause)
+
+The following points describe symptoms of the problem, not the cause. The jitter and smoothing issues are exacerbated by the underlying state corruption.
 
 ### Timing Mismatch: Game Loop vs State Updates
 
 **Game Loop (Non-Coordinator)**:
-- Frame Rate: 20 FPS (50ms per frame) - Line 883 in nba_jam.js
+- Frame Rate: 20 FPS (50ms per frame)
 - Every frame: `runGameFrame()` → `playerClient.update()` → reconciliation
 
 **State Broadcast (Coordinator)**:
-- Broadcast Rate: 20 Hz (50ms interval) - Line 39 in mp_coordinator.js  
+- Broadcast Rate: 20 Hz (50ms interval)
 - Every 50ms: `coordinator.update()` → `broadcastState()` via Queue
 
 **State Consumption (Non-Coordinator)**:
-- Check Interval: 20 Hz (50ms) - Line 116 in mp_client.js
-- Throttled reconciliation: `if (now - this.lastStateCheck >= 50ms)`
+- Check Interval: ~12 Hz (83ms)
+- Throttled reconciliation: `if (now - this.lastStateCheck >= 83ms)`
 
 ### The Problem: Perfect Alignment = Guaranteed Jitter
 
@@ -47,345 +76,51 @@ The Problem:
 Result: Constant back-and-forth between "smooth interpolation" and "snap to latest"
 ```
 
-### Smoothing Factor Amplifies Jitter
-
-From `mp_client.js:398`:
-```javascript
-var smoothFactor = 0.95; // High value for less visible jumping
-```
-
-**What it does**:
-```javascript
-nextX = currentX + deltaX * 0.95;
-```
-
-**The paradox**:
-- Smooth factor tries to reduce jumping by interpolating slowly
-- BUT this creates MORE visible jitter because:
-  1. Small deltas (< 2 units) get smoothed → slow drift
-  2. Large deltas (≥ 2 units) snap immediately → sudden jump
-  3. Alternating between smooth/snap every frame = flicker
-
-**Example**:
-```
-Server says: X=10
-Client at X=8
-Delta = 2 units
-
-Frame 1: nextX = 8 + (2 * 0.95) = 9.9 ≈ 10 (rounds, snaps)
-Frame 2: Server still says X=10, client now at X=10, delta=0 (smooth)
-Frame 3: Server updated to X=11, delta=1 (smoothed to 10.95 ≈ 11)
-Frame 4: Server at X=12, client at X=11, delta=1 (smoothed to 11.95 ≈ 12)
-
-Visual: Smooth, smooth, SNAP, smooth, smooth, SNAP... = flicker
-```
-
 ---
 
-## Contributing Factors
+## Recommended Solution (Based on New Understanding)
 
-### 1. Integer Rounding
+The priority is no longer about tuning frequencies, but about ensuring a **perfect, complete, "hard" reset** of the client's prediction state.
 
-Sprites use integer coordinates, but interpolation uses floats:
-```javascript
-var nextX = currentX + deltaX * 0.95;  // Float
-sprite.moveTo(Math.round(nextX), Math.round(nextY));  // Rounds to int
-```
+### Action Plan: Comprehensive `resetPredictionState` Audit
 
-**Problem**: 
-- `nextX = 9.9` rounds to 10 (snap)
-- `nextX = 9.4` rounds to 9 (stays)
-- Creates visible "pop" when crossing .5 threshold
+**Goal**: Make `resetPredictionState` functionally equivalent to creating a `new PlayerClient()`.
 
-### 2. Threshold Logic Inconsistency
+**Implementation Steps**:
+1.  **Audit `PlayerClient` Constructor**: Go through `mp_client.js` and list every single property initialized in the `PlayerClient` object.
+    - `this.pendingInputs = []`
+    - `this.lastServerFrame = 0`
+    - `this.visualGuard = { ... }` (and all its sub-properties)
+    - `this.authoritativeCatchupFrames = 0`
+    - `this.lastInbounding = false`
+    - etc.
+2.  **Audit `resetPredictionState`**: Compare the list from step 1 to the properties currently being reset in `resetPredictionState`.
+3.  **Implement Missing Resets**: Add assignments to `resetPredictionState` for every single property that is initialized in the constructor but is not currently being reset. The goal is to make the two identical.
+4.  **Test**: Trigger an inbound play in multiplayer and confirm that the flicker is gone *and stays gone* for the rest of the game.
 
-From `mp_client.js:452-469`:
-```javascript
-if (absDx < 0.001 && absDy < 0.001) {
-    // Already there, snap
-    nextX = targetX;
-} else if (absDx >= 2 || absDy >= 2) {
-    // Large delta, snap immediately
-    nextX = targetX;
-} else if (lastAuthX === targetX && lastAuthY === targetY) {
-    // Server hasn't moved, snap to stop drift
-    nextX = targetX;
-} else {
-    // Small delta, interpolate
-    nextX = currentX + deltaX * smoothFactor;
-}
-```
-
-**Problem**:
-- Threshold at 2 units is arbitrary
-- At basketball court scale (80x18), 2 units = 2.5% of court width
-- Players moving at 1.5 units/frame get smoothed
-- Players moving at 2.1 units/frame snap
-- Creates visual "gear shift" effect
-
-### 3. Frame Rate Parity Creates Resonance
-
-- Non-coordinator: 20 FPS (50ms frame time)
-- Coordinator broadcast: 20 Hz (50ms interval)
-- **Perfect alignment** means phase relationship varies:
-  - Sometimes frame reads right after broadcast (fresh data)
-  - Sometimes frame reads right before broadcast (stale data)
-  - Creates oscillating behavior
-
-### 4. No Prediction for Other Players
-
-Non-coordinator uses **pure reconciliation** for other sprites:
-- Waits for server state
-- Interpolates toward last known position
-- No extrapolation or prediction
-
-**Contrast with own sprite**:
-- Non-coordinator predicts own movement locally
-- Smooth because prediction fills gaps between updates
-- Other sprites don't get this treatment
-
----
-
-## Why Coordinator is Flawless
-
-1. **Authority**: Coordinator runs game logic locally (no reconciliation)
-2. **Immediate**: Sprites move as soon as logic runs (no network delay)
-3. **Consistent**: No state broadcast affects local sprites
-4. **No Smoothing**: Direct position updates, no interpolation
-
----
-
-## Proposed Solutions
-
-### Option A: Client-Side Prediction for All Sprites (4-6 hours)
-
-**Concept**: Non-coordinator predicts movement for all sprites between state updates
-
-**Implementation**:
-```javascript
-// Store velocity for each sprite
-sprite.predictedVelocity = { dx: 0, dy: 0 };
-
-// On state update, calculate velocity
-var velocity = {
-    dx: (newX - oldX) / timeDelta,
-    dy: (newY - oldY) / timeDelta
-};
-
-// Every frame between updates, extrapolate
-if (timeSinceLastUpdate < 100ms) {
-    sprite.x += velocity.dx * frameDelta;
-    sprite.y += velocity.dy * frameDelta;
-}
-
-// When new state arrives, blend prediction with truth
-```
-
-**Pros**:
-- Smooth movement between state updates
-- Handles variable network latency
-- Industry-standard technique (Source engine, etc.)
-
-**Cons**:
-- Complex implementation
-- Can overshoot if player suddenly stops
-- Requires velocity tracking per sprite
-- May predict wrong direction during rapid turns
-
-**Risk**: High complexity, potential for new artifacts
-
----
-
-### Option B: Reduce Reconciliation Frequency (1 hour) ⭐ **RECOMMENDED**
-
-**Concept**: Update less often, but commit fully to each update
-
-**Current**: Check every 50ms, interpolate with 0.95 smoothing  
-**Proposed**: Check every 100ms (10 Hz), snap immediately (no smoothing)
-
-**Implementation**:
-```javascript
-// mp_client.js line 116
-this.stateCheckInterval = 100; // Was 50ms, now 100ms (10 Hz)
-
-// mp_client.js line 398
-var smoothFactor = 1.0; // Was 0.95, now instant snap
-```
-
-**Why this works**:
-- Fewer updates = less frequent judder
-- Immediate snap = no oscillating interpolation
-- 10 Hz still feels responsive (many games use 10-15 Hz)
-- Simple change, low risk
-
-**Trade-off**:
-- Slightly less smooth during fast movement
-- More "steppy" appearance
-- But eliminates constant micro-jitter
-
-**Pros**:
-- 5-minute change
-- Low risk
-- Proven approach (many MP games use 10-15 Hz)
-
-**Cons**:
-- Sacrifices some smoothness for stability
-- May feel slightly more "networked"
-
----
-
-### Option C: Adaptive Smoothing Based on Delta (2-3 hours)
-
-**Concept**: Use different smoothing for different movement speeds
-
-**Implementation**:
-```javascript
-// Calculate speed-based smoothing
-var deltaDistance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-
-var smoothFactor;
-if (deltaDistance < 0.5) {
-    smoothFactor = 1.0; // Tiny delta, snap immediately
-} else if (deltaDistance < 1.5) {
-    smoothFactor = 0.8; // Small delta, moderate smoothing
-} else if (deltaDistance < 3) {
-    smoothFactor = 0.6; // Medium delta, light smoothing
-} else {
-    smoothFactor = 1.0; // Large delta, snap immediately
-}
-
-nextX = currentX + deltaX * smoothFactor;
-```
-
-**Pros**:
-- Smooth during constant-speed movement
-- Snap during rapid changes
-- No prediction complexity
-
-**Cons**:
-- Still has rounding artifacts
-- More complex than Option B
-- May still have gear-shift effect
-
----
-
-### Option D: Dead Reckoning with Steering (3-4 hours)
-
-**Concept**: Extrapolate linearly, steer toward truth
-
-**Implementation**:
-```javascript
-// Dead reckon every frame
-sprite.x += sprite.lastVelocity.dx;
-sprite.y += sprite.lastVelocity.dy;
-
-// When state arrives, steer toward it over next 100ms
-var errorX = serverX - sprite.x;
-var errorY = serverY - sprite.y;
-sprite.x += errorX * 0.1; // Correct 10% per frame
-sprite.y += errorY * 0.1;
-```
-
-**Pros**:
-- Smooth between updates
-- Gradual error correction
-- Handles acceleration
-
-**Cons**:
-- Requires velocity tracking
-- Can drift during stops/turns
-- Complex state management
-
----
-
-### Option E: Increase Broadcast Rate (30 minutes) ⚠️ **NOT RECOMMENDED**
-
-**Concept**: Broadcast state more often (40 Hz instead of 20 Hz)
-
-**Why not**:
-- Doubles network bandwidth
-- May saturate slow connections
-- Doesn't fix fundamental problem
-- Just makes jitter faster (less visible but still present)
-
-**Only viable if**: Network capacity is abundant
-
----
-
-## Recommended Approach
-
-### Phase 1: Quick Win (1 hour)
-**Implement Option B**: Reduce reconciliation frequency to 100ms, remove smoothing
-
-**Changes**:
-1. `mp_client.js` line 116: `stateCheckInterval = 100`
-2. `mp_client.js` line 398: `smoothFactor = 1.0`
-3. Test in multiplayer
-
-**Expected result**: Less frequent but more stable position updates
-
-### Phase 2: If Still Problematic (2-3 hours)
-**Implement Option C**: Adaptive smoothing based on movement speed
-
-### Phase 3: If Perfect Smoothness Required (4-6 hours)
-**Implement Option A**: Full client-side prediction with dead reckoning
+**Why this will work**:
+- It directly addresses the user's core insight: "get from our broken state back to [the startup] one".
+- It purges any and all latent state that could be corrupting the prediction/reconciliation cycle.
+- It creates a reliable mechanism to recover from any potential future desync, not just the current one.
 
 ---
 
 ## Testing Plan
 
-### Baseline Test (Current State)
-1. Start multiplayer game
-2. Non-coordinator: Watch opposing sprites during movement
-3. **Measure**: Count visible "pops" per 10 seconds
-4. **Current**: Likely 5-10 pops/10sec
+### Test Case 1: Inbound After Made Basket
+1. Start multiplayer game as non-coordinator.
+2. Confirm there is no flicker during initial gameplay.
+3. Score a basket.
+4. After the inbound play starts, move the character.
+5. **Expected Result**: The character moves smoothly with no flicker.
 
-### Option B Test (100ms reconciliation)
-1. Apply changes (2 lines)
-2. Restart multiplayer game
-3. **Measure**: Count visible pops per 10 seconds
-4. **Expected**: 1-2 pops/10sec (80% reduction)
+### Test Case 2: Inbound After Violation
+1. Start multiplayer game as non-coordinator.
+2. Commit a backcourt violation.
+3. After the inbound play starts, move the character.
+4. **Expected Result**: The character moves smoothly with no flicker.
 
 ### Success Criteria
-- Non-coordinator gameplay feels comfortable
-- Sprites move without constant micro-adjustments
-- Fast movement still feels responsive
-- Network lag doesn't cause rubber-banding
-
----
-
-## Architecture Notes
-
-### Why This Wasn't Fixed Pre-Wave23
-
-Old blocking architecture had different problems:
-- Entire game loop blocked on network I/O
-- Frame rate varied wildly based on network
-- Jitter was masked by other performance issues
-- Non-blocking refactor exposed the reconciliation issue
-
-### Wave 23 Non-Blocking Benefits
-
-- Consistent 20 FPS on both clients
-- Network delays don't freeze game
-- Clean separation of authority/prediction
-- **Trade-off**: Now we see reconciliation artifacts clearly
-
-### Future Enhancements
-
-If Option B doesn't fully solve it:
-1. Add velocity smoothing (Option D)
-2. Implement full prediction (Option A)
-3. Add lag compensation for hit detection
-4. Smart reconciliation (only update when meaningful change)
-
----
-
-## Estimated Time Investment
-
-- **Option B** (Recommended): 1 hour (30 min implementation + 30 min testing)
-- **Option C** (Fallback): 2-3 hours  
-- **Option A** (Nuclear): 4-6 hours
-- **Analysis complete**: Already done ✅
-
-**Next Step**: Try Option B, evaluate, iterate if needed.
+- Flicker does not appear after the first, second, or any subsequent game state reset.
+- The game feels as smooth in the second half as it does at the start of the first half.
+- The `debug.log` shows `[MP CLIENT] Resetting prediction state` at the start of each inbound, and no subsequent reconciliation snap messages for the player's own sprite.
