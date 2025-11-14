@@ -26,21 +26,55 @@ function initFrames(systems) {
         console.clear();
     }
 
-    announcerFrame = new Frame(1, 1, 80, 1, LIGHTGRAY | BG_BLACK);
-    courtFrame = new Frame(1, 2, COURT_WIDTH, COURT_HEIGHT, WHITE | WAS_BROWN);
+    FrameManager.define("announcer", function () {
+        var frame = new Frame(1, 1, 80, 1, LIGHTGRAY | BG_BLACK);
+        frame.open();
+        return frame;
+    });
 
-    // Create transparent trail overlay at same position as courtFrame (not as child)
-    trailFrame = new Frame(1, 2, COURT_WIDTH, COURT_HEIGHT, 0);
-    trailFrame.transparent = true;
+    FrameManager.define("court", function () {
+        var frame = new Frame(1, 2, COURT_WIDTH, COURT_HEIGHT, WHITE | WAS_BROWN);
+        frame.open();
+        return frame;
+    });
+
+    FrameManager.define("trail", function () {
+        var frame = new Frame(1, 2, COURT_WIDTH, COURT_HEIGHT, 0);
+        frame.transparent = true;
+        frame.open();
+        frame.top();
+        return frame;
+    });
+
+    FrameManager.define("leftHoop", function () {
+        var frame = new Frame(BASKET_LEFT_X - 2, BASKET_LEFT_Y, 5, 3, BG_BLACK);
+        frame.transparent = true;
+        frame.open();
+        frame.top();
+        return frame;
+    });
+
+    FrameManager.define("rightHoop", function () {
+        var frame = new Frame(BASKET_RIGHT_X - 2, BASKET_RIGHT_Y, 5, 3, BG_BLACK);
+        frame.transparent = true;
+        frame.open();
+        frame.top();
+        return frame;
+    });
 
     cleanupScoreFrames();
-    scoreFrame = new Frame(1, COURT_HEIGHT + 2, 80, 5, LIGHTGRAY | BG_BLACK);
+    FrameManager.define("scoreboard", function () {
+        var frame = new Frame(1, COURT_HEIGHT + 2, 80, 5, LIGHTGRAY | BG_BLACK);
+        frame.open();
+        return frame;
+    });
 
-    announcerFrame.open();
-    courtFrame.open();
-    trailFrame.open();  // Open trail overlay on top of court
-    trailFrame.top();   // Ensure trails are drawn on top
-    scoreFrame.open();
+    var trailFrameInstance = FrameManager.ensure("trail");
+    FrameManager.ensure("announcer");
+    FrameManager.ensure("court");
+    FrameManager.ensure("leftHoop");
+    FrameManager.ensure("rightHoop");
+    FrameManager.ensure("scoreboard");
     ensureScoreFontLoaded();
 
     ensureBallFrame(40, 10);
@@ -48,9 +82,10 @@ function initFrames(systems) {
 
     // Wave 23D: Verify trail frame initialized
     if (typeof debugLog === "function") {
-        debugLog("[INIT] trailFrame initialized: " + (trailFrame ? "YES" : "NO") +
-            ", transparent=" + (trailFrame ? trailFrame.transparent : "N/A") +
-            ", open=" + (trailFrame && trailFrame.is_open ? "YES" : "NO"));
+        var status = FrameManager.status().trail || {};
+        debugLog("[INIT] trailFrame initialized: " + (trailFrameInstance ? "YES" : "NO") +
+            ", transparent=" + (trailFrameInstance ? trailFrameInstance.transparent : "N/A") +
+            ", open=" + (status.isOpen ? "YES" : "NO"));
     }
 }
 
@@ -85,6 +120,10 @@ function cleanupSprites() {
     }
     if (ballFrame) ballFrame.close();
 
+    // Close hoop frames
+    if (leftHoopFrame) leftHoopFrame.close();
+    if (rightHoopFrame) rightHoopFrame.close();
+
     teamAPlayer1 = null;
     teamAPlayer2 = null;
     teamBPlayer1 = null;
@@ -109,9 +148,20 @@ function gameLoop(systems) {
         stateManager.set("lastUpdateTime", Date.now(), "game_loop_start");
         stateManager.set("lastSecondTime", Date.now(), "game_loop_start");
         stateManager.set("lastAIUpdateTime", Date.now(), "game_loop_start");
+        stateManager.set("lastHudUpdateTime", Date.now(), "game_loop_start");
         clearPotentialAssist(systems);
 
         var tempo = getSinglePlayerTempo();
+
+        // Reopen hoop frames for new game (closed by cleanupSprites between games)
+        if (leftHoopFrame && !leftHoopFrame.is_open) {
+            leftHoopFrame.open();
+            leftHoopFrame.top();
+        }
+        if (rightHoopFrame && !rightHoopFrame.is_open) {
+            rightHoopFrame.open();
+            rightHoopFrame.top();
+        }
 
         // Initial draw
         drawCourt(systems);
@@ -150,6 +200,7 @@ function gameLoop(systems) {
                 stateManager.set("lastUpdateTime", Date.now(), "halftime_reset");
                 stateManager.set("lastSecondTime", Date.now(), "halftime_reset");
                 stateManager.set("lastAIUpdateTime", Date.now(), "halftime_reset");
+                stateManager.set("lastHudUpdateTime", Date.now(), "halftime_reset");
                 continue;
             }
 
@@ -260,7 +311,8 @@ function runCPUDemo(systems) {
             },
             constants: {
                 COURT_WIDTH: COURT_WIDTH,
-                COURT_HEIGHT: COURT_HEIGHT
+                COURT_HEIGHT: COURT_HEIGHT,
+                PLAYER_BOUNDARIES: typeof PLAYER_BOUNDARIES !== "undefined" ? PLAYER_BOUNDARIES : null
             }
         });
         resetGameState({ allCPUMode: true }, systems);
@@ -271,8 +323,11 @@ function runCPUDemo(systems) {
         stateManager.set("totalGameTime", DEMO_GAME_SECONDS, "demo_init");
         stateManager.set("currentHalf", 1, "demo_init");
 
-        // Show matchup screen with betting enabled
-        var bettingSlip = showMatchupScreen(true);
+        // Show splash screen (same as single-player)
+        showSplashScreen(systems, null, null);
+
+        // Show matchup screen (betting enabled for demo spectators)
+        var bettingSlip = showMatchupScreen(true, systems, null, null);
 
         // Display "DEMO MODE" message
         announce("DEMO MODE - Press Q to exit", YELLOW, systems);
@@ -283,7 +338,7 @@ function runCPUDemo(systems) {
 
         // After game ends, show betting results if user placed bets
         if (bettingSlip && typeof showBettingResults === "function") {
-            var gameResults = collectGameResults(redTeamKey, blueTeamKey);
+            var gameResults = collectGameResults(redTeamKey, blueTeamKey, systems);
             showBettingResults(bettingSlip, gameResults);
         }
 
@@ -360,7 +415,8 @@ function main() {
         },
         constants: {
             COURT_WIDTH: COURT_WIDTH,
-            COURT_HEIGHT: COURT_HEIGHT
+            COURT_HEIGHT: COURT_HEIGHT,
+            PLAYER_BOUNDARIES: typeof PLAYER_BOUNDARIES !== "undefined" ? PLAYER_BOUNDARIES : null
         }
     });
 
@@ -572,6 +628,16 @@ function main() {
         showMatchupScreen(false, systems, mpScreenCoordinator, myId.globalId);
 
         debugLog("[MP INIT] After matchup screen, drawing court before game loop");
+
+        // Reopen hoop frames for new game (closed by cleanupSprites between games)
+        if (leftHoopFrame && !leftHoopFrame.is_open) {
+            leftHoopFrame.open();
+            leftHoopFrame.top();
+        }
+        if (rightHoopFrame && !rightHoopFrame.is_open) {
+            rightHoopFrame.open();
+            rightHoopFrame.top();
+        }
 
         // Draw court AFTER matchup screen ends (like single-player does)
         // matchup screen calls console.clear() which wipes frame content

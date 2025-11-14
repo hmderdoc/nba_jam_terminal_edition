@@ -16,51 +16,10 @@ Provides mocking utilities for unit testing game logic in isolation:
 Individual tests:
 ```bash
 cd /sbbs/repo/xtrn/nba_jam/lib/testing
-/sbbs/exec/jsexec test-jumpshot-rebound-bug.js
-/sbbs/exec/jsexec test-dunk-loop-bug.js
 /sbbs/exec/jsexec test_rebound_flow.js
 ```
 
-All tests:
-```bash
-/sbbs/exec/jsexec run-all-tests.js
-```
-
 ## Bug Reproductions
-
-### test-jumpshot-rebound-bug.js
-**Problem**: Jump shots in multiplayer coordinator mode never trigger rebound scrambles, causing 24-second violations.
-
-**Root Cause**: 
-- `executeShot()` sets `gameState.reboundActive = true` on miss (dunks.js:1008)
-- Coordinator path checks `if (!gameState.reboundActive)` before calling `createRebound()` (shooting.js:545)
-- This is inverted logic - the condition is always false after `executeShot()` returns
-
-**Fix**: Remove the conditional check and unconditionally call `createRebound()` after missed shots
-
-**Test Output**:
-```
-TEST 1: executeShot() sets reboundActive but doesn't call createRebound()
-  ✅ Bug reproduced: executeShot() sets reboundActive but not reboundScramble.active
-
-TEST 2: Coordinator path logic with current (buggy) code
-  ✅ Bug confirmed: Logic is inverted
-
-TEST 3: Demonstrating the fix
-  ✅ FIX WORKS: reboundScramble.active is now true!
-```
-
-### test-dunk-loop-bug.js
-**Problem**: Players repeatedly attempt dunks without clearing ball carrier state, causing infinite loops.
-
-**Root Cause**:
-- `animateDunk()` doesn't clear `gameState.ballCarrier` on missed dunks
-- AI sees player still has possession and immediately tries another dunk
-- Results in player looping dunk attempts infinitely
-
-**Fix**: Clear `gameState.ballCarrier = null` when `!made` in animateDunk()
-
-**Code Location**: `lib/game-logic/dunks.js` lines 755-758
 
 ### test_rebound_flow.js
 **Purpose**: Validates the complete rebound state machine works correctly.

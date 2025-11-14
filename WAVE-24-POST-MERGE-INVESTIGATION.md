@@ -16,7 +16,7 @@
 **Problem**: Collision guard was too restrictive, causing players to get stuck or unable to move around defenders
 
 **Root Causes Fixed**:
-1. **Key code handling bug** - `calculateNextCoords()` wasn't properly handling KEY_LEFT, KEY_RIGHT, etc.
+1. **Key code handling bug** - the old `calculateNextCoords()` preview helper wasn't properly handling KEY_LEFT/RIGHT/UP/DOWN. This path now uses the shared `previewMovementCommand()` from `movement-physics`, so the client and authority stay in lockstep.
 2. **Wrong data source** - Collision guard was looking for non-existent player data instead of actual sprites
 3. **Threshold too strict** - `dx < 2 && dy < 2` was blocking legitimate movement
 4. **Missing team filtering** - Should only check opponent collisions, not teammates
@@ -25,10 +25,12 @@
 ```javascript
 // lib/multiplayer/mp_client.js
 
-// Fixed key handling in calculateNextCoords()
-if (typeof KEY_LEFT !== 'undefined' && direction === KEY_LEFT) {
-    nx -= speed;
-} // etc.
+// Use shared preview helper so key handling stays authoritative
+var previewResult = previewMovementCommand(this.mySprite, key);
+var nextCoords = {
+    x: previewResult.attemptedX,
+    y: previewResult.attemptedY
+};
 
 // Use actual sprite positions instead of phantom player data
 var allPlayers = spriteRegistry.getAllPlayers();
