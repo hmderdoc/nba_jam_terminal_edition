@@ -56,3 +56,9 @@ Prioritize the following items ahead of feature work. Each section outlines the 
 | Sprite globals cleanup | | Not Started |  |
 
 Update the Status/Notes columns as work progresses.
+
+---
+
+### Notes & Lessons
+
+- **Animation hint pipeline (Idea #6)**: Initial attempt (coordinator → client hints + prediction inhibition) introduced regressions in inbound flow (stuck pass animations, NaN inbounder coords, CPU freezes). Before revisiting, we need a dedicated design (separate branch, tests for inbound/violation/CPU modes) so core gameplay isn’t disrupted. Future work should stage hints behind feature flags and guard inbound data more aggressively.

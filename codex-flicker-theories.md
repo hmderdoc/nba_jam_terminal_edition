@@ -131,3 +131,17 @@ Implementing these theories (especially A + D) gives us:
 - A foundation for further refinements (e.g., smoothing redesign) without guessing.
 
 Once the reset + instrumentation framework is in place, we can analyze any remaining flicker with proof instead of speculation. Until then, every attempt is fighting stale state we know we aren’t clearing.
+
+---
+
+## 5. Current Resolution Snapshot (Wave 24E)
+
+| Area | Status | Notes |
+|------|--------|-------|
+| Prediction resets (Theory A) | ✅ | `resetPredictionState()` now mirrors constructor defaults; inbound/halftime/drift snaps call it and logs confirm buffers are cleared. |
+| Single-writer commits (Theory B) | ✅ | Prediction, replay, and reconciliation all stage through `_stageSpriteCommit` → `_applyStagedSpriteCommit`, eliminating multi-writer races. |
+| Visual guard & pending inputs (Theory C/D) | ✅ | Guard state resets with prediction; drift snaps flush pending inputs and request catch-up so stale commands can’t undo teleports. |
+| Catch-up tuning (Theory E) | ✅ | Catch-up frames reset via the new state; drift snaps trigger short catch-up windows to converge quickly without oscillation. |
+| Animation hints (Idea #6) | ❌ rolled back | Early attempt to tag inbounds via hint events caused inbound lockups. Future work must live in a separate branch with stronger validation before merging into mainline play. |
+
+**Result:** Non-coordinator flicker/judder is now rare and bounded (only during legitimate snap corrections). Inbound/violation sequences run as they did pre-experiment, and the logs (`[MP COMMIT]`, `[MP DRIFT SNAP]`, `[MP CLIENT resetPredictionState]`) provide the trail we need for any future polish work.

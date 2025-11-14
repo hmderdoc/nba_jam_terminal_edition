@@ -1,126 +1,128 @@
-# Copilot Guidance – NBA JAM (Wave 24+)
+# Copilot Playbook — Wave 24 Runtime
 
-**Mission:** ship changes that fit the Wave 24 architecture, keep the codebase testable, and never reintroduce pre‑Wave23 debt. Treat everything in `current_architecture_docs/` as the canonical playbook.
-
----
-
-## 1. Core Principles
-
-1. **Constants over literals** – Every number/string that describes gameplay, timing, AI, multiplayer, etc. must originate from `lib/config/*.js` and flow through `lib/utils/constants.js`. Never embed `80`, `24`, `1.5`, etc. in source files; if a new value is needed, add/extend the appropriate config module.
-2. **State through systems** – Read/write game state only via `systems.stateManager`. Do not touch globals (`gameState`, `teamAPlayer1`, etc.). `current_architecture_docs/tech-debt-plan.md` tracks remaining migrations—follow that roadmap.
-3. **Unified game loop** – All gameplay logic runs inside `runGameFrame(systems, config)`:
-   - Authority responsibilities (`config.isAuthority === true`): timers, AI, violations, authoritative movement, state broadcasts.
-   - Clients (non-authority) handle rendering, animations, prediction, reconciliation.
-4. **Non-blocking always** – Never call `mswait`, `frameScheduler.waitForNextFrame` inside logic. Use state flags/timestamps (e.g., `violationPause`) so the loop keeps ticking.
-5. **Document first** – When introducing new behavior, update/consult the relevant doc in `current_architecture_docs/` (e.g., `multiplayer-client-architecture-and-gameloop.md`, `tech-debt-plan.md`, `rendering.md`) before writing code.
+Copilot must produce changes that respect the Wave 24 architecture, eliminate legacy patterns, and stay aligned with the documentation inside `current_architecture_docs/`. Treat this file plus the docs as the single source of truth when reasoning about the codebase.
 
 ---
 
-## 2. Good Patterns to Favor
+## 1. Mission & Scope
 
-| Area | Preferred Pattern |
-|------|------------------|
-| **Config** | Extend `lib/config/{gameplay,timing,ai,mp,player}-constants.js`, then surface via `lib/utils/constants.js`. |
-| **Frames/UI** | Acquire frames through `FrameManager.get/ensure`; never instantiate anonymous `new Frame()` outside `initFrames`. |
-| **State mutations** | `systems.stateManager.set(key, value, reason)` where `reason` explains the trigger. |
-| **Events** | Emit through `systems.eventBus` / `emitGameEvent` with structured payloads. |
-| **Multiplayer prediction** | Use shared helpers (`previewMovementCommand`, `PLAYER_CLIENT_COLLISION_THRESHOLD`, etc.) so coordinator and clients stay in sync. |
-| **Logging** | Use `debugLog()` for verbose tracing, `log(LOG_*, msg)` for operator-facing issues, and keep messages structured (`[MODULE] context`). Guard noisy logs with feature flags or interval checks. |
-| **Docs/tests** | Update `current_architecture_docs/*.md` when patterns change; add small harnesses or unit scripts under `tests/` instead of describing manual test steps. |
+1. **No magic numbers.** Every tuning value lives in a config module under `lib/config/`. Extend those modules (see `current_architecture_docs/constant_reference.md`) and wire new keys through `lib/utils/constants.js` before touching game logic.
+2. **Honor the entry path.** `nba_jam.js` → `module-loader` → `initializeSystems` → `runGameFrame` is sacrosanct. All new work must hook into those layers instead of creating side loops.
+3. **Respect the docs.** Before writing code, read the relevant file inside `current_architecture_docs/` (rendering, multiplayer, AI, etc.). When patterns change, update the doc *first* so other contributors stay in sync.
+4. **Kill tech debt on sight.** If you encounter a legacy fallback or global, migrate it. Never extend pre-Wave23 code paths.
 
 ---
 
-## 3. Bad Practices to Avoid
+## 2. Architectural Snapshot
 
-1. **Magic numbers / inline tuning** – If you see a literal representing timing, geometry, AI heuristics, network behavior, etc., move it into the correct constants module. Never add new literals.
-2. **Legacy globals** – No `teamAPlayer1`, `courtFrame`, `announcerFrame`, etc. Use the state manager or FrameManager aliases already in place.
-3. **Duplicated logic** – Reuse shared helpers (movement preview, collision checks, animation timing). If the helper doesn’t exist, create it once and import it.
-4. **Ad-hoc debugging** – Don’t sprinkle `print()` or partial logging. Instrument all branches of a diagnostic block, and remove/guard temporary logs before finishing.
-5. **Speculative fixes** – Do not “try” changes without a reasoned hypothesis. Define the hypothesis, outline how it will be validated, and ensure logs/tests can prove or falsify it.
-6. **Manual test instructions** – Never rely on “run the game and watch.” Instead, add harnesses, scripted flows, or deterministic logs/tests so behavior can be verified in isolation.
-7. **Legacy patterns** – If you encounter pre-Wave23 fallbacks (blocking waits, direct console writes, raw sprite manipulation), replace them proactively. Don’t extend legacy code.
+- **Systems bundle** (`initializeSystems`) supplies `stateManager`, `eventBus`, `frameScheduler`, `passingSystem`, `possessionSystem`, `shootingSystem`, and `animationSystem`. Always accept a systems parameter instead of reaching for globals.
+- **Frames** are owned by `FrameManager`. Define them via `FrameManager.define` in `initFrames`, and access them through `.get(name)` (aliases exist for old globals but should be avoided in new code).
+- **State** lives inside `stateManager`. Use `set(path, value, reason)` with a descriptive reason string. Never mutate the raw `gameState` or sprite globals.
+- **Game loop** (`lib/core/game-loop-core.js`) governs timers, AI cadence, rendering, and multiplayer sync. Hook in via events or helper functions—do not block or spawn competing loops.
+- **Multiplayer**: Coordinators serialize state packets (`captureState`) and clients reconcile via prediction + correction. Authority changes require mirrored updates inside `mp_client.js`.
 
----
-
-## 4. Reasoning About Modes
-
-| Mode | Authority? | Key Notes |
-|------|------------|-----------|
-| Single-player | yes | `gameLoop()` creates `config.isAuthority=true`; handle keyboard input via `handleInput`. |
-| CPU Demo | yes | Same loop as SP but AI-only; maintain announcer/HUD behavior. |
-| Multiplayer Coordinator | yes | Consumes client inputs, runs full authority logic, broadcasts snapshots. |
-| Multiplayer Client | no | Predicts locally, reconciles via `updateOtherPlayers` + `reconcileMyPosition`; never mutates authoritative state. |
-
-When making changes, ensure both sides of the authority boundary still compile and run:
-- If modifying movement/physics, update prediction helpers (`previewMovementCommand`, client guard).
-- If altering UI or rendering cadence, consider both single-player and multiplayer tick paths.
+Refer to `current_architecture_docs/common_type_definitions.md` whenever you need the shape of a packet, sprite, or helper.
 
 ---
 
-## 5. Debugging Workflow
+## 3. Constants Discipline
 
-1. **Use `debug.log` and `data/error.log`** – Never ask users to paste logs; instrument code so logs are already comprehensive.
-2. **Structured logging** – Prefix entries (e.g., `[RUN_GAME_FRAME]`, `[MP CLIENT]`). Include relevant IDs/coords/state keys.
-3. **Repro scripts** – When an error is reported, create a minimal repro under `data/error-snapshots/` or `tests/` to replay the issue. Update docs with findings.
-4. **Hypothesis-driven** – Before coding, write down:
-   - Observation (from logs/tests)
-   - Hypothesis (single sentence, testable)
-   - Validation plan (which log/test proves it)
-   Copilot should not commit changes until the hypothesis can be validated.
-5. **No log spam** – If logging inside tight loops, throttle output or guard behind a flag. Remove or downgrade debug logs once the issue is resolved.
-
----
-
-## 6. Tech Debt Discipline
-
-1. **Consult `current_architecture_docs/tech-debt-plan.md`** before touching anything. If your change relates to an item, update the status/notes.
-2. **Eliminate legacy patterns when encountered** – Don’t extend old APIs; migrate them.
-3. **Small, reversible steps** – Prefer multiple small commits (or at least logically separated changes) so we can bisect regressions.
-4. **Testing before fixes** – When fixing bugs, create or update tests/log-driven assertions that fail first, then implement the fix.
-5. **Documentation parity** – Every architectural or systemic change must include doc updates (flow descriptions, new constants, etc.).
+1. Use the config file that matches the domain:
+   - Geometry/UI → `gameplay-constants.js`
+   - Timing/animation/turbo → `timing-constants.js`
+   - Player movement/collision → `player-constants.js`
+   - AI heuristics → `ai-constants.js`
+   - Multiplayer/network → `mp-constants.js`
+   - Mode/menu/bookie toggles → `game-mode-constants.js`
+2. Add the value, require it through `lib/utils/constants.js`, and replace every literal occurrence.
+3. Document the change in `MAGIC-NUMBER-AUDIT.md` and, when relevant, `constant_reference.md`.
+4. Never hide numbers inside helpers, tests, or logging—config-first always.
 
 ---
 
-## 7. Working With `current_architecture_docs`
+## 4. Practices to Favor
 
-1. **Architecture references** – Before editing a subsystem, open the matching doc:
-   - Rendering: `rendering.md`, `frame-manager.md`
-   - Multiplayer: `multiplayer-client-architecture-and-gameloop.md`, `multiplayer-rendering.md`
-   - AI: `ai-overview.md`, `offense/defense` docs
-   - Tech debt / roadmap: `tech-debt-plan.md`
-2. **Pattern extraction** – If you discover a repeatable solution, document it (e.g., new helper usage, new config surface). Copilot must read and follow these docs instead of inventing new conventions.
-3. **Legacy identification** – If you encounter a pattern not represented in the docs, assume it’s legacy. Migrate it or record it in the docs for future removal.
-
----
-
-## 8. Testing Expectations
-
-1. **Unit-style when possible** – For helpers (movement preview, AI decision thresholds, string formatting), add tests under `tests/` that can run via `jsexec`.
-2. **Simulation scripts** – Use `tests/run-all-tests.js`, `test_wrapper.js`, or new harnesses to simulate frames, inbound plays, etc. Don’t rely on manual key presses.
-3. **Logged verification** – When a feature can’t be unit-tested easily, emit deterministic logs (with timestamps suppressed) that can be grepped to confirm behavior.
-4. **No manual checklists** – Replace “verify manually” with “run script X / inspect log Y for entry Z”. If a script doesn’t exist, write it.
+- **Dependency injection.** Accept `{ systems, helpers, constants }` parameters; avoid tight coupling.
+- **Shared helpers.** Before writing new math, look for an existing helper (e.g., `previewMovementCommand`, `clampSpriteFeetToCourt`, `FrameManager.status`). Extend helpers if needed instead of duplicating logic.
+- **State Manager reasons.** Provide specific reason strings (`"violation_inbound"`, `"shot_clock_reset"`) so diagnostics and multiplayer logs stay readable.
+- **Structured logging.** Use `debugLog()` or `log(LOG_*, message)` with prefixes (`[MP CLIENT]`, `[RUN_GAME_FRAME]`). Include IDs/coords to make grep-friendly logs.
+- **Document-first.** Update the relevant `.md` file whenever you create/modify a subsystem, add constants, or change debugging expectations.
+- **Feature flags / staged rollout.** When experimenting (e.g., animation hints), gate the behavior and keep the stable path intact.
 
 ---
 
-## 9. Change Workflow
+## 5. Practices to Avoid
 
-1. **Plan** – Identify which doc/config/module is affected. Write down the hypothesis and intended tests/logs.
-2. **Implement** – Follow existing patterns; introduce helpers before duplication grows.
-3. **Test** – Run targeted scripts/log reviews. Ensure announcer/HUD/multiplayer flows are unaffected if touched.
-4. **Document** – Update constants files, architecture docs, and audit markdowns reflecting new work.
-5. **Review** – Re-read logs/tests to confirm they substantiate the hypothesis. Remove temporary instrumentation.
+1. **Legacy globals.** No direct references to `teamAPlayer1`, `courtFrame`, `announcerFrame`, etc. Use the state manager, `system.getPlayers()`, or `FrameManager`.
+2. **Blocking waits.** Never call `mswait`, `sleep`, or `frameScheduler.waitForNextFrame` from gameplay logic. Use timestamps stored in state for pauses.
+3. **Fallback hacks.** Do not add “just in case” paths that reintroduce the behavior we removed (direct court writes, redundant animation queues, manual sprite rewrites).
+4. **Speculative edits.** Every change needs a hypothesis, validation plan, and supporting logs/tests. “Try this to see if it helps” is unacceptable.
+5. **Manual testing requests.** Don’t ask a user to “run it and tell me what happens.” Produce logs/tests/scripts so behavior is verifiable without human observation.
+6. **Incomplete logging.** When adding debug output, cover *all* branches of the logic and remove/throttle it after validation. Multiple “debug only” commits in a row are not allowed.
 
 ---
 
-## 10. Quick Reference Checklist
+## 6. Mode Awareness
 
-- [ ] All constants sourced from `lib/config/*.js`.
-- [ ] No new globals or direct frame instantiations; use FrameManager/state manager.
-- [ ] Non-blocking logic preserved; pauses implemented via state/timestamps.
-- [ ] Multiplayer coordinator/client kept in sync (shared helpers, thresholds).
-- [ ] Debug logs comprehensive but controlled; hypotheses logged/tested.
-- [ ] Docs/tests updated alongside code.
-- [ ] Legacy patterns replaced, not extended.
-- [ ] Changes validated without manual gameplay (scripts/logs/tests).
+| Mode | Authority? | Considerations |
+| --- | --- | --- |
+| Single-player | Yes | Handles keyboard input locally; must keep announcer/HUD responsive. |
+| CPU Demo | Yes | Shares the single-player loop; no human input but full announcer/HUD expectations. |
+| Multiplayer Coordinator | Yes | Processes remote inputs, broadcasts state packets, records animations. |
+| Multiplayer Client | No | Predicts locally (`applyMovementCommand` + `previewMovementCommand`), reconciles via packets, must never mutate authoritative state. |
 
-Adhering to these guidelines keeps Copilot’s contributions aligned with our Wave 24 architecture, prevents regressions, and drives the codebase toward the documented target state. If in doubt, stop and consult the docs—then update them so the next change is easier. ***!
+Changes that affect movement, physics, HUD cadence, or logging must be evaluated for *all* modes. If you touch authoritative code, mirror the necessary changes in prediction (`mp_client.js`) and serialization (`mp_coordinator.js`).
+
+---
+
+## 7. Debugging Protocol
+
+1. **Logs first.** Collect evidence from `data/debug.log` and `data/error.log`. Use `grep` or scripted analyzers instead of asking humans to read logs for you.
+2. **Structured messages.** Prefix entries (e.g., `[INBOUND]`, `[PREDICTION]`) and include IDs/coords/state keys so automated tools can parse them.
+3. **Comprehensive instrumentation.** When adding logging around a hypothesis, instrument success and failure branches; do not emit half the story.
+4. **Cleanup.** Once the issue is validated and fixed, remove or gate the extra logging to avoid noise.
+
+---
+
+## 8. Hypothesis-Driven Workflow
+
+Before making functional changes:
+
+1. **Observation:** Summarize what the logs/tests show.
+2. **Hypothesis:** Provide a concise, testable statement (“Inbound flicker occurs because clients render before receiving allowOffcourt flags.”).
+3. **Validation plan:** Describe how the hypothesis will be proven or falsified (specific logs, unit tests, or repro scripts).
+4. **Execution:** Implement the change, run the validation artifacts, and include results in the PR/response.
+
+If a hypothesis fails, log it in the relevant doc (e.g., `codex-flicker-theories.md`) before starting the next idea. Do not stack blind changes.
+
+---
+
+## 9. Testing & Automation
+
+- **Unit-style harnesses.** For helpers and pure functions, add tests under `tests/` that can run via `jsexec`.
+- **Simulation scripts.** When verifying animations, inbound logic, or multiplayer flows, build deterministic scripts/log parsers so validation can happen offline.
+- **No manual checklists.** Replace “play a match to confirm” with “run script X and inspect log Y for marker Z.”
+- **Logging as tests.** If a behavior can only be observed via gameplay, emit deterministic log entries and parse them automatically to confirm success.
+
+---
+
+## 10. Tech Debt & Documentation
+
+- Check `current_architecture_docs/tech-debt-plan.md` before touching a subsystem. Update the status/notes after progress or when experiments fail (record the lesson).
+- Keep `current_architecture_docs/*` synchronized: if you add a type, update `common_type_definitions.md`; if you introduce a constant, update `constant_reference.md`.
+- Use `animation_tuneup_ideas.md`, `codex-flicker-theories.md`, and related docs to track hypotheses and outcomes so future work doesn’t repeat mistakes.
+
+---
+
+## 11. Quick Checklist (run before finishing any change)
+
+- [ ] Constants pulled from the appropriate config module; no magic numbers left behind.
+- [ ] Systems access follows the dependency-injection pattern; no new globals.
+- [ ] Game loop remains non-blocking; frame cadence unaffected.
+- [ ] Multiplayer coordinator/client behaviors stay in sync (prediction vs. authority).
+- [ ] Debug logs + error logs contain the evidence needed to validate the hypothesis.
+- [ ] Tests/log scripts updated or added; no reliance on manual playthroughs.
+- [ ] Relevant docs in `current_architecture_docs/` updated.
+- [ ] Legacy patterns removed rather than extended.
+
+Following this playbook keeps Copilot aligned with the team’s architecture, ensures fixes are evidence-driven, and prevents tech debt from creeping back into the project. When in doubt, stop, consult the docs, document your plan, and only then touch the code.
