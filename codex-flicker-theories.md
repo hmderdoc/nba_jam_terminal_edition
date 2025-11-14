@@ -26,9 +26,9 @@ This note consolidates everything learned from the existing flicker docs (`FLICK
 - Because the reset hook is undefined, stale prediction buffers survive every authoritative teleport, so the next reconciliation instantly replays pre‑inbound inputs and fights the server snapshot → flicker loop.
 
 **Plan**
-1. Implement `PlayerClient.prototype.resetPredictionState(reason)` that mirrors the constructor’s initial values (literally copy the property list from the constructor that starts around `mp_client.js:200`).
-2. Log `"[MP CLIENT] resetPredictionState(reason=..., tick=...)"` along with counts of `pendingInputs.length`, `visualGuard`, etc., before/after.
-3. Force inbounds/halftime and verify the log shows non‑zero entries being cleared.
+1. ✅ Implemented (`lib/multiplayer/mp_client.js:11-311`). The reset now rebuilds drift/guard state, flushes pending inputs, and clears replay history.
+2. ✅ Logging is in place when the reset fires.
+3. Next: force inbounds/halftime and verify the log shows non‑zero entries being cleared.
 4. Re-run multiplayer to see whether flicker still emerges.
 
 **Expected Outcome**
@@ -46,10 +46,8 @@ This note consolidates everything learned from the existing flicker docs (`FLICK
 - After an inbound, the server teleports the sprite. The client prediction immediately runs (old pending input), moving the sprite before reconciliation processed the teleport. Reconciliation then snaps back, causing visible flicker. Because this race is ongoing, users perceive continuous jitter.
 
 **Plan**
-1. Add `this.pendingSpritePosition = { x, y, tick }` in `PlayerClient`. Instead of writing to `mySprite` inside `handleInput`, stage the value in the pending struct.
-2. Only one place (end of reconciliation) actually commits staged positions to `mySprite`.
-3. Log every commit: `"[MP CLIENT] commitSprite tick=... reason=predict|authority|replay dx=... dy=..."`.
-4. Compare before/after traces: we should see at most one commit per frame per sprite.
+1. ✅ Authority-side staging implemented in `mp_client.js`. Reconciliation and prediction/replay paths now stage via `_stageSpriteCommit(...)` and commit once per frame (`handleInput`, replay loop, and reconcile all feed the same pipeline).
+2. ✅ Added `[MP COMMIT]` logs so we can trace which subsystem produced the final position (`prediction`, `prediction_replay`, `authority_blend`, `drift_snap`, etc.).
 
 **Expected Outcome**
 - If committing through a single code path eliminates flicker, the root cause was the write race. Even if flicker persists, the logs will reveal when and why the sprite is toggling between positions.
@@ -88,9 +86,9 @@ This note consolidates everything learned from the existing flicker docs (`FLICK
 - After every inbound, the client replays stale inputs as soon as the catchup loop runs, undoing the teleport and forcing the server to correct again. This battlefield between “old input replay” and “authority snap” manifests as flicker.
 
 **Plan**
-1. When we detect an authoritative teleport (e.g., server state differs from local by > 4 tiles or `inbounding` flipped), call `resetPredictionState("teleport")`. That reset must explicitly `pendingInputs = []` and `lastProcessedInputSequence = coordinatorSeq`.
-2. Log the delta and sequences so we can confirm the flush actually happens.
-3. Validate by scoring back-to-back baskets; ensure pending buffer resets each time.
+1. ✅ For inbounds and forced snaps we already call `resetPredictionState("inbound_start"|"forced_position")`.
+2. ✅ Added drift-based snap (`DRIFT_SNAP_THRESHOLD = 3`) that resets prediction state, flushes pending inputs, and requests catch-up whenever the client diverges too far from authority.
+3. Next: validate by scoring back-to-back baskets and watching `[MP DRIFT SNAP]` / `[MP COMMIT source=drift_snap]` entries to ensure the flush occurs only when needed.
 
 **Expected Outcome**
 - Stale inputs no longer replay, so post-inbound reconciliation is clean. If flicker still occurs, the problem lies deeper (e.g., stale animation frames), but the buffer flush is still necessary to guarantee determinism.
