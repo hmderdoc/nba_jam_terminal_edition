@@ -155,7 +155,8 @@ When multiplayer is active, the coordinator mirrors these payloads (see `mp_coor
     b: { x, y, c, r },
     g: <serialized subset of gameState>,
     m: <playerIndexMap>,
-    anims?: [ <animation payloads> ]
+    anims?: [ <animation payloads> ],
+    ah?: [ { type, target, ttl, meta? } ]
 }
 ```
 
@@ -178,7 +179,7 @@ The coordinator replays the buffered inputs against authoritative sprites (using
 
 ---
 
-### Event Payloads (`systems.eventBus`)
+** Event Payloads (`systems.eventBus`)
 
 Event bus payloads stay small and predictable:
 
@@ -186,5 +187,6 @@ Event bus payloads stay small and predictable:
 - `score` → `{ team, points, shooterId, dunk, assistId }`
 - `violation` → `{ type: "shot_clock" | "backcourt" | ..., team, clock, reason }`
 - `animation_debug` → `{ type, spriteId, state, frameNumber }`
+- `ah` entries represent animation hints broadcast by the coordinator. Each hint includes a `type` string, the target player global ID (`target`), a remaining lifetime in frames (`ttl`), and a `meta` object containing animation payload (e.g., `attackerId`, `pushDistance`). Clients resolve the target to a sprite and invoke the corresponding animation helpers immediately (no stateManager staging).
 
 Document any new event payload here so multiplayer serialization and diagnostics can keep pace.

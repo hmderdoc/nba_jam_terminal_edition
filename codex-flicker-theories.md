@@ -142,6 +142,6 @@ Once the reset + instrumentation framework is in place, we can analyze any remai
 | Single-writer commits (Theory B) | ✅ | Prediction, replay, and reconciliation all stage through `_stageSpriteCommit` → `_applyStagedSpriteCommit`, eliminating multi-writer races. |
 | Visual guard & pending inputs (Theory C/D) | ✅ | Guard state resets with prediction; drift snaps flush pending inputs and request catch-up so stale commands can’t undo teleports. |
 | Catch-up tuning (Theory E) | ✅ | Catch-up frames reset via the new state; drift snaps trigger short catch-up windows to converge quickly without oscillation. |
-| Animation hints (Idea #6) | ❌ rolled back | Early attempt to tag inbounds via hint events caused inbound lockups. Future work must live in a separate branch with stronger validation before merging into mainline play. |
+| Animation hints (Idea #6) | ⚠️ cosmetic | Previous attempt caused inbound lockups. Current work (Wave 24 hint queue) keeps hints cosmetic, bundled with state packets, and parameterized by `MP_CONSTANTS.ANIMATION_HINTS` so we can validate without risking gameplay regressions. |
 
 **Result:** Non-coordinator flicker/judder is now rare and bounded (only during legitimate snap corrections). Inbound/violation sequences run as they did pre-experiment, and the logs (`[MP COMMIT]`, `[MP DRIFT SNAP]`, `[MP CLIENT resetPredictionState]`) provide the trail we need for any future polish work.

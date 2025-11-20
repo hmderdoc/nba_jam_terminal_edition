@@ -40,6 +40,8 @@ Implementation pattern:
 ### ✅ Pass 4 (Multiplayer networking & tuning)
 - Added `lib/config/mp-constants.js` capturing chat channel, server presets, tuning presets, latency ladder, and ping/latency measurement settings.
 - Updated `lib/utils/constants.js`, `lib/multiplayer/mp_config.js`, and `lib/multiplayer/mp_network.js` to pull every hard-coded MP constant (flush intervals, network HUD thresholds, ping cadence, adaptive tuning) from the shared config. Multiplayer knobs now live in one file for faster iteration.
+- Extended `lib/config/mp-constants.js` with an `ANIMATION_HINTS` surface (TTL, packet ceiling, label defaults) consumed by `lib/utils/constants.js`, `lib/multiplayer/mp_coordinator.js`, `lib/multiplayer/mp_client.js`, and `lib/rendering/court-rendering.js` so the new hint pipeline carries zero inline literals.
+- Wave 24 follow-up: added `ANIMATION_HINTS.INBOUND` and `.DRIFT` blocks to centralize tween durations + drift flash timing, eliminating the ad-hoc `25/70/8` literals from multiplayer hint consumers.
 
 ### ✅ Pass 5 (Player movement & hitbox defaults)
 - Expanded `lib/config/player-constants.js` with movement-speed envelopes, collision thresholds, boundary clamps, sprite defaults, and input-buffer guards.

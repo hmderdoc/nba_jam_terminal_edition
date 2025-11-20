@@ -103,6 +103,7 @@ If a hypothesis fails, log it in the relevant doc (e.g., `codex-flicker-theories
 - **Simulation scripts.** When verifying animations, inbound logic, or multiplayer flows, build deterministic scripts/log parsers so validation can happen offline.
 - **No manual checklists.** Replace “play a match to confirm” with “run script X and inspect log Y for marker Z.”
 - **Logging as tests.** If a behavior can only be observed via gameplay, emit deterministic log entries and parse them automatically to confirm success.
+- **Manual tests / debugging as a last resort** creating log entires and asking humans to run manual tests to generate them should be a last resort, not the first step.  If you request a manual test - you should have the foresight to know exactly what logs you need, and what to look for in them.  DO NOT KEEP ADDING LOGS AND ASK FOR MORE MANUAL TESTS. 
 
 ---
 

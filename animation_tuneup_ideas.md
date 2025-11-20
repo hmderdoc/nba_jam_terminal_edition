@@ -70,6 +70,8 @@ This document captures the quick wins we can pursue to polish multiplayer presen
 
 **Idea**: Extend the state packet with an “animation hint” (e.g., `snapReason: "inbound"`), so clients can play matching animations (celebration, inbound walk, shove bump) instead of only relying on deltas.
 
+**Wave 24 Update**: Hints remain bundled with the frame state (no separate queue) but now carry animation payloads (e.g., shove knockback distance) instead of label metadata. Clients consume them immediately to trigger shared animations; nothing routes through jersey overlays anymore.
+
 **Impact**: High for polish—makes multiplayer look identical to single-player re: inbound cutscenes and collisions.
 
 **Effort**: High. Requires coordinator changes (state payload), client parsing, and more animation hooks.

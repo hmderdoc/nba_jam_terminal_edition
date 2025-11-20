@@ -5,10 +5,13 @@
 1. `announcerFrame` (80×1) – displays announcer text at the top of the console.
 2. `courtFrame` (COURT_WIDTH × COURT_HEIGHT) – static background art.
 3. `trailFrame` – transparent overlay used for jump indicators, ball trails, and temporary highlights.
-4. `leftHoopFrame` / `rightHoopFrame` – small transparent frames for rim/net graphics and basket flashes.
-5. `scoreFrame` (80×5) – HUD for scores, turbo meters, fouls, etc.
+4. `ballFrame` (1×1, child of `courtFrame`) – dedicated sprite for the basketball. Created via `ensureBallFrame()` so we can move the glyph without repainting the court.
+5. Player sprite frames (`team?Player?.frame`) – each sprite is a `Sprite.Aerial` instance created by `createSpriteForPlayer()` with `courtFrame` as its parent. These frames hold the ASCII art, jersey masks, and animation bearings for every player.
+6. `leftHoopFrame` / `rightHoopFrame` – small transparent frames for rim/net graphics and basket flashes.
+7. `scoreFrame` (80×5) – HUD for scores, turbo meters, fouls, etc.
+8. `player.labelFrame` instances – each sprite owns a 1×PLAYER_LABEL_WIDTH frame created by `renderPlayerLabel()`. These frames follow the player and render controller labels/jersey numbers without touching the court art.
 
-Frames are opened in that order and immediately `top()`-ed where necessary (trail and hoop frames) so overlays render above the court art without permanently altering it. Cleanup functions close frames between games to release console resources.
+Frames are opened in that order and immediately `top()`-ed where necessary (trail, ball, hoop, player sprite, and player label frames) so overlays render above the court art without permanently altering it. `Sprite.cycle()` keeps each player’s frame raised once gameplay starts. Cleanup functions close frames between games to release console resources (`cleanupSprites` tears down each player’s label frame and `ensureBallFrame` recreates the ball overlay as needed).
 
 ## Rendering Flow per Frame
 

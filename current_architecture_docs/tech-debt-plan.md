@@ -61,4 +61,4 @@ Update the Status/Notes columns as work progresses.
 
 ### Notes & Lessons
 
-- **Animation hint pipeline (Idea #6)**: Initial attempt (coordinator → client hints + prediction inhibition) introduced regressions in inbound flow (stuck pass animations, NaN inbounder coords, CPU freezes). Before revisiting, we need a dedicated design (separate branch, tests for inbound/violation/CPU modes) so core gameplay isn’t disrupted. Future work should stage hints behind feature flags and guard inbound data more aggressively.
+- **Animation hint pipeline (Idea #6)**: Initial attempt (coordinator → client hints + prediction inhibition) introduced regressions in inbound flow (stuck pass animations, NaN inbounder coords, CPU freezes). Current Wave 24 work now emits animation payloads (e.g., shove knockback distance) bundled with game-state packets. Clients consume them immediately, keeping choreography aligned without relying on jersey overlays. Next steps: extend coverage beyond shoves (inbound walks, recoveries) and add test coverage for each hint type.

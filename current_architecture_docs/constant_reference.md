@@ -87,6 +87,8 @@ Networking and tuning knobs for multiplayer:
 | Lobby defaults | `CHAT_CHANNEL`, `DEFAULT_SERVERS` | `mp_lobby.js`, UI menus. |
 | Interval tuning | `PING_INTERVAL_MS`, `MEASURE_LATENCY_*`, `TUNING_PRESETS`, `ADAPTIVE_TUNING` | `NetworkMonitor`, client input buffer flush intervals, prediction depth. |
 | UI | `LATENCY_INDICATORS` | HUD overlays showing connection quality. |
+| Animation hints | `ANIMATION_HINTS.TTL_FRAMES`, `.MAX_PER_PACKET` | `mp_coordinator` tracker emits animation payloads (e.g., shove knockback). Clients consume them immediately to mirror authority choreography. |
+| Hint choreography | `ANIMATION_HINTS.INBOUND.WALK_FRAMES`, `.READY_FRAMES`, `.TARGET_FRAMES`; `ANIMATION_HINTS.DRIFT.FLASH_FRAMES`, `.LERP_FRAMES` | Client-side animation helpers use these to pace inbound walk/ready/target tweens and drift-snap highlight duration. Keep coordinator + client tuned together. |
 
 If you need to change how often inputs flush, how reconciliation works, or what latency bars look like, edit this file.
 

@@ -30,6 +30,7 @@ Clients never run the gameplay loop (`runGameFrame`); they simply mirror the coo
   - Player positions/velocities.
   - Turbo, shove cooldowns, and current animations.
   - Game clock snapshots (so the client HUD can stay in sync).
+- When the coordinator includes the `ah` array, the client resolves each hint to a local sprite via `findSpriteByGlobalId` and immediately invokes the matching animation helper (e.g., `knockBack` for shove impacts). The hints are transient; nothing is persisted in `stateManager`.
 - The client keeps `lastProcessedInputs[playerId]` so it can discard duplicate state updates or detect missed packets.
 
 ## Visual Guards

@@ -22,6 +22,7 @@
   - Player positions, bearings, and animation states.
   - Turbo meters, shove cooldowns, and relevant timers.
   - Global state snapshots (clock, score, possession flags).
+  - Animation hints (`ah` array) carrying animation triggers (e.g., shove knockback payloads). The tracker (`mp_animation_hints.js`) derives them each frame so gameplay never waits on presentation.
 - The serialized payload is written to every `stateQueues[playerId]`, so clients can update their local rendering and reconcile predicted positions.
 
 ## Local Input Injection
