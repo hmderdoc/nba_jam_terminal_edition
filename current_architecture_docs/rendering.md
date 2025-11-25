@@ -29,7 +29,7 @@ Inside `runGameFrame` (lib/core/game-loop-core.js):
    - `drawScore(systems)` redraws the scoreboard HUD.
    - `cycleFrame` is called on court and hoop frames, followed by `Sprite.cycle()` to push all updates to the console.
 - Intercepted passes shorten their animation target to the defender's intercept point so the ball stops where the steal occurs (coordinator broadcasts the truncated endpoints for clients).
-6. **Trail overlay.** Effects like jump indicators use `trailFrame`. Since the overlay is transparent, painting and erasing entries leaves the underlying court untouched.
+6. **Trail overlay.** Effects like jump indicators use `trailFrame`. Since the overlay is transparent, painting and erasing entries leaves the underlying court untouched. Wave 24 also introduces a stat trail overlay that renders short-lived text (for example, `+2 PTS`) above the scorer using the same frame so the celebration never dirties the court art.
 
 ### Court Redraw Triggers
 
@@ -52,6 +52,7 @@ That config-driven approach keeps single-player, demo, and multiplayer animation
 
 - Jump indicators (lib/rendering/jump-indicators.js) now refuse to draw when `trailFrame` is missing. This prevents artifacts on `courtFrame` but means the trail overlay must be created successfully for block arcs to show.
 - Fire effects (`lib/rendering/fire-effects.js`) also target overlays, so both modules rely on the same transparent frame.
+- Stat trails (lib/animation/stat-trail-system.js) emit celebratory text overlays triggered by `recordStatDelta` (points, rebounds, assists, steals, blocks, turnovers) and any direct `queueStatTrail` call. The effect reads team colors from game state by default, accepts explicit color overrides, floats the text upward for a fixed lifetime, and self-cleans each frame so concurrent animations coexist on the shared overlay. When overlays expire, the system marks `courtNeedsRedraw` so the background refreshes on the next render pass.
 
 ## Rendering in Multiplayer
 

@@ -63,6 +63,7 @@ Implementation pattern:
 - `lib/core/game-loop-core.js` now sources its second-by-second tick, shot-clock reset pause, default shot-clock, and render throttle entirely from the shared timing config (no more inline `1000`/`24`/`60`).
 - `lib/game-logic/physical-play.js` reads all shake/shove cooldowns, knockdown durations, and loose-ball arc math from the new config so shove physics stay tunable in one place.
 - `lib/rendering/animation-system.js` now consumes the structured animation timing presets, covering shot/pass duration curves, rebound bounce cadence, dunk frame defaults, idle-bounce loops, and the debug/log fallbacks.
+- Wave 24 follow-up: `lib/animation/stat-trail-system.js` pulls its lifetime, fade cadence, acceleration curve, drift, blink, flash palette, final fade color, stat-type color table, and sideline/baseline safety margins from the `STAT_TRAIL` block so celebratory overlays avoid introducing fresh literals.
 
 ### ✅ Pass 9 (AI offense-ball heuristics)
 - Extended `lib/config/ai-constants.js` with a full `OFFENSE_BALL` surface (decision windows, quick-three spacing, drive/high-fly thresholds, escape/press-break tuning, dead-dribble odds, shove exploits).

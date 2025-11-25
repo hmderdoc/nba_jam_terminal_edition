@@ -43,6 +43,7 @@ Domain | Keys | Notes |
 | Render cadence | `RENDER.COURT_THROTTLE_MS`, `.HUD_INTERVAL_MS` | `runGameFrame` dirty checks, scoreboard throttling. |
 | Loose ball | `LOOSE_BALL.horizontalTiles`, `.verticalTiles`, `.arcSteps`, `.arcHeight` | `lib/game-logic/loose-ball.js`. |
 | Animation | `ANIMATION.SHOT/PASS/REBOUND/DUNK/GENERIC` | `AnimationSystem` queue timing. |
+| Stat trail overlay | `STAT_TRAIL.LIFETIME_FRAMES`, `.FADE_FRAMES`, `.RISE_PER_FRAME`, `.RISE_SLOW_PER_FRAME`, `.RISE_FAST_PER_FRAME`, `.RISE_ACCELERATION_EXP`, `.HORIZONTAL_DRIFT_PER_FRAME`, `.BLINK_INTERVAL_FRAMES`, `.ORIGIN_Y_OFFSET`, `.MAX_ACTIVE`, `.FLASH_FG_COLOR`, `.FINAL_FG_COLOR`, `.FINAL_FADE_FRAMES`, `.SIDELINE_MARGIN`, `.BASELINE_MARGIN`, `.STAT_TYPE_COLORS` | `lib/animation/stat-trail-system.js` controls lifespan, acceleration curve, flashing cadence, fade palette, safe court margins, and stat-type color mapping for celebratory text overlays. |
 
 Timing, cadence, and animation math belong here.
 

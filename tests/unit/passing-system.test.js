@@ -283,13 +283,14 @@ function testQueuedPassWhileAnimating() {
 function testInterceptedPassStopsAtDefender() {
     console.log("\nTest: Intercepted pass animation stops at defender");
 
-    var passer = { x: 12, y: 12, team: 'teamA', playerData: { name: 'Passer' } };
+    var passer = { x: 12, y: 12, team: 'teamA', playerData: { name: 'Passer', hasDribble: true } };
     var receiver = { x: 44, y: 10, team: 'teamA', playerData: { name: 'Receiver' } };
-    var defender = { x: 28, y: 14, team: 'teamB', playerData: { name: 'Defender' } };
+    var defender = { x: 28, y: 14, team: 'teamB', playerData: { name: 'Defender', hasDribble: false } };
 
     var mockState = createStateManager({
         ballCarrier: passer,
-        currentTeam: 'teamA'
+        currentTeam: 'teamA',
+        consecutivePoints: { teamA: 6, teamB: 4 }
     });
 
     var queuedEndX = null;
@@ -306,12 +307,62 @@ function testInterceptedPassStopsAtDefender() {
         }
     };
 
+    var systemsRef = { stateManager: mockState };
+    var helperCalls = {
+        recordTurnover: 0,
+        recordStatDelta: 0,
+        resetBackcourtState: 0,
+        clearPotentialAssist: 0,
+        triggerPossessionBeep: 0,
+        assignDefensiveMatchups: 0
+    };
+    var capturedStatArgs = null;
+
+    var events = createEventBus();
+    var possessionEvents = [];
+    var stealEvents = [];
+    events.on('possession_change', function (data) {
+        possessionEvents.push(data);
+    });
+    events.on('steal', function (data) {
+        stealEvents.push(data);
+    });
+
     var system = createPassingSystem({
         state: mockState,
         animations: mockAnimations,
-        events: createEventBus(),
+        events: events,
+        systems: systemsRef,
         rules: { COURT_WIDTH: 66, COURT_HEIGHT: 40 },
-        helpers: { getPlayerTeamName: function (p) { return p.team; } }
+        helpers: {
+            getPlayerTeamName: function (p) { return p.team; },
+            recordTurnover: function (player, reason, systems) {
+                helperCalls.recordTurnover++;
+                assert(player === passer, "recordTurnover should receive passer");
+                assert(reason === "steal_pass", "recordTurnover reason should be steal_pass");
+                assert(systems === systemsRef, "recordTurnover should receive systemsRef");
+            },
+            recordStatDelta: function (player, key, amount, systems) {
+                helperCalls.recordStatDelta++;
+                capturedStatArgs = { player: player, key: key, amount: amount, systems: systems };
+                assert(systems === systemsRef, "recordStatDelta should receive systemsRef");
+            },
+            resetBackcourtState: function (systems) {
+                helperCalls.resetBackcourtState++;
+                assert(systems === systemsRef, "resetBackcourtState should receive systemsRef");
+            },
+            clearPotentialAssist: function (systems) {
+                helperCalls.clearPotentialAssist++;
+                assert(systems === systemsRef, "clearPotentialAssist should receive systemsRef");
+            },
+            triggerPossessionBeep: function () {
+                helperCalls.triggerPossessionBeep++;
+            },
+            assignDefensiveMatchups: function (systems) {
+                helperCalls.assignDefensiveMatchups++;
+                assert(systems === systemsRef, "assignDefensiveMatchups should receive systemsRef");
+            }
+        }
     });
 
     var hadOriginalCheck = typeof checkPassInterception === 'function';
@@ -329,6 +380,31 @@ function testInterceptedPassStopsAtDefender() {
         assert(queuedEndY === Math.round(18.2), "Animation end Y should match intercept point");
         assert(queuedStateData.interceptor === defender, "State data should include interceptor sprite");
         assert(mockState.get('ballCarrier') === defender, "Defender should become ball carrier after interception");
+        assert(mockState.get('currentTeam') === 'teamB', "Possession should flip to interceptor team");
+        assert(mockState.get('shotClock') === 24, "Shot clock should reset on interception");
+        assert(mockState.get('ballHandlerLastX') === defender.x, "ballHandlerLastX should update to interceptor position");
+        assert(mockState.get('ballHandlerLastY') === defender.y, "ballHandlerLastY should update to interceptor position");
+        assert(mockState.get('ballHandlerProgressOwner') === defender, "Progress owner should become interceptor");
+        assert(mockState.get('ballHandlerStuckTimer') === 0, "ballHandlerStuckTimer should reset");
+        assert(mockState.get('ballHandlerAdvanceTimer') === 0, "ballHandlerAdvanceTimer should reset");
+        assert(mockState.get('consecutivePoints.teamA') === 0, "Opponent streak should reset");
+        assert(helperCalls.recordTurnover === 1, "recordTurnover should run once");
+        assert(helperCalls.recordStatDelta === 1, "recordStatDelta should run once");
+        assert(helperCalls.resetBackcourtState === 1, "resetBackcourtState should run once");
+        assert(helperCalls.clearPotentialAssist === 1, "clearPotentialAssist should run once");
+        assert(helperCalls.triggerPossessionBeep === 1, "triggerPossessionBeep should fire once");
+        assert(helperCalls.assignDefensiveMatchups === 1, "assignDefensiveMatchups should run once");
+        assert(capturedStatArgs && capturedStatArgs.player === defender, "recordStatDelta should target interceptor");
+        assert(capturedStatArgs && capturedStatArgs.key === 'steals', "recordStatDelta should increment steals");
+        assert(capturedStatArgs && capturedStatArgs.amount === 1, "recordStatDelta should add single steal");
+        assert(possessionEvents.length === 1, "possession_change event should emit once");
+        assert(possessionEvents[0].from === 'teamA' && possessionEvents[0].to === 'teamB', "possession_change payload should reflect teams");
+        assert(possessionEvents[0].reason === 'interception', "possession_change reason should be interception");
+        assert(stealEvents.length === 1, "steal event should emit once");
+        assert(stealEvents[0].defender === defender, "steal event should include defender");
+        assert(passer.playerData.hasDribble === false, "Passer should lose dribble after interception");
+        assert(defender.playerData.hasDribble === true, "Interceptor should gain dribble after interception");
+        assert(capturedStatArgs.systems === systemsRef, "recordStatDelta should receive systemsRef");
     } finally {
         if (hadOriginalCheck) {
             checkPassInterception = originalCheck;

@@ -427,6 +427,7 @@ function main() {
             getPlayerTeamName: getPlayerTeamName,
             getAllPlayers: getAllPlayers,
             recordTurnover: recordTurnover,
+            recordStatDelta: recordStatDelta,
             triggerPossessionBeep: triggerPossessionBeep,
             resetBackcourtState: resetBackcourtState,
             setPotentialAssist: setPotentialAssist,
