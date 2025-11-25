@@ -11,6 +11,7 @@
 - **Timers & flags.** `checkViolations` tracks `backcourtTimer`, `ballHandlerAdvanceTimer`, and `frontcourtEstablished`. `isInBackcourt(player, team)` and `isClearlyInFrontcourt` use the court midpoint (`Math.floor(COURT_WIDTH / 2)`) to determine whether possession has crossed the line.
 - **Establishing frontcourt.** `setFrontcourtEstablished(teamName, systems)` runs once per team per possession and stops score flashes if the scoring team retains the ball. The timer resets via `resetBackcourtState` whenever possession changes or a violation occurs.
 - **Over-and-back detection.** If the handler re-enters the backcourt after frontcourt has been established, `checkViolations` triggers `setupViolationInbound` for the opposing team.
+- **Enforcement toggle.** `ENFORCE_BACKCOURT_VIOLATIONS` (sourced from `GAME_MODE_CONSTANTS.RULE_ENFORCEMENT.BACKCOURT_VIOLATIONS_ENABLED`) determines whether `maybeEnforceBackcourtViolation` actually whistles the play. When disabled, timers continue updating so AI logic still respects backcourt urgency, but possession isn’t flipped and the timer is reset quietly.
 
 ### Five-Second / Stalled Handler
 

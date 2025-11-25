@@ -42,6 +42,7 @@ Implementation pattern:
 - Updated `lib/utils/constants.js`, `lib/multiplayer/mp_config.js`, and `lib/multiplayer/mp_network.js` to pull every hard-coded MP constant (flush intervals, network HUD thresholds, ping cadence, adaptive tuning) from the shared config. Multiplayer knobs now live in one file for faster iteration.
 - Extended `lib/config/mp-constants.js` with an `ANIMATION_HINTS` surface (TTL, packet ceiling, label defaults) consumed by `lib/utils/constants.js`, `lib/multiplayer/mp_coordinator.js`, `lib/multiplayer/mp_client.js`, and `lib/rendering/court-rendering.js` so the new hint pipeline carries zero inline literals.
 - Wave 24 follow-up: added `ANIMATION_HINTS.INBOUND` and `.DRIFT` blocks to centralize tween durations + drift flash timing, eliminating the ad-hoc `25/70/8` literals from multiplayer hint consumers.
+- Wave 24 follow-up: introduced `PREDICTION.TURBO` factors so multiplayer clients throttle predictive turbo drain (`mp_client.js`) without sprinkling `0.5` / `0.0` literals across prediction/dampening code.
 
 ### ✅ Pass 5 (Player movement & hitbox defaults)
 - Expanded `lib/config/player-constants.js` with movement-speed envelopes, collision thresholds, boundary clamps, sprite defaults, and input-buffer guards.
@@ -51,6 +52,7 @@ Implementation pattern:
 ### ✅ Pass 6 (Bookie odds & betting defaults)
 - Introduced `lib/config/game-mode-constants.js` (loaded via `lib/utils/constants.js`) to own bookie odds tuning plus betting UI defaults.
 - `lib/bookie/bookie.js` now reads attribute weights, odds scaling/caps, spread math, over/under math, bankroll defaults, and wager defaults from the shared config, eliminating the ad-hoc `1.2 / 110 / 0.5 / 1000 / 100` literals spread across calculation helpers and UI flows.
+- Wave 24 follow-up: added `RULE_ENFORCEMENT.BACKCOURT_VIOLATIONS_ENABLED` so backcourt whistles can be toggled without reintroducing inline booleans. `lib/utils/constants.js` exposes `ENFORCE_BACKCOURT_VIOLATIONS`, and `violations.js` respects the flag while keeping timers alive for AI heuristics.
 
 ### ✅ Pass 7 (Menu & splash layouts)
 - Expanded `game-mode-constants.js` with a `MENUS` block covering team selection columns, splash layout thresholds, and matchup frame geometry/timing (plus a `promptsEnabled` toggle to keep betting UI hidden).

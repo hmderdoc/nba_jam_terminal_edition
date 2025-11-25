@@ -89,6 +89,7 @@ Networking and tuning knobs for multiplayer:
 | UI | `LATENCY_INDICATORS` | HUD overlays showing connection quality. |
 | Animation hints | `ANIMATION_HINTS.TTL_FRAMES`, `.MAX_PER_PACKET` | `mp_coordinator` tracker emits animation payloads (e.g., shove knockback). Clients consume them immediately to mirror authority choreography. |
 | Hint choreography | `ANIMATION_HINTS.INBOUND.WALK_FRAMES`, `.READY_FRAMES`, `.TARGET_FRAMES`; `ANIMATION_HINTS.DRIFT.FLASH_FRAMES`, `.LERP_FRAMES` | Client-side animation helpers use these to pace inbound walk/ready/target tweens and drift-snap highlight duration. Keep coordinator + client tuned together. |
+| Prediction turbo | `PREDICTION.TURBO.DRAIN_FACTOR`, `.CATCHUP_FACTOR` | `mp_client.js` scales client-side turbo drain and disables it during authoritative catch-up. |
 
 If you need to change how often inputs flush, how reconciliation works, or what latency bars look like, edit this file.
 
@@ -101,6 +102,7 @@ Higher-level feature toggles:
 - **Bookie system**: attribute weights, odds/spread/over-under scaling, default bankrolls.
 - **Betting prompts**: `promptsEnabled`, `hotkeyEnabled` (used by menus + CPU modes).
 - **Menus**: widths/heights/timeouts for splash, matchup, team selection flows.
+- **Rule enforcement**: `RULE_ENFORCEMENT.BACKCOURT_VIOLATIONS_ENABLED` lets us gate the whistle while keeping the shared timers active for AI decision-making. Default is `false` to match the source game’s behaviour.
 
 UI/feature gating constants go here rather than alongside gameplay physics.
 

@@ -36,6 +36,7 @@ function runTests() {
     testPassTiming();
     testInboundPass();
     testQueuedPassWhileAnimating();
+    testInterceptedPassStopsAtDefender();
 
     console.log("\n✓ All passing system tests passed!");
 }
@@ -277,6 +278,70 @@ function testQueuedPassWhileAnimating() {
     assert(mockState.get('ballCarrier') === receiver, "Receiver should become new ball carrier");
 
     console.log("  ✓ Queued pass executes after animation");
+}
+
+function testInterceptedPassStopsAtDefender() {
+    console.log("\nTest: Intercepted pass animation stops at defender");
+
+    var passer = { x: 12, y: 12, team: 'teamA', playerData: { name: 'Passer' } };
+    var receiver = { x: 44, y: 10, team: 'teamA', playerData: { name: 'Receiver' } };
+    var defender = { x: 28, y: 14, team: 'teamB', playerData: { name: 'Defender' } };
+
+    var mockState = createStateManager({
+        ballCarrier: passer,
+        currentTeam: 'teamA'
+    });
+
+    var queuedEndX = null;
+    var queuedEndY = null;
+    var queuedStateData = null;
+
+    var mockAnimations = {
+        isBallAnimating: function () { return false; },
+        queuePassAnimation: function (sx, sy, ex, ey, stateData, duration, callback) {
+            queuedEndX = ex;
+            queuedEndY = ey;
+            queuedStateData = stateData;
+            callback(stateData);
+        }
+    };
+
+    var system = createPassingSystem({
+        state: mockState,
+        animations: mockAnimations,
+        events: createEventBus(),
+        rules: { COURT_WIDTH: 66, COURT_HEIGHT: 40 },
+        helpers: { getPlayerTeamName: function (p) { return p.team; } }
+    });
+
+    var hadOriginalCheck = typeof checkPassInterception === 'function';
+    var originalCheck = hadOriginalCheck ? checkPassInterception : null;
+    checkPassInterception = function () {
+        return { defender: defender, interceptX: 35.6, interceptY: 18.2 };
+    };
+
+    try {
+        var result = system.attemptPass(passer, receiver, {});
+
+        assert(result.success === true, "Intercepted pass should still queue animation");
+        assert(result.outcome && result.outcome.intercepted === true, "Outcome should mark interception");
+        assert(queuedEndX === Math.round(35.6), "Animation end X should match intercept point");
+        assert(queuedEndY === Math.round(18.2), "Animation end Y should match intercept point");
+        assert(queuedStateData.interceptor === defender, "State data should include interceptor sprite");
+        assert(mockState.get('ballCarrier') === defender, "Defender should become ball carrier after interception");
+    } finally {
+        if (hadOriginalCheck) {
+            checkPassInterception = originalCheck;
+        } else {
+            try {
+                delete checkPassInterception;
+            } catch (cleanupErr) {
+                checkPassInterception = undefined;
+            }
+        }
+    }
+
+    console.log("  ✓ Intercepted pass animation truncated correctly");
 }
 
 function assert(condition, message) {

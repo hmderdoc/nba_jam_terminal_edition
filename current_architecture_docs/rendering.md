@@ -28,7 +28,13 @@ Inside `runGameFrame` (lib/core/game-loop-core.js):
    - `drawHoops(systems)` refreshes hoop frames.
    - `drawScore(systems)` redraws the scoreboard HUD.
    - `cycleFrame` is called on court and hoop frames, followed by `Sprite.cycle()` to push all updates to the console.
+- Intercepted passes shorten their animation target to the defender's intercept point so the ball stops where the steal occurs (coordinator broadcasts the truncated endpoints for clients).
 6. **Trail overlay.** Effects like jump indicators use `trailFrame`. Since the overlay is transparent, painting and erasing entries leaves the underlying court untouched.
+
+### Court Redraw Triggers
+
+- `courtNeedsRedraw` flips to `true` whenever we stage an inbound setup. The flag is asserted after inbound positioning is pushed into state so the first post-setup frame guarantees a clean court before overlays redraw.
+- Securing any rebound (offensive or defensive) also forces `courtNeedsRedraw=true`. This guards against scramble-era trail residue or rim flashes persisting once the ball is controlled again.
 
 ## Animation Timing Sources
 

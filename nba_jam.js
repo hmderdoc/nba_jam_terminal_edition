@@ -77,6 +77,20 @@ function initFrames(systems) {
     FrameManager.ensure("scoreboard");
     ensureScoreFontLoaded();
 
+    if (trailFrameInstance && typeof trailFrameInstance.clearData === "function") {
+        var trailWidth = (typeof trailFrameInstance.width === "number") ? trailFrameInstance.width : COURT_WIDTH;
+        var trailHeight = (typeof trailFrameInstance.height === "number") ? trailFrameInstance.height : COURT_HEIGHT;
+        for (var ty = 0; ty < trailHeight; ty++) {
+            for (var tx = 0; tx < trailWidth; tx++) {
+                trailFrameInstance.clearData(tx, ty, false);
+            }
+        }
+    }
+
+    if (systems && systems.stateManager && trailFrameInstance && trailFrameInstance.is_open) {
+        systems.stateManager.set("courtNeedsRedraw", true, "trail_frame_initialized");
+    }
+
     ensureBallFrame(40, 10);
     drawAnnouncerLine(systems);
 
@@ -166,6 +180,15 @@ function gameLoop(systems) {
         // Initial draw
         drawCourt(systems);
         drawScore(systems);
+        if (courtFrame && typeof cycleFrame === "function") {
+            cycleFrame(courtFrame);
+        }
+        if (trailFrame && typeof cycleFrame === "function") {
+            cycleFrame(trailFrame);
+        }
+        if (ballFrame && ballFrame.is_open && typeof ballFrame.top === "function") {
+            ballFrame.top();
+        }
         var teamNames = stateManager.get("teamNames");
         announceEvent("game_start", {
             teamA: (teamNames.teamA || "TEAM A").toUpperCase(),
