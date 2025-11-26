@@ -70,7 +70,9 @@ function createTestPlayer(name, team, attr, turbo) {
     };
 }
 
-function runJumpBall() {
+function runJumpBall(options) {
+    options = options || {};
+    var autoPress = options.autoPress !== false;
     var stateManager = createStateManager({
         announcer: { text: "", color: WHITE, timer: 0 }
     });
@@ -149,7 +151,7 @@ function runJumpBall() {
     var safetyCounter = 0;
     while (jumpBallSystem.isActive()) {
         jumpBallSystem.update(fakeNow, systems);
-        if (jumpBallSystem.isAwaitingUserJump()) {
+        if (autoPress && jumpBallSystem.isAwaitingUserJump()) {
             jumpBallSystem.handleUserInput(fakeNow, systems);
         }
         fakeNow += 200;
@@ -159,11 +161,14 @@ function runJumpBall() {
         }
     }
 
+    var debugState = jumpBallSystem._getDebugState();
+
     return {
         stateManager: stateManager,
         players: players,
         announcerLog: announcerLog,
-        moveLog: moveLog
+        moveLog: moveLog,
+        debugState: debugState
     };
 }
 
@@ -196,6 +201,13 @@ function runTests() {
     assert(moveCalls.length >= 1, 'Ball frame should move during drop/resolution');
 
     console.log('  \u2713 Opening tip assigns possession to strongest jumper');
+
+    console.log('\nTest: CPU demo auto jumps both centers');
+    var cpuContext = runJumpBall({ autoPress: false });
+    var debug = cpuContext.debugState.runtime;
+    assert(debug.humanJumpAt !== null, 'CPU left jumper should auto jump');
+    assert(debug.cpuJumpAt !== null, 'CPU right jumper should auto jump');
+    console.log('  \u2713 CPU jump ball schedules both sides');
 }
 
 try {

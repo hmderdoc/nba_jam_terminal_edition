@@ -50,7 +50,7 @@ That config-driven approach keeps single-player, demo, and multiplayer animation
 
 ## TrailFrame-Only Effects
 
-- Jump indicators (lib/rendering/jump-indicators.js) now refuse to draw when `trailFrame` is missing. This prevents artifacts on `courtFrame` but means the trail overlay must be created successfully for block arcs to show.
+- Jump indicators (lib/rendering/jump-indicators.js) now refuse to draw when `trailFrame` is missing. This prevents artifacts on `courtFrame` but means the trail overlay must be created successfully for block arcs to show. The opening jump-ball sequence feeds both centers into the same helper so their arcs only appear when an actual jump input fires (CPU schedule or human spacebar press).
 - Fire effects (`lib/rendering/fire-effects.js`) also target overlays, so both modules rely on the same transparent frame.
 - Stat trails (lib/animation/stat-trail-system.js) emit celebratory text overlays triggered by `recordStatDelta` (points, rebounds, assists, steals, blocks, turnovers) and any direct `queueStatTrail` call. The effect reads team colors from game state by default, accepts explicit color overrides, floats the text upward for a fixed lifetime, and self-cleans each frame so concurrent animations coexist on the shared overlay. When overlays expire, the system marks `courtNeedsRedraw` so the background refreshes on the next render pass.
 
