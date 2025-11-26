@@ -37,6 +37,7 @@ function runTests() {
     testPassTiming();
     testInboundPass();
     testQueuedPassWhileAnimating();
+    testQueuedPassDefersDuringShotPhase();
     testInterceptedPassStopsAtDefender();
 
     console.log("\n✓ All passing system tests passed!");
@@ -362,6 +363,77 @@ function testQueuedPassWhileAnimating() {
     assert(mockState.get('ballCarrier') === receiver, "Receiver should become new ball carrier");
 
     console.log("  ✓ Queued pass executes after animation");
+}
+
+function testQueuedPassDefersDuringShotPhase() {
+    console.log("\nTest: Queued pass defers during shot phase");
+
+    var passer = { x: 14, y: 11, team: 'teamA', playerData: { name: 'Passer' } };
+    var receiver = { x: 20, y: 12, team: 'teamA', playerData: { name: 'Receiver' } };
+
+    var mockState = createStateManager({
+        ballCarrier: passer,
+        currentTeam: 'teamA',
+        shotInProgress: false,
+        phase: {
+            current: 'SHOT_SCORED',
+            name: 'SHOT_SCORED',
+            data: {},
+            frameCounter: 0,
+            targetFrames: 0
+        }
+    });
+
+    var animationQueued = 0;
+    var mockAnimations = {
+        isBallAnimating: function () {
+            return false;
+        },
+        queuePassAnimation: function (sx, sy, ex, ey, stateData, duration, callback) {
+            animationQueued++;
+            if (typeof callback === 'function') {
+                callback(stateData);
+            }
+        }
+    };
+
+    var system = createPassingSystem({
+        state: mockState,
+        animations: mockAnimations,
+        events: createEventBus(),
+        rules: { COURT_WIDTH: 66, COURT_HEIGHT: 40 },
+        helpers: { getPlayerTeamName: function (p) { return p.team; } }
+    });
+
+    mockState.set('queuedPassIntent', {
+        passer: passer,
+        receiver: receiver,
+        leadTarget: null,
+        inboundContext: null,
+        queuedAt: Date.now(),
+        attempts: 1
+    }, 'test_setup');
+
+    var waitingResult = system.processQueuedPass();
+    assert(waitingResult === 'waiting', "Queued pass should wait while shot phase is active");
+    assert(animationQueued === 0, "No animation should queue during shot phase hold");
+    assert(mockState.get('queuedPassIntent') !== null, "Queued intent should persist while waiting");
+
+    mockState.set('phase', {
+        current: 'NORMAL',
+        name: 'NORMAL',
+        data: {},
+        frameCounter: 0,
+        targetFrames: 0
+    }, 'test_phase_normal');
+
+    var processedResult = system.processQueuedPass();
+    assert(processedResult && processedResult.success === true, "Queued pass should execute once phase returns to NORMAL");
+    assert(animationQueued === 1, "Pass animation should queue after phase clears");
+    assert(mockState.get('queuedPassIntent') === null, "Queued intent should clear after execution");
+    assert(mockState.get('ballCarrier') === receiver, "Receiver should gain possession after queued pass executes");
+
+    console.log("  ✓ Queued pass is deferred during shot phases");
 }
 
 function testInterceptedPassStopsAtDefender() {
