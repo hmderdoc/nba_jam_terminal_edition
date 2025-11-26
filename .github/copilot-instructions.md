@@ -100,6 +100,7 @@ If a hypothesis fails, log it in the relevant doc (e.g., `codex-flicker-theories
 ## 9. Testing & Automation
 
 - **Unit-style harnesses.** For helpers and pure functions, add tests under `tests/` that can run via `jsexec`.
+- **Runner path.** Invoke every test or script with `/sbbs/exec/jsexec` (do not call `node` or rely on `jsexec` being on PATH). Example: `/sbbs/exec/jsexec tests/unit/jump-ball-system.test.js`.
 - **Simulation scripts.** When verifying animations, inbound logic, or multiplayer flows, build deterministic scripts/log parsers so validation can happen offline.
 - **No manual checklists.** Replace “play a match to confirm” with “run script X and inspect log Y for marker Z.”
 - **Logging as tests.** If a behavior can only be observed via gameplay, emit deterministic log entries and parse them automatically to confirm success.

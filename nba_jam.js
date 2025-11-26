@@ -189,11 +189,6 @@ function gameLoop(systems) {
         if (ballFrame && ballFrame.is_open && typeof ballFrame.top === "function") {
             ballFrame.top();
         }
-        var teamNames = stateManager.get("teamNames");
-        announceEvent("game_start", {
-            teamA: (teamNames.teamA || "TEAM A").toUpperCase(),
-            teamB: (teamNames.teamB || "TEAM B").toUpperCase()
-        }, systems);
 
         // Configure for single-player mode
         var config = {
@@ -205,6 +200,22 @@ function gameLoop(systems) {
             aiInterval: tempo.aiIntervalMs, // Throttled AI for performance
             frameDelay: tempo.frameDelayMs  // Variable frame rate
         };
+
+        if (systems.jumpBallSystem && typeof systems.jumpBallSystem.startOpeningTipoff === "function") {
+            var firstHalfStartTeam = stateManager.get("firstHalfStartTeam");
+            if (!firstHalfStartTeam) {
+                systems.jumpBallSystem.startOpeningTipoff(systems);
+                while (systems.jumpBallSystem.isActive()) {
+                    runGameFrame(systems, config);
+                }
+            }
+        }
+
+        var teamNames = stateManager.get("teamNames");
+        announceEvent("game_start", {
+            teamA: (teamNames.teamA || "TEAM A").toUpperCase(),
+            teamB: (teamNames.teamB || "TEAM B").toUpperCase()
+        }, systems);
 
         // Main game loop using unified core
         while (stateManager.get("gameRunning") && stateManager.get("timeRemaining") > 0) {

@@ -33,6 +33,7 @@ function runTests() {
     testPassingSystemCreation();
     testSuccessfulPass();
     testOutOfBoundsPass();
+    testNearBoundaryPassClamped();
     testPassTiming();
     testInboundPass();
     testQueuedPassWhileAnimating();
@@ -138,7 +139,7 @@ function testOutOfBoundsPass() {
     });
 
     var passer = { x: 10, y: 10, team: 'teamA' };
-    var receiver = { x: 1, y: 1, team: 'teamA' }; // Out of bounds
+    var receiver = { x: -10, y: -6, team: 'teamA' }; // Significantly out of bounds
 
     var result = system.attemptPass(passer, receiver, {});
 
@@ -150,6 +151,89 @@ function testOutOfBoundsPass() {
     assert(eventsEmitted.indexOf('possession_change') >= 0, "Should emit possession change");
 
     console.log("  ✓ Out of bounds handled correctly");
+}
+
+function testNearBoundaryPassClamped() {
+    console.log("\nTest: Near-boundary pass auto-clamps receiver");
+
+    var mockState = createStateManager({
+        ballCarrier: null,
+        currentTeam: 'teamA'
+    });
+
+    var animationQueued = false;
+    var mockAnimations = {
+        queuePassAnimation: function (sx, sy, ex, ey, stateData, duration, callback) {
+            animationQueued = true;
+            callback(stateData);
+        }
+    };
+
+    var eventsEmitted = [];
+    var mockEvents = createEventBus();
+    mockEvents.on('*', function (data, type) {
+        eventsEmitted.push(type);
+    });
+
+    var clampCalls = 0;
+    var system = createPassingSystem({
+        state: mockState,
+        animations: mockAnimations,
+        events: mockEvents,
+        rules: {
+            COURT_WIDTH: 80,
+            COURT_HEIGHT: 40,
+            PLAYER_BOUNDARIES: {
+                minX: 2,
+                maxXOffset: 1,
+                minY: 2,
+                maxYOffset: 5,
+                movementMaxXOffset: 7,
+                feetMinX: 2,
+                feetMaxXOffset: 2,
+                fallbackWidthClamp: 7,
+                passAutoClampTolerance: 2
+            }
+        },
+        helpers: {
+            getPlayerTeamName: function (p) { return p.team; },
+            clampSpriteFeetToCourt: function (sprite) {
+                clampCalls++;
+                var clamped = {
+                    x: Math.max(2, Math.min(73, sprite.x)),
+                    y: Math.max(2, Math.min(35, sprite.y))
+                };
+                if (typeof sprite.moveTo === 'function') {
+                    sprite.moveTo(clamped.x, clamped.y);
+                } else {
+                    sprite.x = clamped.x;
+                    sprite.y = clamped.y;
+                }
+            }
+        }
+    });
+
+    var passer = { x: 60, y: 12, team: 'teamA' };
+    var receiver = {
+        x: 75,
+        y: 10,
+        team: 'teamA',
+        moveTo: function (nx, ny) {
+            this.x = nx;
+            this.y = ny;
+        }
+    };
+
+    var result = system.attemptPass(passer, receiver, {});
+
+    assert(result.success === true, "Pass should succeed after auto-clamp near boundary");
+    assert(animationQueued === true, "Should queue animation for near-boundary pass");
+    assert(mockState.get('ballCarrier') === receiver, "Receiver should gain possession");
+    assert(clampCalls === 1, "Clamp helper should run once");
+    assert(eventsEmitted.indexOf('turnover') === -1, "Should not emit turnover event");
+    assert(receiver.x === 73, "Receiver should be clamped within boundary");
+
+    console.log("  ✓ Near-boundary auto clamp keeps pass alive");
 }
 
 function testPassTiming() {
@@ -220,7 +304,7 @@ function testInboundPass() {
     assert(result.success === true, "Inbound pass should succeed");
     assert(mockState.get('inbounding') === false, "Should clear inbounding flag");
     assert(mockState.get('shotClock') === 24, "Should reset shot clock");
-    assert(inbounder.x === 5, "Should move inbounder onto court");
+    assert(inbounder.x === 0, "Inbounder should retain authoritative position");
     assert(eventsEmitted.indexOf('inbound_complete') >= 0, "Should emit inbound complete");
 
     console.log("  ✓ Inbound pass handled correctly");

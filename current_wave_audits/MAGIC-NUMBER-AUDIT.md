@@ -64,6 +64,10 @@ Implementation pattern:
 - `lib/game-logic/physical-play.js` reads all shake/shove cooldowns, knockdown durations, and loose-ball arc math from the new config so shove physics stay tunable in one place.
 - `lib/rendering/animation-system.js` now consumes the structured animation timing presets, covering shot/pass duration curves, rebound bounce cadence, dunk frame defaults, idle-bounce loops, and the debug/log fallbacks.
 - Wave 24 follow-up: `lib/animation/stat-trail-system.js` pulls its lifetime, fade cadence, acceleration curve, drift, blink, flash palette, final fade color, stat-type color table, and sideline/baseline safety margins from the `STAT_TRAIL` block so celebratory overlays avoid introducing fresh literals.
+- Wave 24 follow-up: inbound setup duration (`4000` ms in `phase-handler.js`) now lives in `TIMING_CONSTANTS.INBOUND.SETUP_DURATION_MS`, keeping halftime restarts and post-score inbounds aligned.
+- Wave 24 follow-up: jump ball cadence numbers (800 ms countdown tick, 24-frame drop, top-of-court spawn) move into `TIMING_CONSTANTS.JUMP_BALL` so the opening tip avoids new magic values when the animation is implemented.
+- Wave 24 follow-up: the non-blocking tipoff now sources arc-duration floors, handoff tween length, CPU reaction offsets, and jumper animation bounds from `TIMING_CONSTANTS.JUMP_BALL`, removing the ad-hoc `400 / 0.6 / 0.3 / 350 / 700` literals from gameplay code.
+- Wave 24 follow-up: `prepareSecondHalfPositions` (possession module) replaces the leftover halftime pairing logic; no new literals required because it reuses existing court geometry constants.
 
 ### ✅ Pass 9 (AI offense-ball heuristics)
 - Extended `lib/config/ai-constants.js` with a full `OFFENSE_BALL` surface (decision windows, quick-three spacing, drive/high-fly thresholds, escape/press-break tuning, dead-dribble odds, shove exploits).
@@ -80,8 +84,8 @@ Implementation pattern:
 - `lib/rendering/court-rendering.js` references the same boundary config when offsetting the live ball so dribble animations don’t extend past the defined player footprint near the sideline.
 
 ### 2.1 Geometry & UI
-- `lib/rendering/court-rendering.js:31-117` – `baselineTop = 2`, `centerLeft = Math.floor(COURT_WIDTH / 2)`, loops from `y = 2`. These belong in **gameplay geometry** (baseline offsets, ASCII art widths).  
 - `lib/ui/scoreboard.js:260-330` – Hard-coded frame widths (`80`), column offsets (`60`, `centerColumn = Math.floor(frameWidth / 2)`), turbo bar length `6`. Move to **presentation constants** so HUD tweaks don’t require code edits.  ✅ *(Handled via `GAMEPLAY_CONSTANTS.SCOREBOARD` in Pass 1.)*
+- Wave 24 follow-up: the new opening tip flow consumes `GAMEPLAY_CONSTANTS.JUMP_BALL` (center coordinates, jumper offsets, wing spacing) so the geometry stays tunable without sprinkling fresh literals into `jump-ball-system.js`.
 - `lib/ui/menus.js:230-260` – ✅ handled in Pass 7 (team selection padding sourced from `GAME_MODE_CONSTANTS.MENUS.TEAM_SELECTION`).  
 - `lib/ui/menus.js:420-520` – ✅ handled in Pass 7 (splash minimums/timeouts now read from `MENUS.SPLASH`).  
 - `lib/ui/menus.js:520-860` – ✅ handled in Pass 7 (matchup frame geometry, odds offsets, animation cadences centralized in `MENUS.MATCHUP` and betting prompts gated via config).
@@ -102,14 +106,15 @@ Implementation pattern:
 - `lib/multiplayer/mp_config.js:160-220` – Reconnection delays (`mswait(100)`), JSON client timeouts. All candidates for **mp-constants.js**.
 
 ### 2.5 Player / Attribute Model
+- `PLAYER_CONSTANTS.COURT_BOUNDARIES.fallbackWidthClamp` = `7` (legacy sideline safety margin).
+- `PLAYER_CONSTANTS.COURT_BOUNDARIES.passAutoClampTolerance` = `2` (max tiles we auto-correct when pass targets drift just outside the legal rectangle).
 - `lib/game-logic/player-class.js` – Uses sprite dimensions and offsets inline.  
 - `lib/game-logic/movement-physics.js:140-210` – ✅ handled in Pass 5 (collision thresholds, boundary clamps, movement speed caps are now in `PLAYER_CONSTANTS`).  
 - `lib/game-logic/dunks.js` – `spriteHalfWidth = 2`, `absDx > KEY_DEPTH + 4`. These belong in **player constants** so we can retune sprite hitboxes centrally.
+- Wave 24 follow-up: `PLAYER_CONSTANTS.JUMP_BALL` captures the attribute index, weighting mix, randomness band, and deterministic tie-break increment for the tipoff resolver—no inline `0.6/0.3/0.1` ratios required in gameplay code.
 
 ### 2.6 Bookie / Game Mode Definitions
-- `lib/bookie/bookie.js` – ✅ handled in Pass 6 (attribute weights, bankroll defaults, odds scaling, spread/total rounding now live in `GAME_MODE_CONSTANTS`).  
 - `lib/ui/menus.js` – ✅ key layouts handled in Pass 7; remaining timers/options can piggyback on `MENUS` if more tuning is needed later.
-
 ---
 
 ## 3. Migration Plan

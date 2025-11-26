@@ -38,11 +38,7 @@ Prioritize the following items ahead of feature work. Each section outlines the 
 
 ## 6. Sprite Globals → State Manager
 
-- **Problem:** Globals like `teamAPlayer1` are referenced everywhere, making hot reload and testing fragile.
-- **Plan:** Store sprite references inside `stateManager` (e.g., `stateManager.set('sprites.teamA.player1', sprite)`) and expose a helper `systems.getPlayers()` that always returns the current snapshots. Update modules to call the helper instead of touching globals.
-- **Exit Criteria:** No module reads `teamAPlayer1`/`teamBPlayer2` directly; all sprite access flows through the helper/state manager. Hot reload can swap sprites without rewriting dozens of files.
 
----
 
 ### Tracking
 
@@ -54,11 +50,10 @@ Prioritize the following items ahead of feature work. Each section outlines the 
 | Physics constants unification | | Completed | Collision thresholds + client guard now live in `player-constants.js`; multiplayer coordinator/client consume them. |
 | Shared movement helper | | Completed | `previewMovementCommand()` powers both authority and client prediction; mp_client now consumes it instead of duplicating logic. |
 | Sprite globals cleanup | | Not Started |  |
+ **Halftime inbound fairness** (Wave 24B): ensure second-half possession flips to the team that opened the game on defense, restore backcourt positioning before inbound animation.
 
 Update the Status/Notes columns as work progresses.
 
----
 
 ### Notes & Lessons
 
-- **Animation hint pipeline (Idea #6)**: Initial attempt (coordinator → client hints + prediction inhibition) introduced regressions in inbound flow (stuck pass animations, NaN inbounder coords, CPU freezes). Current Wave 24 work now emits animation payloads (e.g., shove knockback distance) bundled with game-state packets. Clients consume them immediately, keeping choreography aligned without relying on jersey overlays. Next steps: extend coverage beyond shoves (inbound walks, recoveries) and add test coverage for each hint type.

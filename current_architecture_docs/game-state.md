@@ -18,6 +18,7 @@
 | `ballCarrierNeedsDecision`, `ballCarrierDecisionTime` | Physical play (shove/ shake outcomes) | AI offense ball handler | Notifies the handler that it must pick pass vs. shot after a contested possession. |
 | `scoreFlash`, `scoreFlash.activeTeam` | Scoreboard + events | Violations (stopScoreFlash) | Drives the scoreboard's flashing indicators; automatically stopped when the same team retains possession. |
 | `inboundPositioning`, `inboundPassData` | Violations, score routines | Animation system, possession system | Contains scripted positions for inbounders/receivers/defenders when setting up after whistles. |
+| `jumpBallPhase` / `jumpBallMeta` | `jumpBallSystem` | Game loop, input handler, announcer | Tracks the non-blocking opening-tip sequence so countdown, jump timing, and possession handoff run without freezing the loop. |
 | `jumpIndicators` (per sprite) | Jump indicator module | Rendering cleanup | Keeps track of marker entries so they can be cleared when the animation ends. |
 
 ## Lifecycle & Reset Points

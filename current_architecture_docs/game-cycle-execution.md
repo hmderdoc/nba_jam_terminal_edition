@@ -1,3 +1,18 @@
+### Halftime → Second Half adjustments (Wave 24)
+
+- `startSecondHalfInbound` now derives the inbounding team by flipping `stateManager.get("firstHalfStartTeam")` so the squad that opened on defense receives the second-half possession.
+- Before calling `setupInbound`, `prepareSecondHalfPositions` places both offensive players in their own backcourt and pushes defenders toward midcourt, avoiding the legacy “paired with defender” layout.
+- The halftime override stays resident through the entire inbound setup so any retries during `PHASE_INBOUND_SETUP` reuse the corrected layout; it is cleared as part of the phase cleanup once the inbound pass queues.
+- Shot clock resets to 24, `ballCarrier` clears, `pendingSecondHalfInbound` is set, and fresh positioning + inbound animation kicks off.
+
+### Opening Jump Ball sequence (Wave 24)
+
+- The jump ball is now a fully non-blocking phase (`PHASE_JUMP_BALL`). `jumpBallSystem.startOpeningTipoff()` requests the phase transition, and `runGameFrame` lets the system advance via `jumpBallSystem.update()` every frame.
+- Countdown prompts (`Jump Ball in 3…`, `2…`, `1…`, `JUMP!`) are emitted on live frames—no frame scheduler waits—so announcer text and court rendering remain visible while the ball rises.
+- Player alignment occurs once at the start of the phase and all `forcePos` flags are cleared before play resumes, preventing the second-half inbound pairing regression.
+- The ball animates along a parabolic arc while both centers can jump. Human timing (spacebar) and CPU reaction windows feed into the weighted resolver, which still honors `PLAYER_CONSTANTS.JUMP_BALL` and the deterministic seed.
+- The winner tips the ball toward a wing teammate with a short trail, claims possession, and the phase resets to `PHASE_NORMAL`. No inbound animation runs, but control returns instantly with the ball in play at midcourt.
+
 ## Entry Point
 
 1. `nba_jam.js` loads `lib/core/module-loader.js` and calls `loadGameModules()`, which brings in the entire dependency stack in a controlled order (sbbsdefs → constants → systems → rendering → logic → AI → multiplayer). The loader validates key globals such as `COURT_WIDTH`, `GAME_BALANCE`, and `spriteRegistry`.

@@ -25,6 +25,7 @@ Domain | Keys | Consumers |
 | --- | --- | --- |
 | Court geometry | `COURT.WIDTH`, `.HEIGHT`, `.BASKET_LEFT_X/Y`, `.THREE_POINT_RADIUS`, `.KEY_DEPTH` | `rendering/court-rendering.js`, `game-logic/possession.js`, AI spacing helpers. |
 | Dunk defaults | `DUNK.DISTANCE_BASE`, `.DISTANCE_PER_ATTR`, `.MIN_DISTANCE`, `.ARC_HEIGHT_MIN/MAX` | `game-logic/dunk-utils.js`, shooting system. |
+| Jump ball layout | `JUMP_BALL.CENTER_X`, `.CENTER_Y`, `.PLAYER_OFFSET_X`, `.PLAYER_OFFSET_Y`, `.WING_OFFSET_X`, `.WING_OFFSET_Y`, `.ARC_HEIGHT`, `.JUMPER_LIFT` | `jump-ball-system.js` positions jumpers and wing players around the midcourt circle before the opening tip and defines the ball arc height + jumper lift used by the interactive animation. |
 | Scoreboard layout | `SCOREBOARD.DEFAULT_WIDTH`, `.ROWS`, `.TURBO_BAR_LENGTH`, etc. | `lib/ui/scoreboard.js`, HUD helpers. |
 
 Use this file for static geometry, UI layout metrics, and anything that should only change when the visual design changes.
@@ -44,6 +45,8 @@ Domain | Keys | Notes |
 | Loose ball | `LOOSE_BALL.horizontalTiles`, `.verticalTiles`, `.arcSteps`, `.arcHeight` | `lib/game-logic/loose-ball.js`. |
 | Animation | `ANIMATION.SHOT/PASS/REBOUND/DUNK/GENERIC` | `AnimationSystem` queue timing. |
 | Stat trail overlay | `STAT_TRAIL.LIFETIME_FRAMES`, `.FADE_FRAMES`, `.RISE_PER_FRAME`, `.RISE_SLOW_PER_FRAME`, `.RISE_FAST_PER_FRAME`, `.RISE_ACCELERATION_EXP`, `.HORIZONTAL_DRIFT_PER_FRAME`, `.BLINK_INTERVAL_FRAMES`, `.ORIGIN_Y_OFFSET`, `.MAX_ACTIVE`, `.FLASH_FG_COLOR`, `.FINAL_FG_COLOR`, `.FINAL_FADE_FRAMES`, `.SIDELINE_MARGIN`, `.BASELINE_MARGIN`, `.STAT_TYPE_COLORS` | `lib/animation/stat-trail-system.js` controls lifespan, acceleration curve, flashing cadence, fade palette, safe court margins, and stat-type color mapping for celebratory text overlays. |
+| Inbound cadence | `INBOUND.SETUP_DURATION_MS` | `lib/game-logic/phase-handler.js` uses it for `PHASE_INBOUND_SETUP` length; `startSecondHalfInbound` references it so halftime restarts share the same animation window as post-score inbounds. |
+| Jump ball | `JUMP_BALL.COUNTDOWN_MS`, `.DROP_DURATION_FRAMES`, `.DROP_START_Y`, `.CONTEST_WINDOW_FRAMES`, `.ARC_MIN_DURATION_MS`, `.HANDOFF_DURATION_MS`, `.CPU_OFFSET_MAX_RATIO`, `.CPU_OFFSET_EARLY_RATIO`, `.JUMP_ANIMATION_DURATION_RATIO`, `.JUMP_ANIMATION_MIN_MS`, `.JUMP_ANIMATION_MAX_MS` | `jump-ball-system.js` drives announcer cadence, ball arc timing, CPU jump scheduling, jumper animation bounds, and the handoff-to-wing tween; the same constants are consumed in both authority and client contexts to keep the tipoff deterministic. |
 
 Timing, cadence, and animation math belong here.
 
@@ -56,11 +59,12 @@ Provides the authoritative player-centric numbers and registers friendly global 
 | Group | Keys | Consumers |
 | --- | --- | --- |
 | `COLLISION_THRESHOLD` | `{ dx, dy }` | `movement-physics.js`, `mp_client.js` collision guard. |
-| `COURT_BOUNDARIES` | `minX`, `maxXOffset`, `minY`, `maxYOffset`, `movementMaxXOffset`, `feetMinX`, `feetMaxXOffset`, `fallbackWidthClamp` | Boundary clamps + diagonal preview logic. |
+| `COURT_BOUNDARIES` | `minX`, `maxXOffset`, `minY`, `maxYOffset`, `movementMaxXOffset`, `feetMinX`, `feetMaxXOffset`, `fallbackWidthClamp`, `passAutoClampTolerance` | Boundary clamps, diagonal preview logic, and per-system auto-clamp tolerance. |
 | `SPRITE_DEFAULTS` | `width` | `clampSpriteFeetToCourt`. |
 | `SPEED` | `basePerFrame`, `turboPerFrame`, `turboBallHandlerFactor`, `min/maxPerFrame`, `attrScalePerPoint`, `maxStepsPerFrame`, `diagonalNormalizationFactor` | Movement physics, AI pathing, multiplayer prediction. |
 | `INPUT_BUFFER` | `maxFlush` | Multiplayer client input flushing. |
 | `CLIENT_COLLISION_THRESHOLD` | `dx`, `dy` | Prediction guard used before local movement to keep clients in sync. |
+| `JUMP_BALL` | `ATTRIBUTE_INDEX`, `.ATTRIBUTE_WEIGHT`, `.TURBO_WEIGHT`, `.RANDOM_WEIGHT`, `.RANDOM_MIN`, `.RANDOM_MAX`, `.TIEBREAKER_INCREMENT` | `jump-ball-system.js` resolves the opening tip contest deterministically so coordinator and clients pick the same winner. |
 
 Additions that change how sprites move, collide, or buffer input belong here—not in gameplay/timing configs.
 
