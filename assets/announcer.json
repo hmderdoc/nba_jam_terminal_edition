@@ -96,6 +96,15 @@
     ]
   },
   {
+    "event_type": "overtime_start",
+    "quotes": [
+      "We're heading to overtime!",
+      "Bonus basketball incoming!",
+      "Overtime! ${inboundTeamName} takes the ball to start.",
+      "All tied up -- overtime number ${overtimeNumber}!"
+    ]
+  },
+  {
     "event_type": "alley_oop",
     "quotes": [
       "Alley-oop!",
