@@ -20,6 +20,11 @@
 | `inboundPositioning`, `inboundPassData` | Violations, score routines | Animation system, possession system | Contains scripted positions for inbounders/receivers/defenders when setting up after whistles. |
 | `jumpBallPhase` / `jumpBallMeta` | `jumpBallSystem` | Game loop, input handler, announcer | Tracks the non-blocking opening-tip sequence so countdown, jump timing, and possession handoff run without freezing the loop. |
 | `jumpIndicators` (per sprite) | Jump indicator module | Rendering cleanup | Keeps track of marker entries so they can be cleared when the animation ends. |
+| `isOvertime`, `currentOvertimePeriod` | `maybeStartOvertime`, `resetGameState` | HUD, announcer, multiplayer packets | Flags active overtime play and records which overtime period is in progress. |
+| `overtimeCount`, `overtimeNextPossessionTeam` | `maybeStartOvertime` | Possession setup, multiplayer sync | Tracks how many overtimes have elapsed and which team should receive the next overtime inbound so possessions alternate automatically. |
+| `regulationOvertimeAnchorTeam` | `jumpBallSystem`, `resetGameState` | Overtime helper | Remembers the opening jump winner as the anchor for first-overtime possession. |
+| `overtimeIntroActive`, `overtimeIntroRemainingSeconds`, `overtimeIntroEndsAt` | `maybeStartOvertime`, `phase-handler` | `game-loop-core`, `ui/overtime-intro` | Flags the pre-overtime banner, stores countdown, and gives the loop a cutoff timestamp so timers/AI stay paused until the intro finishes. |
+| `pendingOvertimeInboundTeam`, `pendingOvertimeInboundContext` | `maybeStartOvertime`, `phase-handler` | Possession system | Caches the inbound metadata captured at regulation end; once the intro completes the finalizer passes it into `startOvertimeInbound` so the inbound animation starts cleanly. |
 
 ## Lifecycle & Reset Points
 
@@ -27,7 +32,8 @@
 2. **Per frame.** `runGameFrame` updates timers (`lastSecondTime`, `lastAIUpdateTime`), toggles flags (e.g., `shotInProgress`, `reboundActive`), and writes new values only through `stateManager.set`.
 3. **Violations / turnovers.** `setupViolationInbound` and `switchPossession` handle all resetting logic: shot clock, frontcourt state, inbound data, and ball carrier.
 4. **Halftime.** `gameLoop` resets `lastUpdateTime`, `lastSecondTime`, `lastAIUpdateTime`, and redraws the court/UI before continuing with the second half.
-5. **Game over.** UI flows read `stateManager` to display stats, then `cleanupSprites` and `resetGameState` prepare for the next match.
+5. **Overtime.** `maybeStartOvertime` bumps `overtimeCount`, flips `overtimeNextPossessionTeam`, resets the clock to `overtimePeriodSeconds`, toggles `isOvertime`, marks `overtimeIntroActive` with a countdown (`overtimeIntroRemainingSeconds`/`overtimeIntroEndsAt`), and caches inbound metadata. Once the intro phase completes, `phase-handler` clears the flag and hands the pending context to `startOvertimeInbound` so play resumes with a fresh setup.
+6. **Game over.** UI flows read `stateManager` to display stats, then `cleanupSprites` and `resetGameState` prepare for the next match, clearing all overtime metadata back to defaults.
 
 ## Multiplayer Considerations
 

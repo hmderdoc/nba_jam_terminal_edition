@@ -40,7 +40,7 @@ Domain | Keys | Notes |
 | Turbo | `TURBO.MAX`, `.DRAIN_RATE`, `.RECHARGE_RATE`, `.SPEED_MULTIPLIER`, `.ACTIVATION_THRESHOLD_MS`, `.SHOE_THRESHOLD` | Player class, HUD, shoe color logic. |
 | Shove / shake | `SHOVE.FAILURE_STUN_FRAMES`, `.COOLDOWN_FRAMES`, `SHAKE.*` | Physical play + AI punish logic. |
 | Block | `BLOCK.JUMP_DURATION_FRAMES`, `.JUMP_HEIGHT` | Block animations + shooting contest calculations. |
-| Clock | `CLOCK.SECOND_MS`, `.SHOT_CLOCK_SECONDS`, `.SHOT_CLOCK_RESET_PAUSE_MS` | `runGameFrame`, violation handlers, scoreboard. |
+| Clock | `CLOCK.SECOND_MS`, `.SHOT_CLOCK_SECONDS`, `.SHOT_CLOCK_RESET_PAUSE_MS`, `.REGULATION_SECONDS`, `.OVERTIME_SECONDS`, `.OVERTIME_INTRO.DISPLAY_MS`, `.OVERTIME_INTRO.COUNTDOWN_SECONDS`, `.TEST_OVERRIDES.FAST_OVERTIME` (`ENABLED`, `.REGULATION_SECONDS`, `.AUTO_TIE.ENABLED`, `.AUTO_TIE.SECONDS_REMAINING`, `.AUTO_TIE.SCORE`) | `runGameFrame`, violation handlers, scoreboard, and `maybeStartOvertime` for period resets, overtime length tuning, the overtime intro overlay countdown, and the fast-overtime developer toggle that collapses regulation length and auto-ties scores for testing (consumed after the first overtime start so later periods are authentic). Setting `AUTO_TIE.SECONDS_REMAINING` to the default `0` ties the score as regulation expires without truncating the clock; higher thresholds keep the period running after the auto-tie. |
 | Render cadence | `RENDER.COURT_THROTTLE_MS`, `.HUD_INTERVAL_MS` | `runGameFrame` dirty checks, scoreboard throttling. |
 | Loose ball | `LOOSE_BALL.horizontalTiles`, `.verticalTiles`, `.arcSteps`, `.arcHeight` | `lib/game-logic/loose-ball.js`. |
 | Animation | `ANIMATION.SHOT/PASS/REBOUND/DUNK/GENERIC` | `AnimationSystem` queue timing. |

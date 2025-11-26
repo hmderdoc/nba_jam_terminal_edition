@@ -13,6 +13,17 @@
 - The ball animates along a parabolic arc while both centers can jump. Human timing (spacebar) and CPU reaction windows feed into the weighted resolver, which still honors `PLAYER_CONSTANTS.JUMP_BALL` and the deterministic seed.
 - The winner tips the ball toward a wing teammate with a short trail, claims possession, and the phase resets to `PHASE_NORMAL`. No inbound animation runs, but control returns instantly with the ball in play at midcourt.
 
+### Overtime sequence (Wave 24)
+
+- `runGameFrame` invokes `maybeStartOvertime(systems)` once regulation time expires and the score is tied. The helper lives in `lib/game-logic/overtime.js` so the entry point stays inside the module-loader path.
+- Clock lengths come from `TIMING_CONSTANTS.CLOCK.REGULATION_SECONDS` and `TIMING_CONSTANTS.CLOCK.OVERTIME_SECONDS`. The second value can be tuned independently for testing; when unset it defaults to a quarter of regulation.
+- Fast-OT testing lives behind `TIMING_CONSTANTS.CLOCK.TEST_OVERRIDES.FAST_OVERTIME`. When `ENABLED` the regulation clock collapses to the override length, and when `AUTO_TIE.ENABLED` the loop forces both scores to the configured value without skipping the remaining regulation time (default threshold `SECONDS_REMAINING = 0` ties the game exactly as the clock expires). The override is single-use per match—once overtime begins the helper marks it consumed so subsequent periods play out normally. Flip both flags back to `false` to restore the default cadence.
+- The first overtime possession belongs to the team that won the opening jump (`stateManager.get("regulationOvertimeAnchorTeam")`). Each subsequent overtime flips via `stateManager.get("overtimeNextPossessionTeam")` so possessions alternate without needing extra jump balls.
+- `startOvertimeInbound` mirrors the second-half inbound flow: it queues `PHASE_INBOUND_SETUP` with reason `"overtime_start"`, primes the same backcourt positioning script, resets the shot clock, and clears frontcourt/inbounding flags through the possession system. The helper fires after the overtime intro banner clears so inbound animations do not play underneath the overlay.
+- `setPhase(PHASE_OVERTIME_INTRO, …)` drives a short intermission powered by `renderOvertimeIntro`, displaying an overtime banner, possession callout, and a countdown pulled from `CLOCK.OVERTIME_INTRO`. While `overtimeIntroActive` is true the authority loop pauses clock ticks, AI, collision checks, and court redraws so the overlay stays stable.
+- Every time overtime triggers the state manager increments `overtimeCount`, bumps `totalGameTime` by the overtime duration (for stat projections), toggles `isOvertime`, and announces `[OVERTIME]` via `announceEvent("overtime_start", { overtimeNumber })` so UI, announcer, and multiplayer coordinators stay synchronized.
+- If an overtime period ends with the score still tied, the helper repeats the process, alternating the inbounding team. Otherwise the authority path returns `"game_over"` and the caller transitions to the victory UI.
+
 ## Entry Point
 
 1. `nba_jam.js` loads `lib/core/module-loader.js` and calls `loadGameModules()`, which brings in the entire dependency stack in a controlled order (sbbsdefs → constants → systems → rendering → logic → AI → multiplayer). The loader validates key globals such as `COURT_WIDTH`, `GAME_BALANCE`, and `spriteRegistry`.

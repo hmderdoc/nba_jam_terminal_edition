@@ -11,6 +11,8 @@ Although the game loop runs single-threaded, several subsystems rely on precise 
 - `runGameFrame()` uses `Date.now()` deltas to decide whether to advance timers, AI, and HUD redraws. If these timestamps are reset or skipped (e.g., during halftime or violation pauses) the scheduler can stall, causing turbo meters or shot clocks to freeze.
 - Multiplayer coordinators share the same cadence; clients derive prediction pacing from `frameDelay`. Divergence here causes rubber-banding or flicker.
 - **Watch-outs:** Any patch touching `frameScheduler`, `tempo`, or state resets must update all four timestamps; otherwise the next `runGameFrame` iteration will think time stood still and skip work.
+- **Overtime nuance:** `maybeStartOvertime` rewrites `timeRemaining`, bumps `totalGameTime`, and resets the shot clock without blocking the loop. Ensure the function clears/re-initializes `lastSecondTime` along with the clock to avoid an immediate extra tick that would drop the overtime clock to `periodSeconds - 1` on the first frame.
+- **Overtime intro banner:** While `overtimeIntroActive` is true the loop pauses timer decrements, AI ticks, collision checks, and court redraws. New code must respect this guard; otherwise the intro overlay will overlap inbound animations or desync multiplayer clocks.
 
 ---
 
