@@ -51,7 +51,7 @@
 Each frame consists of:
 
 1. **Position snapshot.** Store `prevX/prevY` on every sprite (used by passing and AI modules).
-2. **Ball safety net.** If the ball should be in play but has no carrier, trigger a loose-ball scramble via `createRebound`.
+2. **Ball safety net.** Track consecutive frames without a ball carrier, ball coordinates that drift beyond the playable rectangle, and stale inbound flags using `TIMING_CONSTANTS.SAFETY_NET`. When any counter crosses its limit the loop logs the state, clears `inbounding`, and calls `createRebound(ballX, ballY, systems, true)` to spawn a loose-ball scramble instead of freezing play.
 3. **Timer updates (authority only).**
    - Decrement `timeRemaining` and `shotClock` every `GAME_CLOCK_TICK_MS`.
    - Trigger halftime when the first half crosses below its halfway mark.

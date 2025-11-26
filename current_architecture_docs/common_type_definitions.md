@@ -123,11 +123,11 @@ Return shape of `previewMovementCommand(sprite, key)` used by authority and pred
 
 | Field | Type | Description |
 | --- | --- | --- |
-| `canMove` | `boolean` | `true` if the attempted move stays inside `PLAYER_BOUNDARIES`. |
-| `nextX`, `nextY` | `number` | Coordinates to apply if the move is accepted. |
+| `canMove` | `boolean` | `true` when the move stays inside `PLAYER_BOUNDARIES` **or** reduces an existing boundary violation (re-entry shim). |
+| `nextX`, `nextY` | `number` | Coordinates to apply if the move is accepted. Re-entry moves are clamped back onto the valid court strip. |
 | `attemptedX`, `attemptedY` | `number` | Raw coordinates before clamping. |
 | `dx`, `dy` | `-1, 0, 1` | Direction delta inferred from the key. |
-| `blockedByBounds` | `boolean` | Indicates the move was rejected because of limits. |
+| `blockedByBounds` | `boolean` | Indicates the move was rejected because it would extend or preserve an out-of-bounds violation. |
 
 Clients consult this preview to avoid predicting moves the coordinator will immediately roll back.
 

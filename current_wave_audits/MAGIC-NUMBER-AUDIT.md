@@ -66,6 +66,7 @@ Implementation pattern:
 - Wave 24 follow-up: `lib/animation/stat-trail-system.js` pulls its lifetime, fade cadence, acceleration curve, drift, blink, flash palette, final fade color, stat-type color table, and sideline/baseline safety margins from the `STAT_TRAIL` block so celebratory overlays avoid introducing fresh literals.
 - Wave 24 follow-up: inbound setup duration (`4000` ms in `phase-handler.js`) now lives in `TIMING_CONSTANTS.INBOUND.SETUP_DURATION_MS`, keeping halftime restarts and post-score inbounds aligned.
 - Wave 24 follow-up: jump ball cadence numbers (800 ms countdown tick, 24-frame drop, top-of-court spawn) move into `TIMING_CONSTANTS.JUMP_BALL` so the opening tip avoids new magic values when the animation is implemented.
+- Wave 24 follow-up: introduced `TIMING_CONSTANTS.SAFETY_NET` so the loose-ball recovery timers (null-carrier frames, out-of-bounds grace, stale inbound watchdog, and boundary margin) stay centralized instead of sprinkling new thresholds through `game-loop-core.js`.
 - Wave 24 follow-up: the non-blocking tipoff now sources arc-duration floors, handoff tween length, CPU reaction offsets, and jumper animation bounds from `TIMING_CONSTANTS.JUMP_BALL`, removing the ad-hoc `400 / 0.6 / 0.3 / 350 / 700` literals from gameplay code.
 - Wave 24 follow-up: `prepareSecondHalfPositions` (possession module) replaces the leftover halftime pairing logic; no new literals required because it reuses existing court geometry constants.
 - Wave 24 follow-up: regulation and overtime lengths (`360`, `90`) now originate from `TIMING_CONSTANTS.CLOCK.REGULATION_SECONDS` / `.OVERTIME_SECONDS`, letting `resetGameState` and `maybeStartOvertime` tune period durations without sprinkling new timers through the loop.
@@ -92,6 +93,7 @@ Implementation pattern:
 - `lib/ui/menus.js:230-260` – ✅ handled in Pass 7 (team selection padding sourced from `GAME_MODE_CONSTANTS.MENUS.TEAM_SELECTION`).  
 - `lib/ui/menus.js:420-520` – ✅ handled in Pass 7 (splash minimums/timeouts now read from `MENUS.SPLASH`).  
 - `lib/ui/menus.js:520-860` – ✅ handled in Pass 7 (matchup frame geometry, odds offsets, animation cadences centralized in `MENUS.MATCHUP` and betting prompts gated via config).
+- Wave 24 follow-up: dunk rim targeting and ball placement offsets now live in `GAMEPLAY_CONSTANTS.DUNK.RIM_TARGET_OFFSET_X`, `.BALL_SIDE_OFFSET_X`, and `.BALL_TOP_ROW_OFFSET`, keeping dunk flight plans and ball glyph alignment free of fresh literals inside `dunks.js` and the animation system.
 
 ### 2.2 Timing & Animation
 - `lib/core/game-loop-core.js:210-330` – ✅ handled in Pass 8 (clock tick/checks, shot-clock reset delay, and render throttle all read from `TIMING_CONSTANTS.CLOCK/RENDER`).  

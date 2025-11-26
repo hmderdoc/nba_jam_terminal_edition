@@ -44,6 +44,7 @@ Inside `runGameFrame` (lib/core/game-loop-core.js):
 - Pass animation speed (`PASS.MIN_STEPS`, `DISTANCE_TIME_FACTOR_MS`).
 - Rebound bounce cadence (`REBOUND.STEPS_PER_BOUNCE`).
 - Dunk frame durations (`DUNK.DEFAULT_FRAME_MS`).
+- Dunk rim alignment and ball placement use `GAMEPLAY_CONSTANTS.DUNK.RIM_TARGET_OFFSET_X`, `.BALL_SIDE_OFFSET_X`, and `.BALL_TOP_ROW_OFFSET` so the flight plan aims through the actual hoop and keeps the ball visible near the attacker’s upper body instead of the dribble plane.
 - Generic fallback speeds (used when animation data is incomplete).
 
 That config-driven approach keeps single-player, demo, and multiplayer animation tempo aligned.
