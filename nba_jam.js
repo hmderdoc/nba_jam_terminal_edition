@@ -342,11 +342,17 @@ function runCPUDemo(systems) {
             helpers: {
                 getPlayerTeamName: getPlayerTeamName,
                 getAllPlayers: getAllPlayers,
+                announceEvent: announceEvent
             },
             constants: {
                 COURT_WIDTH: COURT_WIDTH,
                 COURT_HEIGHT: COURT_HEIGHT,
-                PLAYER_BOUNDARIES: typeof PLAYER_BOUNDARIES !== "undefined" ? PLAYER_BOUNDARIES : null
+                PLAYER_BOUNDARIES: typeof PLAYER_BOUNDARIES !== "undefined" ? PLAYER_BOUNDARIES : null,
+                MAX_TURBO: typeof MAX_TURBO !== "undefined" ? MAX_TURBO : 100,
+                RUBBER_BANDING_CONFIG: typeof RUBBER_BANDING_CONFIG !== "undefined" ? RUBBER_BANDING_CONFIG : {},
+                RUBBER_BANDING_PROFILES: typeof RUBBER_BANDING_PROFILES !== "undefined" ? RUBBER_BANDING_PROFILES : {},
+                RUBBER_BANDING_DEFAULT_PROFILE: typeof RUBBER_BANDING_DEFAULT_PROFILE !== "undefined" ? RUBBER_BANDING_DEFAULT_PROFILE : null,
+                RUBBER_BANDING_PROBABILITY_CAPS: typeof RUBBER_BANDING_PROBABILITY_CAPS !== "undefined" ? RUBBER_BANDING_PROBABILITY_CAPS : {}
             }
         });
         resetGameState({ allCPUMode: true }, systems);
@@ -451,7 +457,12 @@ function main() {
         constants: {
             COURT_WIDTH: COURT_WIDTH,
             COURT_HEIGHT: COURT_HEIGHT,
-            PLAYER_BOUNDARIES: typeof PLAYER_BOUNDARIES !== "undefined" ? PLAYER_BOUNDARIES : null
+            PLAYER_BOUNDARIES: typeof PLAYER_BOUNDARIES !== "undefined" ? PLAYER_BOUNDARIES : null,
+            MAX_TURBO: typeof MAX_TURBO !== "undefined" ? MAX_TURBO : 100,
+            RUBBER_BANDING_CONFIG: typeof RUBBER_BANDING_CONFIG !== "undefined" ? RUBBER_BANDING_CONFIG : {},
+            RUBBER_BANDING_PROFILES: typeof RUBBER_BANDING_PROFILES !== "undefined" ? RUBBER_BANDING_PROFILES : {},
+            RUBBER_BANDING_DEFAULT_PROFILE: typeof RUBBER_BANDING_DEFAULT_PROFILE !== "undefined" ? RUBBER_BANDING_DEFAULT_PROFILE : null,
+            RUBBER_BANDING_PROBABILITY_CAPS: typeof RUBBER_BANDING_PROBABILITY_CAPS !== "undefined" ? RUBBER_BANDING_PROBABILITY_CAPS : {}
         }
     });
 

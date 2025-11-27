@@ -53,6 +53,7 @@ Implementation pattern:
 - Introduced `lib/config/game-mode-constants.js` (loaded via `lib/utils/constants.js`) to own bookie odds tuning plus betting UI defaults.
 - `lib/bookie/bookie.js` now reads attribute weights, odds scaling/caps, spread math, over/under math, bankroll defaults, and wager defaults from the shared config, eliminating the ad-hoc `1.2 / 110 / 0.5 / 1000 / 100` literals spread across calculation helpers and UI flows.
 - Wave 24 follow-up: added `RULE_ENFORCEMENT.BACKCOURT_VIOLATIONS_ENABLED` so backcourt whistles can be toggled without reintroducing inline booleans. `lib/utils/constants.js` exposes `ENFORCE_BACKCOURT_VIOLATIONS`, and `violations.js` respects the flag while keeping timers alive for AI heuristics.
+- Wave 24 follow-up: defined `RUBBER_BANDING` with enable/announcer toggles, shared probability caps, and per-profile tier tables so deficit/time-based boosts stay centralized instead of leaking new literals into gameplay helpers.
 
 ### ✅ Pass 7 (Menu & splash layouts)
 - Expanded `game-mode-constants.js` with a `MENUS` block covering team selection columns, splash layout thresholds, and matchup frame geometry/timing (plus a `promptsEnabled` toggle to keep betting UI hidden).

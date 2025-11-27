@@ -109,6 +109,7 @@ Higher-level feature toggles:
 - **Betting prompts**: `promptsEnabled`, `hotkeyEnabled` (used by menus + CPU modes).
 - **Menus**: widths/heights/timeouts for splash, matchup, team selection flows.
 - **Rule enforcement**: `RULE_ENFORCEMENT.BACKCOURT_VIOLATIONS_ENABLED` lets us gate the whistle while keeping the shared timers active for AI decision-making. Default is `false` to match the source game’s behaviour.
+- **Rubber banding**: `RUBBER_BANDING` holds the master toggle, announcer cue toggle, default profile, probability caps, and per-profile tier tables (deficit/time thresholds plus gameplay multipliers). See `current_architecture_docs/rubber-banding.md` before altering values.
 
 UI/feature gating constants go here rather than alongside gameplay physics.
 

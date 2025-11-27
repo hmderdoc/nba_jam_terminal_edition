@@ -59,6 +59,15 @@
     ]
   },
   {
+    "event_type": "rubber_band_tier",
+    "quotes": [
+      "Momentum swing! ${teamName} just got a boost!",
+      "Look out! ${teamName} has the comeback engines fired up!",
+      "Uh-oh, ${teamName} just triggered the rubber band!",
+      "Swing time! ${teamName} is surging with that ${tierId} boost!"
+    ]
+  },
+  {
     "event_type": "steal",
     "quotes": [
       "Picked his pocket!",
