@@ -34,8 +34,13 @@ All four modules now source their heuristics from `lib/config/ai-constants.js`, 
 
 ## Defense – On Ball (`lib/ai/defense-on-ball.js`)
 
-- **Containment geometry.** The defender parks `DEFENSE_ON_BALL.containDistance` tiles ahead of the handler along the vector to the defender’s basket, adding a bit of jitter so it doesn’t look perfectly robotic.
-- **Pressure vs. retreat.** Within `stealDistance` (1.7 tiles), the AI rolls against the configured steal probability (`stealBaseChance + ATTR * stealAttrFactor`). If the handler has picked up the dribble and the shove cooldown is clear, it will attempt a shove; otherwise it backs up by `retreatStep` tiles at either `settleSpeedHigh` or `settleSpeedLow` depending on power.
+- **Containment geometry.** The defender parks `DEFENSE_ON_BALL.containDistance` tiles ahead of the handler along the vector to the defender’s basket, adding a bit of jitter so it doesn’t look perfectly robotic.- **Court-position-aware reactions (Wave 24).** Defenders now react slower when far from their own basket, simulating the risk/reward of full-court pressure:
+  - **Frontcourt** (within 20 tiles of basket): Quick reactions (`responsiveness: 0.35`), only 5% blowby chance.
+  - **Midcourt** (20-40 tiles): Moderate reactions (`responsiveness: 0.25`), 15% blowby chance.
+  - **Backcourt** (40+ tiles): Sluggish reactions (`responsiveness: 0.12`), 35% blowby chance—full court press now has a real cost.
+- **Direction change penalty.** When the ball handler changes direction (juke/crossover), the defender gets 6 frames of reduced responsiveness (`0.08`), making crossovers effective.
+- **Blowby mechanic.** When the ball handler has speed ≥2.5 and the defender is poorly positioned, there's a chance (scaled by court zone) that offense gets clean separation. Turbo adds +10% to blowby chance.
+- **Momentum smoothing.** The defender's target position is now smoothed via `applyDefenderMomentum()` (same system help defense uses), preventing instant snapping to new positions.- **Pressure vs. retreat.** Within `stealDistance` (1.7 tiles), the AI rolls against the configured steal probability (`stealBaseChance + ATTR * stealAttrFactor`). If the handler has picked up the dribble and the shove cooldown is clear, it will attempt a shove; otherwise it backs up by `retreatStep` tiles at either `settleSpeedHigh` or `settleSpeedLow` depending on power.
 
 ## Defense – Help (`lib/ai/defense-help.js`)
 

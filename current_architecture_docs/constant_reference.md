@@ -82,6 +82,7 @@ Contains tunables for AI state machines. Major sections:
 - `OFFENSE_BALL.BUNCHING` - lane-blocked detection when close to basket, congestion shove triggers, cluster radius for multi-defender situations.
 - `OFFENSE_OFF_BALL` (cuts, spacing, passing-lane behavior).
 - `DEFENSE_ON_BALL` / `DEFENSE_ON_BALL.BUNCHING` - paint/contact shove triggers.
+- `DEFENSE_ON_BALL.COURT_POSITION` - **Wave 24 court-position-aware reaction delays**. Defenders far from their own basket (full court press) react slower, giving offense an advantage to break through backcourt defense. Keys: `frontcourtResponsiveness`, `backcourtResponsiveness`, `midcourtResponsiveness`, `frontcourtMaxDistance`, `midcourtMaxDistance`, `directionChangePenaltyFrames`, `directionChangeReducedResponse`, `blowbySpeedThreshold`, `blowbyChanceBackcourt/Midcourt/Frontcourt`. Consumed by `defense-on-ball.js` via helpers in `ai-decision-support.js` (`calculateDefenderResponsiveness`, `trackDirectionChangePenalty`, `checkBlowbyOpportunity`).
 - `DEFENSE_HELP` - help defender paint shove settings (`helpShoveDistance`, `helpShoveChance`, `helpMinTurbo`).
 
 Every AI module (`ai/offense-ball-handler.js`, `ai/defense-on-ball.js`, etc.) should pull from these objects. If a new heuristic is needed, extend this file and document the consumer in a comment.

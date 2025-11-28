@@ -87,7 +87,12 @@ Implementation pattern:
 - `lib/game-logic/movement-physics.js` simply consumes those globals (with guards for standalone tests) rather than constructing its own copies, ensuring one source of truth for clamps and collision cores.
 - `lib/systems/passing-system.js` and `lib/game-logic/passing.js` clamp receivers/lead targets via the shared bounds, preserving test fallbacks while eliminating the `Math.max(2, Math.min(COURT_WIDTH - 7, …))` literals.
 - `lib/rendering/court-rendering.js` references the same boundary config when offsetting the live ball so dribble animations don’t extend past the defined player footprint near the sideline.
-
+### ✅ Pass 12 (AI defensive court-position awareness)
+- Extended `AI_CONSTANTS.DEFENSE_ON_BALL` with a `COURT_POSITION` block containing reaction delay tuning for backcourt/midcourt/frontcourt zones.
+- New constants: `frontcourtResponsiveness` (0.35), `backcourtResponsiveness` (0.12), `midcourtResponsiveness` (0.25), zone distance thresholds (20/40 tiles), direction change penalty frames (6), blowby speed threshold (2.5), and zone-specific blowby chances (5%/15%/35%).
+- Added three helper functions to `lib/ai/ai-decision-support.js`: `calculateDefenderResponsiveness()` (court zone lookup), `trackDirectionChangePenalty()` (detects ball handler jukes), `checkBlowbyOpportunity()` (momentum-based separation chance).
+- `lib/ai/defense-on-ball.js` now uses `applyDefenderMomentum()` with court-position-scaled responsiveness instead of calling `steerToward()` directly, eliminating the instant-reaction problem for full-court press defense.
+- Updated `current_architecture_docs/constant_reference.md` and `current_architecture_docs/cpu-ai-control.md` to document the new defensive AI behaviour.
 ### 2.1 Geometry & UI
 - `lib/ui/scoreboard.js:260-330` – Hard-coded frame widths (`80`), column offsets (`60`, `centerColumn = Math.floor(frameWidth / 2)`), turbo bar length `6`. Move to **presentation constants** so HUD tweaks don’t require code edits.  ✅ *(Handled via `GAMEPLAY_CONSTANTS.SCOREBOARD` in Pass 1.)*
 - Wave 24 follow-up: the new opening tip flow consumes `GAMEPLAY_CONSTANTS.JUMP_BALL` (center coordinates, jumper offsets, wing spacing) so the geometry stays tunable without sprinkling fresh literals into `jump-ball-system.js`.
