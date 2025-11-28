@@ -93,6 +93,13 @@ Implementation pattern:
 - Added three helper functions to `lib/ai/ai-decision-support.js`: `calculateDefenderResponsiveness()` (court zone lookup), `trackDirectionChangePenalty()` (detects ball handler jukes), `checkBlowbyOpportunity()` (momentum-based separation chance).
 - `lib/ai/defense-on-ball.js` now uses `applyDefenderMomentum()` with court-position-scaled responsiveness instead of calling `steerToward()` directly, eliminating the instant-reaction problem for full-court press defense.
 - Updated `current_architecture_docs/constant_reference.md` and `current_architecture_docs/cpu-ai-control.md` to document the new defensive AI behaviour.
+
+### ✅ Pass 13 (AI press vs retreat decision)
+- Extended `AI_CONSTANTS.DEFENSE_ON_BALL` with a `PRESS_DECISION` block for strategic full-court press evaluation.
+- New constants: `pressThreshold` (0.4), `retreatDistance` (25), catchup weights (speed/turbo differential scaling), game situation weights (score differential, trailing urgency, desperation mode, time pressure, critical time), threat assessment (shooter 3PT penalty), `rubberBandBonus`, `minPressDistance` (30).
+- Added `evaluatePressDecision()` helper to `lib/ai/ai-decision-support.js` that calculates press score from catchup potential, game situation, threat assessment, and rubber banding status.
+- `lib/ai/defense-on-ball.js` now checks press decision at the start of `aiDefenseOnBall()` - if score is below threshold, defender retreats to halfcourt instead of chasing into backcourt.
+- AI now weighs risk/reward of full-court press: trailing teams press more aggressively (desperation), leading teams may press casually (low risk), good shooters discourage pressing (blowby = open three).
 ### 2.1 Geometry & UI
 - `lib/ui/scoreboard.js:260-330` – Hard-coded frame widths (`80`), column offsets (`60`, `centerColumn = Math.floor(frameWidth / 2)`), turbo bar length `6`. Move to **presentation constants** so HUD tweaks don’t require code edits.  ✅ *(Handled via `GAMEPLAY_CONSTANTS.SCOREBOARD` in Pass 1.)*
 - Wave 24 follow-up: the new opening tip flow consumes `GAMEPLAY_CONSTANTS.JUMP_BALL` (center coordinates, jumper offsets, wing spacing) so the geometry stays tunable without sprinkling fresh literals into `jump-ball-system.js`.
