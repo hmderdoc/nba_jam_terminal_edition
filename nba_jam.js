@@ -342,11 +342,17 @@ function runCPUDemo(systems) {
             helpers: {
                 getPlayerTeamName: getPlayerTeamName,
                 getAllPlayers: getAllPlayers,
+                announceEvent: announceEvent
             },
             constants: {
                 COURT_WIDTH: COURT_WIDTH,
                 COURT_HEIGHT: COURT_HEIGHT,
-                PLAYER_BOUNDARIES: typeof PLAYER_BOUNDARIES !== "undefined" ? PLAYER_BOUNDARIES : null
+                PLAYER_BOUNDARIES: typeof PLAYER_BOUNDARIES !== "undefined" ? PLAYER_BOUNDARIES : null,
+                MAX_TURBO: typeof MAX_TURBO !== "undefined" ? MAX_TURBO : 100,
+                RUBBER_BANDING_CONFIG: typeof RUBBER_BANDING_CONFIG !== "undefined" ? RUBBER_BANDING_CONFIG : {},
+                RUBBER_BANDING_PROFILES: typeof RUBBER_BANDING_PROFILES !== "undefined" ? RUBBER_BANDING_PROFILES : {},
+                RUBBER_BANDING_DEFAULT_PROFILE: typeof RUBBER_BANDING_DEFAULT_PROFILE !== "undefined" ? RUBBER_BANDING_DEFAULT_PROFILE : null,
+                RUBBER_BANDING_PROBABILITY_CAPS: typeof RUBBER_BANDING_PROBABILITY_CAPS !== "undefined" ? RUBBER_BANDING_PROBABILITY_CAPS : {}
             }
         });
         resetGameState({ allCPUMode: true }, systems);
@@ -357,8 +363,8 @@ function runCPUDemo(systems) {
         stateManager.set("totalGameTime", DEMO_GAME_SECONDS, "demo_init");
         stateManager.set("currentHalf", 1, "demo_init");
 
-        // Show splash screen (same as single-player)
-        showSplashScreen(systems, null, null);
+        // Skip splash screen in CPU Demo - go straight to matchup screen
+        // This allows demos to run continuously without user interaction
 
         // Show matchup screen (betting enabled for demo spectators)
         var bettingSlip = showMatchupScreen(true, systems, null, null);
@@ -451,7 +457,12 @@ function main() {
         constants: {
             COURT_WIDTH: COURT_WIDTH,
             COURT_HEIGHT: COURT_HEIGHT,
-            PLAYER_BOUNDARIES: typeof PLAYER_BOUNDARIES !== "undefined" ? PLAYER_BOUNDARIES : null
+            PLAYER_BOUNDARIES: typeof PLAYER_BOUNDARIES !== "undefined" ? PLAYER_BOUNDARIES : null,
+            MAX_TURBO: typeof MAX_TURBO !== "undefined" ? MAX_TURBO : 100,
+            RUBBER_BANDING_CONFIG: typeof RUBBER_BANDING_CONFIG !== "undefined" ? RUBBER_BANDING_CONFIG : {},
+            RUBBER_BANDING_PROFILES: typeof RUBBER_BANDING_PROFILES !== "undefined" ? RUBBER_BANDING_PROFILES : {},
+            RUBBER_BANDING_DEFAULT_PROFILE: typeof RUBBER_BANDING_DEFAULT_PROFILE !== "undefined" ? RUBBER_BANDING_DEFAULT_PROFILE : null,
+            RUBBER_BANDING_PROBABILITY_CAPS: typeof RUBBER_BANDING_PROBABILITY_CAPS !== "undefined" ? RUBBER_BANDING_PROBABILITY_CAPS : {}
         }
     });
 

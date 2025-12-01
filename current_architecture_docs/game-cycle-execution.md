@@ -11,6 +11,7 @@
 - Countdown prompts (`Jump Ball in 3…`, `2…`, `1…`, `JUMP!`) are emitted on live frames—no frame scheduler waits—so announcer text and court rendering remain visible while the ball rises.
 - Player alignment occurs once at the start of the phase and all `forcePos` flags are cleared before play resumes, preventing the second-half inbound pairing regression.
 - The ball animates along a parabolic arc while both centers can jump. Human timing (spacebar) and CPU reaction windows feed into the weighted resolver, which still honors `PLAYER_CONSTANTS.JUMP_BALL` and the deterministic seed.
+ - The ball animates along a parabolic arc while both centers can jump. Human timing (spacebar) and CPU reaction windows feed into the weighted resolver, which still honors `PLAYER_CONSTANTS.JUMP_BALL` and the deterministic seed. If a team has no human-controlled jumper (demo mode, remote opponent, etc.) the authority path schedules the jump automatically so both sides leave the floor and render accurate jump trails.
 - The winner tips the ball toward a wing teammate with a short trail, claims possession, and the phase resets to `PHASE_NORMAL`. No inbound animation runs, but control returns instantly with the ball in play at midcourt.
 
 ### Overtime sequence (Wave 24)
@@ -50,7 +51,7 @@
 Each frame consists of:
 
 1. **Position snapshot.** Store `prevX/prevY` on every sprite (used by passing and AI modules).
-2. **Ball safety net.** If the ball should be in play but has no carrier, trigger a loose-ball scramble via `createRebound`.
+2. **Ball safety net.** Track consecutive frames without a ball carrier, ball coordinates that drift beyond the playable rectangle, and stale inbound flags using `TIMING_CONSTANTS.SAFETY_NET`. When any counter crosses its limit the loop logs the state, clears `inbounding`, and calls `createRebound(ballX, ballY, systems, true)` to spawn a loose-ball scramble instead of freezing play.
 3. **Timer updates (authority only).**
    - Decrement `timeRemaining` and `shotClock` every `GAME_CLOCK_TICK_MS`.
    - Trigger halftime when the first half crosses below its halfway mark.

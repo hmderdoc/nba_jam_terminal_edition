@@ -24,7 +24,7 @@ Any new constant should be added to the appropriate config module, required in `
 Domain | Keys | Consumers |
 | --- | --- | --- |
 | Court geometry | `COURT.WIDTH`, `.HEIGHT`, `.BASKET_LEFT_X/Y`, `.THREE_POINT_RADIUS`, `.KEY_DEPTH` | `rendering/court-rendering.js`, `game-logic/possession.js`, AI spacing helpers. |
-| Dunk defaults | `DUNK.DISTANCE_BASE`, `.DISTANCE_PER_ATTR`, `.MIN_DISTANCE`, `.ARC_HEIGHT_MIN/MAX` | `game-logic/dunk-utils.js`, shooting system. |
+| Dunk defaults | `DUNK.DISTANCE_BASE`, `.DISTANCE_PER_ATTR`, `.MIN_DISTANCE`, `.ARC_HEIGHT_MIN/MAX`, `.RIM_TARGET_OFFSET_X`, `.BALL_SIDE_OFFSET_X`, `.BALL_TOP_ROW_OFFSET` | `game-logic/dunks.js` generates flight plans, `rendering/animation-system.js` positions the dunking player and ball glyph using the shared offsets, and the shooting system pulls the same values when queuing dunks. |
 | Jump ball layout | `JUMP_BALL.CENTER_X`, `.CENTER_Y`, `.PLAYER_OFFSET_X`, `.PLAYER_OFFSET_Y`, `.WING_OFFSET_X`, `.WING_OFFSET_Y`, `.ARC_HEIGHT`, `.JUMPER_LIFT` | `jump-ball-system.js` positions jumpers and wing players around the midcourt circle before the opening tip and defines the ball arc height + jumper lift used by the interactive animation. |
 | Scoreboard layout | `SCOREBOARD.DEFAULT_WIDTH`, `.ROWS`, `.TURBO_BAR_LENGTH`, etc. | `lib/ui/scoreboard.js`, HUD helpers. |
 
@@ -39,10 +39,13 @@ Domain | Keys | Notes |
 | Tempo presets | `DEMO.GAME_SECONDS`, `SINGLEPLAYER_TEMPO.frameDelayMs/aiIntervalMs` | `getSinglePlayerTempo()`, demo timers. |
 | Turbo | `TURBO.MAX`, `.DRAIN_RATE`, `.RECHARGE_RATE`, `.SPEED_MULTIPLIER`, `.ACTIVATION_THRESHOLD_MS`, `.SHOE_THRESHOLD` | Player class, HUD, shoe color logic. |
 | Shove / shake | `SHOVE.FAILURE_STUN_FRAMES`, `.COOLDOWN_FRAMES`, `SHAKE.*` | Physical play + AI punish logic. |
+| Shove direction | `SHOVE.DIRECTION.awayFromBasketWeight`, `.towardSidelineWeight`, `.minSidelineComponent`, `.randomJitter` | `knockback-system.js` calculates smart knockback direction that "clears the lane" by pushing victims away from their target basket + toward sideline. |
+| Shove recovery | `SHOVE.VICTIM_RECOVERY.baseFrames`, `.framesPerPushUnit`, `.turboDrain`, `.speedPenalty`, `.turboDisabledFrames` | Victim stun duration (AI skipped), movement speed penalty during recovery, turbo drain on impact, and turbo-disabled period after recovery ends. Used by `knockback-system.js`, `coordinator.js`, `movement-physics.js`. |
 | Block | `BLOCK.JUMP_DURATION_FRAMES`, `.JUMP_HEIGHT` | Block animations + shooting contest calculations. |
 | Clock | `CLOCK.SECOND_MS`, `.SHOT_CLOCK_SECONDS`, `.SHOT_CLOCK_RESET_PAUSE_MS`, `.REGULATION_SECONDS`, `.OVERTIME_SECONDS`, `.OVERTIME_INTRO.DISPLAY_MS`, `.OVERTIME_INTRO.COUNTDOWN_SECONDS`, `.TEST_OVERRIDES.FAST_OVERTIME` (`ENABLED`, `.REGULATION_SECONDS`, `.AUTO_TIE.ENABLED`, `.AUTO_TIE.SECONDS_REMAINING`, `.AUTO_TIE.SCORE`) | `runGameFrame`, violation handlers, scoreboard, and `maybeStartOvertime` for period resets, overtime length tuning, the overtime intro overlay countdown, and the fast-overtime developer toggle that collapses regulation length and auto-ties scores for testing (consumed after the first overtime start so later periods are authentic). Setting `AUTO_TIE.SECONDS_REMAINING` to the default `0` ties the score as regulation expires without truncating the clock; higher thresholds keep the period running after the auto-tie. |
 | Render cadence | `RENDER.COURT_THROTTLE_MS`, `.HUD_INTERVAL_MS` | `runGameFrame` dirty checks, scoreboard throttling. |
 | Loose ball | `LOOSE_BALL.horizontalTiles`, `.verticalTiles`, `.arcSteps`, `.arcHeight` | `lib/game-logic/loose-ball.js`. |
+| Safety net | `SAFETY_NET.NULL_CARRIER_FRAME_LIMIT`, `.OUT_OF_BOUNDS_FRAME_LIMIT`, `.STALE_INBOUND_FRAME_LIMIT`, `.BALL_OUT_OF_BOUNDS_MARGIN` | `lib/core/game-loop-core.js` monitors stalled possessions and spawns emergency scrambles when the ball is loose for too long. |
 | Animation | `ANIMATION.SHOT/PASS/REBOUND/DUNK/GENERIC` | `AnimationSystem` queue timing. |
 | Stat trail overlay | `STAT_TRAIL.LIFETIME_FRAMES`, `.FADE_FRAMES`, `.RISE_PER_FRAME`, `.RISE_SLOW_PER_FRAME`, `.RISE_FAST_PER_FRAME`, `.RISE_ACCELERATION_EXP`, `.HORIZONTAL_DRIFT_PER_FRAME`, `.BLINK_INTERVAL_FRAMES`, `.ORIGIN_Y_OFFSET`, `.MAX_ACTIVE`, `.FLASH_FG_COLOR`, `.FINAL_FG_COLOR`, `.FINAL_FADE_FRAMES`, `.SIDELINE_MARGIN`, `.BASELINE_MARGIN`, `.STAT_TYPE_COLORS` | `lib/animation/stat-trail-system.js` controls lifespan, acceleration curve, flashing cadence, fade palette, safe court margins, and stat-type color mapping for celebratory text overlays. |
 | Inbound cadence | `INBOUND.SETUP_DURATION_MS` | `lib/game-logic/phase-handler.js` uses it for `PHASE_INBOUND_SETUP` length; `startSecondHalfInbound` references it so halftime restarts share the same animation window as post-score inbounds. |
@@ -75,9 +78,13 @@ Additions that change how sprites move, collide, or buffer input belong here—n
 Contains tunables for AI state machines. Major sections:
 
 - `SHOT_PROBABILITY_THRESHOLD`, `SHOT_CLOCK_URGENT_SECONDS`, `BACKCOURT_URGENT_SECONDS`.
-- `OFFENSE_BALL` (decision weights, backcourt behavior, quick-three, drive/high-flyer/escape/pull-up heuristics).
+- `OFFENSE_BALL` (decision weights, backcourt behavior, quick-three, drive/high-flyer/escape/pull-up heuristics, **bunching detection**).
+- `OFFENSE_BALL.BUNCHING` - lane-blocked detection when close to basket, congestion shove triggers, cluster radius for multi-defender situations.
 - `OFFENSE_OFF_BALL` (cuts, spacing, passing-lane behavior).
-- `DEFENSE_ON_BALL` / `DEFENSE_HELP`.
+- `DEFENSE_ON_BALL` / `DEFENSE_ON_BALL.BUNCHING` - paint/contact shove triggers.
+- `DEFENSE_ON_BALL.COURT_POSITION` - **Wave 24 court-position-aware reaction delays**. Defenders far from their own basket (full court press) react slower, giving offense an advantage to break through backcourt defense. Keys: `frontcourtResponsiveness`, `backcourtResponsiveness`, `midcourtResponsiveness`, `frontcourtMaxDistance`, `midcourtMaxDistance`, `directionChangePenaltyFrames`, `directionChangeReducedResponse`, `blowbySpeedThreshold`, `blowbyChanceBackcourt/Midcourt/Frontcourt`. Consumed by `defense-on-ball.js` via helpers in `ai-decision-support.js` (`calculateDefenderResponsiveness`, `trackDirectionChangePenalty`, `checkBlowbyOpportunity`).
+- `DEFENSE_ON_BALL.PRESS_DECISION` - **Wave 24 strategic press vs retreat decision**. Determines whether defender should pursue full-court press or fall back to halfcourt. Keys: `pressThreshold` (0.4), `retreatDistance` (25 tiles), catchup weights (`catchupWeight`, `catchupTurboScale`, `catchupSpeedScale`), game situation weights (`scoreDifferentialWeight`, `trailingUrgencyBonus`, `desperationThreshold/Bonus`, `timeUrgencyThreshold/Weight`, `criticalTimeThreshold/Bonus`), threat assessment (`shooterThreatWeight`, `shooterThreatThreshold`), `rubberBandBonus`, `minPressDistance` (30). Consumed by `defense-on-ball.js` via `evaluatePressDecision()` in `ai-decision-support.js`.
+- `DEFENSE_HELP` - help defender paint shove settings (`helpShoveDistance`, `helpShoveChance`, `helpMinTurbo`).
 
 Every AI module (`ai/offense-ball-handler.js`, `ai/defense-on-ball.js`, etc.) should pull from these objects. If a new heuristic is needed, extend this file and document the consumer in a comment.
 
@@ -108,6 +115,7 @@ Higher-level feature toggles:
 - **Betting prompts**: `promptsEnabled`, `hotkeyEnabled` (used by menus + CPU modes).
 - **Menus**: widths/heights/timeouts for splash, matchup, team selection flows.
 - **Rule enforcement**: `RULE_ENFORCEMENT.BACKCOURT_VIOLATIONS_ENABLED` lets us gate the whistle while keeping the shared timers active for AI decision-making. Default is `false` to match the source game’s behaviour.
+- **Rubber banding**: `RUBBER_BANDING` holds the master toggle, announcer cue toggle, default profile, probability caps, and per-profile tier tables (deficit/time thresholds plus gameplay multipliers). See `current_architecture_docs/rubber-banding.md` before altering values.
 
 UI/feature gating constants go here rather than alongside gameplay physics.
 

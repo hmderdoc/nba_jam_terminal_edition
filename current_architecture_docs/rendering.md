@@ -44,13 +44,14 @@ Inside `runGameFrame` (lib/core/game-loop-core.js):
 - Pass animation speed (`PASS.MIN_STEPS`, `DISTANCE_TIME_FACTOR_MS`).
 - Rebound bounce cadence (`REBOUND.STEPS_PER_BOUNCE`).
 - Dunk frame durations (`DUNK.DEFAULT_FRAME_MS`).
+- Dunk rim alignment and ball placement use `GAMEPLAY_CONSTANTS.DUNK.RIM_TARGET_OFFSET_X`, `.BALL_SIDE_OFFSET_X`, and `.BALL_TOP_ROW_OFFSET` so the flight plan aims through the actual hoop and keeps the ball visible near the attacker’s upper body instead of the dribble plane.
 - Generic fallback speeds (used when animation data is incomplete).
 
 That config-driven approach keeps single-player, demo, and multiplayer animation tempo aligned.
 
 ## TrailFrame-Only Effects
 
-- Jump indicators (lib/rendering/jump-indicators.js) now refuse to draw when `trailFrame` is missing. This prevents artifacts on `courtFrame` but means the trail overlay must be created successfully for block arcs to show.
+- Jump indicators (lib/rendering/jump-indicators.js) now refuse to draw when `trailFrame` is missing. This prevents artifacts on `courtFrame` but means the trail overlay must be created successfully for block arcs to show. The opening jump-ball sequence feeds both centers into the same helper so their arcs only appear when an actual jump input fires (CPU schedule or human spacebar press).
 - Fire effects (`lib/rendering/fire-effects.js`) also target overlays, so both modules rely on the same transparent frame.
 - Stat trails (lib/animation/stat-trail-system.js) emit celebratory text overlays triggered by `recordStatDelta` (points, rebounds, assists, steals, blocks, turnovers) and any direct `queueStatTrail` call. The effect reads team colors from game state by default, accepts explicit color overrides, floats the text upward for a fixed lifetime, and self-cleans each frame so concurrent animations coexist on the shared overlay. When overlays expire, the system marks `courtNeedsRedraw` so the background refreshes on the next render pass.
 

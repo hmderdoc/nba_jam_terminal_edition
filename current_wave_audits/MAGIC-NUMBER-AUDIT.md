@@ -53,6 +53,7 @@ Implementation pattern:
 - Introduced `lib/config/game-mode-constants.js` (loaded via `lib/utils/constants.js`) to own bookie odds tuning plus betting UI defaults.
 - `lib/bookie/bookie.js` now reads attribute weights, odds scaling/caps, spread math, over/under math, bankroll defaults, and wager defaults from the shared config, eliminating the ad-hoc `1.2 / 110 / 0.5 / 1000 / 100` literals spread across calculation helpers and UI flows.
 - Wave 24 follow-up: added `RULE_ENFORCEMENT.BACKCOURT_VIOLATIONS_ENABLED` so backcourt whistles can be toggled without reintroducing inline booleans. `lib/utils/constants.js` exposes `ENFORCE_BACKCOURT_VIOLATIONS`, and `violations.js` respects the flag while keeping timers alive for AI heuristics.
+- Wave 24 follow-up: defined `RUBBER_BANDING` with enable/announcer toggles, shared probability caps, and per-profile tier tables so deficit/time-based boosts stay centralized instead of leaking new literals into gameplay helpers.
 
 ### ✅ Pass 7 (Menu & splash layouts)
 - Expanded `game-mode-constants.js` with a `MENUS` block covering team selection columns, splash layout thresholds, and matchup frame geometry/timing (plus a `promptsEnabled` toggle to keep betting UI hidden).
@@ -66,6 +67,7 @@ Implementation pattern:
 - Wave 24 follow-up: `lib/animation/stat-trail-system.js` pulls its lifetime, fade cadence, acceleration curve, drift, blink, flash palette, final fade color, stat-type color table, and sideline/baseline safety margins from the `STAT_TRAIL` block so celebratory overlays avoid introducing fresh literals.
 - Wave 24 follow-up: inbound setup duration (`4000` ms in `phase-handler.js`) now lives in `TIMING_CONSTANTS.INBOUND.SETUP_DURATION_MS`, keeping halftime restarts and post-score inbounds aligned.
 - Wave 24 follow-up: jump ball cadence numbers (800 ms countdown tick, 24-frame drop, top-of-court spawn) move into `TIMING_CONSTANTS.JUMP_BALL` so the opening tip avoids new magic values when the animation is implemented.
+- Wave 24 follow-up: introduced `TIMING_CONSTANTS.SAFETY_NET` so the loose-ball recovery timers (null-carrier frames, out-of-bounds grace, stale inbound watchdog, and boundary margin) stay centralized instead of sprinkling new thresholds through `game-loop-core.js`.
 - Wave 24 follow-up: the non-blocking tipoff now sources arc-duration floors, handoff tween length, CPU reaction offsets, and jumper animation bounds from `TIMING_CONSTANTS.JUMP_BALL`, removing the ad-hoc `400 / 0.6 / 0.3 / 350 / 700` literals from gameplay code.
 - Wave 24 follow-up: `prepareSecondHalfPositions` (possession module) replaces the leftover halftime pairing logic; no new literals required because it reuses existing court geometry constants.
 - Wave 24 follow-up: regulation and overtime lengths (`360`, `90`) now originate from `TIMING_CONSTANTS.CLOCK.REGULATION_SECONDS` / `.OVERTIME_SECONDS`, letting `resetGameState` and `maybeStartOvertime` tune period durations without sprinkling new timers through the loop.
@@ -85,13 +87,26 @@ Implementation pattern:
 - `lib/game-logic/movement-physics.js` simply consumes those globals (with guards for standalone tests) rather than constructing its own copies, ensuring one source of truth for clamps and collision cores.
 - `lib/systems/passing-system.js` and `lib/game-logic/passing.js` clamp receivers/lead targets via the shared bounds, preserving test fallbacks while eliminating the `Math.max(2, Math.min(COURT_WIDTH - 7, …))` literals.
 - `lib/rendering/court-rendering.js` references the same boundary config when offsetting the live ball so dribble animations don’t extend past the defined player footprint near the sideline.
+### ✅ Pass 12 (AI defensive court-position awareness)
+- Extended `AI_CONSTANTS.DEFENSE_ON_BALL` with a `COURT_POSITION` block containing reaction delay tuning for backcourt/midcourt/frontcourt zones.
+- New constants: `frontcourtResponsiveness` (0.35), `backcourtResponsiveness` (0.12), `midcourtResponsiveness` (0.25), zone distance thresholds (20/40 tiles), direction change penalty frames (6), blowby speed threshold (2.5), and zone-specific blowby chances (5%/15%/35%).
+- Added three helper functions to `lib/ai/ai-decision-support.js`: `calculateDefenderResponsiveness()` (court zone lookup), `trackDirectionChangePenalty()` (detects ball handler jukes), `checkBlowbyOpportunity()` (momentum-based separation chance).
+- `lib/ai/defense-on-ball.js` now uses `applyDefenderMomentum()` with court-position-scaled responsiveness instead of calling `steerToward()` directly, eliminating the instant-reaction problem for full-court press defense.
+- Updated `current_architecture_docs/constant_reference.md` and `current_architecture_docs/cpu-ai-control.md` to document the new defensive AI behaviour.
 
+### ✅ Pass 13 (AI press vs retreat decision)
+- Extended `AI_CONSTANTS.DEFENSE_ON_BALL` with a `PRESS_DECISION` block for strategic full-court press evaluation.
+- New constants: `pressThreshold` (0.4), `retreatDistance` (25), catchup weights (speed/turbo differential scaling), game situation weights (score differential, trailing urgency, desperation mode, time pressure, critical time), threat assessment (shooter 3PT penalty), `rubberBandBonus`, `minPressDistance` (30).
+- Added `evaluatePressDecision()` helper to `lib/ai/ai-decision-support.js` that calculates press score from catchup potential, game situation, threat assessment, and rubber banding status.
+- `lib/ai/defense-on-ball.js` now checks press decision at the start of `aiDefenseOnBall()` - if score is below threshold, defender retreats to halfcourt instead of chasing into backcourt.
+- AI now weighs risk/reward of full-court press: trailing teams press more aggressively (desperation), leading teams may press casually (low risk), good shooters discourage pressing (blowby = open three).
 ### 2.1 Geometry & UI
 - `lib/ui/scoreboard.js:260-330` – Hard-coded frame widths (`80`), column offsets (`60`, `centerColumn = Math.floor(frameWidth / 2)`), turbo bar length `6`. Move to **presentation constants** so HUD tweaks don’t require code edits.  ✅ *(Handled via `GAMEPLAY_CONSTANTS.SCOREBOARD` in Pass 1.)*
 - Wave 24 follow-up: the new opening tip flow consumes `GAMEPLAY_CONSTANTS.JUMP_BALL` (center coordinates, jumper offsets, wing spacing) so the geometry stays tunable without sprinkling fresh literals into `jump-ball-system.js`.
 - `lib/ui/menus.js:230-260` – ✅ handled in Pass 7 (team selection padding sourced from `GAME_MODE_CONSTANTS.MENUS.TEAM_SELECTION`).  
 - `lib/ui/menus.js:420-520` – ✅ handled in Pass 7 (splash minimums/timeouts now read from `MENUS.SPLASH`).  
 - `lib/ui/menus.js:520-860` – ✅ handled in Pass 7 (matchup frame geometry, odds offsets, animation cadences centralized in `MENUS.MATCHUP` and betting prompts gated via config).
+- Wave 24 follow-up: dunk rim targeting and ball placement offsets now live in `GAMEPLAY_CONSTANTS.DUNK.RIM_TARGET_OFFSET_X`, `.BALL_SIDE_OFFSET_X`, and `.BALL_TOP_ROW_OFFSET`, keeping dunk flight plans and ball glyph alignment free of fresh literals inside `dunks.js` and the animation system.
 
 ### 2.2 Timing & Animation
 - `lib/core/game-loop-core.js:210-330` – ✅ handled in Pass 8 (clock tick/checks, shot-clock reset delay, and render throttle all read from `TIMING_CONSTANTS.CLOCK/RENDER`).  
