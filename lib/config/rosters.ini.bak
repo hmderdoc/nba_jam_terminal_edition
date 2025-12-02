@@ -288,7 +288,6 @@ power=3
 steal=10
 block=3
 dunk=7
-rivals=lakers.kobe_bryant,magic.tracy_mcgrady,heat.dwyane_wade
 short_nicks=AI,Ans
 long_nicks=The Answer
 ; custom_sprite=pound
@@ -321,7 +320,6 @@ power=10
 steal=7
 block=7
 dunk=9
-rivals=bulls.michael_jordan,jazz.karl_malone,rockets.hakeem_olajuwon,bulls.dennis_rodman
 short_nicks=Chuck,CB34
 long_nicks=Sir Charles
 
@@ -336,7 +334,6 @@ power=10
 steal=5
 block=10
 dunk=9
-rivals=nuggets.nikola_jokic,lakers.anthony_davis,timberwolves.karl_anthony_towns
 short_nicks=JoJo,Embi
 long_nicks=The Process
 
@@ -351,7 +348,6 @@ power=9
 steal=7
 block=7
 dunk=9
-rivals=celtics.larry_bird,hawks.dominique_wilkins
 short_nicks=Doc,Ervin
 long_nicks=Julius Ervin
 
@@ -366,7 +362,6 @@ power=5
 steal=7
 block=3
 dunk=6
-rivals=pacers.tyrese_haliburton,grizzlies.ja_morant
 short_nicks=Maxey,Maxey
 long_nicks=Tyrese Maxey
 
@@ -411,7 +406,6 @@ power=8
 steal=8
 block=6
 dunk=10
-rivals=bulls.michael_jordan,hawks.dominique_wilkins
 short_nicks=Clyde
 long_nicks=The Glide
 
@@ -454,7 +448,6 @@ power=9
 steal=6
 block=7
 dunk=8
-rivals=kings.chris_webber,timberwolves.kevin_garnett
 short_nicks=Sheed
 long_nicks=
 
@@ -484,7 +477,6 @@ power=4
 steal=7
 block=3
 dunk=7
-rivals=warriors.stephen_curry,mavericks.kyrie_irving,thunder.russell_westbrook
 short_nicks=Dame,DOL0
 long_nicks=Dame Time
 
@@ -499,7 +491,6 @@ power=10
 steal=8
 block=9
 dunk=10
-rivals=suns.kevin_durant,lakers.anthony_davis
 short_nicks=Freak,GA34
 long_nicks=Greek Freak
 
@@ -514,7 +505,6 @@ power=10
 steal=6
 block=9
 dunk=9
-rivals=rockets.hakeem_olajuwon,spurs.david_robinson
 short_nicks=KAJ33,K33
 long_nicks=Cap
 
@@ -543,7 +533,6 @@ power=8
 steal=8
 block=6
 dunk=7
-rivals=lakers.magic_johnson,pistons.isaiah_thomas
 short_nicks=Big O,Oscar,Rober
 long_nicks=Oscar Robert
 
@@ -558,7 +547,6 @@ power=10
 steal=8
 block=9
 dunk=6
-rivals=76ers.charles_barkley,pistons.ben_wallace,warriors.draymond_green
 short_nicks=Worm,Rod
 long_nicks=The Worm
 
@@ -616,7 +604,6 @@ power=8
 steal=8
 block=8
 dunk=9
-rivals=pistons.grant_hill,magic.penny_hardaway
 short_nicks=Pip
 long_nicks=Scottie
 
@@ -674,7 +661,6 @@ power=6
 steal=7
 block=4
 dunk=9
-rivals=suns.devin_booker,timberwolves.anthony_edwards
 short_nicks=Spyda
 long_nicks=Donovan Mitc
 
@@ -806,7 +792,6 @@ power=7
 steal=7
 block=5
 dunk=7
-rivals=nuggets.carmelo_anthony,lakers.kobe_bryant,raptors.demar_derozan
 short_nicks=Truth,PP34
 long_nicks=The Truth
 
@@ -821,7 +806,6 @@ power=9
 steal=6
 block=5
 dunk=10
-rivals=nuggets.aaron_gordon,suns.amare_stoudemire,pelicans.zion_williamson
 short_nicks=Blake,BG32
 long_nicks=BlakeShow
 skin=magenta
@@ -837,7 +821,6 @@ power=5
 steal=10
 block=4
 dunk=4
-rivals=suns.steve_nash,nets.jason_kidd,thunder.russell_westbrook
 short_nicks=CP3,Paul
 long_nicks=Point God
 
@@ -880,7 +863,6 @@ power=8
 steal=9
 block=8
 dunk=8
-rivals=suns.kevin_durant,clippers.paul_george
 short_nicks=Klaw,KL2
 long_nicks=The Klaw
 
@@ -895,7 +877,6 @@ power=7
 steal=8
 block=7
 dunk=8
-rivals=clippers.kawhi_leonard,heat.jimmy_butler,pelicans.brandon_ingram
 short_nicks=PG13,Paul
 long_nicks=Playoff P
 
@@ -924,7 +905,6 @@ power=5
 steal=7
 block=4
 dunk=10
-rivals=kings.deaaron_fox,hawks.trae_young,timberwolves.anthony_edwards
 short_nicks=Ja,12
 long_nicks=Ja Morant
 
@@ -939,7 +919,6 @@ power=8
 steal=6
 block=8
 dunk=6
-rivals=grizzlies.pau_gasol,magic.dwight_howard
 short_nicks=Marc,MG33
 long_nicks=Big Marc
 
@@ -968,7 +947,6 @@ power=8
 steal=5
 block=8
 dunk=7
-rivals=grizzlies.marc_gasol,raptors.chris_bosh,timberwolves.kevin_love
 short_nicks=Pau,PG16
 long_nicks=Big Pau
 skin=magenta
@@ -984,7 +962,6 @@ power=9
 steal=5
 block=6
 dunk=8
-rivals=knicks.julius_randle,grizzlies.marc_gasol
 short_nicks=ZBo,Zach
 long_nicks=Z-Bo
 
@@ -1027,7 +1004,6 @@ power=8
 steal=6
 block=5
 dunk=10
-rivals=bulls.michael_jordan,blazers.clyde_drexler,raptors.vince_carter
 short_nicks=Nique
 long_nicks=Human Highlight Reel
 
@@ -1071,7 +1047,6 @@ power=3
 steal=7
 block=2
 dunk=4
-rivals=mavericks.luka_doncic,grizzlies.ja_morant,pacers.tyrese_haliburton
 short_nicks=Trae,Ice
 long_nicks=Ice Trae
 
@@ -1086,7 +1061,6 @@ power=9
 steal=7
 block=9
 dunk=8
-rivals=jazz.rudy_gobert,warriors.draymond_green,kings.domantas_sabonis
 short_nicks=Bam,BA13
 long_nicks=Bam Bam
 
@@ -1115,7 +1089,6 @@ power=7
 steal=8
 block=5
 dunk=9
-rivals=76ers.allen_iverson,lakers.kobe_bryant
 short_nicks=DWade,Wade
 long_nicks=Flash
 
@@ -1130,7 +1103,6 @@ power=8
 steal=9
 block=6
 dunk=8
-rivals=raptors.demar_derozan,clippers.paul_george
 short_nicks=Jimmy,JB
 long_nicks=Playoff Jim
 
@@ -1230,7 +1202,6 @@ power=9
 steal=6
 block=6
 dunk=9
-rivals=76ers.charles_barkley,knicks.patrick_ewing
 short_nicks=LJ,Grand
 long_nicks=Grandmama
 
@@ -1245,7 +1216,6 @@ power=3
 steal=10
 block=2
 dunk=3
-rivals=jazz.john_stockton
 short_nicks=Muggs,Bogu
 long_nicks=Muggsy
 
@@ -1260,7 +1230,6 @@ power=8
 steal=7
 block=9
 dunk=7
-rivals=pistons.ben_wallace,warriors.draymond_green
 short_nicks=AK47,Kiril
 long_nicks=AK47
 skin=lightgray
@@ -1290,7 +1259,6 @@ power=4
 steal=10
 block=3
 dunk=3
-rivals=pistons.isaiah_thomas
 short_nicks=Stock,JS12
 long_nicks=Stockton
 skin=lightgray
@@ -1306,7 +1274,6 @@ power=10
 steal=6
 block=8
 dunk=9
-rivals=76ers.charles_barkley,spurs.tim_duncan,bulls.michael_jordan
 short_nicks=Karl,Mail
 long_nicks=Mailman
 
@@ -1321,7 +1288,6 @@ power=7
 steal=6
 block=5
 dunk=8
-rivals=raptors.pascal_siakam,kings.domantas_sabonis
 short_nicks=Lauri,Markk
 long_nicks=Lauri Markka
 skin=lightgray
@@ -1337,7 +1303,6 @@ power=9
 steal=6
 block=10
 dunk=8
-rivals=heat.bam_adebayo,magic.dwight_howard
 short_nicks=Gob,G27
 long_nicks=StifleTowr
 
@@ -1352,7 +1317,6 @@ power=9
 steal=6
 block=7
 dunk=9
-rivals=blazers.rasheed_wallace,wizards.antawn_jamison,timberwolves.kevin_garnett
 short_nicks=CWebb,Webb
 long_nicks=C-Webb
 
@@ -1367,7 +1331,6 @@ power=6
 steal=7
 block=4
 dunk=8
-rivals=grizzlies.ja_morant,hawks.trae_young
 short_nicks=Fox
 long_nicks=DeAaron Fox
 
@@ -1382,7 +1345,6 @@ power=9
 steal=6
 block=6
 dunk=8
-rivals=heat.bam_adebayo,raptors.pascal_siakam
 short_nicks=Doma,DS10
 long_nicks=Domas
 skin=lightgray
@@ -1471,7 +1433,6 @@ power=5
 steal=7
 block=3
 dunk=5
-rivals=pacers.tyrese_haliburton,76ers.tyrese_maxey
 short_nicks=JB,Jalen
 long_nicks=Brunson
 
@@ -1500,7 +1461,6 @@ power=9
 steal=6
 block=5
 dunk=9
-rivals=grizzlies.zach_randolph,raptors.pascal_siakam
 short_nicks=Sarge
 long_nicks=Orange Julius
 
@@ -1515,7 +1475,6 @@ power=9
 steal=6
 block=9
 dunk=9
-rivals=rockets.hakeem_olajuwon,spurs.david_robinson,hornets.larry_johnson
 short_nicks=Ewing,PE
 long_nicks=Hoya Destro
 
@@ -1530,7 +1489,6 @@ power=9
 steal=6
 block=10
 dunk=9
-rivals=bucks.giannis_antetokounmpo,76ers.joel_embiid,nuggets.nikola_jokic,pelicans.zion_williamson
 short_nicks=AD,Brows
 long_nicks=The Brow
 
@@ -1618,7 +1576,6 @@ power=10
 steal=7
 block=10
 dunk=10
-rivals=rockets.yao_ming,pistons.ben_wallace,magic.shaquille_oneal
 short_nicks=D12,Dwgt
 long_nicks=Superman
 
@@ -1661,7 +1618,6 @@ power=7
 steal=8
 block=6
 dunk=9
-rivals=pistons.grant_hill,bulls.scottie_pippen
 short_nicks=Penny,PH
 long_nicks=Lil Penny
 
@@ -1676,7 +1632,6 @@ power=10
 steal=6
 block=9
 dunk=10
-rivals=rockets.hakeem_olajuwon,spurs.david_robinson,rockets.yao_ming,magic.dwight_howard
 short_nicks=Shaq,Dies
 long_nicks=Shaq Diesel
 
@@ -1691,7 +1646,6 @@ power=6
 steal=7
 block=5
 dunk=9
-rivals=lakers.kobe_bryant,raptors.vince_carter,76ers.allen_iverson,pistons.grant_hill
 short_nicks=Tracy,McGra
 long_nicks=Tracy McGrad
 
@@ -1735,7 +1689,6 @@ power=5
 steal=7
 block=3
 dunk=7
-rivals=warriors.stephen_curry,bucks.damian_lillard
 short_nicks=Kyrie,Irvin
 long_nicks=Kyrie Irving
 
@@ -1750,7 +1703,6 @@ power=8
 steal=7
 block=5
 dunk=6
-rivals=hawks.trae_young,bucks.damian_lillard
 short_nicks=Luka,LD77
 long_nicks=Luka Magic
 skin=magenta
@@ -1824,7 +1776,6 @@ power=6
 steal=9
 block=5
 dunk=6
-rivals=clippers.chris_paul,suns.steve_nash,spurs.tony_parker
 short_nicks=J-Kid,Kidd
 long_nicks=The Kidd
 
@@ -1881,7 +1832,6 @@ power=9
 steal=6
 block=6
 dunk=10
-rivals=clippers.blake_griffin,raptors.vince_carter,pelicans.zion_williamson
 short_nicks=Aaron,Gordo
 long_nicks=Aaron Gordon
 
@@ -1910,7 +1860,6 @@ power=8
 steal=6
 block=4
 dunk=8
-rivals=suns.kevin_durant,celtics.paul_pierce,raptors.vince_carter
 short_nicks=Melo
 long_nicks=Hoodie Melo
 
@@ -1953,7 +1902,6 @@ power=9
 steal=7
 block=6
 dunk=7
-rivals=76ers.joel_embiid,lakers.anthony_davis,timberwolves.karl_anthony_towns,thunder.chet_holmgren
 short_nicks=Joker,Jok
 long_nicks=Joker
 skin=magenta
@@ -1997,7 +1945,6 @@ power=4
 steal=7
 block=3
 dunk=4
-rivals=warriors.klay_thompson,warriors.chris_mullin,suns.dan_majerle
 short_nicks=Reggie,Reg
 long_nicks=Knick Killer
 
@@ -2012,7 +1959,6 @@ power=8
 steal=5
 block=6
 dunk=8
-rivals=knicks.patrick_ewing,spurs.david_robinson
 short_nicks=Smits,Rik
 long_nicks=Dunkin Rik
 skin=magenta
@@ -2028,7 +1974,6 @@ power=5
 steal=8
 block=3
 dunk=6
-rivals=hawks.trae_young,knicks.jalen_brunson,thunder.shai_gilgeous_alexander
 short_nicks=Ty,Rese
 long_nicks=Hali Dime
 
@@ -2071,7 +2016,6 @@ power=6
 steal=6
 block=5
 dunk=8
-rivals=suns.kevin_durant,clippers.paul_george
 short_nicks=BI,Bran
 long_nicks=Ingram
 
@@ -2128,7 +2072,6 @@ power=10
 steal=6
 block=7
 dunk=10
-rivals=nuggets.aaron_gordon,clippers.blake_griffin,lakers.anthony_davis
 short_nicks=Zion,ZW
 long_nicks=Zanos
 
@@ -2143,7 +2086,6 @@ power=10
 steal=8
 block=10
 dunk=7
-rivals=magic.shaquille_oneal,magic.dwight_howard,bulls.dennis_rodman
 short_nicks=Ben,BW3
 long_nicks=Big Ben
 
@@ -2186,7 +2128,6 @@ power=8
 steal=7
 block=6
 dunk=8
-rivals=bulls.scottie_pippen,magic.tracy_mcgrady
 short_nicks=Grant,Hill
 long_nicks=Grant Hill
 
@@ -2230,7 +2171,6 @@ power=8
 steal=6
 block=7
 dunk=8
-rivals=suns.amare_stoudemire,grizzlies.pau_gasol,timberwolves.kevin_love
 short_nicks=CB4
 long_nicks=Boshtrich
 
@@ -2245,7 +2185,6 @@ power=7
 steal=7
 block=4
 dunk=9
-rivals=heat.jimmy_butler,celtics.paul_pierce
 short_nicks=DDe,DD10
 long_nicks=DeRozan
 
@@ -2288,7 +2227,6 @@ power=8
 steal=7
 block=6
 dunk=9
-rivals=kings.domantas_sabonis,knicks.julius_randle,jazz.lauri_markkanen
 short_nicks=SpcyP,Siaka
 long_nicks=Pascal Siaka
 
@@ -2303,7 +2241,6 @@ power=8
 steal=7
 block=6
 dunk=10
-rivals=magic.tracy_mcgrady,lakers.kobe_bryant,hawks.dominique_wilkins,nuggets.aaron_gordon
 short_nicks=V.C.,VC15
 long_nicks=Vinsanity
 
@@ -2332,7 +2269,6 @@ power=9
 steal=7
 block=10
 dunk=9
-rivals=spurs.david_robinson,knicks.patrick_ewing,magic.shaquille_oneal,bucks.kareem_abdul_jabbar
 short_nicks=Dream,Olaj
 long_nicks=The Dream
 
@@ -2389,7 +2325,6 @@ power=9
 steal=5
 block=8
 dunk=8
-rivals=magic.shaquille_oneal,magic.dwight_howard
 short_nicks=Yao,11
 long_nicks=Great Wall
 skin=magenta
@@ -2405,7 +2340,6 @@ power=10
 steal=7
 block=10
 dunk=10
-rivals=rockets.hakeem_olajuwon,knicks.patrick_ewing,magic.shaquille_oneal
 short_nicks=Admrl,Robin
 long_nicks=David Robins
 
@@ -2449,7 +2383,6 @@ power=9
 steal=6
 block=10
 dunk=7
-rivals=timberwolves.kevin_garnett,jazz.karl_malone
 short_nicks=Timmy,TD21
 long_nicks=The BigFund
 
@@ -2464,7 +2397,6 @@ power=6
 steal=8
 block=3
 dunk=8
-rivals=suns.steve_nash,nets.jason_kidd
 short_nicks=T.P.,TP9
 long_nicks=TonyParker
 
@@ -2493,7 +2425,6 @@ power=9
 steal=5
 block=5
 dunk=10
-rivals=raptors.chris_bosh,grizzlies.pau_gasol,spurs.tim_duncan
 short_nicks=STAT,Stat
 long_nicks=STAT
 
@@ -2522,7 +2453,6 @@ power=6
 steal=7
 block=4
 dunk=7
-rivals=pacers.reggie_miller,warriors.klay_thompson
 short_nicks=Dan,Majer
 long_nicks=Thunder Dan
 skin=lightgray
@@ -2538,7 +2468,6 @@ power=5
 steal=7
 block=4
 dunk=7
-rivals=timberwolves.anthony_edwards,cavs.donovan_mitchell,lakers.kobe_bryant
 short_nicks=Book,DB1
 long_nicks=Book It
 
@@ -2553,7 +2482,6 @@ power=8
 steal=7
 block=8
 dunk=8
-rivals=bucks.giannis_antetokounmpo,clippers.kawhi_leonard,nuggets.carmelo_anthony
 short_nicks=KD,Slim
 long_nicks=Slim Reaper
 
@@ -2568,7 +2496,6 @@ power=4
 steal=8
 block=3
 dunk=4
-rivals=nets.jason_kidd,clippers.chris_paul,spurs.tony_parker
 short_nicks=NashT,SN13
 long_nicks=Two MVPs
 skin=lightgray
@@ -2584,7 +2511,6 @@ power=7
 steal=6
 block=9
 dunk=8
-rivals=nuggets.nikola_jokic,jazz.rudy_gobert
 short_nicks=Cheez,Holmg
 long_nicks=Chet Holmgre
 skin=magenta
@@ -2628,7 +2554,6 @@ power=8
 steal=8
 block=5
 dunk=10
-rivals=warriors.stephen_curry,bucks.damian_lillard
 short_nicks=Russ,RW0
 long_nicks=Brodie
 
@@ -2657,7 +2582,6 @@ power=6
 steal=9
 block=4
 dunk=7
-rivals=cavs.donovan_mitchell,pacers.tyrese_haliburton
 short_nicks=SGA,SGA
 long_nicks=SGA Shai
 
@@ -2672,7 +2596,6 @@ power=7
 steal=7
 block=5
 dunk=10
-rivals=suns.devin_booker,cavs.donovan_mitchell,grizzlies.ja_morant
 short_nicks=Ant,AE5
 long_nicks=Ant-Man
 
@@ -2687,7 +2610,6 @@ power=8
 steal=5
 block=5
 dunk=8
-rivals=nuggets.nikola_jokic,76ers.joel_embiid
 short_nicks=KAT,KAT
 long_nicks=KAT Towns
 
@@ -2702,7 +2624,6 @@ power=9
 steal=7
 block=9
 dunk=9
-rivals=spurs.tim_duncan,kings.chris_webber,warriors.draymond_green
 short_nicks=KG,KG21
 long_nicks=The Ticket
 
@@ -2717,7 +2638,6 @@ power=8
 steal=5
 block=4
 dunk=7
-rivals=raptors.chris_bosh,grizzlies.pau_gasol
 short_nicks=KLove,Love
 long_nicks=K-Love
 skin=magenta
@@ -2733,7 +2653,6 @@ power=6
 steal=7
 block=4
 dunk=8
-rivals=76ers.allen_iverson,pacers.reggie_miller
 short_nicks=Spree
 long_nicks=Latrell Spre
 
@@ -2776,7 +2695,6 @@ power=6
 steal=6
 block=4
 dunk=6
-rivals=celtics.larry_bird,pacers.reggie_miller
 short_nicks=Mully,Mulli
 long_nicks=Chris Mullin
 skin=magenta
@@ -2792,7 +2710,6 @@ power=9
 steal=9
 block=8
 dunk=6
-rivals=bulls.dennis_rodman,heat.bam_adebayo,timberwolves.kevin_garnett
 short_nicks=Dray,Day
 long_nicks=Draymond
 
@@ -2821,7 +2738,6 @@ power=4
 steal=6
 block=3
 dunk=5
-rivals=pacers.reggie_miller,suns.devin_booker
 short_nicks=Smoky,KT11
 long_nicks=Splash Klay
 
@@ -2852,7 +2768,6 @@ power=7
 steal=6
 block=5
 dunk=8
-rivals=nuggets.carmelo_anthony,kings.chris_webber
 short_nicks=Tawn,Jamis
 long_nicks=Antawn Jamis
 
@@ -2881,7 +2796,6 @@ power=5
 steal=8
 block=3
 dunk=6
-rivals=76ers.allen_iverson,warriors.stephen_curry
 short_nicks=agnt0,GA0
 long_nicks=Agent Zero
 
@@ -2947,7 +2861,6 @@ power=10
 steal=3
 block=3
 dunk=3
-rivals=bulls.michael_jordan
 skin=barney
 short_nicks=Barny,BRNY
 long_nicks=The Big Purple Guy,Dino
