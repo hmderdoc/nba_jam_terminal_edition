@@ -12,6 +12,23 @@
       "three": 1,
       "repMultiplier": 1.05
     },
+    "bachelorettes": [
+      {
+        "name": "Amy Poehler",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Mindy Kaling",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Eliza Dushku",
+        "category": "actress",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Historic shooting city; minor bonus to 3-point oriented builds."
   },
   {
@@ -26,6 +43,23 @@
     "buffs": {
       "repMultiplier": 1.1
     },
+    "bachelorettes": [
+      {
+        "name": "Lady Gaga",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Sarah Jessica Parker",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Cardi B",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Bright lights, big stage; reputation gains slightly boosted."
   },
   {
@@ -40,6 +74,23 @@
     "buffs": {
       "steal": 1
     },
+    "bachelorettes": [
+      {
+        "name": "Alicia Keys",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Rosario Dawson",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Harley Quinn",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Streetball vibe; crafty perimeter defenders feel at home."
   },
   {
@@ -54,6 +105,23 @@
     "buffs": {
       "power": 1
     },
+    "bachelorettes": [
+      {
+        "name": "Jill Scott",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Eve",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Pink",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Physical play and toughness get a small power bump."
   },
   {
@@ -68,6 +136,23 @@
     "buffs": {
       "stamina": 1
     },
+    "bachelorettes": [
+      {
+        "name": "Avril Lavigne",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Rachel McAdams",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Ramona Flowers",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Cold weather conditioning; tiny stamina bonus."
   },
   {
@@ -82,6 +167,23 @@
     "buffs": {
       "block": 1
     },
+    "bachelorettes": [
+      {
+        "name": "Halle Berry",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Tracy Chapman",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Tracee Ellis Ross",
+        "category": "actress",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Gritty interior play; small block bonus."
   },
   {
@@ -97,6 +199,23 @@
       "power": 1,
       "foulTolerance": 1
     },
+    "bachelorettes": [
+      {
+        "name": "Diana Ross",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Aretha Franklin",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Aaliyah",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Bad Boys energy; encourages physical frontcourt play."
   },
   {
@@ -111,6 +230,23 @@
     "buffs": {
       "dunk": 1
     },
+    "bachelorettes": [
+      {
+        "name": "Michelle Obama",
+        "category": "celebrity",
+        "rarity": "common"
+      },
+      {
+        "name": "Jennifer Hudson",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Keke Palmer",
+        "category": "actress",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Air-obsessed city; slight dunk and rim-attack emphasis."
   },
   {
@@ -125,6 +261,23 @@
     "buffs": {
       "stamina": 1
     },
+    "bachelorettes": [
+      {
+        "name": "Gabrielle Union",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Laverne DeFazio",
+        "category": "fictional",
+        "rarity": "uncommon"
+      },
+      {
+        "name": " Courtney Love",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Blue-collar grind culture; minor stamina bump."
   },
   {
@@ -139,6 +292,23 @@
     "buffs": {
       "three": 1
     },
+    "bachelorettes": [
+      {
+        "name": "Leslie Knope",
+        "category": "fictional",
+        "rarity": "common"
+      },
+      {
+        "name": "Anna Kendrick",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Florence Pugh",
+        "category": "actress",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Heartland shooters; small 3-point bonus."
   },
   {
@@ -153,6 +323,23 @@
     "buffs": {
       "speed": 1
     },
+    "bachelorettes": [
+      {
+        "name": "Beyoncé",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Issa Rae",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Doja Cat",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Up-tempo, flashy guards get a tiny speed bump."
   },
   {
@@ -167,6 +354,23 @@
     "buffs": {
       "steal": 1
     },
+    "bachelorettes": [
+      {
+        "name": "Zendaya",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Tessa Thompson",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Storm",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Scrappy guards and wings; small steal bonus."
   },
   {
@@ -182,6 +386,23 @@
       "dunk": 1,
       "repMultiplier": 1.05
     },
+    "bachelorettes": [
+      {
+        "name": "Camila Cabello",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Sofia Vergara",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Megan Fox",
+        "category": "actress",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Party central; spectacular plays and highlight dunks rewarded."
   },
   {
@@ -197,6 +418,23 @@
       "steal": 1,
       "luck": 1
     },
+    "bachelorettes": [
+      {
+        "name": "Ariana Grande",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Selena Gomez",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Raven Baxter",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Theme-park magic; slightly swingy event luck."
   },
   {
@@ -211,6 +449,23 @@
     "buffs": {
       "repMultiplier": 1.05
     },
+    "bachelorettes": [
+      {
+        "name": "Kerry Washington",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Yara Shahidi",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Wonder Woman",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Politics and media; reputation swings a bit stronger."
   },
   {
@@ -226,6 +481,23 @@
       "power": 1,
       "stamina": 1
     },
+    "bachelorettes": [
+      {
+        "name": "H.E.R.",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "SZA",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Regina Hall",
+        "category": "actress",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Grit-and-grind city; physical and resilient players benefit."
   },
   {
@@ -240,6 +512,23 @@
     "buffs": {
       "cashMultiplier": 1.1
     },
+    "bachelorettes": [
+      {
+        "name": "Lizzo",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Tiana",
+        "category": "fictional",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Solange",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Party economy; cash rewards slightly increased."
   },
   {
@@ -254,6 +543,23 @@
     "buffs": {
       "three": 1
     },
+    "bachelorettes": [
+      {
+        "name": "Megan Thee Stallion",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Normani",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Beyoncé",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Analytics and threes; shooters get small 3-point bump."
   },
   {
@@ -268,6 +574,23 @@
     "buffs": {
       "fundamentals": 1
     },
+    "bachelorettes": [
+      {
+        "name": "Eva Longoria",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Selena",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Stephanie Beatriz",
+        "category": "actress",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Disciplined play; boosts balanced, low-turnover styles."
   },
   {
@@ -283,6 +606,23 @@
       "three": 1,
       "repMultiplier": 1.05
     },
+    "bachelorettes": [
+      {
+        "name": "Kelly Clarkson",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Olivia Holt",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Alyson Hannigan",
+        "category": "actress",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Scoring fireworks; prolific scorers and gunners benefit."
   },
   {
@@ -298,6 +638,23 @@
       "stamina": 1,
       "dunk": 1
     },
+    "bachelorettes": [
+      {
+        "name": "AnnaSophia Robb",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Ellie Kemper",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Elastigirl",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Thin air; jumping and conditioning both get a small lift."
   },
   {
@@ -312,6 +669,23 @@
     "buffs": {
       "defense": 1
     },
+    "bachelorettes": [
+      {
+        "name": "Julianne Hough",
+        "category": "celebrity",
+        "rarity": "common"
+      },
+      {
+        "name": "Katherine Heigl",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Princess Leia",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Team defense emphasis; minor defensive synergy bonus."
   },
   {
@@ -327,6 +701,23 @@
       "speed": 1,
       "stamina": 1
     },
+    "bachelorettes": [
+      {
+        "name": "Emma Stone",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Jordin Sparks",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Lana Del Rey",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Run-and-gun heritage; pace-friendly bonuses."
   },
   {
@@ -341,6 +732,23 @@
     "buffs": {
       "repMultiplier": 1.05
     },
+    "bachelorettes": [
+      {
+        "name": "Brie Larson",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Jessica Chastain",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Daria Morgendorffer",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Underdog narrative; strong performances stand out more."
   },
   {
@@ -356,6 +764,23 @@
       "three": 1,
       "repMultiplier": 1.1
     },
+    "bachelorettes": [
+      {
+        "name": "Awkwafina",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Ali Wong",
+        "category": "comedian",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Sailor Moon",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Splash culture; elite shooters and flashy play get a boost."
   },
   {
@@ -370,6 +795,23 @@
     "buffs": {
       "repMultiplier": 1.15
     },
+    "bachelorettes": [
+      {
+        "name": "Margot Robbie",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Zendaya",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Rihanna",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Brightest spotlight; reputation swings strongest here."
   },
   {
@@ -384,6 +826,23 @@
     "buffs": {
       "dunk": 1
     },
+    "bachelorettes": [
+      {
+        "name": "Hailee Steinfeld",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Billie Eilish",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Dua Lipa",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
     "notes": "High-flying alley-oop energy."
   },
   {
@@ -398,6 +857,23 @@
     "buffs": {
       "clutch": 1
     },
+    "bachelorettes": [
+      {
+        "name": "Carrie Brownstein",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Aubrey Plaza",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "April Ludgate",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Dame Time spirit; clutch performances slightly boosted."
   },
   {
@@ -413,6 +889,23 @@
       "stamina": 1,
       "defense": 1
     },
+    "bachelorettes": [
+      {
+        "name": "Kristen Bell",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Winona Ryder",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Anna Paquin",
+        "category": "actress",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Cold grind; defense and endurance get a bump."
   },
   {
@@ -428,6 +921,23 @@
       "speed": 1,
       "repMultiplier": 1.05
     },
+    "bachelorettes": [
+      {
+        "name": "Taylor Swift",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Kacey Musgraves",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Ellie Goulding",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
     "notes": "Fast, energetic playstyle gets a boost."
   }
 ]
