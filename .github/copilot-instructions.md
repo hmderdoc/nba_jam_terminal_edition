@@ -20,6 +20,7 @@ Copilot must produce changes that respect the Wave 24 architecture, eliminate 
 - **State** lives inside `stateManager`. Use `set(path, value, reason)` with a descriptive reason string. Never mutate the raw `gameState` or sprite globals.
 - **Game loop** (`lib/core/game-loop-core.js`) governs timers, AI cadence, rendering, and multiplayer sync. Hook in via events or helper functions—do not block or spawn competing loops.
 - **Multiplayer**: Coordinators serialize state packets (`captureState`) and clients reconcile via prediction + correction. Authority changes require mirrored updates inside `mp_client.js`.
+- **LORB**: Rim City / Legend of the Red Bull lives under `lib/lorb/*`. Treat `docs/lorb/architecture.md` as the canonical map; read and update it whenever you touch LORB code or flows.
 
 Refer to `current_architecture_docs/common_type_definitions.md` whenever you need the shape of a packet, sprite, or helper.
 
