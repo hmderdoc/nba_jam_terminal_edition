@@ -569,8 +569,7 @@ function main() {
         }
 
         // Run the lobby
-        var lobbyResult = runMultiplayerLobby();
-
+        var lobbyResult = runMultiplayerLobbyV2();
         if (!lobbyResult) {
             // User cancelled or connection failed
             return;
