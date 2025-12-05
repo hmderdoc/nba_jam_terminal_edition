@@ -73,6 +73,7 @@ Implementation pattern:
 - Wave 24 follow-up: regulation and overtime lengths (`360`, `90`) now originate from `TIMING_CONSTANTS.CLOCK.REGULATION_SECONDS` / `.OVERTIME_SECONDS`, letting `resetGameState` and `maybeStartOvertime` tune period durations without sprinkling new timers through the loop.
 - Wave 24 follow-up: the fast-overtime dev harness exposes `TIMING_CONSTANTS.CLOCK.TEST_OVERRIDES.FAST_OVERTIME` so shortened regulation runs and auto-tie scores stay in config (`60`-second stub, 10-second trigger, tie score) instead of leaking fresh literals into the loop when QA needs a rapid overtime repro; the override marks itself consumed after the first overtime start so later periods return to authentic pacing automatically.
 - Wave 24 follow-up: overtime intro banner length and countdown values moved into `TIMING_CONSTANTS.CLOCK.OVERTIME_INTRO` so the overlay duration (`DISPLAY_MS`) and countdown seconds (`COUNTDOWN_SECONDS`) stay centralized rather than living beside the UI renderer.
+- Wave 24 follow-up: live challenge lobby timers (`pendingAcceptanceGraceMs`, `lobbyTimeoutMs`, `pollTickMs`) live in `TIMING_CONSTANTS.LORB_CHALLENGES` and drive `lib/lorb/multiplayer/challenge_lobby.js`, avoiding inline 10s/2s/120s literals and preventing invites from timing out before the UI surfaces them.
 
 ### ✅ Pass 9 (AI offense-ball heuristics)
 - Extended `lib/config/ai-constants.js` with a full `OFFENSE_BALL` surface (decision windows, quick-three spacing, drive/high-fly thresholds, escape/press-break tuning, dead-dribble odds, shove exploits).
