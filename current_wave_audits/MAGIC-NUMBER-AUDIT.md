@@ -139,6 +139,7 @@ Implementation pattern:
 - `lib/game-logic/movement-physics.js:140-210` – ✅ handled in Pass 5 (collision thresholds, boundary clamps, movement speed caps are now in `PLAYER_CONSTANTS`).  
 - `lib/game-logic/dunks.js` – `spriteHalfWidth = 2`, `absDx > KEY_DEPTH + 4`. These belong in **player constants** so we can retune sprite hitboxes centrally.
 - Wave 24 follow-up: `PLAYER_CONSTANTS.JUMP_BALL` captures the attribute index, weighting mix, randomness band, and deterministic tie-break increment for the tipoff resolver—no inline `0.6/0.3/0.1` ratios required in gameplay code.
+- Wave 24 follow-up: multiplayer screen sync timeouts (`10000/15000/60000/120000` for splash/matchup/halftime/game_over) now live in `MP_CONSTANTS.SCREEN_TIMEOUTS` so `mp-screen-coordinator.js` and `halftime.js` can tune these centrally. Halftime reduced from 60s to 20s for faster LORB match pacing.
 
 ### 2.6 Bookie / Game Mode Definitions
 - `lib/ui/menus.js` – ✅ key layouts handled in Pass 7; remaining timers/options can piggyback on `MENUS` if more tuning is needed later.

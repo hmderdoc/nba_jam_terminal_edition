@@ -103,6 +103,7 @@ Networking and tuning knobs for multiplayer:
 | Animation hints | `ANIMATION_HINTS.TTL_FRAMES`, `.MAX_PER_PACKET` | `mp_coordinator` tracker emits animation payloads (e.g., shove knockback). Clients consume them immediately to mirror authority choreography. |
 | Hint choreography | `ANIMATION_HINTS.INBOUND.WALK_FRAMES`, `.READY_FRAMES`, `.TARGET_FRAMES`; `ANIMATION_HINTS.DRIFT.FLASH_FRAMES`, `.LERP_FRAMES` | Client-side animation helpers use these to pace inbound walk/ready/target tweens and drift-snap highlight duration. Keep coordinator + client tuned together. |
 | Prediction turbo | `PREDICTION.TURBO.DRAIN_FACTOR`, `.CATCHUP_FACTOR` | `mp_client.js` scales client-side turbo drain and disables it during authoritative catch-up. |
+| Screen timeouts | `SCREEN_TIMEOUTS.SPLASH_MS`, `.MATCHUP_MS`, `.HALFTIME_MS`, `.GAME_OVER_MS` | Maximum wait times for multiplayer screen sync (splash, matchup, halftime, game over). `mp-screen-coordinator.js` and `halftime.js` consume these for timeout enforcement. Halftime reduced to 20s for faster pacing. |
 
 If you need to change how often inputs flush, how reconciliation works, or what latency bars look like, edit this file.
 
