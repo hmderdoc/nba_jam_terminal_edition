@@ -20,7 +20,7 @@
 #### MULTIPLAYER ENGINE
 
 ### Visual Improvements
-- Main game entry point could be simplified to 3 items, "RPG" (LORB), "Arcade" (NBA Jam exhibition matche, would need a new submenu for Single Player, multiplayer, CPU demo, back / quit), this functionality is really for the "ENTER" key button masher so they wind up in LORB as quickly as possible since it'd be the first option.  I must admit, I am an "ENTER" key button masher myself.
+- ~~Main game entry point could be simplified to 3 items, "RPG" (LORB), "Arcade" (NBA Jam exhibition matche, would need a new submenu for Single Player, multiplayer, CPU demo, back / quit), this functionality is really for the "ENTER" key button masher so they wind up in LORB as quickly as possible since it'd be the first option.  I must admit, I am an "ENTER" key button masher myself.~~ **FIXED** - Simplified mainMenu() to 3 items: RPG Mode (first, responds to ENTER), Arcade Mode (submenu with SP/MP/Demo/Back), Quit
 
 #### LORB
 - ~~When entering the game, we should treat daily news / recent pvp action as its own view after we present a key to enter.  There is too much on that initial view, the news should get its own view.~~ **FIXED** - Split welcome screen in lorb.js: greeting/stats shown first, then news in separate "DAILY NEWS" view with spacing and up to 5 items
