@@ -94,10 +94,10 @@
 			"joinedTimestamp": 1764831359348,
 			"joinedOnDay": 1,
 			"joinedInCity": "bos",
-			"streetTurns": 18,
+			"streetTurns": 15,
 			"gymSessions": 9,
 			"barActions": 9,
-			"lastPlayedTimestamp": 1764983297832,
+			"lastPlayedTimestamp": 1764986422346,
 			"dayStats": {
 				"gamesPlayed": 0,
 				"wins": 0,
@@ -105,7 +105,7 @@
 				"cashEarned": 0,
 				"repGained": 0
 			},
-			"restUsedToday": true,
+			"restUsedToday": false,
 			"careerStats": {
 				"gamesPlayed": 1,
 				"totals": {
@@ -326,7 +326,7 @@
 			},
 			"dailyBetting": null,
 			"_globalId": "futureld_1",
-			"_lastSave": 1764983366101,
+			"_lastSave": 1764986455437,
 			"_bbsId": "FUTURELD",
 			"_bbsName": "futureland.today"
 		},
