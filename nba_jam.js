@@ -480,7 +480,8 @@ function main() {
     loadAnnouncerData();
 
     initFrames(systems);
-    showIntro();
+    // NOTE: Intro/instructions screen removed from auto-run flow.
+    // Now available via "Instructions" menu item for users who want it.
 
     // Main menu - choose play or demo
     var menuChoice = mainMenu();
