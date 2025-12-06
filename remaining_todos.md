@@ -14,7 +14,7 @@
 - ~~in the crib,in the contact view table, I can't see any information (black on black) except the green "SIGNED" text in a row that isn't selected by the lightbar.  However the row contains this whole text:"   Sonic              | SIGNED   | --"~~ **FIXED** - Added \1w color prefix to contact names and cost strings
 - ~~in the your crew view in the crib, the problem is sort of opposite of the above, if I have a player selected I can only see the "SPD:" label until I see "SIGNED" in green. All this content is black on black "10 3PT:5 PWR:2 STL:7 BLK:2 DNK:2 |"  If I move the lightbar off the row, everything is visible as I'd expect.~~ **FIXED** - Added \1c/\1w color codes to stat labels and values
 - ~~in the lightbar menu in the crib, it says "Back to Rim City" since we've gotten rid of the "Rim City" concept it should probably say "Back to City you are in"~~ **FIXED** - Changed to "Back to Hub"
-- When we enter a game, I don't think we have all the items rendered properly, I think we sometimes omit some color for nametags, we just want to make sure we're injected the data we have.  HAving custom name tag colors makes it a lot easier to find your player in the game.  
+- ~~When we enter a game, I don't think we have all the items rendered properly, I think we sometimes omit some color for nametags, we just want to make sure we're injected the data we have.  HAving custom name tag colors makes it a lot easier to find your player in the game.~~ **FIXED** - Added nametag color passthrough in lorb_match.js (lorbCharacterToPlayerDef) and player-labels.js (renderPlayerLabel)  
 #### NBA JAM ARCADE ENGINE
 
 #### MULTIPLAYER ENGINE
