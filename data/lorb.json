@@ -1,8 +1,8 @@
 {
 	"sharedState": {
-		"seasonStart": 1764947434670,
-		"seasonNumber": 2,
-		"lastUpdated": 1764947434670,
+		"seasonStart": 1765068087242,
+		"seasonNumber": 3,
+		"lastUpdated": 1765068087242,
 		"seasonChampions": [
 			{
 				"seasonNumber": 1,
@@ -10,6 +10,13 @@
 				"championId": null,
 				"defeatedOnDay": 33,
 				"timestamp": 1764947434670
+			},
+			{
+				"seasonNumber": 2,
+				"championName": "Season Reset",
+				"championId": null,
+				"defeatedOnDay": 34,
+				"timestamp": 1765068087242
 			}
 		]
 	},
@@ -21,15 +28,15 @@
 			"flags": {},
 			"xp": 0,
 			"level": 1,
-			"gamesPlayed": 5,
-			"wins": 5,
+			"gamesPlayed": 0,
+			"wins": 0,
 			"losses": 0,
 			"name": "Derdok",
 			"archetype": "enforcer",
 			"special": "intimidation",
 			"background": "streetball",
-			"cash": 1266,
-			"rep": 250,
+			"cash": 1000,
+			"rep": 0,
 			"perks": [
 				"blacktop_encounters"
 			],
@@ -97,7 +104,7 @@
 			"streetTurns": 15,
 			"gymSessions": 9,
 			"barActions": 9,
-			"lastPlayedTimestamp": 1765038558272,
+			"lastPlayedTimestamp": 1765068148421,
 			"dayStats": {
 				"gamesPlayed": 0,
 				"wins": 0,
@@ -207,32 +214,7 @@
 				"feet": "rim_grinders"
 			},
 			"winStreak": 0,
-			"romance": {
-				"dailyFlirtCount": 3,
-				"lastFlirtDay": 9,
-				"relationships": {
-					"Gabrielle Union": {
-						"affection": 5,
-						"status": "acquaintance",
-						"cityId": "mil",
-						"lastInteractionDay": 9
-					},
-					"Laverne DeFazio": {
-						"affection": 0,
-						"status": "stranger",
-						"cityId": "mil",
-						"lastInteractionDay": 9
-					},
-					" Courtney Love": {
-						"affection": 0,
-						"status": "stranger",
-						"cityId": null,
-						"lastInteractionDay": 0
-					}
-				},
-				"spouseName": null,
-				"spouseCityId": null
-			},
+			"romance": null,
 			"pvpStats": {
 				"gamesPlayed": 5,
 				"wins": 5,
@@ -326,7 +308,7 @@
 			},
 			"dailyBetting": null,
 			"_globalId": "futureld_1",
-			"_lastSave": 1765038562160,
+			"_lastSave": 1765068152032,
 			"_bbsId": "FUTURELD",
 			"_bbsName": "futureland.today"
 		},
@@ -596,18 +578,26 @@
 	"presence": {},
 	"lorb": {
 		"sharedState": {
-			"seasonStart": 1764831285304,
-			"seasonNumber": 1,
-			"lastUpdated": 1764831285304,
-			"seasonChampions": [],
-			"hallOfFame": [
+			"seasonStart": 1764947434670,
+			"seasonNumber": 2,
+			"lastUpdated": 1764947434670,
+			"seasonChampions": [
 				{
 					"seasonNumber": 1,
-					"championId": "ghost_6",
-					"championName": "Shadow Hooper",
-					"defeatedJordan": false,
-					"timestamp": 1764947434668,
-					"date": "2025-12-05T15:10:34.668Z"
+					"championName": "Season Reset",
+					"championId": null,
+					"defeatedOnDay": 33,
+					"timestamp": 1764947434670
+				}
+			],
+			"hallOfFame": [
+				{
+					"seasonNumber": 2,
+					"championId": "Derdok",
+					"championName": "Derdok",
+					"defeatedJordan": true,
+					"timestamp": 1765068087239,
+					"date": "2025-12-07T00:41:27.239Z"
 				}
 			]
 		},
