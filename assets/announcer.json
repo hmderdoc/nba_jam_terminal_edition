@@ -59,6 +59,15 @@
     ]
   },
   {
+    "event_type": "rubber_band_tier",
+    "quotes": [
+      "Momentum swing! ${teamName} just got a boost!",
+      "Look out! ${teamName} has the comeback engines fired up!",
+      "Uh-oh, ${teamName} just triggered the rubber band!",
+      "Swing time! ${teamName} is surging with that ${tierId} boost!"
+    ]
+  },
+  {
     "event_type": "steal",
     "quotes": [
       "Picked his pocket!",
@@ -93,6 +102,15 @@
       "Grab a drink -- you've earned it!",
       "End of the first half!",
       "And we've got a barnburner here!"
+    ]
+  },
+  {
+    "event_type": "overtime_start",
+    "quotes": [
+      "We're heading to overtime!",
+      "Bonus basketball incoming!",
+      "Overtime! ${inboundTeamName} takes the ball to start.",
+      "All tied up -- overtime number ${overtimeNumber}!"
     ]
   },
   {
@@ -207,6 +225,12 @@
       "Loose ball!",
       "Who's got it?",
       "It's up for grabs!"
+    ]
+  },
+  {
+    "event_type": "loose_ball_secured",
+    "quotes": [
+      "${playerName} gets the loose ball!"
     ]
   },
   {

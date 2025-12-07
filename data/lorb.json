@@ -1,0 +1,758 @@
+{
+	"sharedState": {
+		"seasonStart": 1765068087242,
+		"seasonNumber": 3,
+		"lastUpdated": 1765068087242,
+		"seasonChampions": [
+			{
+				"seasonNumber": 1,
+				"championName": "Season Reset",
+				"championId": null,
+				"defeatedOnDay": 33,
+				"timestamp": 1764947434670
+			},
+			{
+				"seasonNumber": 2,
+				"championName": "Season Reset",
+				"championId": null,
+				"defeatedOnDay": 34,
+				"timestamp": 1765068087242
+			}
+		]
+	},
+	"players": {
+		"futureld_1": {
+			"seed": 1747991238,
+			"userHandle": "Hm Derdoc",
+			"dayTurns": 5,
+			"flags": {},
+			"xp": 0,
+			"level": 1,
+			"gamesPlayed": 0,
+			"wins": 0,
+			"losses": 0,
+			"name": "Derdok",
+			"archetype": "enforcer",
+			"special": "intimidation",
+			"background": "streetball",
+			"cash": 1000,
+			"rep": 0,
+			"perks": [
+				"blacktop_encounters"
+			],
+			"stats": {
+				"speed": 7,
+				"threePt": 4,
+				"power": 9,
+				"steal": 4,
+				"block": 6,
+				"dunk": 10
+			},
+			"appearance": {
+				"skin": "lightgray",
+				"eyeColor": "BROWN",
+				"jerseyColor": "RED",
+				"jerseyLettering": "WHITE",
+				"jerseyNumber": "3",
+				"nametagFg": "RED",
+				"nametagBg": "BLUE",
+				"nametagHiFg": "LIGHTRED",
+				"nametagHiBg": "GREEN"
+			},
+			"nickname": "DERDOK",
+			"contacts": [
+				{
+					"id": "sonic_hedgehog",
+					"type": "legend",
+					"name": "Sonic",
+					"team": "Green Hill Zone",
+					"position": "PG",
+					"positionName": "Point Guard",
+					"status": "signed",
+					"signCost": 0,
+					"cutPercent": 10,
+					"tier": "rookie",
+					"stats": {
+						"speed": 10,
+						"threePt": 5,
+						"dunk": 2,
+						"block": 2,
+						"power": 2,
+						"steal": 7
+					},
+					"skin": "sonic",
+					"jersey": 1,
+					"shortNick": "SONIC",
+					"dateAcquired": 1764831342995,
+					"isStarter": true,
+					"rivals": [],
+					"intro": "You've been paired with \u0001c\u0001hSonic\u0001n, a lightning-fast \u0001wPoint Guard\u0001n\u000awho'll handle tempo and rack up steals.\u000aHe'll push the pace and find you\u000afor easy buckets in the paint."
+				}
+			],
+			"crew": [
+				{
+					"contactId": "sonic_hedgehog"
+				}
+			],
+			"position": "C",
+			"positionName": "Center",
+			"positionCategory": "Center",
+			"activeTeammate": "sonic_hedgehog",
+			"joinedTimestamp": 1764831359348,
+			"joinedOnDay": 1,
+			"joinedInCity": "bos",
+			"streetTurns": 15,
+			"gymSessions": 9,
+			"barActions": 9,
+			"lastPlayedTimestamp": 1765068148421,
+			"dayStats": {
+				"gamesPlayed": 0,
+				"wins": 0,
+				"losses": 0,
+				"cashEarned": 0,
+				"repGained": 0
+			},
+			"restUsedToday": false,
+			"careerStats": {
+				"gamesPlayed": 1,
+				"totals": {
+					"points": 18,
+					"rebounds": 0,
+					"assists": 0,
+					"steals": 1,
+					"blocks": 0,
+					"turnovers": 0,
+					"fgm": 7,
+					"fga": 8,
+					"tpm": 4,
+					"tpa": 5,
+					"dunks": 3,
+					"injuries": 0
+				}
+			},
+			"records": {
+				"points": {
+					"value": 18,
+					"date": 1764832344292,
+					"opponent": "Park Rat",
+					"court": "Court 6"
+				},
+				"rebounds": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				},
+				"assists": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				},
+				"steals": {
+					"value": 1,
+					"date": 1764832344292,
+					"opponent": "Park Rat",
+					"court": "Court 6"
+				},
+				"blocks": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				},
+				"turnovers": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				},
+				"fgm": {
+					"value": 7,
+					"date": 1764832344292,
+					"opponent": "Park Rat",
+					"court": "Court 6"
+				},
+				"fga": {
+					"value": 8,
+					"date": 1764832344292,
+					"opponent": "Park Rat",
+					"court": "Court 6"
+				},
+				"tpm": {
+					"value": 4,
+					"date": 1764832344292,
+					"opponent": "Park Rat",
+					"court": "Court 6"
+				},
+				"tpa": {
+					"value": 5,
+					"date": 1764832344292,
+					"opponent": "Park Rat",
+					"court": "Court 6"
+				},
+				"dunks": {
+					"value": 3,
+					"date": 1764832344292,
+					"opponent": "Park Rat",
+					"court": "Court 6"
+				},
+				"injuries": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				}
+			},
+			"inventory": {
+				"sneakers": [
+					"rim_grinders",
+					"cloudwalkers"
+				]
+			},
+			"equipment": {
+				"feet": "rim_grinders"
+			},
+			"winStreak": 0,
+			"romance": null,
+			"pvpStats": {
+				"gamesPlayed": 5,
+				"wins": 5,
+				"losses": 0,
+				"ties": 0,
+				"totals": {
+					"points": 0,
+					"rebounds": 0,
+					"assists": 0,
+					"steals": 0,
+					"blocks": 0,
+					"turnovers": 0,
+					"fgm": 0,
+					"fga": 0,
+					"tpm": 0,
+					"tpa": 0,
+					"dunks": 0,
+					"injuries": 0
+				},
+				"currentStreak": 5,
+				"longestWinStreak": 5,
+				"longestLossStreak": 0
+			},
+			"pvpRecords": {
+				"points": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"rebounds": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"assists": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"steals": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"blocks": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"turnovers": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"fgm": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"fga": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"tpm": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"tpa": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"dunks": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"injuries": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"winMargin": {
+					"value": 17,
+					"date": 1764956044150,
+					"opponent": "Opponent",
+					"score": "17-0"
+				}
+			},
+			"dailyBetting": null,
+			"_globalId": "futureld_1",
+			"_lastSave": 1765068152032,
+			"_bbsId": "FUTURELD",
+			"_bbsName": "futureland.today"
+		},
+		"futureld_3": {
+			"seed": 1748730377,
+			"userHandle": "Beta Tester",
+			"dayTurns": 5,
+			"flags": {},
+			"xp": 0,
+			"level": 1,
+			"gamesPlayed": 7,
+			"wins": 0,
+			"losses": 7,
+			"name": "derpy",
+			"archetype": "sniper",
+			"special": "heat_check",
+			"background": "streetball",
+			"cash": 184,
+			"rep": 0,
+			"perks": [
+				"blacktop_encounters"
+			],
+			"stats": {
+				"speed": 9,
+				"threePt": 9,
+				"power": 7,
+				"steal": 5,
+				"block": 4,
+				"dunk": 6
+			},
+			"appearance": {
+				"skin": "lightgray",
+				"eyeColor": "BROWN",
+				"jerseyColor": "RED",
+				"jerseyLettering": "WHITE",
+				"jerseyNumber": "47"
+			},
+			"nickname": "DERPY",
+			"contacts": [
+				{
+					"id": "shrek_ogre",
+					"type": "legend",
+					"name": "Shrek",
+					"team": "Swamp Monsters",
+					"position": "PF",
+					"positionName": "Power Forward",
+					"status": "signed",
+					"signCost": 0,
+					"cutPercent": 10,
+					"tier": "rookie",
+					"stats": {
+						"speed": 4,
+						"threePt": 2,
+						"dunk": 6,
+						"block": 5,
+						"power": 8,
+						"steal": 3
+					},
+					"skin": "shrek",
+					"jersey": 22,
+					"shortNick": "SHREK",
+					"dateAcquired": 1764832087955,
+					"isStarter": true,
+					"rivals": [],
+					"intro": "You've been paired with \u0001g\u0001hShrek\u0001n, a bruising \u0001wPower Forward\u0001n\u000afrom the swamp. He'll bang bodies in the post\u000aand clear the lane while you rain\u000athrees from the outside."
+				}
+			],
+			"crew": [
+				{
+					"contactId": "shrek_ogre"
+				}
+			],
+			"position": "SG",
+			"positionName": "Shooting Guard",
+			"positionCategory": "Guard",
+			"activeTeammate": "shrek_ogre",
+			"joinedTimestamp": 1764832093640,
+			"joinedOnDay": 1,
+			"joinedInCity": "bos",
+			"streetTurns": 15,
+			"gymSessions": 9,
+			"barActions": 9,
+			"lastPlayedTimestamp": 1765038949887,
+			"dayStats": {
+				"gamesPlayed": 0,
+				"wins": 0,
+				"losses": 0,
+				"cashEarned": 0,
+				"repGained": 0
+			},
+			"restUsedToday": false,
+			"pvpStats": {
+				"gamesPlayed": 5,
+				"wins": 0,
+				"losses": 5,
+				"ties": 0,
+				"totals": {
+					"points": 0,
+					"rebounds": 0,
+					"assists": 0,
+					"steals": 0,
+					"blocks": 0,
+					"turnovers": 0,
+					"fgm": 0,
+					"fga": 0,
+					"tpm": 0,
+					"tpa": 0,
+					"dunks": 0,
+					"injuries": 0
+				},
+				"currentStreak": -5,
+				"longestWinStreak": 0,
+				"longestLossStreak": 5
+			},
+			"pvpRecords": {
+				"points": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"rebounds": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"assists": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"steals": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"blocks": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"turnovers": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"fgm": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"fga": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"tpm": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"tpa": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"dunks": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"injuries": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"winMargin": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"score": null
+				}
+			},
+			"_globalId": "futureld_3",
+			"_lastSave": 1765038954222,
+			"_bbsId": "FUTURELD",
+			"_bbsName": "futureland.today"
+		},
+		"futureld_35": {
+			"seed": 1940880790,
+			"userHandle": "t0ti",
+			"dayTurns": 5,
+			"flags": {},
+			"xp": 0,
+			"level": 1,
+			"gamesPlayed": 0,
+			"wins": 0,
+			"losses": 0,
+			"name": "t0ti",
+			"archetype": "playmaker",
+			"special": "hype_assist",
+			"background": "city_league",
+			"cash": 1200,
+			"rep": 0,
+			"perks": [
+				"reduced_injury_risk"
+			],
+			"stats": {
+				"speed": 7,
+				"threePt": 5,
+				"power": 8,
+				"steal": 9,
+				"block": 6,
+				"dunk": 3
+			},
+			"appearance": {
+				"skin": "lightgray",
+				"eyeColor": "BROWN",
+				"jerseyColor": "RED",
+				"jerseyLettering": "WHITE",
+				"jerseyNumber": "17"
+			},
+			"nickname": "T0TI",
+			"contacts": [
+				{
+					"id": "barney_dinosaur",
+					"type": "legend",
+					"name": "Barney Dinosaur",
+					"team": "Legends",
+					"position": "C",
+					"positionName": "Center",
+					"status": "signed",
+					"signCost": 0,
+					"cutPercent": 10,
+					"tier": "rookie",
+					"stats": {
+						"speed": 3,
+						"threePt": 2,
+						"dunk": 5,
+						"block": 6,
+						"power": 9,
+						"steal": 2
+					},
+					"skin": "barney",
+					"jersey": 1,
+					"shortNick": "BARNY",
+					"dateAcquired": 1765025569332,
+					"isStarter": true,
+					"rivals": [],
+					"intro": "You've been paired with \u0001m\u0001hBarney\u0001n, a lumbering \u0001wCenter\u0001n\u000awho dominates the paint with sheer power.\u000aHe'll grab boards and protect the rim\u000awhile you orchestrate from the perimeter."
+				}
+			],
+			"crew": [
+				{
+					"contactId": "barney_dinosaur"
+				}
+			],
+			"position": "PG",
+			"positionName": "Point Guard",
+			"positionCategory": "Guard",
+			"activeTeammate": "barney_dinosaur",
+			"_globalId": "futureld_35",
+			"_lastSave": 1765025572703,
+			"_bbsId": "FUTURELD",
+			"_bbsName": "futureland.today"
+		}
+	},
+	"presence": {},
+	"lorb": {
+		"sharedState": {
+			"seasonStart": 1764947434670,
+			"seasonNumber": 2,
+			"lastUpdated": 1764947434670,
+			"seasonChampions": [
+				{
+					"seasonNumber": 1,
+					"championName": "Season Reset",
+					"championId": null,
+					"defeatedOnDay": 33,
+					"timestamp": 1764947434670
+				}
+			],
+			"hallOfFame": [
+				{
+					"seasonNumber": 2,
+					"championId": "Derdok",
+					"championName": "Derdok",
+					"defeatedJordan": true,
+					"timestamp": 1765068087239,
+					"date": "2025-12-07T00:41:27.239Z"
+				}
+			]
+		},
+		"marriages": {}
+	},
+	"pvpNews": {
+		"entries": [
+			{
+				"type": "pvp_match",
+				"timestamp": 1764956044151,
+				"gameDay": 3,
+				"city": "bkn",
+				"winnerName": "Derdok",
+				"loserName": "Opponent",
+				"winnerScore": 17,
+				"loserScore": 0,
+				"isTie": false,
+				"topScorer": "Derdok",
+				"topScorerPoints": 17,
+				"topScorerTeam": "teamA",
+				"newRecords": [
+					{
+						"stat": "winMargin",
+						"name": "Win Margin",
+						"abbrev": "MARGIN",
+						"value": 17,
+						"previousRecord": 17
+					}
+				]
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1764956044216,
+				"gameDay": 3,
+				"city": "bkn",
+				"winnerName": "Hm Derdoc",
+				"loserName": "derpy",
+				"winnerScore": 17,
+				"loserScore": 0,
+				"isTie": false
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1764999046284,
+				"gameDay": 15,
+				"city": "was",
+				"winnerName": "Opponent",
+				"loserName": "derpy",
+				"winnerScore": 8,
+				"loserScore": 2,
+				"isTie": false,
+				"topScorer": "Derdok",
+				"topScorerPoints": 6,
+				"topScorerTeam": "teamB"
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1764999046391,
+				"gameDay": 15,
+				"city": "was",
+				"winnerName": "Derdok",
+				"loserName": "Beta Tester",
+				"winnerScore": 8,
+				"loserScore": 2,
+				"isTie": false
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765000058278,
+				"gameDay": 15,
+				"city": "was",
+				"winnerName": "Opponent",
+				"loserName": "derpy",
+				"winnerScore": 3,
+				"loserScore": 2,
+				"isTie": false,
+				"topScorer": "Sonic",
+				"topScorerPoints": 3,
+				"topScorerTeam": "teamB"
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765000058361,
+				"gameDay": 15,
+				"city": "was",
+				"winnerName": "Derdok",
+				"loserName": "Beta Tester",
+				"winnerScore": 3,
+				"loserScore": 2,
+				"isTie": false
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765001709084,
+				"gameDay": 16,
+				"city": "mem",
+				"winnerName": "Opponent",
+				"loserName": "derpy",
+				"winnerScore": 3,
+				"loserScore": 0,
+				"isTie": false,
+				"topScorer": "Sonic",
+				"topScorerPoints": 3,
+				"topScorerTeam": "teamB"
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765001709134,
+				"gameDay": 16,
+				"city": "mem",
+				"winnerName": "Derdok",
+				"loserName": "Beta Tester",
+				"winnerScore": 3,
+				"loserScore": 0,
+				"isTie": false
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765035008837,
+				"gameDay": 25,
+				"city": "gsw",
+				"winnerName": "Opponent",
+				"loserName": "derpy",
+				"winnerScore": 6,
+				"loserScore": 4,
+				"isTie": false,
+				"topScorer": "Shrek",
+				"topScorerPoints": 4,
+				"topScorerTeam": "teamA"
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765035008947,
+				"gameDay": 25,
+				"city": "gsw",
+				"winnerName": "Derdok",
+				"loserName": "Beta Tester",
+				"winnerScore": 6,
+				"loserScore": 4,
+				"isTie": false
+			}
+		],
+		"lastUpdated": 1765035008947
+	},
+	"graffiti": {
+		"entries": [
+			{
+				"author": "Derdok",
+				"authorId": "futureld_1",
+				"bbsName": "futureland.today",
+				"lines": [
+					"i like to pee"
+				],
+				"timestamp": 1764979417812
+			}
+		]
+	}
+}

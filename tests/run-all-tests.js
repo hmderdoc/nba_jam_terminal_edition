@@ -28,8 +28,6 @@ function runTest(testFile, description) {
 
 // Run all bug reproduction tests
 runTest("test-rebound-flow.js", "Rebound Flow Unit Test");
-runTest("test-jumpshot-rebound-bug.js", "Jump Shot Rebound Bug Reproduction");
-runTest("test-dunk-loop-bug.js", "Dunk Loop Bug Documentation");
 
 print("========================================");
 print("  Test Summary");

@@ -1,0 +1,943 @@
+[
+  {
+    "id": "bos",
+    "cityName": "Boston",
+    "teamName": "Celtics",
+    "region": "northeast",
+    "order": 1,
+    "bannerBin": "bos_banner.bin",
+    "detailBin": "bos_detail.bin",
+    "nightclubName": "The Shamrock Social",
+    "buffs": {
+      "three": 1,
+      "repMultiplier": 1.05
+    },
+    "bachelorettes": [
+      {
+        "name": "Amy Poehler",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Mindy Kaling",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Eliza Dushku",
+        "category": "actress",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Historic shooting city; minor bonus to 3-point oriented builds."
+  },
+  {
+    "id": "nyk",
+    "cityName": "New York",
+    "teamName": "Knicks",
+    "region": "northeast",
+    "order": 2,
+    "bannerBin": "nyk_banner.bin",
+    "detailBin": "nyk_detail.bin",
+    "nightclubName": "Empire After Hours",
+    "buffs": {
+      "repMultiplier": 1.1
+    },
+    "bachelorettes": [
+      {
+        "name": "Lady Gaga",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Sarah Jessica Parker",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Cardi B",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Bright lights, big stage; reputation gains slightly boosted."
+  },
+  {
+    "id": "bkn",
+    "cityName": "Brooklyn",
+    "teamName": "Nets",
+    "region": "northeast",
+    "order": 3,
+    "bannerBin": "bkn_banner.bin",
+    "detailBin": "bkn_detail.bin",
+    "nightclubName": "Bridge & Beats",
+    "buffs": {
+      "steal": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "Alicia Keys",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Rosario Dawson",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Harley Quinn",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Streetball vibe; crafty perimeter defenders feel at home."
+  },
+  {
+    "id": "phi",
+    "cityName": "Philadelphia",
+    "teamName": "76ers",
+    "region": "northeast",
+    "order": 4,
+    "bannerBin": "phi_banner.bin",
+    "detailBin": "phi_detail.bin",
+    "nightclubName": "The Process Lounge",
+    "buffs": {
+      "power": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "Jill Scott",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Eve",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Pink",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Physical play and toughness get a small power bump."
+  },
+  {
+    "id": "tor",
+    "cityName": "Toronto",
+    "teamName": "Raptors",
+    "region": "northeast",
+    "order": 5,
+    "bannerBin": "tor_banner.bin",
+    "detailBin": "tor_detail.bin",
+    "nightclubName": "Northern Lights Club",
+    "buffs": {
+      "stamina": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "Avril Lavigne",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Rachel McAdams",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Ramona Flowers",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Cold weather conditioning; tiny stamina bonus."
+  },
+  {
+    "id": "cle",
+    "cityName": "Cleveland",
+    "teamName": "Cavaliers",
+    "region": "midwest",
+    "order": 6,
+    "bannerBin": "cle_banner.bin",
+    "detailBin": "cle_detail.bin",
+    "nightclubName": "Lake Effect Lounge",
+    "buffs": {
+      "block": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "Halle Berry",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Tracy Chapman",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Tracee Ellis Ross",
+        "category": "actress",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Gritty interior play; small block bonus."
+  },
+  {
+    "id": "det",
+    "cityName": "Detroit",
+    "teamName": "Pistons",
+    "region": "midwest",
+    "order": 7,
+    "bannerBin": "det_banner.bin",
+    "detailBin": "det_detail.bin",
+    "nightclubName": "Motor City Groove",
+    "buffs": {
+      "power": 1,
+      "foulTolerance": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "Diana Ross",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Aretha Franklin",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Aaliyah",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Bad Boys energy; encourages physical frontcourt play."
+  },
+  {
+    "id": "chi",
+    "cityName": "Chicago",
+    "teamName": "Bulls",
+    "region": "midwest",
+    "order": 8,
+    "bannerBin": "chi_banner.bin",
+    "detailBin": "chi_detail.bin",
+    "nightclubName": "The Madhouse Lounge",
+    "buffs": {
+      "dunk": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "Michelle Obama",
+        "category": "celebrity",
+        "rarity": "common"
+      },
+      {
+        "name": "Jennifer Hudson",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Keke Palmer",
+        "category": "actress",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Air-obsessed city; slight dunk and rim-attack emphasis."
+  },
+  {
+    "id": "mil",
+    "cityName": "Milwaukee",
+    "teamName": "Bucks",
+    "region": "midwest",
+    "order": 9,
+    "bannerBin": "mil_banner.bin",
+    "detailBin": "mil_detail.bin",
+    "nightclubName": "Cream City After Dark",
+    "buffs": {
+      "stamina": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "Gabrielle Union",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Laverne DeFazio",
+        "category": "fictional",
+        "rarity": "uncommon"
+      },
+      {
+        "name": " Courtney Love",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Blue-collar grind culture; minor stamina bump."
+  },
+  {
+    "id": "ind",
+    "cityName": "Indianapolis",
+    "teamName": "Pacers",
+    "region": "midwest",
+    "order": 10,
+    "bannerBin": "ind_banner.bin",
+    "detailBin": "ind_detail.bin",
+    "nightclubName": "Hoosier House",
+    "buffs": {
+      "three": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "Leslie Knope",
+        "category": "fictional",
+        "rarity": "common"
+      },
+      {
+        "name": "Anna Kendrick",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Florence Pugh",
+        "category": "actress",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Heartland shooters; small 3-point bonus."
+  },
+  {
+    "id": "atl",
+    "cityName": "Atlanta",
+    "teamName": "Hawks",
+    "region": "southeast",
+    "order": 11,
+    "bannerBin": "atl_banner.bin",
+    "detailBin": "atl_detail.bin",
+    "nightclubName": "Peachtree Nights",
+    "buffs": {
+      "speed": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "Beyoncé",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Issa Rae",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Doja Cat",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Up-tempo, flashy guards get a tiny speed bump."
+  },
+  {
+    "id": "cha",
+    "cityName": "Charlotte",
+    "teamName": "Hornets",
+    "region": "southeast",
+    "order": 12,
+    "bannerBin": "cha_banner.bin",
+    "detailBin": "cha_detail.bin",
+    "nightclubName": "Buzz City Social",
+    "buffs": {
+      "steal": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "Zendaya",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Tessa Thompson",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Storm",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Scrappy guards and wings; small steal bonus."
+  },
+  {
+    "id": "mia",
+    "cityName": "Miami",
+    "teamName": "Heat",
+    "region": "southeast",
+    "order": 13,
+    "bannerBin": "mia_banner.bin",
+    "detailBin": "mia_detail.bin",
+    "nightclubName": "Club Heatwave",
+    "buffs": {
+      "dunk": 1,
+      "repMultiplier": 1.05
+    },
+    "bachelorettes": [
+      {
+        "name": "Camila Cabello",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Sofia Vergara",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Megan Fox",
+        "category": "actress",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Party central; spectacular plays and highlight dunks rewarded."
+  },
+  {
+    "id": "orl",
+    "cityName": "Orlando",
+    "teamName": "Magic",
+    "region": "southeast",
+    "order": 14,
+    "bannerBin": "orl_banner.bin",
+    "detailBin": "orl_detail.bin",
+    "nightclubName": "Illusion Lounge",
+    "buffs": {
+      "steal": 1,
+      "luck": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "Ariana Grande",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Selena Gomez",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Raven Baxter",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Theme-park magic; slightly swingy event luck."
+  },
+  {
+    "id": "was",
+    "cityName": "Washington",
+    "teamName": "Wizards",
+    "region": "southeast",
+    "order": 15,
+    "bannerBin": "was_banner.bin",
+    "detailBin": "was_detail.bin",
+    "nightclubName": "Capital After Dark",
+    "buffs": {
+      "repMultiplier": 1.05
+    },
+    "bachelorettes": [
+      {
+        "name": "Kerry Washington",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Yara Shahidi",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Wonder Woman",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Politics and media; reputation swings a bit stronger."
+  },
+  {
+    "id": "mem",
+    "cityName": "Memphis",
+    "teamName": "Grizzlies",
+    "region": "southwest",
+    "order": 16,
+    "bannerBin": "mem_banner.bin",
+    "detailBin": "mem_detail.bin",
+    "nightclubName": "Beale Street Blues Bar",
+    "buffs": {
+      "power": 1,
+      "stamina": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "H.E.R.",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "SZA",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Regina Hall",
+        "category": "actress",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Grit-and-grind city; physical and resilient players benefit."
+  },
+  {
+    "id": "nop",
+    "cityName": "New Orleans",
+    "teamName": "Pelicans",
+    "region": "southwest",
+    "order": 17,
+    "bannerBin": "nop_banner.bin",
+    "detailBin": "nop_detail.bin",
+    "nightclubName": "Bayou Bounce Club",
+    "buffs": {
+      "cashMultiplier": 1.1
+    },
+    "bachelorettes": [
+      {
+        "name": "Lizzo",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Tiana",
+        "category": "fictional",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Solange",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Party economy; cash rewards slightly increased."
+  },
+  {
+    "id": "hou",
+    "cityName": "Houston",
+    "teamName": "Rockets",
+    "region": "southwest",
+    "order": 18,
+    "bannerBin": "hou_banner.bin",
+    "detailBin": "hou_detail.bin",
+    "nightclubName": "Space City Lounge",
+    "buffs": {
+      "three": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "Megan Thee Stallion",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Normani",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Beyoncé",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Analytics and threes; shooters get small 3-point bump."
+  },
+  {
+    "id": "sas",
+    "cityName": "San Antonio",
+    "teamName": "Spurs",
+    "region": "southwest",
+    "order": 19,
+    "bannerBin": "sas_banner.bin",
+    "detailBin": "sas_detail.bin",
+    "nightclubName": "Riverwalk Retreat",
+    "buffs": {
+      "fundamentals": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "Eva Longoria",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Selena",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Stephanie Beatriz",
+        "category": "actress",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Disciplined play; boosts balanced, low-turnover styles."
+  },
+  {
+    "id": "dal",
+    "cityName": "Dallas",
+    "teamName": "Mavericks",
+    "region": "southwest",
+    "order": 20,
+    "bannerBin": "dal_banner.bin",
+    "detailBin": "dal_detail.bin",
+    "nightclubName": "Big D Skyline Club",
+    "buffs": {
+      "three": 1,
+      "repMultiplier": 1.05
+    },
+    "bachelorettes": [
+      {
+        "name": "Kelly Clarkson",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Olivia Holt",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Alyson Hannigan",
+        "category": "actress",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Scoring fireworks; prolific scorers and gunners benefit."
+  },
+  {
+    "id": "den",
+    "cityName": "Denver",
+    "teamName": "Nuggets",
+    "region": "mountain",
+    "order": 21,
+    "bannerBin": "den_banner.bin",
+    "detailBin": "den_detail.bin",
+    "nightclubName": "Altitude 5280",
+    "buffs": {
+      "stamina": 1,
+      "dunk": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "AnnaSophia Robb",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Ellie Kemper",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Elastigirl",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Thin air; jumping and conditioning both get a small lift."
+  },
+  {
+    "id": "uta",
+    "cityName": "Salt Lake City",
+    "teamName": "Jazz",
+    "region": "mountain",
+    "order": 22,
+    "bannerBin": "uta_banner.bin",
+    "detailBin": "uta_detail.bin",
+    "nightclubName": "Wasatch Night Session",
+    "buffs": {
+      "defense": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "Julianne Hough",
+        "category": "celebrity",
+        "rarity": "common"
+      },
+      {
+        "name": "Katherine Heigl",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Princess Leia",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Team defense emphasis; minor defensive synergy bonus."
+  },
+  {
+    "id": "phx",
+    "cityName": "Phoenix",
+    "teamName": "Suns",
+    "region": "west",
+    "order": 23,
+    "bannerBin": "phx_banner.bin",
+    "detailBin": "phx_detail.bin",
+    "nightclubName": "Club Sunburn",
+    "buffs": {
+      "speed": 1,
+      "stamina": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "Emma Stone",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Jordin Sparks",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Lana Del Rey",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Run-and-gun heritage; pace-friendly bonuses."
+  },
+  {
+    "id": "sac",
+    "cityName": "Sacramento",
+    "teamName": "Kings",
+    "region": "west",
+    "order": 24,
+    "bannerBin": "sac_banner.bin",
+    "detailBin": "sac_detail.bin",
+    "nightclubName": "River City Rhythm",
+    "buffs": {
+      "repMultiplier": 1.05
+    },
+    "bachelorettes": [
+      {
+        "name": "Brie Larson",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Jessica Chastain",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Daria Morgendorffer",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Underdog narrative; strong performances stand out more."
+  },
+  {
+    "id": "gsw",
+    "cityName": "San Francisco",
+    "teamName": "Warriors",
+    "region": "west",
+    "order": 25,
+    "bannerBin": "gsw_banner.bin",
+    "detailBin": "gsw_detail.bin",
+    "nightclubName": "Bay Area Splash Lounge",
+    "buffs": {
+      "three": 1,
+      "repMultiplier": 1.1
+    },
+    "bachelorettes": [
+      {
+        "name": "Awkwafina",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Ali Wong",
+        "category": "comedian",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Sailor Moon",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Splash culture; elite shooters and flashy play get a boost."
+  },
+  {
+    "id": "lal",
+    "cityName": "Los Angeles",
+    "teamName": "Lakers",
+    "region": "west",
+    "order": 26,
+    "bannerBin": "lal_banner.bin",
+    "detailBin": "lal_detail.bin",
+    "nightclubName": "Hollywood Skyline",
+    "buffs": {
+      "repMultiplier": 1.15
+    },
+    "bachelorettes": [
+      {
+        "name": "Margot Robbie",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Zendaya",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Rihanna",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Brightest spotlight; reputation swings strongest here."
+  },
+  {
+    "id": "lac",
+    "cityName": "Los Angeles",
+    "teamName": "Clippers",
+    "region": "west",
+    "order": 27,
+    "bannerBin": "lac_banner.bin",
+    "detailBin": "lac_detail.bin",
+    "nightclubName": "Lob City After Hours",
+    "buffs": {
+      "dunk": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "Hailee Steinfeld",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Billie Eilish",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Dua Lipa",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "High-flying alley-oop energy."
+  },
+  {
+    "id": "por",
+    "cityName": "Portland",
+    "teamName": "Trail Blazers",
+    "region": "west",
+    "order": 28,
+    "bannerBin": "por_banner.bin",
+    "detailBin": "por_detail.bin",
+    "nightclubName": "Rip City Underground",
+    "buffs": {
+      "clutch": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "Carrie Brownstein",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Aubrey Plaza",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "April Ludgate",
+        "category": "fictional",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Dame Time spirit; clutch performances slightly boosted."
+  },
+  {
+    "id": "min",
+    "cityName": "Minneapolis",
+    "teamName": "Timberwolves",
+    "region": "north",
+    "order": 29,
+    "bannerBin": "min_banner.bin",
+    "detailBin": "min_detail.bin",
+    "nightclubName": "Twin Cities Chill",
+    "buffs": {
+      "stamina": 1,
+      "defense": 1
+    },
+    "bachelorettes": [
+      {
+        "name": "Kristen Bell",
+        "category": "actress",
+        "rarity": "common"
+      },
+      {
+        "name": "Winona Ryder",
+        "category": "actress",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Anna Paquin",
+        "category": "actress",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Cold grind; defense and endurance get a bump."
+  },
+  {
+    "id": "okc",
+    "cityName": "Oklahoma City",
+    "teamName": "Thunder",
+    "region": "midwest",
+    "order": 30,
+    "bannerBin": "okc_banner.bin",
+    "detailBin": "okc_detail.bin",
+    "nightclubName": "Thunder Roadhouse",
+    "buffs": {
+      "speed": 1,
+      "repMultiplier": 1.05
+    },
+    "bachelorettes": [
+      {
+        "name": "Taylor Swift",
+        "category": "musician",
+        "rarity": "common"
+      },
+      {
+        "name": "Kacey Musgraves",
+        "category": "musician",
+        "rarity": "uncommon"
+      },
+      {
+        "name": "Ellie Goulding",
+        "category": "musician",
+        "rarity": "rare"
+      }
+    ],
+    "notes": "Fast, energetic playstyle gets a boost."
+  }
+]

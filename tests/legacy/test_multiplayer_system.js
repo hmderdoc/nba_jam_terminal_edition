@@ -141,7 +141,7 @@ try {
     output("You can now:\r\n");
     output("  1. Run NBA JAM and select 'Multiplayer'\r\n");
     output("  2. Test with two users on this BBS\r\n");
-    output("  3. Configure for inter-BBS play in mp_config.ini\r\n\r\n");
+    output("  3. Configure for inter-BBS play in server_multiplayer.ini\r\n\r\n");
 
 } catch (e) {
     output("\r\n\1r\1hERROR:\1n " + e + "\r\n");
