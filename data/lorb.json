@@ -302,7 +302,7 @@
 			"streetTurns": 12,
 			"gymSessions": 9,
 			"barActions": 9,
-			"lastPlayedTimestamp": 1765297520279,
+			"lastPlayedTimestamp": 1765298405751,
 			"dayStats": {
 				"gamesPlayed": 0,
 				"wins": 0,
@@ -507,7 +507,7 @@
 			"dailyBetting": null,
 			"attributePoints": 2,
 			"_globalId": "futureld_1",
-			"_lastSave": 1765297801118,
+			"_lastSave": 1765298667286,
 			"_bbsId": "FUTURELD",
 			"_bbsName": "futureland.today"
 		},
