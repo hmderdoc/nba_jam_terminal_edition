@@ -40,17 +40,17 @@
 			"userHandle": "Hm Derdoc",
 			"dayTurns": 5,
 			"flags": {},
-			"xp": 120,
+			"xp": 140,
 			"level": 2,
-			"gamesPlayed": 15,
-			"wins": 11,
+			"gamesPlayed": 17,
+			"wins": 13,
 			"losses": 3,
 			"name": "Derdok",
 			"archetype": "enforcer",
 			"special": "intimidation",
 			"background": "streetball",
-			"cash": 638,
-			"rep": 6,
+			"cash": 829,
+			"rep": 10,
 			"perks": [
 				"blacktop_encounters"
 			],
@@ -216,6 +216,52 @@
 					"shortNick": "AD",
 					"dateAcquired": 1765265561310,
 					"rivals": []
+				},
+				{
+					"id": "paul_pierce",
+					"type": "nba",
+					"name": "Paul Pierce",
+					"team": "Boston Celtics",
+					"status": "contact",
+					"signCost": 1000,
+					"cutPercent": 20,
+					"tier": "rookie",
+					"stats": {
+						"speed": 7,
+						"threePt": 8,
+						"dunk": 7,
+						"block": 5,
+						"power": 7,
+						"steal": 7
+					},
+					"skin": "brown",
+					"jersey": "34",
+					"shortNick": "TRUTH",
+					"dateAcquired": 1765296264415,
+					"rivals": []
+				},
+				{
+					"id": "larry_bird",
+					"type": "nba",
+					"name": "Larry Bird",
+					"team": "Boston Celtics",
+					"status": "contact",
+					"signCost": 10000,
+					"cutPercent": 45,
+					"tier": "superstar",
+					"stats": {
+						"speed": 6,
+						"threePt": 10,
+						"dunk": 5,
+						"block": 4,
+						"power": 6,
+						"steal": 6
+					},
+					"skin": "magenta",
+					"jersey": "33",
+					"shortNick": "LARRY",
+					"dateAcquired": 1765296951021,
+					"rivals": []
 				}
 			],
 			"crew": [
@@ -230,32 +276,32 @@
 			"joinedTimestamp": 1764831359348,
 			"joinedOnDay": 1,
 			"joinedInCity": "bos",
-			"streetTurns": 15,
+			"streetTurns": 13,
 			"gymSessions": 9,
 			"barActions": 9,
-			"lastPlayedTimestamp": 1765294518883,
+			"lastPlayedTimestamp": 1765296830188,
 			"dayStats": {
-				"gamesPlayed": 0,
-				"wins": 0,
+				"gamesPlayed": 1,
+				"wins": 1,
 				"losses": 0,
-				"cashEarned": 0,
-				"repGained": 0
+				"cashEarned": 89,
+				"repGained": 2
 			},
 			"restUsedToday": false,
 			"careerStats": {
-				"gamesPlayed": 13,
+				"gamesPlayed": 15,
 				"totals": {
-					"points": 171,
-					"rebounds": 14,
+					"points": 189,
+					"rebounds": 17,
 					"assists": 0,
-					"steals": 6,
-					"blocks": 11,
+					"steals": 7,
+					"blocks": 19,
 					"turnovers": 2,
-					"fgm": 74,
-					"fga": 100,
-					"tpm": 23,
-					"tpa": 41,
-					"dunks": 51,
+					"fgm": 82,
+					"fga": 112,
+					"tpm": 25,
+					"tpa": 45,
+					"dunks": 57,
 					"injuries": 0
 				}
 			},
@@ -285,9 +331,9 @@
 					"court": "Court 6"
 				},
 				"blocks": {
-					"value": 4,
-					"date": 1765262268397,
-					"opponent": "Klay Thompson",
+					"value": 5,
+					"date": 1765296264415,
+					"opponent": "Paul Pierce",
 					"court": "Court 6"
 				},
 				"turnovers": {
@@ -438,7 +484,7 @@
 			"dailyBetting": null,
 			"attributePoints": 2,
 			"_globalId": "futureld_1",
-			"_lastSave": 1765294590612,
+			"_lastSave": 1765296960246,
 			"_bbsId": "FUTURELD",
 			"_bbsName": "futureland.today"
 		},
