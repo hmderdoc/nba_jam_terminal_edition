@@ -506,9 +506,17 @@ function main() {
             console.getkey();
         }
     } else if (menuChoice === "lorb") {
-        // Run LORB
+        // Run LORB with splash screen
         try {
-            load(js.exec_dir + "lib/lorb/lorb.js");
+            // Load and show splash screen first
+            load(js.exec_dir + "lib/lorb/ui/splash_screen.js");
+            var shouldContinue = LORB.UI.SplashScreen.run();
+            
+            if (shouldContinue) {
+                // Load and run LORB
+                load(js.exec_dir + "lib/lorb/lorb.js");
+            }
+            // If !shouldContinue, user pressed ESC/Q - return to main menu
         } catch (e) {
             console.clear();
             console.print("\r\n\1r\1hLORB not available!\1n\r\n\r\n");
