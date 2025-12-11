@@ -369,7 +369,7 @@
 			"streetTurns": 15,
 			"gymSessions": 9,
 			"barActions": 9,
-			"lastPlayedTimestamp": 1765414204111,
+			"lastPlayedTimestamp": 1765415697845,
 			"dayStats": {
 				"gamesPlayed": 0,
 				"wins": 0,
@@ -599,7 +599,7 @@
 			"dailyBetting": null,
 			"attributePoints": 0,
 			"_globalId": "futureld_1",
-			"_lastSave": 1765414310433,
+			"_lastSave": 1765416011203,
 			"_bbsId": "FUTURELD",
 			"_bbsName": "futureland.today"
 		},
@@ -944,7 +944,7 @@
 			"streetTurns": 15,
 			"gymSessions": 9,
 			"barActions": 9,
-			"lastPlayedTimestamp": 1765414473743,
+			"lastPlayedTimestamp": 1765415651250,
 			"dayStats": {
 				"gamesPlayed": 0,
 				"wins": 0,
@@ -1136,7 +1136,7 @@
 				}
 			},
 			"_globalId": "futureld_36",
-			"_lastSave": 1765414661145,
+			"_lastSave": 1765415705542,
 			"_bbsId": "FUTURELD",
 			"_bbsName": "futureland.today"
 		}
