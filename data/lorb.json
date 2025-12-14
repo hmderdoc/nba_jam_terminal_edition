@@ -1,8 +1,8 @@
 {
 	"sharedState": {
-		"seasonStart": 1765068087242,
-		"seasonNumber": 3,
-		"lastUpdated": 1765068087242,
+		"seasonStart": 1765644185014,
+		"seasonNumber": 8,
+		"lastUpdated": 1765644185014,
 		"seasonChampions": [
 			{
 				"seasonNumber": 1,
@@ -17,6 +17,41 @@
 				"championId": null,
 				"defeatedOnDay": 34,
 				"timestamp": 1765068087242
+			},
+			{
+				"seasonNumber": 3,
+				"championName": "Season 3 End",
+				"championId": null,
+				"defeatedOnDay": 30,
+				"timestamp": 1765175103988
+			},
+			{
+				"seasonNumber": 4,
+				"championName": "Season 4 End",
+				"championId": null,
+				"defeatedOnDay": 33,
+				"timestamp": 1765293563139
+			},
+			{
+				"seasonNumber": 5,
+				"championName": "Season 5 End",
+				"championId": null,
+				"defeatedOnDay": 31,
+				"timestamp": 1765403946619
+			},
+			{
+				"seasonNumber": 6,
+				"championName": "Season 6 End",
+				"championId": null,
+				"defeatedOnDay": 30,
+				"timestamp": 1765509986632
+			},
+			{
+				"seasonNumber": 7,
+				"championName": "Season 7 End",
+				"championId": null,
+				"defeatedOnDay": 38,
+				"timestamp": 1765644185014
 			}
 		]
 	},
@@ -25,27 +60,29 @@
 			"seed": 1747991238,
 			"userHandle": "Hm Derdoc",
 			"dayTurns": 5,
-			"flags": {},
-			"xp": 0,
-			"level": 1,
-			"gamesPlayed": 0,
-			"wins": 0,
-			"losses": 0,
+			"flags": {
+				"hasSeenSportsAgentIntro": true
+			},
+			"xp": 204,
+			"level": 2,
+			"gamesPlayed": 26,
+			"wins": 20,
+			"losses": 5,
 			"name": "Derdok",
 			"archetype": "enforcer",
 			"special": "intimidation",
 			"background": "streetball",
-			"cash": 1000,
-			"rep": 0,
+			"cash": 255,
+			"rep": 62,
 			"perks": [
 				"blacktop_encounters"
 			],
 			"stats": {
-				"speed": 7,
-				"threePt": 4,
+				"speed": 10,
+				"threePt": 10,
 				"power": 9,
-				"steal": 4,
-				"block": 6,
+				"steal": 5,
+				"block": 8,
 				"dunk": 10
 			},
 			"appearance": {
@@ -87,24 +124,94 @@
 					"isStarter": true,
 					"rivals": [],
 					"intro": "You've been paired with \u0001c\u0001hSonic\u0001n, a lightning-fast \u0001wPoint Guard\u0001n\u000awho'll handle tempo and rack up steals.\u000aHe'll push the pace and find you\u000afor easy buckets in the paint."
+				},
+				{
+					"id": "carmelo_anthony",
+					"type": "nba",
+					"status": "contact",
+					"dateAcquired": 1765248543870
+				},
+				{
+					"id": "deaaron_fox",
+					"type": "nba",
+					"status": "contact",
+					"dateAcquired": 1765259474525
+				},
+				{
+					"id": "chris_webber",
+					"type": "nba",
+					"status": "contact",
+					"dateAcquired": 1765259970035
+				},
+				{
+					"id": "klay_thompson",
+					"type": "nba",
+					"status": "contact",
+					"dateAcquired": 1765262268397
+				},
+				{
+					"id": "anthony_davis",
+					"type": "nba",
+					"status": "contact",
+					"dateAcquired": 1765265561310
+				},
+				{
+					"id": "paul_pierce",
+					"type": "nba",
+					"status": "contact",
+					"dateAcquired": 1765296264415
+				},
+				{
+					"id": "larry_bird",
+					"type": "nba",
+					"status": "contact",
+					"dateAcquired": 1765296951021
+				},
+				{
+					"id": "jalen_brunson",
+					"type": "nba",
+					"status": "contact",
+					"dateAcquired": 1765297452311
+				},
+				{
+					"id": "kevin_durant",
+					"type": "nba",
+					"status": "contact",
+					"dateAcquired": 1765304320736
+				},
+				{
+					"id": "michael_jordan",
+					"type": "nba",
+					"status": "signed",
+					"dateAcquired": 1765319588645
+				},
+				{
+					"id": "nikola_jokic",
+					"type": "nba",
+					"status": "contact",
+					"dateAcquired": 1765585603175
 				}
 			],
 			"crew": [
 				{
 					"contactId": "sonic_hedgehog"
+				},
+				{
+					"contactId": "michael_jordan",
+					"slot": 1
 				}
 			],
 			"position": "C",
 			"positionName": "Center",
 			"positionCategory": "Center",
-			"activeTeammate": "sonic_hedgehog",
+			"activeTeammate": "michael_jordan",
 			"joinedTimestamp": 1764831359348,
 			"joinedOnDay": 1,
 			"joinedInCity": "bos",
 			"streetTurns": 15,
 			"gymSessions": 9,
 			"barActions": 9,
-			"lastPlayedTimestamp": 1765068148421,
+			"lastPlayedTimestamp": 1765743623428,
 			"dayStats": {
 				"gamesPlayed": 0,
 				"wins": 0,
@@ -114,34 +221,34 @@
 			},
 			"restUsedToday": false,
 			"careerStats": {
-				"gamesPlayed": 1,
+				"gamesPlayed": 21,
 				"totals": {
-					"points": 18,
-					"rebounds": 0,
+					"points": 249,
+					"rebounds": 36,
 					"assists": 0,
-					"steals": 1,
-					"blocks": 0,
-					"turnovers": 0,
-					"fgm": 7,
-					"fga": 8,
-					"tpm": 4,
-					"tpa": 5,
-					"dunks": 3,
+					"steals": 7,
+					"blocks": 44,
+					"turnovers": 3,
+					"fgm": 110,
+					"fga": 151,
+					"tpm": 29,
+					"tpa": 56,
+					"dunks": 81,
 					"injuries": 0
 				}
 			},
 			"records": {
 				"points": {
-					"value": 18,
-					"date": 1764832344292,
-					"opponent": "Park Rat",
+					"value": 19,
+					"date": 1765262268397,
+					"opponent": "Klay Thompson",
 					"court": "Court 6"
 				},
 				"rebounds": {
-					"value": 0,
-					"date": null,
-					"opponent": null,
-					"court": null
+					"value": 7,
+					"date": 1765319851846,
+					"opponent": "Young Blood",
+					"court": "Court 6"
 				},
 				"assists": {
 					"value": 0,
@@ -156,27 +263,27 @@
 					"court": "Court 6"
 				},
 				"blocks": {
-					"value": 0,
-					"date": null,
-					"opponent": null,
-					"court": null
+					"value": 6,
+					"date": 1765319851846,
+					"opponent": "Young Blood",
+					"court": "Court 6"
 				},
 				"turnovers": {
-					"value": 0,
-					"date": null,
-					"opponent": null,
-					"court": null
+					"value": 1,
+					"date": 1765259970035,
+					"opponent": "Chris Webber",
+					"court": "Court 6"
 				},
 				"fgm": {
-					"value": 7,
-					"date": 1764832344292,
-					"opponent": "Park Rat",
+					"value": 8,
+					"date": 1765262268397,
+					"opponent": "Klay Thompson",
 					"court": "Court 6"
 				},
 				"fga": {
-					"value": 8,
-					"date": 1764832344292,
-					"opponent": "Park Rat",
+					"value": 10,
+					"date": 1765181464183,
+					"opponent": "Fresh Mike",
 					"court": "Court 6"
 				},
 				"tpm": {
@@ -186,15 +293,15 @@
 					"court": "Court 6"
 				},
 				"tpa": {
-					"value": 5,
-					"date": 1764832344292,
-					"opponent": "Park Rat",
+					"value": 6,
+					"date": 1765181464183,
+					"opponent": "Fresh Mike",
 					"court": "Court 6"
 				},
 				"dunks": {
-					"value": 3,
-					"date": 1764832344292,
-					"opponent": "Park Rat",
+					"value": 6,
+					"date": 1765261462977,
+					"opponent": "Young Blood",
 					"court": "Court 6"
 				},
 				"injuries": {
@@ -214,12 +321,37 @@
 				"feet": "rim_grinders"
 			},
 			"winStreak": 0,
-			"romance": null,
+			"romance": {
+				"dailyFlirtCount": 3,
+				"lastFlirtDay": 27,
+				"relationships": {
+					"Hailee Steinfeld": {
+						"affection": 0,
+						"status": "stranger",
+						"cityId": "lac",
+						"lastInteractionDay": 27
+					},
+					"Billie Eilish": {
+						"affection": 10,
+						"status": "acquaintance",
+						"cityId": "lac",
+						"lastInteractionDay": 27
+					},
+					"Dua Lipa": {
+						"affection": 0,
+						"status": "stranger",
+						"cityId": "lac",
+						"lastInteractionDay": 27
+					}
+				},
+				"spouseName": null,
+				"spouseCityId": null
+			},
 			"pvpStats": {
-				"gamesPlayed": 5,
-				"wins": 5,
-				"losses": 0,
-				"ties": 0,
+				"gamesPlayed": 10,
+				"wins": 6,
+				"losses": 3,
+				"ties": 1,
 				"totals": {
 					"points": 0,
 					"rebounds": 0,
@@ -234,9 +366,9 @@
 					"dunks": 0,
 					"injuries": 0
 				},
-				"currentStreak": 5,
+				"currentStreak": 1,
 				"longestWinStreak": 5,
-				"longestLossStreak": 0
+				"longestLossStreak": 2
 			},
 			"pvpRecords": {
 				"points": {
@@ -307,8 +439,924 @@
 				}
 			},
 			"dailyBetting": null,
+			"attributePoints": 0,
+			"playoffAvailability": {
+				"presetName": "custom",
+				"blocks": [
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 0
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 30
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 60
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 90
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 120
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 150
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 180
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 210
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 240
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 270
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 300
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 330
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 360
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 390
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 990
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1020
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1050
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1080
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1110
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1140
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1170
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1200
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1230
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1260
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1290
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1320
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1350
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1380
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1410
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 0
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 30
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 60
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 90
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 120
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 150
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 180
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 210
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 240
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 270
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 300
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 330
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 360
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 390
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 990
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 1020
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 1050
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 1080
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 1110
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 1140
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 1170
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 1200
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 1230
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 1260
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 1290
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 1320
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 1350
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 1380
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 1410
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 0
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 30
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 60
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 90
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 120
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 150
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 180
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 210
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 240
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 270
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 300
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 330
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 360
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 390
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 990
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 1020
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 1050
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 1080
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 1110
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 1140
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 1170
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 1200
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 1230
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 1260
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 1290
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 1320
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 1350
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 1380
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 1410
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 0
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 30
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 60
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 90
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 120
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 150
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 180
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 210
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 240
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 270
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 300
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 330
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 360
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 390
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 990
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 1020
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 1050
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 1080
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 1110
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 1140
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 1170
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 1200
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 1230
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 1260
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 1290
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 1320
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 1350
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 1380
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 1410
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 0
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 30
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 60
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 90
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 120
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 150
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 180
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 210
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 240
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 270
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 300
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 330
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 360
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 390
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 990
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 1020
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 1050
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 1080
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 1110
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 1140
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 1170
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 1200
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 1230
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 1260
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 1290
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 1320
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 1350
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 1380
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 1410
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 0
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 30
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 60
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 90
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 120
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 150
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 180
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 210
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 240
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 270
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 300
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 330
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 360
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 390
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 990
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 1020
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 1050
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 1080
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 1110
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 1140
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 1170
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 1200
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 1230
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 1260
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 1290
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 1320
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 1350
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 1380
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 1410
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 0
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 30
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 60
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 90
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 120
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 150
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 180
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 210
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 240
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 270
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 300
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 330
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 360
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 390
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 990
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1020
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1050
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1080
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1110
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1140
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1170
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1200
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1230
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1260
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1290
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1320
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1350
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1380
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1410
+					}
+				],
+				"updatedAt": 1765586105001
+			},
+			"seasonStats": {
+				"7": {
+					"gamesPlayed": 3,
+					"wins": 2,
+					"losses": 1,
+					"totals": {
+						"points": 31,
+						"rebounds": 4,
+						"assists": 0,
+						"steals": 0,
+						"blocks": 12,
+						"turnovers": 0,
+						"fgm": 14,
+						"fga": 18,
+						"tpm": 3,
+						"tpa": 7,
+						"dunks": 11,
+						"injuries": 0
+					}
+				}
+			},
+			"seasonRecords": {
+				"7": {
+					"points": {
+						"value": 13,
+						"date": 1765585279945,
+						"opponent": "Carmelo Anthony",
+						"court": "Court 6"
+					},
+					"rebounds": {
+						"value": 2,
+						"date": 1765585279945,
+						"opponent": "Carmelo Anthony",
+						"court": "Court 6"
+					},
+					"assists": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					},
+					"steals": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					},
+					"blocks": {
+						"value": 5,
+						"date": 1765585603175,
+						"opponent": "Nikola Jokic",
+						"court": "Court 6"
+					},
+					"turnovers": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					},
+					"fgm": {
+						"value": 6,
+						"date": 1765585279945,
+						"opponent": "Carmelo Anthony",
+						"court": "Court 6"
+					},
+					"fga": {
+						"value": 8,
+						"date": 1765585279945,
+						"opponent": "Carmelo Anthony",
+						"court": "Court 6"
+					},
+					"tpm": {
+						"value": 2,
+						"date": 1765585471252,
+						"opponent": "Nikola Jokic",
+						"court": "Court 6"
+					},
+					"tpa": {
+						"value": 3,
+						"date": 1765585279945,
+						"opponent": "Carmelo Anthony",
+						"court": "Court 6"
+					},
+					"dunks": {
+						"value": 5,
+						"date": 1765585279945,
+						"opponent": "Carmelo Anthony",
+						"court": "Court 6"
+					},
+					"injuries": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					}
+				}
+			},
 			"_globalId": "futureld_1",
-			"_lastSave": 1765068152032,
+			"_lastSave": 1765743637256,
 			"_bbsId": "FUTURELD",
 			"_bbsName": "futureland.today"
 		},
@@ -316,18 +1364,20 @@
 			"seed": 1748730377,
 			"userHandle": "Beta Tester",
 			"dayTurns": 5,
-			"flags": {},
-			"xp": 0,
+			"flags": {
+				"hasSeenSportsAgentIntro": true
+			},
+			"xp": 10,
 			"level": 1,
-			"gamesPlayed": 7,
-			"wins": 0,
+			"gamesPlayed": 8,
+			"wins": 1,
 			"losses": 7,
 			"name": "derpy",
 			"archetype": "sniper",
 			"special": "heat_check",
 			"background": "streetball",
-			"cash": 184,
-			"rep": 0,
+			"cash": 326,
+			"rep": 2,
 			"perks": [
 				"blacktop_encounters"
 			],
@@ -336,7 +1386,7 @@
 				"threePt": 9,
 				"power": 7,
 				"steal": 5,
-				"block": 4,
+				"block": 5,
 				"dunk": 6
 			},
 			"appearance": {
@@ -344,7 +1394,11 @@
 				"eyeColor": "BROWN",
 				"jerseyColor": "RED",
 				"jerseyLettering": "WHITE",
-				"jerseyNumber": "47"
+				"jerseyNumber": "47",
+				"nametagFg": "WHITE",
+				"nametagBg": "BLACK",
+				"nametagHiFg": "BLACK",
+				"nametagHiBg": "LIGHTGRAY"
 			},
 			"nickname": "DERPY",
 			"contacts": [
@@ -374,11 +1428,21 @@
 					"isStarter": true,
 					"rivals": [],
 					"intro": "You've been paired with \u0001g\u0001hShrek\u0001n, a bruising \u0001wPower Forward\u0001n\u000afrom the swamp. He'll bang bodies in the post\u000aand clear the lane while you rain\u000athrees from the outside."
+				},
+				{
+					"id": "penny_hardaway",
+					"type": "nba",
+					"status": "contact",
+					"dateAcquired": 1765692164720
 				}
 			],
 			"crew": [
 				{
 					"contactId": "shrek_ogre"
+				},
+				{
+					"contactId": "penny_hardaway",
+					"slot": 1
 				}
 			],
 			"position": "SG",
@@ -391,7 +1455,7 @@
 			"streetTurns": 15,
 			"gymSessions": 9,
 			"barActions": 9,
-			"lastPlayedTimestamp": 1765038949887,
+			"lastPlayedTimestamp": 1765695720503,
 			"dayStats": {
 				"gamesPlayed": 0,
 				"wins": 0,
@@ -491,8 +1555,224 @@
 					"score": null
 				}
 			},
+			"seasonStats": {
+				"8": {
+					"gamesPlayed": 1,
+					"wins": 1,
+					"losses": 0,
+					"totals": {
+						"points": 14,
+						"rebounds": 4,
+						"assists": 0,
+						"steals": 1,
+						"blocks": 2,
+						"turnovers": 0,
+						"fgm": 7,
+						"fga": 9,
+						"tpm": 0,
+						"tpa": 0,
+						"dunks": 7,
+						"injuries": 0
+					}
+				}
+			},
+			"careerStats": {
+				"gamesPlayed": 1,
+				"totals": {
+					"points": 14,
+					"rebounds": 4,
+					"assists": 0,
+					"steals": 1,
+					"blocks": 2,
+					"turnovers": 0,
+					"fgm": 7,
+					"fga": 9,
+					"tpm": 0,
+					"tpa": 0,
+					"dunks": 7,
+					"injuries": 0
+				}
+			},
+			"records": {
+				"points": {
+					"value": 14,
+					"date": 1765692164720,
+					"opponent": "Penny Hardaway",
+					"court": "Court 6"
+				},
+				"rebounds": {
+					"value": 4,
+					"date": 1765692164720,
+					"opponent": "Penny Hardaway",
+					"court": "Court 6"
+				},
+				"assists": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				},
+				"steals": {
+					"value": 1,
+					"date": 1765692164720,
+					"opponent": "Penny Hardaway",
+					"court": "Court 6"
+				},
+				"blocks": {
+					"value": 2,
+					"date": 1765692164720,
+					"opponent": "Penny Hardaway",
+					"court": "Court 6"
+				},
+				"turnovers": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				},
+				"fgm": {
+					"value": 7,
+					"date": 1765692164720,
+					"opponent": "Penny Hardaway",
+					"court": "Court 6"
+				},
+				"fga": {
+					"value": 9,
+					"date": 1765692164720,
+					"opponent": "Penny Hardaway",
+					"court": "Court 6"
+				},
+				"tpm": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				},
+				"tpa": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				},
+				"dunks": {
+					"value": 7,
+					"date": 1765692164720,
+					"opponent": "Penny Hardaway",
+					"court": "Court 6"
+				},
+				"injuries": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				}
+			},
+			"seasonRecords": {
+				"8": {
+					"points": {
+						"value": 14,
+						"date": 1765692164720,
+						"opponent": "Penny Hardaway",
+						"court": "Court 6"
+					},
+					"rebounds": {
+						"value": 4,
+						"date": 1765692164720,
+						"opponent": "Penny Hardaway",
+						"court": "Court 6"
+					},
+					"assists": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					},
+					"steals": {
+						"value": 1,
+						"date": 1765692164720,
+						"opponent": "Penny Hardaway",
+						"court": "Court 6"
+					},
+					"blocks": {
+						"value": 2,
+						"date": 1765692164720,
+						"opponent": "Penny Hardaway",
+						"court": "Court 6"
+					},
+					"turnovers": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					},
+					"fgm": {
+						"value": 7,
+						"date": 1765692164720,
+						"opponent": "Penny Hardaway",
+						"court": "Court 6"
+					},
+					"fga": {
+						"value": 9,
+						"date": 1765692164720,
+						"opponent": "Penny Hardaway",
+						"court": "Court 6"
+					},
+					"tpm": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					},
+					"tpa": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					},
+					"dunks": {
+						"value": 7,
+						"date": 1765692164720,
+						"opponent": "Penny Hardaway",
+						"court": "Court 6"
+					},
+					"injuries": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					}
+				}
+			},
+			"dailyBetting": null,
+			"romance": {
+				"dailyFlirtCount": 3,
+				"lastFlirtDay": 14,
+				"relationships": {
+					"Ariana Grande": {
+						"affection": 6,
+						"status": "acquaintance",
+						"cityId": "orl",
+						"lastInteractionDay": 14
+					},
+					"Selena Gomez": {
+						"affection": 0,
+						"status": "stranger",
+						"cityId": "orl",
+						"lastInteractionDay": 14
+					},
+					"Raven Baxter": {
+						"affection": 0,
+						"status": "stranger",
+						"cityId": null,
+						"lastInteractionDay": 0
+					}
+				},
+				"spouseName": null,
+				"spouseCityId": null
+			},
+			"tempBuffs": {},
 			"_globalId": "futureld_3",
-			"_lastSave": 1765038954222,
+			"_lastSave": 1765696206729,
 			"_bbsId": "FUTURELD",
 			"_bbsName": "futureland.today"
 		},
@@ -573,14 +1853,2697 @@
 			"_lastSave": 1765025572703,
 			"_bbsId": "FUTURELD",
 			"_bbsName": "futureland.today"
+		},
+		"futureld_36": {
+			"seed": 16794314,
+			"userHandle": "HM Derdok",
+			"dayTurns": 5,
+			"flags": {
+				"hasSeenSportsAgentIntro": true
+			},
+			"xp": 0,
+			"level": 1,
+			"gamesPlayed": 4,
+			"wins": 3,
+			"losses": 0,
+			"name": "FOOL",
+			"archetype": "underdog",
+			"special": "chip_on_shoulder",
+			"background": "streetball",
+			"cash": 431,
+			"rep": 121,
+			"perks": [
+				"blacktop_encounters"
+			],
+			"stats": {
+				"speed": 7,
+				"threePt": 8,
+				"power": 3,
+				"steal": 4,
+				"block": 4,
+				"dunk": 10
+			},
+			"appearance": {
+				"skin": "magenta",
+				"eyeColor": "BLUE",
+				"jerseyColor": "CYAN",
+				"jerseyLettering": "YELLOW",
+				"jerseyNumber": "22"
+			},
+			"nickname": "THRIL",
+			"contacts": [
+				{
+					"id": "air_bud",
+					"type": "legend",
+					"name": "Air Bud",
+					"team": "Fernfield Timberwolves",
+					"position": "SG",
+					"positionName": "Shooting Guard",
+					"status": "signed",
+					"signCost": 0,
+					"cutPercent": 10,
+					"tier": "rookie",
+					"stats": {
+						"speed": 6,
+						"threePt": 7,
+						"dunk": 3,
+						"block": 2,
+						"power": 3,
+						"steal": 5
+					},
+					"skin": "airbud",
+					"jersey": 7,
+					"shortNick": "AIRBUD",
+					"dateAcquired": 1765250154393,
+					"isStarter": true,
+					"rivals": [],
+					"intro": "You've been paired with \u0001y\u0001hAir Bud\u0001n, a scrappy \u0001wShooting Guard\u0001n\u000awith a silky jumper. He'll stretch the floor\u000aand knock down open shots while you\u000awork the paint."
+				}
+			],
+			"crew": [
+				{
+					"contactId": "air_bud"
+				}
+			],
+			"position": "PF",
+			"positionName": "Power Forward",
+			"positionCategory": "Forward",
+			"activeTeammate": "air_bud",
+			"joinedTimestamp": 1765250160114,
+			"joinedOnDay": 21,
+			"joinedInCity": "den",
+			"streetTurns": 15,
+			"gymSessions": 9,
+			"barActions": 9,
+			"lastPlayedTimestamp": 1765733897384,
+			"dayStats": {
+				"gamesPlayed": 0,
+				"wins": 0,
+				"losses": 0,
+				"cashEarned": 0,
+				"repGained": 0
+			},
+			"careerStats": {
+				"gamesPlayed": 1,
+				"totals": {
+					"points": 10,
+					"rebounds": 2,
+					"assists": 0,
+					"steals": 1,
+					"blocks": 0,
+					"turnovers": 0,
+					"fgm": 0,
+					"fga": 0,
+					"tpm": 0,
+					"tpa": 0,
+					"dunks": 5,
+					"injuries": 0
+				}
+			},
+			"records": {
+				"points": {
+					"value": 10,
+					"date": 1765250322675,
+					"opponent": null,
+					"court": null
+				},
+				"rebounds": {
+					"value": 2,
+					"date": 1765250322675,
+					"opponent": null,
+					"court": null
+				},
+				"assists": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				},
+				"steals": {
+					"value": 1,
+					"date": 1765250322675,
+					"opponent": null,
+					"court": null
+				},
+				"blocks": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				},
+				"turnovers": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				},
+				"fgm": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				},
+				"fga": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				},
+				"tpm": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				},
+				"tpa": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				},
+				"dunks": {
+					"value": 5,
+					"date": 1765250322675,
+					"opponent": null,
+					"court": null
+				},
+				"injuries": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				}
+			},
+			"restUsedToday": false,
+			"pvpStats": {
+				"gamesPlayed": 3,
+				"wins": 2,
+				"losses": 0,
+				"ties": 1,
+				"totals": {
+					"points": 0,
+					"rebounds": 0,
+					"assists": 0,
+					"steals": 0,
+					"blocks": 0,
+					"turnovers": 0,
+					"fgm": 0,
+					"fga": 0,
+					"tpm": 0,
+					"tpa": 0,
+					"dunks": 0,
+					"injuries": 0
+				},
+				"currentStreak": 1,
+				"longestWinStreak": 1,
+				"longestLossStreak": 0
+			},
+			"pvpRecords": {
+				"points": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"rebounds": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"assists": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"steals": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"blocks": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"turnovers": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"fgm": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"fga": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"tpm": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"tpa": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"dunks": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"injuries": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"winMargin": {
+					"value": 4,
+					"date": 1765266840983,
+					"opponent": "Opponent",
+					"score": "10-6"
+				}
+			},
+			"playoffAvailability": {
+				"presetName": "custom",
+				"blocks": [
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 0
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 30
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 60
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 90
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 120
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 150
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 180
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 210
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 240
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 270
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 300
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 330
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 360
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 390
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 960
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 990
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1020
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1050
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1080
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1110
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1140
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1170
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1200
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1230
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1260
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1290
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1320
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1350
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1380
+					},
+					{
+						"dayOfWeek": 0,
+						"startMinuteUTC": 1410
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 0
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 30
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 60
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 90
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 120
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 150
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 180
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 210
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 240
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 270
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 300
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 330
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 360
+					},
+					{
+						"dayOfWeek": 1,
+						"startMinuteUTC": 390
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 0
+					},
+					{
+						"dayOfWeek": 2,
+						"startMinuteUTC": 120
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 0
+					},
+					{
+						"dayOfWeek": 3,
+						"startMinuteUTC": 120
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 0
+					},
+					{
+						"dayOfWeek": 4,
+						"startMinuteUTC": 120
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 0
+					},
+					{
+						"dayOfWeek": 5,
+						"startMinuteUTC": 120
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 960
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 990
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1020
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1050
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1080
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1110
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1140
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1170
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1200
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1230
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1260
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1290
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1320
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1350
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1380
+					},
+					{
+						"dayOfWeek": 6,
+						"startMinuteUTC": 1410
+					}
+				],
+				"updatedAt": 1765644328316
+			},
+			"dailyBetting": {
+				"day": 1,
+				"matchups": [
+					{
+						"id": "game_1_1",
+						"gameIndex": 0,
+						"dayNumber": 1,
+						"team1": {
+							"key": "pelicans",
+							"name": "New Orleans Pelicans",
+							"abbr": "NOP",
+							"colors": {
+								"fg": "YELLOW",
+								"bg": "BG_BLUE",
+								"fg_accent": "LIGHTCYAN",
+								"bg_alt": "BG_BLUE"
+							},
+							"players": [
+								{
+									"slug": "anthony_davis_2015",
+									"key": "pelicans.anthony_davis_2015",
+									"name": "Anthony Davis (2015)",
+									"jersey": "23",
+									"position": "forward",
+									"stats": {
+										"speed": 8,
+										"threePt": 4,
+										"dunk": 9,
+										"power": 9,
+										"steal": 7,
+										"block": 10
+									},
+									"shortNicks": [
+										"AD",
+										"AD23"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 43.7
+								},
+								{
+									"slug": "zion_williamson",
+									"key": "pelicans.zion_williamson",
+									"name": "Zion Williamson",
+									"jersey": "1",
+									"position": "forward",
+									"stats": {
+										"speed": 8,
+										"threePt": 4,
+										"dunk": 10,
+										"power": 10,
+										"steal": 6,
+										"block": 7
+									},
+									"shortNicks": [
+										"Zion",
+										"ZW"
+									],
+									"skin": "brown",
+									"rivals": [
+										"nuggets.aaron_gordon",
+										"clippers.blake_griffin",
+										"lakers.anthony_davis"
+									],
+									"powerRating": 42.699999999999996
+								}
+							],
+							"power": 43.2
+						},
+						"team2": {
+							"key": "spurs",
+							"name": "San Antonio Spurs",
+							"abbr": "SAS",
+							"colors": {
+								"fg": "WHITE",
+								"bg": "BG_BLACK",
+								"fg_accent": "BLACK",
+								"bg_alt": "BG_LIGHTGRAY"
+							},
+							"players": [
+								{
+									"slug": "tim_duncan",
+									"key": "spurs.tim_duncan",
+									"name": "Tim Duncan",
+									"jersey": "21",
+									"position": "center",
+									"stats": {
+										"speed": 6,
+										"threePt": 3,
+										"dunk": 7,
+										"power": 9,
+										"steal": 6,
+										"block": 10
+									},
+									"shortNicks": [
+										"Timmy",
+										"TD21"
+									],
+									"skin": "brown",
+									"rivals": [
+										"timberwolves.kevin_garnett",
+										"jazz.karl_malone"
+									],
+									"powerRating": 37.400000000000006
+								},
+								{
+									"slug": "manu_ginobili",
+									"key": "spurs.manu_ginobili",
+									"name": "Manu Ginobili",
+									"jersey": "20",
+									"position": "guard",
+									"stats": {
+										"speed": 8,
+										"threePt": 8,
+										"dunk": 7,
+										"power": 6,
+										"steal": 9,
+										"block": 4
+									},
+									"shortNicks": [
+										"Manu",
+										"MG20"
+									],
+									"skin": "magenta",
+									"rivals": [],
+									"powerRating": 40.8
+								}
+							],
+							"power": 39.1
+						},
+						"odds": {
+							"team1": -149,
+							"team2": 149,
+							"favorite": "team1"
+						},
+						"spread": {
+							"spread": 6,
+							"favorite": "team1"
+						},
+						"total": 82.5,
+						"result": {
+							"score1": 50,
+							"score2": 51,
+							"winner": "team2",
+							"margin": 1,
+							"totalPoints": 101
+						},
+						"wager": {
+							"gameId": "game_1_1",
+							"gameIndex": 0,
+							"type": "total",
+							"pick": "under",
+							"odds": -110,
+							"line": 82.5,
+							"amount": 1000,
+							"team1": "New Orleans Pelicans",
+							"team2": "San Antonio Spurs",
+							"placedAt": 1765733913699,
+							"resolved": true,
+							"result": {
+								"won": false,
+								"push": false,
+								"payout": 0
+							}
+						}
+					},
+					{
+						"id": "game_1_2",
+						"gameIndex": 1,
+						"dayNumber": 1,
+						"team1": {
+							"key": "heat",
+							"name": "Miami Heat",
+							"abbr": "MIA",
+							"colors": {
+								"fg": "LIGHTRED",
+								"bg": "BG_BLACK",
+								"fg_accent": "BLACK",
+								"bg_alt": "BG_RED"
+							},
+							"players": [
+								{
+									"slug": "chris_bosh",
+									"key": "heat.chris_bosh",
+									"name": "Chris Bosh",
+									"jersey": "1",
+									"position": "forward",
+									"stats": {
+										"speed": 7,
+										"threePt": 6,
+										"dunk": 8,
+										"power": 8,
+										"steal": 6,
+										"block": 7
+									},
+									"shortNicks": [
+										"CB4"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 39.9
+								},
+								{
+									"slug": "tyler_herro",
+									"key": "heat.tyler_herro",
+									"name": "Tyler Herro",
+									"jersey": "14",
+									"position": "guard",
+									"stats": {
+										"speed": 8,
+										"threePt": 9,
+										"dunk": 6,
+										"power": 5,
+										"steal": 6,
+										"block": 3
+									},
+									"shortNicks": [
+										"Herro"
+									],
+									"skin": "magenta",
+									"rivals": [],
+									"powerRating": 36.9
+								}
+							],
+							"power": 38.4
+						},
+						"team2": {
+							"key": "raptors",
+							"name": "Toronto Raptors",
+							"abbr": "TOR",
+							"colors": {
+								"fg": "LIGHTRED",
+								"bg": "BG_BLACK",
+								"fg_accent": "LIGHTRED",
+								"bg_alt": "BG_MAGENTA"
+							},
+							"players": [
+								{
+									"slug": "kawhi_leonard_2019",
+									"key": "raptors.kawhi_leonard_2019",
+									"name": "Kawhi Leonard (2019)",
+									"jersey": "2",
+									"position": "forward",
+									"stats": {
+										"speed": 8,
+										"threePt": 8,
+										"dunk": 8,
+										"power": 8,
+										"steal": 9,
+										"block": 8
+									},
+									"shortNicks": [
+										"Kawhi",
+										"KL2"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 46.400000000000006
+								},
+								{
+									"slug": "kyle_lowry",
+									"key": "raptors.kyle_lowry",
+									"name": "Kyle Lowry",
+									"jersey": "7",
+									"position": "guard",
+									"stats": {
+										"speed": 8,
+										"threePt": 8,
+										"dunk": 6,
+										"power": 6,
+										"steal": 9,
+										"block": 4
+									},
+									"shortNicks": [
+										"Kyle",
+										"Lowry"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 39.8
+								}
+							],
+							"power": 43.1
+						},
+						"odds": {
+							"team1": 156,
+							"team2": -156,
+							"favorite": "team2"
+						},
+						"spread": {
+							"spread": 7,
+							"favorite": "team2"
+						},
+						"total": 82,
+						"result": {
+							"score1": 51,
+							"score2": 54,
+							"winner": "team2",
+							"margin": 3,
+							"totalPoints": 105
+						},
+						"wager": {
+							"gameId": "game_1_2",
+							"gameIndex": 1,
+							"type": "total",
+							"pick": "under",
+							"odds": -110,
+							"line": 82,
+							"amount": 50,
+							"team1": "Miami Heat",
+							"team2": "Toronto Raptors",
+							"placedAt": 1765733976548,
+							"resolved": true,
+							"result": {
+								"won": false,
+								"push": false,
+								"payout": 0
+							}
+						}
+					},
+					{
+						"id": "game_1_3",
+						"gameIndex": 2,
+						"dayNumber": 1,
+						"team1": {
+							"key": "warriors",
+							"name": "Golden State Warriors",
+							"abbr": "GSW",
+							"colors": {
+								"fg": "YELLOW",
+								"bg": "BG_BLUE",
+								"fg_accent": "WHITE",
+								"bg_alt": "BG_BLUE"
+							},
+							"players": [
+								{
+									"slug": "kevin_durant_2017",
+									"key": "warriors.kevin_durant_2017",
+									"name": "Kevin Durant (2017)",
+									"jersey": "35",
+									"position": "forward",
+									"stats": {
+										"speed": 9,
+										"threePt": 9,
+										"dunk": 9,
+										"power": 8,
+										"steal": 7,
+										"block": 8
+									},
+									"shortNicks": [
+										"KD",
+										"Slim"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 48.1
+								},
+								{
+									"slug": "draymond_green",
+									"key": "warriors.draymond_green",
+									"name": "Draymond Green",
+									"jersey": "23",
+									"position": "forward",
+									"stats": {
+										"speed": 7,
+										"threePt": 5,
+										"dunk": 6,
+										"power": 9,
+										"steal": 9,
+										"block": 8
+									},
+									"shortNicks": [
+										"Dray",
+										"Day"
+									],
+									"skin": "brown",
+									"rivals": [
+										"bulls.dennis_rodman",
+										"heat.bam_adebayo",
+										"timberwolves.kevin_garnett"
+									],
+									"powerRating": 40.800000000000004
+								}
+							],
+							"power": 44.45
+						},
+						"team2": {
+							"key": "blazers",
+							"name": "Portland Trail Blazers",
+							"abbr": "POR",
+							"colors": {
+								"fg": "LIGHTRED",
+								"bg": "BG_BLACK",
+								"fg_accent": "RED",
+								"bg_alt": "BG_LIGHTGRAY"
+							},
+							"players": [
+								{
+									"slug": "lamarcus_aldridge",
+									"key": "blazers.lamarcus_aldridge",
+									"name": "LaMarcus Aldridge",
+									"jersey": "12",
+									"position": "forward",
+									"stats": {
+										"speed": 7,
+										"threePt": 6,
+										"dunk": 8,
+										"power": 9,
+										"steal": 5,
+										"block": 6
+									},
+									"shortNicks": [
+										"LA",
+										"LA12"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 39.3
+								},
+								{
+									"slug": "damian_lillard_2022",
+									"key": "blazers.damian_lillard_2022",
+									"name": "Damian Lillard (2022)",
+									"jersey": "0",
+									"position": "guard",
+									"stats": {
+										"speed": 9,
+										"threePt": 10,
+										"dunk": 6,
+										"power": 4,
+										"steal": 7,
+										"block": 3
+									},
+									"shortNicks": [
+										"Dame",
+										"DOL0"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 39.1
+								}
+							],
+							"power": 39.2
+						},
+						"odds": {
+							"team1": -160,
+							"team2": 160,
+							"favorite": "team1"
+						},
+						"spread": {
+							"spread": 8,
+							"favorite": "team1"
+						},
+						"total": 82.5,
+						"result": null,
+						"wager": null
+					},
+					{
+						"id": "game_1_4",
+						"gameIndex": 3,
+						"dayNumber": 1,
+						"team1": {
+							"key": "thunder",
+							"name": "Oklahoma City Thunder",
+							"abbr": "OKC",
+							"colors": {
+								"fg": "LIGHTBLUE",
+								"bg": "BG_BLACK",
+								"fg_accent": "LIGHTRED",
+								"bg_alt": "BG_BLUE"
+							},
+							"players": [
+								{
+									"slug": "serge_ibaka",
+									"key": "thunder.serge_ibaka",
+									"name": "Serge Ibaka",
+									"jersey": "9",
+									"position": "forward",
+									"stats": {
+										"speed": 7,
+										"threePt": 5,
+										"dunk": 8,
+										"power": 9,
+										"steal": 6,
+										"block": 9
+									},
+									"shortNicks": [
+										"CONGO",
+										"Ibaka"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 41.099999999999994
+								},
+								{
+									"slug": "james_harden_2012",
+									"key": "thunder.james_harden_2012",
+									"name": "James Harden (2012)",
+									"jersey": "13",
+									"position": "guard",
+									"stats": {
+										"speed": 8,
+										"threePt": 9,
+										"dunk": 7,
+										"power": 6,
+										"steal": 7,
+										"block": 4
+									},
+									"shortNicks": [
+										"Beard",
+										"JH13"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 40.3
+								}
+							],
+							"power": 40.699999999999996
+						},
+						"team2": {
+							"key": "magic",
+							"name": "Orlando Magic",
+							"abbr": "ORL",
+							"colors": {
+								"fg": "LIGHTBLUE",
+								"bg": "BG_BLACK",
+								"fg_accent": "WHITE",
+								"bg_alt": "BG_BLUE"
+							},
+							"players": [
+								{
+									"slug": "tracy_mcgrady",
+									"key": "magic.tracy_mcgrady",
+									"name": "Tracy McGrady",
+									"jersey": "1",
+									"position": "guard",
+									"stats": {
+										"speed": 9,
+										"threePt": 9,
+										"dunk": 9,
+										"power": 6,
+										"steal": 7,
+										"block": 5
+									},
+									"shortNicks": [
+										"Tracy",
+										"McGra"
+									],
+									"skin": "brown",
+									"rivals": [
+										"lakers.kobe_bryant",
+										"raptors.vince_carter",
+										"76ers.allen_iverson",
+										"pistons.grant_hill"
+									],
+									"powerRating": 44.2
+								},
+								{
+									"slug": "shaquille_oneal",
+									"key": "magic.shaquille_oneal",
+									"name": "Shaquille ONeal",
+									"jersey": "32",
+									"position": "center",
+									"stats": {
+										"speed": 7,
+										"threePt": 1,
+										"dunk": 10,
+										"power": 10,
+										"steal": 6,
+										"block": 9
+									},
+									"shortNicks": [
+										"Shaq",
+										"Dies"
+									],
+									"skin": "brown",
+									"rivals": [
+										"rockets.hakeem_olajuwon",
+										"spurs.david_robinson",
+										"rockets.yao_ming",
+										"magic.dwight_howard"
+									],
+									"powerRating": 39.599999999999994
+								}
+							],
+							"power": 41.9
+						},
+						"odds": {
+							"team1": -105,
+							"team2": 105
+						},
+						"spread": {
+							"spread": 2,
+							"favorite": "team2"
+						},
+						"total": 82.5,
+						"result": null,
+						"wager": null
+					},
+					{
+						"id": "game_1_5",
+						"gameIndex": 4,
+						"dayNumber": 1,
+						"team1": {
+							"key": "timberwolves",
+							"name": "Minnesota Timberwolves",
+							"abbr": "MIN",
+							"colors": {
+								"fg": "LIGHTGREEN",
+								"bg": "BG_BLUE",
+								"fg_accent": "LIGHTGREEN",
+								"bg_alt": "BG_BLUE"
+							},
+							"players": [
+								{
+									"slug": "latrell_sprewell",
+									"key": "timberwolves.latrell_sprewell",
+									"name": "Latrell Sprewell",
+									"jersey": "8",
+									"position": "forward",
+									"stats": {
+										"speed": 8,
+										"threePt": 7,
+										"dunk": 8,
+										"power": 6,
+										"steal": 7,
+										"block": 4
+									},
+									"shortNicks": [
+										"Spree"
+									],
+									"skin": "brown",
+									"rivals": [
+										"76ers.allen_iverson",
+										"pacers.reggie_miller"
+									],
+									"powerRating": 39.1
+								},
+								{
+									"slug": "sam_cassell",
+									"key": "timberwolves.sam_cassell",
+									"name": "Sam Cassell",
+									"jersey": "19",
+									"position": "guard",
+									"stats": {
+										"speed": 8,
+										"threePt": 7,
+										"dunk": 6,
+										"power": 6,
+										"steal": 8,
+										"block": 3
+									},
+									"shortNicks": [
+										"Sam",
+										"Casse"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 37.2
+								}
+							],
+							"power": 38.150000000000006
+						},
+						"team2": {
+							"key": "mavericks",
+							"name": "Dallas Mavericks",
+							"abbr": "DAL",
+							"colors": {
+								"fg": "LIGHTBLUE",
+								"bg": "BG_BLACK",
+								"fg_accent": "LIGHTBLUE",
+								"bg_alt": "BG_BLUE"
+							},
+							"players": [
+								{
+									"slug": "kyrie_irving",
+									"key": "mavericks.kyrie_irving",
+									"name": "Kyrie Irving",
+									"jersey": "11",
+									"position": "guard",
+									"stats": {
+										"speed": 9,
+										"threePt": 9,
+										"dunk": 7,
+										"power": 5,
+										"steal": 7,
+										"block": 3
+									},
+									"shortNicks": [
+										"Kyrie",
+										"Irvin"
+									],
+									"skin": "brown",
+									"rivals": [
+										"warriors.stephen_curry",
+										"bucks.damian_lillard"
+									],
+									"powerRating": 39.900000000000006
+								},
+								{
+									"slug": "shawn_marion",
+									"key": "mavericks.shawn_marion",
+									"name": "Shawn Marion",
+									"jersey": "0",
+									"position": "forward",
+									"stats": {
+										"speed": 8,
+										"threePt": 5,
+										"dunk": 8,
+										"power": 8,
+										"steal": 7,
+										"block": 7
+									},
+									"shortNicks": [
+										"Trix",
+										"Mar"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 40.8
+								}
+							],
+							"power": 40.35
+						},
+						"odds": {
+							"team1": 132,
+							"team2": -132,
+							"favorite": "team2"
+						},
+						"spread": {
+							"spread": 3.5,
+							"favorite": "team2"
+						},
+						"total": 82,
+						"result": null,
+						"wager": null
+					},
+					{
+						"id": "game_1_6",
+						"gameIndex": 5,
+						"dayNumber": 1,
+						"team1": {
+							"key": "knicks",
+							"name": "New York Knicks",
+							"abbr": "NYK",
+							"colors": {
+								"fg": "LIGHTBLUE",
+								"bg": "BG_BLACK",
+								"fg_accent": "LIGHTRED",
+								"bg_alt": "BG_BLUE"
+							},
+							"players": [
+								{
+									"slug": "patrick_ewing",
+									"key": "knicks.patrick_ewing",
+									"name": "Patrick Ewing",
+									"jersey": "33",
+									"position": "center",
+									"stats": {
+										"speed": 6,
+										"threePt": 3,
+										"dunk": 9,
+										"power": 9,
+										"steal": 6,
+										"block": 9
+									},
+									"shortNicks": [
+										"Ewing",
+										"PE"
+									],
+									"skin": "brown",
+									"rivals": [
+										"rockets.hakeem_olajuwon",
+										"spurs.david_robinson",
+										"hornets.larry_johnson"
+									],
+									"powerRating": 38.7
+								},
+								{
+									"slug": "john_starks",
+									"key": "knicks.john_starks",
+									"name": "John Starks",
+									"jersey": "3",
+									"position": "guard",
+									"stats": {
+										"speed": 8,
+										"threePt": 8,
+										"dunk": 6,
+										"power": 5,
+										"steal": 8,
+										"block": 4
+									},
+									"shortNicks": [
+										"Stark",
+										"JS3"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 38.099999999999994
+								}
+							],
+							"power": 38.4
+						},
+						"team2": {
+							"key": "pacers",
+							"name": "Indiana Pacers",
+							"abbr": "IND",
+							"colors": {
+								"fg": "YELLOW",
+								"bg": "BG_BLUE",
+								"fg_accent": "YELLOW",
+								"bg_alt": "BG_BLUE"
+							},
+							"players": [
+								{
+									"slug": "reggie_miller",
+									"key": "pacers.reggie_miller",
+									"name": "Reggie Miller",
+									"jersey": "31",
+									"position": "guard",
+									"stats": {
+										"speed": 8,
+										"threePt": 10,
+										"dunk": 4,
+										"power": 4,
+										"steal": 7,
+										"block": 3
+									},
+									"shortNicks": [
+										"Reggie",
+										"Reg"
+									],
+									"skin": "brown",
+									"rivals": [
+										"warriors.klay_thompson",
+										"warriors.chris_mullin",
+										"suns.dan_majerle"
+									],
+									"powerRating": 35.900000000000006
+								},
+								{
+									"slug": "victor_oladipo",
+									"key": "pacers.victor_oladipo",
+									"name": "Victor Oladipo",
+									"jersey": "4",
+									"position": "guard",
+									"stats": {
+										"speed": 8,
+										"threePt": 8,
+										"dunk": 7,
+										"power": 6,
+										"steal": 9,
+										"block": 4
+									},
+									"shortNicks": [
+										"Victo",
+										"Oladi"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 40.8
+								}
+							],
+							"power": 38.35
+						},
+						"odds": {
+							"team1": -105,
+							"team2": 105
+						},
+						"spread": {
+							"spread": 0.5,
+							"favorite": "team1"
+						},
+						"total": 81.5,
+						"result": null,
+						"wager": null
+					},
+					{
+						"id": "game_1_7",
+						"gameIndex": 6,
+						"dayNumber": 1,
+						"team1": {
+							"key": "hawks",
+							"name": "Atlanta Hawks",
+							"abbr": "ATL",
+							"colors": {
+								"fg": "LIGHTRED",
+								"bg": "BG_BLACK",
+								"fg_accent": "YELLOW",
+								"bg_alt": "BG_RED"
+							},
+							"players": [
+								{
+									"slug": "joe_johnson",
+									"key": "hawks.joe_johnson",
+									"name": "Joe Johnson",
+									"jersey": "2",
+									"position": "guard",
+									"stats": {
+										"speed": 7,
+										"threePt": 8,
+										"dunk": 7,
+										"power": 6,
+										"steal": 6,
+										"block": 4
+									},
+									"shortNicks": [
+										"Iso",
+										"Joe"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 37.2
+								},
+								{
+									"slug": "dikembe_mutombo",
+									"key": "hawks.dikembe_mutombo",
+									"name": "Dikembe Mutombo",
+									"jersey": "55",
+									"position": "center",
+									"stats": {
+										"speed": 6,
+										"threePt": 2,
+										"dunk": 8,
+										"power": 10,
+										"steal": 7,
+										"block": 10
+									},
+									"shortNicks": [
+										"Deke",
+										"Mutom"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 39
+								}
+							],
+							"power": 38.1
+						},
+						"team2": {
+							"key": "suns",
+							"name": "Phoenix Suns",
+							"abbr": "PHX",
+							"colors": {
+								"fg": "LIGHTMAGENTA",
+								"bg": "BG_BLACK",
+								"fg_accent": "LIGHTRED",
+								"bg_alt": "BG_MAGENTA"
+							},
+							"players": [
+								{
+									"slug": "kevin_durant",
+									"key": "suns.kevin_durant",
+									"name": "Kevin Durant",
+									"jersey": "35",
+									"position": "forward",
+									"stats": {
+										"speed": 8,
+										"threePt": 9,
+										"dunk": 8,
+										"power": 8,
+										"steal": 7,
+										"block": 8
+									},
+									"shortNicks": [
+										"KD",
+										"Slim"
+									],
+									"skin": "brown",
+									"rivals": [
+										"bucks.giannis_antetokounmpo",
+										"clippers.kawhi_leonard",
+										"nuggets.carmelo_anthony"
+									],
+									"powerRating": 45.900000000000006
+								},
+								{
+									"slug": "amare_stoudemire",
+									"key": "suns.amare_stoudemire",
+									"name": "Amare Stoudemire",
+									"jersey": "32",
+									"position": "forward",
+									"stats": {
+										"speed": 8,
+										"threePt": 4,
+										"dunk": 10,
+										"power": 9,
+										"steal": 5,
+										"block": 5
+									},
+									"shortNicks": [
+										"STAT",
+										"Stat"
+									],
+									"skin": "brown",
+									"rivals": [
+										"raptors.chris_bosh",
+										"grizzlies.pau_gasol",
+										"spurs.tim_duncan"
+									],
+									"powerRating": 39.6
+								}
+							],
+							"power": 42.75
+						},
+						"odds": {
+							"team1": 156,
+							"team2": -156,
+							"favorite": "team2"
+						},
+						"spread": {
+							"spread": 7,
+							"favorite": "team2"
+						},
+						"total": 82,
+						"result": null,
+						"wager": null
+					},
+					{
+						"id": "game_1_8",
+						"gameIndex": 7,
+						"dayNumber": 1,
+						"team1": {
+							"key": "lakers",
+							"name": "Los Angeles Lakers",
+							"abbr": "LAL",
+							"colors": {
+								"fg": "YELLOW",
+								"bg": "BG_MAGENTA",
+								"fg_accent": "YELLOW",
+								"bg_alt": "BG_MAGENTA"
+							},
+							"players": [
+								{
+									"slug": "magic_johnson",
+									"key": "lakers.magic_johnson",
+									"name": "Magic Johnson",
+									"jersey": "32",
+									"position": "guard",
+									"stats": {
+										"speed": 8,
+										"threePt": 8,
+										"dunk": 8,
+										"power": 8,
+										"steal": 9,
+										"block": 6
+									},
+									"shortNicks": [
+										"Magic",
+										"MG32"
+									],
+									"skin": "brown",
+									"rivals": [
+										"celtics.larry_bird",
+										"pistons.isaiah_thomas"
+									],
+									"powerRating": 45
+								},
+								{
+									"slug": "lebron_james",
+									"key": "lakers.lebron_james",
+									"name": "LeBron James",
+									"jersey": "23",
+									"position": "forward",
+									"stats": {
+										"speed": 8,
+										"threePt": 7,
+										"dunk": 10,
+										"power": 9,
+										"steal": 7,
+										"block": 8
+									},
+									"shortNicks": [
+										"LBJ",
+										"King"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 46.6
+								}
+							],
+							"power": 45.8
+						},
+						"team2": {
+							"key": "nets",
+							"name": "Brooklyn Nets",
+							"abbr": "BKN",
+							"colors": {
+								"fg": "WHITE",
+								"bg": "BG_BLACK",
+								"fg_accent": "BLACK",
+								"bg_alt": "BG_LIGHTGRAY"
+							},
+							"players": [
+								{
+									"slug": "vince_carter",
+									"key": "nets.vince_carter",
+									"name": "Vince Carter",
+									"jersey": "15",
+									"position": "forward",
+									"stats": {
+										"speed": 9,
+										"threePt": 7,
+										"dunk": 10,
+										"power": 8,
+										"steal": 7,
+										"block": 6
+									},
+									"shortNicks": [
+										"Vince",
+										"Carte"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 45.5
+								},
+								{
+									"slug": "mikal_bridges",
+									"key": "nets.mikal_bridges",
+									"name": "Mikal Bridges",
+									"jersey": "1",
+									"position": "forward",
+									"stats": {
+										"speed": 8,
+										"threePt": 8,
+										"dunk": 7,
+										"power": 6,
+										"steal": 8,
+										"block": 5
+									},
+									"shortNicks": [
+										"Mikal",
+										"Bridg"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 40.699999999999996
+								}
+							],
+							"power": 43.099999999999994
+						},
+						"odds": {
+							"team1": -134,
+							"team2": 134,
+							"favorite": "team1"
+						},
+						"spread": {
+							"spread": 4,
+							"favorite": "team1"
+						},
+						"total": 83.5,
+						"result": null,
+						"wager": null
+					},
+					{
+						"id": "game_1_9",
+						"gameIndex": 8,
+						"dayNumber": 1,
+						"team1": {
+							"key": "wizards",
+							"name": "Washington Wizards",
+							"abbr": "WAS",
+							"colors": {
+								"fg": "LIGHTBLUE",
+								"bg": "BG_RED",
+								"fg_accent": "RED",
+								"bg_alt": "BG_BLUE"
+							},
+							"players": [
+								{
+									"slug": "john_wall",
+									"key": "wizards.john_wall",
+									"name": "John Wall",
+									"jersey": "2",
+									"position": "guard",
+									"stats": {
+										"speed": 9,
+										"threePt": 7,
+										"dunk": 7,
+										"power": 6,
+										"steal": 9,
+										"block": 4
+									},
+									"shortNicks": [
+										"Wall",
+										"JW2"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 40.9
+								},
+								{
+									"slug": "wes_unseld",
+									"key": "wizards.wes_unseld",
+									"name": "Wes Unseld",
+									"jersey": "41",
+									"position": "center",
+									"stats": {
+										"speed": 6,
+										"threePt": 2,
+										"dunk": 7,
+										"power": 10,
+										"steal": 7,
+										"block": 8
+									},
+									"shortNicks": [
+										"WideU",
+										"WU41"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 36.6
+								}
+							],
+							"power": 38.75
+						},
+						"team2": {
+							"key": "nuggets",
+							"name": "Denver Nuggets",
+							"abbr": "DEN",
+							"colors": {
+								"fg": "YELLOW",
+								"bg": "BG_BLUE",
+								"fg_accent": "YELLOW",
+								"bg_alt": "BG_BLUE"
+							},
+							"players": [
+								{
+									"slug": "fat_lever",
+									"key": "nuggets.fat_lever",
+									"name": "Fat Lever",
+									"jersey": "12",
+									"position": "guard",
+									"stats": {
+										"speed": 9,
+										"threePt": 6,
+										"dunk": 6,
+										"power": 6,
+										"steal": 9,
+										"block": 6
+									},
+									"shortNicks": [
+										"Fat",
+										"Lever"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 40.2
+								},
+								{
+									"slug": "jamal_murray",
+									"key": "nuggets.jamal_murray",
+									"name": "Jamal Murray",
+									"jersey": "27",
+									"position": "guard",
+									"stats": {
+										"speed": 8,
+										"threePt": 9,
+										"dunk": 7,
+										"power": 5,
+										"steal": 6,
+										"block": 3
+									},
+									"shortNicks": [
+										"Murr",
+										"JAM"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 37.9
+								}
+							],
+							"power": 39.05
+						},
+						"odds": {
+							"team1": -105,
+							"team2": 105
+						},
+						"spread": {
+							"spread": 0.5,
+							"favorite": "team2"
+						},
+						"total": 81.5,
+						"result": null,
+						"wager": null
+					},
+					{
+						"id": "game_1_10",
+						"gameIndex": 9,
+						"dayNumber": 1,
+						"team1": {
+							"key": "bulls",
+							"name": "Chicago Bulls",
+							"abbr": "CHI",
+							"colors": {
+								"fg": "LIGHTRED",
+								"bg": "BG_BLACK",
+								"fg_accent": "WHITE",
+								"bg_alt": "BG_RED"
+							},
+							"players": [
+								{
+									"slug": "zach_lavine",
+									"key": "bulls.zach_lavine",
+									"name": "Zach LaVine",
+									"jersey": "8",
+									"position": "guard",
+									"stats": {
+										"speed": 9,
+										"threePt": 9,
+										"dunk": 10,
+										"power": 6,
+										"steal": 6,
+										"block": 3
+									},
+									"shortNicks": [
+										"Zach"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 43.00000000000001
+								},
+								{
+									"slug": "michael_jordan",
+									"key": "bulls.michael_jordan",
+									"name": "Michael Jordan",
+									"jersey": "23",
+									"position": "guard",
+									"stats": {
+										"speed": 9,
+										"threePt": 7,
+										"dunk": 10,
+										"power": 8,
+										"steal": 10,
+										"block": 7
+									},
+									"shortNicks": [
+										"MJ",
+										"Air"
+									],
+									"skin": "brown",
+									"rivals": [
+										"pistons.isaiah_thomas",
+										"cavs.lebron_james_2016",
+										"celtics.larry_bird"
+									],
+									"powerRating": 48.6
+								}
+							],
+							"power": 45.800000000000004
+						},
+						"team2": {
+							"key": "grizzlies",
+							"name": "Memphis Grizzlies",
+							"abbr": "MEM",
+							"colors": {
+								"fg": "LIGHTCYAN",
+								"bg": "BG_CYAN",
+								"fg_accent": "BLACK",
+								"bg_alt": "BG_CYAN"
+							},
+							"players": [
+								{
+									"slug": "pau_gasol",
+									"key": "grizzlies.pau_gasol",
+									"name": "Pau Gasol",
+									"jersey": "16",
+									"position": "center",
+									"stats": {
+										"speed": 6,
+										"threePt": 4,
+										"dunk": 7,
+										"power": 8,
+										"steal": 5,
+										"block": 8
+									},
+									"shortNicks": [
+										"Pau",
+										"PG16"
+									],
+									"skin": "magenta",
+									"rivals": [
+										"grizzlies.marc_gasol",
+										"raptors.chris_bosh",
+										"timberwolves.kevin_love"
+									],
+									"powerRating": 35.4
+								},
+								{
+									"slug": "zach_randolph",
+									"key": "grizzlies.zach_randolph",
+									"name": "Zach Randolph",
+									"jersey": "50",
+									"position": "forward",
+									"stats": {
+										"speed": 6,
+										"threePt": 4,
+										"dunk": 8,
+										"power": 9,
+										"steal": 5,
+										"block": 6
+									},
+									"shortNicks": [
+										"ZBo",
+										"Zach"
+									],
+									"skin": "brown",
+									"rivals": [
+										"knicks.julius_randle",
+										"grizzlies.marc_gasol"
+									],
+									"powerRating": 35.900000000000006
+								}
+							],
+							"power": 35.650000000000006
+						},
+						"odds": {
+							"team1": -209,
+							"team2": 209,
+							"favorite": "team1"
+						},
+						"spread": {
+							"spread": 15,
+							"favorite": "team1"
+						},
+						"total": 82,
+						"result": null,
+						"wager": null
+					},
+					{
+						"id": "game_1_11",
+						"gameIndex": 10,
+						"dayNumber": 1,
+						"team1": {
+							"key": "kings",
+							"name": "Sacramento Kings",
+							"abbr": "SAC",
+							"colors": {
+								"fg": "LIGHTMAGENTA",
+								"bg": "BG_BLACK",
+								"fg_accent": "BLACK",
+								"bg_alt": "BG_MAGENTA"
+							},
+							"players": [
+								{
+									"slug": "chris_webber",
+									"key": "kings.chris_webber",
+									"name": "Chris Webber",
+									"jersey": "4",
+									"position": "forward",
+									"stats": {
+										"speed": 7,
+										"threePt": 5,
+										"dunk": 9,
+										"power": 9,
+										"steal": 6,
+										"block": 7
+									},
+									"shortNicks": [
+										"CWebb",
+										"Webb"
+									],
+									"skin": "brown",
+									"rivals": [
+										"blazers.rasheed_wallace",
+										"wizards.antawn_jamison",
+										"timberwolves.kevin_garnett"
+									],
+									"powerRating": 40.699999999999996
+								},
+								{
+									"slug": "mike_bibby",
+									"key": "kings.mike_bibby",
+									"name": "Mike Bibby",
+									"jersey": "10",
+									"position": "guard",
+									"stats": {
+										"speed": 8,
+										"threePt": 8,
+										"dunk": 5,
+										"power": 5,
+										"steal": 7,
+										"block": 3
+									},
+									"shortNicks": [
+										"Bibby",
+										"MB10"
+									],
+									"skin": "lightgray",
+									"rivals": [],
+									"powerRating": 35.6
+								}
+							],
+							"power": 38.15
+						},
+						"team2": {
+							"key": "hornets",
+							"name": "Charlotte Hornets",
+							"abbr": "CHA",
+							"colors": {
+								"fg": "LIGHTCYAN",
+								"bg": "BG_BLACK",
+								"fg_accent": "LIGHTMAGENTA",
+								"bg_alt": "BG_CYAN"
+							},
+							"players": [
+								{
+									"slug": "lamelo_ball",
+									"key": "hornets.lamelo_ball",
+									"name": "LaMelo Ball",
+									"jersey": "1",
+									"position": "guard",
+									"stats": {
+										"speed": 9,
+										"threePt": 8,
+										"dunk": 6,
+										"power": 5,
+										"steal": 7,
+										"block": 3
+									},
+									"shortNicks": [
+										"Melo",
+										"LaMe"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 37.800000000000004
+								},
+								{
+									"slug": "glen_rice",
+									"key": "hornets.glen_rice",
+									"name": "Glen Rice",
+									"jersey": "41",
+									"position": "forward",
+									"stats": {
+										"speed": 7,
+										"threePt": 9,
+										"dunk": 6,
+										"power": 6,
+										"steal": 6,
+										"block": 4
+									},
+									"shortNicks": [
+										"GR$ce"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 37.3
+								}
+							],
+							"power": 37.55
+						},
+						"odds": {
+							"team1": -105,
+							"team2": 105
+						},
+						"spread": {
+							"spread": 1,
+							"favorite": "team1"
+						},
+						"total": 81.5,
+						"result": null,
+						"wager": null
+					},
+					{
+						"id": "game_1_12",
+						"gameIndex": 11,
+						"dayNumber": 1,
+						"team1": {
+							"key": "bucks",
+							"name": "Milwaukee Bucks",
+							"abbr": "MIL",
+							"colors": {
+								"fg": "LIGHTGREEN",
+								"bg": "BG_BLACK",
+								"fg_accent": "YELLOW",
+								"bg_alt": "BG_GREEN"
+							},
+							"players": [
+								{
+									"slug": "giannis_antetokounmpo",
+									"key": "bucks.giannis_antetokounmpo",
+									"name": "Giannis Antetokounmpo",
+									"jersey": "34",
+									"position": "forward",
+									"stats": {
+										"speed": 9,
+										"threePt": 4,
+										"dunk": 10,
+										"power": 10,
+										"steal": 8,
+										"block": 9
+									},
+									"shortNicks": [
+										"Freak",
+										"GA34"
+									],
+									"skin": "brown",
+									"rivals": [
+										"suns.kevin_durant",
+										"lakers.anthony_davis"
+									],
+									"powerRating": 46.9
+								},
+								{
+									"slug": "oscar_robertson",
+									"key": "bucks.oscar_robertson",
+									"name": "Oscar Robertson",
+									"jersey": "1",
+									"position": "guard",
+									"stats": {
+										"speed": 8,
+										"threePt": 7,
+										"dunk": 7,
+										"power": 8,
+										"steal": 8,
+										"block": 6
+									},
+									"shortNicks": [
+										"Big O",
+										"Oscar",
+										"Rober"
+									],
+									"skin": "brown",
+									"rivals": [
+										"lakers.magic_johnson",
+										"pistons.isaiah_thomas"
+									],
+									"powerRating": 42.099999999999994
+								}
+							],
+							"power": 44.5
+						},
+						"team2": {
+							"key": "clippers",
+							"name": "LA Clippers",
+							"abbr": "LAC",
+							"colors": {
+								"fg": "LIGHTRED",
+								"bg": "BG_BLUE",
+								"fg_accent": "WHITE",
+								"bg_alt": "BG_RED"
+							},
+							"players": [
+								{
+									"slug": "chris_paul",
+									"key": "clippers.chris_paul",
+									"name": "Chris Paul",
+									"jersey": "3",
+									"position": "guard",
+									"stats": {
+										"speed": 9,
+										"threePt": 8,
+										"dunk": 4,
+										"power": 5,
+										"steal": 10,
+										"block": 4
+									},
+									"shortNicks": [
+										"CP3",
+										"Paul"
+									],
+									"skin": "brown",
+									"rivals": [
+										"suns.steve_nash",
+										"nets.jason_kidd",
+										"thunder.russell_westbrook"
+									],
+									"powerRating": 38.9
+								},
+								{
+									"slug": "kawhi_leonard",
+									"key": "clippers.kawhi_leonard",
+									"name": "Kawhi Leonard",
+									"jersey": "2",
+									"position": "forward",
+									"stats": {
+										"speed": 8,
+										"threePt": 8,
+										"dunk": 8,
+										"power": 8,
+										"steal": 9,
+										"block": 8
+									},
+									"shortNicks": [
+										"Klaw",
+										"KL2"
+									],
+									"skin": "brown",
+									"rivals": [
+										"suns.kevin_durant",
+										"clippers.paul_george"
+									],
+									"powerRating": 46.400000000000006
+								}
+							],
+							"power": 42.650000000000006
+						},
+						"odds": {
+							"team1": -126,
+							"team2": 126,
+							"favorite": "team1"
+						},
+						"spread": {
+							"spread": 3,
+							"favorite": "team1"
+						},
+						"total": 83,
+						"result": null,
+						"wager": null
+					},
+					{
+						"id": "game_1_13",
+						"gameIndex": 12,
+						"dayNumber": 1,
+						"team1": {
+							"key": "rockets",
+							"name": "Houston Rockets",
+							"abbr": "HOU",
+							"colors": {
+								"fg": "LIGHTRED",
+								"bg": "BG_BLACK",
+								"fg_accent": "YELLOW",
+								"bg_alt": "BG_RED"
+							},
+							"players": [
+								{
+									"slug": "yao_ming",
+									"key": "rockets.yao_ming",
+									"name": "Yao Ming",
+									"jersey": "11",
+									"position": "center",
+									"stats": {
+										"speed": 6,
+										"threePt": 3,
+										"dunk": 8,
+										"power": 9,
+										"steal": 5,
+										"block": 8
+									},
+									"shortNicks": [
+										"Yao",
+										"11"
+									],
+									"skin": "magenta",
+									"rivals": [
+										"magic.shaquille_oneal",
+										"magic.dwight_howard"
+									],
+									"powerRating": 36.2
+								},
+								{
+									"slug": "clyde_drexler_1995",
+									"key": "rockets.clyde_drexler_1995",
+									"name": "Clyde Drexler (1995)",
+									"jersey": "22",
+									"position": "guard",
+									"stats": {
+										"speed": 9,
+										"threePt": 6,
+										"dunk": 10,
+										"power": 8,
+										"steal": 8,
+										"block": 6
+									},
+									"shortNicks": [
+										"Glide",
+										"Drexl"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 45.2
+								}
+							],
+							"power": 40.7
+						},
+						"team2": {
+							"key": "celtics",
+							"name": "Boston Celtics",
+							"abbr": "BOS",
+							"colors": {
+								"fg": "LIGHTGREEN",
+								"bg": "BG_BLACK",
+								"fg_accent": "WHITE",
+								"bg_alt": "BG_GREEN"
+							},
+							"players": [
+								{
+									"slug": "al_horford",
+									"key": "celtics.al_horford",
+									"name": "Al Horford",
+									"jersey": "42",
+									"position": "center",
+									"stats": {
+										"speed": 6,
+										"threePt": 6,
+										"dunk": 6,
+										"power": 8,
+										"steal": 5,
+										"block": 6
+									},
+									"shortNicks": [
+										"BigAl",
+										"Horfo"
+									],
+									"skin": "brown",
+									"rivals": [],
+									"powerRating": 35.2
+								},
+								{
+									"slug": "paul_pierce",
+									"key": "celtics.paul_pierce",
+									"name": "Paul Pierce",
+									"jersey": "34",
+									"position": "forward",
+									"stats": {
+										"speed": 7,
+										"threePt": 8,
+										"dunk": 7,
+										"power": 7,
+										"steal": 7,
+										"block": 5
+									},
+									"shortNicks": [
+										"Truth",
+										"PP34"
+									],
+									"skin": "brown",
+									"rivals": [
+										"nuggets.carmelo_anthony",
+										"lakers.kobe_bryant",
+										"raptors.demar_derozan"
+									],
+									"powerRating": 39.6
+								}
+							],
+							"power": 37.400000000000006
+						},
+						"odds": {
+							"team1": -143,
+							"team2": 143,
+							"favorite": "team1"
+						},
+						"spread": {
+							"spread": 5,
+							"favorite": "team1"
+						},
+						"total": 81.5,
+						"result": null,
+						"wager": null
+					},
+					{
+						"id": "game_1_14",
+						"gameIndex": 13,
+						"dayNumber": 1,
+						"team1": {
+							"key": "pistons",
+							"name": "Detroit Pistons",
+							"abbr": "DET",
+							"colors": {
+								"fg": "LIGHTRED",
+								"bg": "BG_BLUE",
+								"fg_accent": "RED",
+								"bg_alt": "BG_BLUE"
+							},
+							"players": [
+								{
+									"slug": "isaiah_thomas",
+									"key": "pistons.isaiah_thomas",
+									"name": "Isiah Thomas",
+									"jersey": "11",
+									"position": "guard",
+									"stats": {
+										"speed": 9,
+										"threePt": 7,
+										"dunk": 6,
+										"power": 5,
+										"steal": 9,
+										"block": 4
+									},
+									"shortNicks": [
+										"Zeke"
+									],
+									"skin": "brown",
+									"rivals": [
+										"bulls.michael_jordan",
+										"celtics.larry_bird",
+										"lakers.magic_johnson"
+									],
+									"powerRating": 39
+								},
+								{
+									"slug": "ben_wallace",
+									"key": "pistons.ben_wallace",
+									"name": "Ben Wallace",
+									"jersey": "3",
+									"position": "center",
+									"stats": {
+										"speed": 6,
+										"threePt": 1,
+										"dunk": 7,
+										"power": 10,
+										"steal": 8,
+										"block": 10
+									},
+									"shortNicks": [
+										"Ben",
+										"BW3"
+									],
+									"skin": "brown",
+									"rivals": [
+										"magic.shaquille_oneal",
+										"magic.dwight_howard",
+										"bulls.dennis_rodman"
+									],
+									"powerRating": 37.699999999999996
+								}
+							],
+							"power": 38.349999999999994
+						},
+						"team2": {
+							"key": "jazz",
+							"name": "Utah Jazz",
+							"abbr": "UTA",
+							"colors": {
+								"fg": "LIGHTMAGENTA",
+								"bg": "BG_BLUE",
+								"fg_accent": "WHITE",
+								"bg_alt": "BG_MAGENTA"
+							},
+							"players": [
+								{
+									"slug": "john_stockton",
+									"key": "jazz.john_stockton",
+									"name": "John Stockton",
+									"jersey": "12",
+									"position": "guard",
+									"stats": {
+										"speed": 9,
+										"threePt": 8,
+										"dunk": 3,
+										"power": 4,
+										"steal": 10,
+										"block": 3
+									},
+									"shortNicks": [
+										"Stock",
+										"JS12"
+									],
+									"skin": "lightgray",
+									"rivals": [
+										"pistons.isaiah_thomas"
+									],
+									"powerRating": 36.300000000000004
+								},
+								{
+									"slug": "andrei_kirilenko",
+									"key": "jazz.andrei_kirilenko",
+									"name": "Andrei Kirilenko",
+									"jersey": "47",
+									"position": "forward",
+									"stats": {
+										"speed": 7,
+										"threePt": 6,
+										"dunk": 7,
+										"power": 8,
+										"steal": 7,
+										"block": 9
+									},
+									"shortNicks": [
+										"AK47",
+										"Kiril"
+									],
+									"skin": "lightgray",
+									"rivals": [
+										"pistons.ben_wallace",
+										"warriors.draymond_green"
+									],
+									"powerRating": 41.099999999999994
+								}
+							],
+							"power": 38.7
+						},
+						"odds": {
+							"team1": -105,
+							"team2": 105
+						},
+						"spread": {
+							"spread": 0.5,
+							"favorite": "team2"
+						},
+						"total": 81.5,
+						"result": null,
+						"wager": null
+					}
+				],
+				"wagers": [
+					{
+						"gameId": "game_1_1",
+						"gameIndex": 0,
+						"type": "total",
+						"pick": "under",
+						"odds": -110,
+						"line": 82.5,
+						"amount": 1000,
+						"team1": "New Orleans Pelicans",
+						"team2": "San Antonio Spurs",
+						"placedAt": 1765733913699,
+						"resolved": true,
+						"result": {
+							"won": false,
+							"push": false,
+							"payout": 0
+						}
+					},
+					{
+						"gameId": "game_1_2",
+						"gameIndex": 1,
+						"type": "total",
+						"pick": "under",
+						"odds": -110,
+						"line": 82,
+						"amount": 50,
+						"team1": "Miami Heat",
+						"team2": "Toronto Raptors",
+						"placedAt": 1765733976548,
+						"resolved": true,
+						"result": {
+							"won": false,
+							"push": false,
+							"payout": 0
+						}
+					}
+				],
+				"resolved": false
+			},
+			"_globalId": "futureld_36",
+			"_lastSave": 1765734132921,
+			"_bbsId": "FUTURELD",
+			"_bbsName": "futureland.today"
+		},
+		"futureld_17": {
+			"seed": 284379308,
+			"userHandle": "Larry Lagomorph",
+			"dayTurns": 5,
+			"flags": {},
+			"xp": 0,
+			"level": 1,
+			"gamesPlayed": 0,
+			"wins": 0,
+			"losses": 0,
+			"name": "LLbgD",
+			"archetype": "slasher",
+			"special": "momentum",
+			"background": "sponsored",
+			"cash": 1500,
+			"rep": -5,
+			"perks": [
+				"sponsor_events"
+			],
+			"stats": {
+				"speed": 8,
+				"threePt": 5,
+				"power": 6,
+				"steal": 4,
+				"block": 4,
+				"dunk": 10
+			},
+			"appearance": {
+				"skin": "magenta",
+				"eyeColor": "BLUE",
+				"jerseyColor": "YELLOW",
+				"jerseyLettering": "YELLOW",
+				"jerseyNumber": "23"
+			},
+			"nickname": "CHOAD",
+			"contacts": [
+				{
+					"id": "donatello_tmnt",
+					"type": "legend",
+					"name": "Donatello",
+					"team": "Ninja Turtles",
+					"position": "SF",
+					"positionName": "Small Forward",
+					"status": "signed",
+					"signCost": 0,
+					"cutPercent": 10,
+					"tier": "rookie",
+					"stats": {
+						"speed": 5,
+						"threePt": 5,
+						"dunk": 5,
+						"block": 5,
+						"power": 5,
+						"steal": 5
+					},
+					"skin": "donatello",
+					"jersey": 4,
+					"shortNick": "DONNIE",
+					"dateAcquired": 1765515685756,
+					"isStarter": true,
+					"rivals": [],
+					"intro": "You've been paired with \u0001m\u0001hDonatello\u0001n, a balanced \u0001wSmall Forward\u0001n\u000awith the mind of a scientist and the reach of a bo staff.\u000aTogether you'll form a versatile wing duo\u000athat can attack from anywhere."
+				}
+			],
+			"crew": [
+				{
+					"contactId": "donatello_tmnt"
+				}
+			],
+			"position": "SF",
+			"positionName": "Small Forward",
+			"positionCategory": "Forward",
+			"activeTeammate": "donatello_tmnt",
+			"joinedTimestamp": 1765515706930,
+			"joinedOnDay": 2,
+			"joinedInCity": "nyk",
+			"streetTurns": 5,
+			"gymSessions": 3,
+			"barActions": 3,
+			"lastPlayedTimestamp": 1765515706930,
+			"dayStats": {
+				"gamesPlayed": 0,
+				"wins": 0,
+				"losses": 0,
+				"cashEarned": 0,
+				"repGained": 0
+			},
+			"_globalId": "futureld_17",
+			"_lastSave": 1765515789833,
+			"_bbsId": "FUTURELD",
+			"_bbsName": "futureland.today"
 		}
 	},
 	"presence": {},
 	"lorb": {
 		"sharedState": {
-			"seasonStart": 1764947434670,
-			"seasonNumber": 2,
-			"lastUpdated": 1764947434670,
+			"seasonStart": 1765403946619,
+			"seasonNumber": 6,
+			"lastUpdated": 1765403946619,
 			"seasonChampions": [
 				{
 					"seasonNumber": 1,
@@ -588,16 +4551,60 @@
 					"championId": null,
 					"defeatedOnDay": 33,
 					"timestamp": 1764947434670
+				},
+				{
+					"seasonNumber": 2,
+					"championName": "Season Reset",
+					"championId": null,
+					"defeatedOnDay": 34,
+					"timestamp": 1765068087242
+				},
+				{
+					"seasonNumber": 3,
+					"championName": "Season 3 End",
+					"championId": null,
+					"defeatedOnDay": 30,
+					"timestamp": 1765175103988
+				},
+				{
+					"seasonNumber": 4,
+					"championName": "Season 4 End",
+					"championId": null,
+					"defeatedOnDay": 33,
+					"timestamp": 1765293563139
+				},
+				{
+					"seasonNumber": 5,
+					"championName": "Season 5 End",
+					"championId": null,
+					"defeatedOnDay": 31,
+					"timestamp": 1765403946619
 				}
 			],
 			"hallOfFame": [
 				{
-					"seasonNumber": 2,
-					"championId": "Derdok",
+					"seasonNumber": 4,
+					"championId": "futureld_36",
+					"championName": "FOOL",
+					"defeatedJordan": false,
+					"timestamp": 1765406112735,
+					"date": "2025-12-10T22:35:12.735Z"
+				},
+				{
+					"seasonNumber": 5,
+					"championId": "futureld_1",
 					"championName": "Derdok",
-					"defeatedJordan": true,
-					"timestamp": 1765068087239,
-					"date": "2025-12-07T00:41:27.239Z"
+					"defeatedJordan": false,
+					"timestamp": 1765423930757,
+					"date": "2025-12-11T03:32:10.757Z"
+				},
+				{
+					"seasonNumber": 3,
+					"championId": "futureld_3",
+					"championName": "derpy",
+					"defeatedJordan": false,
+					"timestamp": 1765472504117,
+					"date": "2025-12-11T17:01:44.117Z"
 				}
 			]
 		},
@@ -738,9 +4745,135 @@
 				"winnerScore": 6,
 				"loserScore": 4,
 				"isTie": false
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765266840985,
+				"gameDay": 26,
+				"city": "lal",
+				"winnerName": "FOOL",
+				"loserName": "Opponent",
+				"winnerScore": 10,
+				"loserScore": 6,
+				"isTie": false,
+				"topScorer": "FOOL",
+				"topScorerPoints": 10,
+				"topScorerTeam": "teamA",
+				"newRecords": [
+					{
+						"stat": "winMargin",
+						"name": "Win Margin",
+						"abbrev": "MARGIN",
+						"value": 4,
+						"previousRecord": 4
+					}
+				]
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765266841090,
+				"gameDay": 26,
+				"city": "lal",
+				"winnerName": "FOOL",
+				"loserName": "Derdok",
+				"winnerScore": 10,
+				"loserScore": 6,
+				"isTie": false
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765267449413,
+				"gameDay": 26,
+				"city": "lal",
+				"winnerName": "Opponent",
+				"loserName": "Derdok",
+				"winnerScore": 0,
+				"loserScore": 0,
+				"isTie": true
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765267456533,
+				"gameDay": 26,
+				"city": "lal",
+				"winnerName": "Derdok",
+				"loserName": "FOOL",
+				"winnerScore": 0,
+				"loserScore": 0,
+				"isTie": true
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765293829407,
+				"gameDay": 1,
+				"city": "bos",
+				"winnerName": "FOOL",
+				"loserName": "Opponent",
+				"winnerScore": 3,
+				"loserScore": 0,
+				"isTie": false,
+				"topScorer": "Air Bud",
+				"topScorerPoints": 3,
+				"topScorerTeam": "teamA"
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765293829509,
+				"gameDay": 1,
+				"city": "bos",
+				"winnerName": "FOOL",
+				"loserName": "Derdok",
+				"winnerScore": 3,
+				"loserScore": 0,
+				"isTie": false
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765328015641,
+				"gameDay": 10,
+				"city": "ind",
+				"winnerName": "derpy",
+				"loserName": "Derdok",
+				"winnerScore": 4,
+				"loserScore": 0,
+				"isTie": false
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765434673362,
+				"gameDay": 9,
+				"city": "mil",
+				"winnerName": "Derdok",
+				"loserName": "Opponent",
+				"winnerScore": 7,
+				"loserScore": 2,
+				"isTie": false,
+				"topScorer": "Michael Jordan",
+				"topScorerPoints": 5,
+				"topScorerTeam": "teamA"
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765434673480,
+				"gameDay": 9,
+				"city": "mil",
+				"winnerName": "Derdok",
+				"loserName": "FOOL",
+				"winnerScore": 7,
+				"loserScore": 2,
+				"isTie": false
+			},
+			{
+				"type": "red_bull_loss",
+				"timestamp": 1765661357460,
+				"playerName": "Derdok",
+				"playerId": "futureld_1",
+				"seasonNumber": 5,
+				"playerScore": 24,
+				"bossScore": 27
 			}
 		],
-		"lastUpdated": 1765035008947
+		"lastUpdated": 1765661357462
 	},
 	"graffiti": {
 		"entries": [
@@ -754,5 +4887,1705 @@
 				"timestamp": 1764979417812
 			}
 		]
+	},
+	"seasonSnapshots": {
+		"3": {
+			"futureld_1": {
+				"playerId": "futureld_1",
+				"seasonNumber": 3,
+				"createdAt": 1765175103985,
+				"name": "Derdok",
+				"nickname": "DERDOK",
+				"stats": {
+					"speed": 7,
+					"threePt": 4,
+					"power": 9,
+					"steal": 4,
+					"block": 6,
+					"dunk": 10
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "sonic_hedgehog",
+				"teammateData": {
+					"id": "sonic_hedgehog",
+					"name": "Sonic",
+					"stats": {
+						"speed": 10,
+						"threePt": 5,
+						"dunk": 2,
+						"block": 2,
+						"power": 2,
+						"steal": 7
+					},
+					"skin": "sonic",
+					"shortNick": "SONIC"
+				},
+				"wins": 1,
+				"losses": 0,
+				"rep": 2,
+				"level": 1,
+				"repScore": 8
+			},
+			"futureld_3": {
+				"playerId": "futureld_3",
+				"seasonNumber": 3,
+				"createdAt": 1765175103985,
+				"name": "derpy",
+				"nickname": "DERPY",
+				"stats": {
+					"speed": 9,
+					"threePt": 9,
+					"power": 7,
+					"steal": 5,
+					"block": 4,
+					"dunk": 6
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "shrek_ogre",
+				"teammateData": {
+					"id": "shrek_ogre",
+					"name": "Shrek",
+					"stats": {
+						"speed": 4,
+						"threePt": 2,
+						"dunk": 6,
+						"block": 5,
+						"power": 8,
+						"steal": 3
+					},
+					"skin": "shrek",
+					"shortNick": "SHREK"
+				},
+				"wins": 0,
+				"losses": 7,
+				"rep": 0,
+				"level": 1,
+				"repScore": 0
+			},
+			"futureld_35": {
+				"playerId": "futureld_35",
+				"seasonNumber": 3,
+				"createdAt": 1765175103986,
+				"name": "t0ti",
+				"nickname": "T0TI",
+				"stats": {
+					"speed": 7,
+					"threePt": 5,
+					"power": 8,
+					"steal": 9,
+					"block": 6,
+					"dunk": 3
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "barney_dinosaur",
+				"teammateData": {
+					"id": "barney_dinosaur",
+					"name": "Barney Dinosaur",
+					"stats": {
+						"speed": 3,
+						"threePt": 2,
+						"dunk": 5,
+						"block": 6,
+						"power": 9,
+						"steal": 2
+					},
+					"skin": "barney",
+					"shortNick": "BARNY"
+				},
+				"wins": 0,
+				"losses": 0,
+				"rep": 0,
+				"level": 1,
+				"repScore": 0
+			}
+		},
+		"4": {
+			"futureld_1": {
+				"playerId": "futureld_1",
+				"seasonNumber": 4,
+				"createdAt": 1765293563133,
+				"name": "Derdok",
+				"nickname": "DERDOK",
+				"stats": {
+					"speed": 9,
+					"threePt": 7,
+					"power": 9,
+					"steal": 4,
+					"block": 6,
+					"dunk": 10
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "sonic_hedgehog",
+				"teammateData": {
+					"id": "sonic_hedgehog",
+					"name": "Sonic",
+					"stats": {
+						"speed": 10,
+						"threePt": 5,
+						"dunk": 2,
+						"block": 2,
+						"power": 2,
+						"steal": 7
+					},
+					"skin": "sonic",
+					"shortNick": "SONIC"
+				},
+				"wins": 11,
+				"losses": 2,
+				"rep": 17,
+				"level": 2,
+				"repScore": 73
+			},
+			"futureld_3": {
+				"playerId": "futureld_3",
+				"seasonNumber": 4,
+				"createdAt": 1765293563133,
+				"name": "derpy",
+				"nickname": "DERPY",
+				"stats": {
+					"speed": 9,
+					"threePt": 9,
+					"power": 7,
+					"steal": 5,
+					"block": 4,
+					"dunk": 6
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "shrek_ogre",
+				"teammateData": {
+					"id": "shrek_ogre",
+					"name": "Shrek",
+					"stats": {
+						"speed": 4,
+						"threePt": 2,
+						"dunk": 6,
+						"block": 5,
+						"power": 8,
+						"steal": 3
+					},
+					"skin": "shrek",
+					"shortNick": "SHREK"
+				},
+				"wins": 0,
+				"losses": 7,
+				"rep": 0,
+				"level": 1,
+				"repScore": 0
+			},
+			"futureld_35": {
+				"playerId": "futureld_35",
+				"seasonNumber": 4,
+				"createdAt": 1765293563135,
+				"name": "t0ti",
+				"nickname": "T0TI",
+				"stats": {
+					"speed": 7,
+					"threePt": 5,
+					"power": 8,
+					"steal": 9,
+					"block": 6,
+					"dunk": 3
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "barney_dinosaur",
+				"teammateData": {
+					"id": "barney_dinosaur",
+					"name": "Barney Dinosaur",
+					"stats": {
+						"speed": 3,
+						"threePt": 2,
+						"dunk": 5,
+						"block": 6,
+						"power": 9,
+						"steal": 2
+					},
+					"skin": "barney",
+					"shortNick": "BARNY"
+				},
+				"wins": 0,
+				"losses": 0,
+				"rep": 0,
+				"level": 1,
+				"repScore": 0
+			},
+			"futureld_36": {
+				"playerId": "futureld_36",
+				"seasonNumber": 4,
+				"createdAt": 1765293563135,
+				"name": "FOOL",
+				"nickname": "THRIL",
+				"stats": {
+					"speed": 7,
+					"threePt": 8,
+					"power": 3,
+					"steal": 4,
+					"block": 4,
+					"dunk": 10
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "air_bud",
+				"teammateData": {
+					"id": "air_bud",
+					"name": "Air Bud",
+					"stats": {
+						"speed": 6,
+						"threePt": 7,
+						"dunk": 3,
+						"block": 2,
+						"power": 3,
+						"steal": 5
+					},
+					"skin": "airbud",
+					"shortNick": "AIRBUD"
+				},
+				"wins": 2,
+				"losses": 0,
+				"rep": 70,
+				"level": 1,
+				"repScore": 214
+			}
+		},
+		"5": {
+			"futureld_1": {
+				"playerId": "futureld_1",
+				"seasonNumber": 5,
+				"createdAt": 1765403946612,
+				"name": "Derdok",
+				"nickname": "DERDOK",
+				"stats": {
+					"speed": 10,
+					"threePt": 10,
+					"power": 9,
+					"steal": 5,
+					"block": 8,
+					"dunk": 10
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "michael_jordan",
+				"teammateData": {
+					"id": "michael_jordan",
+					"name": "Michael Jordan",
+					"stats": {
+						"speed": 9,
+						"threePt": 7,
+						"dunk": 10,
+						"block": 7,
+						"power": 8,
+						"steal": 10
+					},
+					"skin": "brown",
+					"shortNick": "MJ"
+				},
+				"wins": 17,
+				"losses": 4,
+				"rep": 8,
+				"level": 2,
+				"repScore": 58
+			},
+			"futureld_3": {
+				"playerId": "futureld_3",
+				"seasonNumber": 5,
+				"createdAt": 1765403946613,
+				"name": "derpy",
+				"nickname": "DERPY",
+				"stats": {
+					"speed": 9,
+					"threePt": 9,
+					"power": 7,
+					"steal": 5,
+					"block": 4,
+					"dunk": 6
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "shrek_ogre",
+				"teammateData": {
+					"id": "shrek_ogre",
+					"name": "Shrek",
+					"stats": {
+						"speed": 4,
+						"threePt": 2,
+						"dunk": 6,
+						"block": 5,
+						"power": 8,
+						"steal": 3
+					},
+					"skin": "shrek",
+					"shortNick": "SHREK"
+				},
+				"wins": 0,
+				"losses": 7,
+				"rep": 0,
+				"level": 1,
+				"repScore": 0
+			},
+			"futureld_35": {
+				"playerId": "futureld_35",
+				"seasonNumber": 5,
+				"createdAt": 1765403946614,
+				"name": "t0ti",
+				"nickname": "T0TI",
+				"stats": {
+					"speed": 7,
+					"threePt": 5,
+					"power": 8,
+					"steal": 9,
+					"block": 6,
+					"dunk": 3
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "barney_dinosaur",
+				"teammateData": {
+					"id": "barney_dinosaur",
+					"name": "Barney Dinosaur",
+					"stats": {
+						"speed": 3,
+						"threePt": 2,
+						"dunk": 5,
+						"block": 6,
+						"power": 9,
+						"steal": 2
+					},
+					"skin": "barney",
+					"shortNick": "BARNY"
+				},
+				"wins": 0,
+				"losses": 0,
+				"rep": 0,
+				"level": 1,
+				"repScore": 0
+			},
+			"futureld_36": {
+				"playerId": "futureld_36",
+				"seasonNumber": 5,
+				"createdAt": 1765403946615,
+				"name": "FOOL",
+				"nickname": "THRIL",
+				"stats": {
+					"speed": 7,
+					"threePt": 8,
+					"power": 3,
+					"steal": 4,
+					"block": 4,
+					"dunk": 10
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "air_bud",
+				"teammateData": {
+					"id": "air_bud",
+					"name": "Air Bud",
+					"stats": {
+						"speed": 6,
+						"threePt": 7,
+						"dunk": 3,
+						"block": 2,
+						"power": 3,
+						"steal": 5
+					},
+					"skin": "airbud",
+					"shortNick": "AIRBUD"
+				},
+				"wins": 3,
+				"losses": 0,
+				"rep": 121,
+				"level": 1,
+				"repScore": 369
+			}
+		},
+		"6": {
+			"futureld_1": {
+				"playerId": "futureld_1",
+				"seasonNumber": 6,
+				"createdAt": 1765509986624,
+				"name": "Derdok",
+				"nickname": "DERDOK",
+				"stats": {
+					"speed": 10,
+					"threePt": 10,
+					"power": 9,
+					"steal": 5,
+					"block": 8,
+					"dunk": 10
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "michael_jordan",
+				"teammateData": {
+					"id": "michael_jordan",
+					"stats": {}
+				},
+				"wins": 18,
+				"losses": 4,
+				"rep": 58,
+				"level": 2,
+				"repScore": 210
+			},
+			"futureld_3": {
+				"playerId": "futureld_3",
+				"seasonNumber": 6,
+				"createdAt": 1765509986625,
+				"name": "derpy",
+				"nickname": "DERPY",
+				"stats": {
+					"speed": 9,
+					"threePt": 9,
+					"power": 7,
+					"steal": 5,
+					"block": 4,
+					"dunk": 6
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "shrek_ogre",
+				"teammateData": {
+					"id": "shrek_ogre",
+					"name": "Shrek",
+					"stats": {
+						"speed": 4,
+						"threePt": 2,
+						"dunk": 6,
+						"block": 5,
+						"power": 8,
+						"steal": 3
+					},
+					"skin": "shrek",
+					"shortNick": "SHREK"
+				},
+				"wins": 0,
+				"losses": 7,
+				"rep": 0,
+				"level": 1,
+				"repScore": 0
+			},
+			"futureld_35": {
+				"playerId": "futureld_35",
+				"seasonNumber": 6,
+				"createdAt": 1765509986626,
+				"name": "t0ti",
+				"nickname": "T0TI",
+				"stats": {
+					"speed": 7,
+					"threePt": 5,
+					"power": 8,
+					"steal": 9,
+					"block": 6,
+					"dunk": 3
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "barney_dinosaur",
+				"teammateData": {
+					"id": "barney_dinosaur",
+					"name": "Barney Dinosaur",
+					"stats": {
+						"speed": 3,
+						"threePt": 2,
+						"dunk": 5,
+						"block": 6,
+						"power": 9,
+						"steal": 2
+					},
+					"skin": "barney",
+					"shortNick": "BARNY"
+				},
+				"wins": 0,
+				"losses": 0,
+				"rep": 0,
+				"level": 1,
+				"repScore": 0
+			},
+			"futureld_36": {
+				"playerId": "futureld_36",
+				"seasonNumber": 6,
+				"createdAt": 1765509986627,
+				"name": "FOOL",
+				"nickname": "THRIL",
+				"stats": {
+					"speed": 7,
+					"threePt": 8,
+					"power": 3,
+					"steal": 4,
+					"block": 4,
+					"dunk": 10
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "air_bud",
+				"teammateData": {
+					"id": "air_bud",
+					"name": "Air Bud",
+					"stats": {
+						"speed": 6,
+						"threePt": 7,
+						"dunk": 3,
+						"block": 2,
+						"power": 3,
+						"steal": 5
+					},
+					"skin": "airbud",
+					"shortNick": "AIRBUD"
+				},
+				"wins": 3,
+				"losses": 0,
+				"rep": 121,
+				"level": 1,
+				"repScore": 369
+			}
+		},
+		"7": {
+			"futureld_1": {
+				"playerId": "futureld_1",
+				"seasonNumber": 7,
+				"createdAt": 1765644185003,
+				"name": "Derdok",
+				"nickname": "DERDOK",
+				"stats": {
+					"speed": 10,
+					"threePt": 10,
+					"power": 9,
+					"steal": 5,
+					"block": 8,
+					"dunk": 10
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "michael_jordan",
+				"teammateData": {
+					"id": "michael_jordan",
+					"stats": {}
+				},
+				"wins": 20,
+				"losses": 5,
+				"rep": 62,
+				"level": 2,
+				"repScore": 226
+			},
+			"futureld_3": {
+				"playerId": "futureld_3",
+				"seasonNumber": 7,
+				"createdAt": 1765644185004,
+				"name": "derpy",
+				"nickname": "DERPY",
+				"stats": {
+					"speed": 9,
+					"threePt": 9,
+					"power": 7,
+					"steal": 5,
+					"block": 4,
+					"dunk": 6
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "shrek_ogre",
+				"teammateData": {
+					"id": "shrek_ogre",
+					"name": "Shrek",
+					"stats": {
+						"speed": 4,
+						"threePt": 2,
+						"dunk": 6,
+						"block": 5,
+						"power": 8,
+						"steal": 3
+					},
+					"skin": "shrek",
+					"shortNick": "SHREK"
+				},
+				"wins": 0,
+				"losses": 7,
+				"rep": 0,
+				"level": 1,
+				"repScore": 0
+			},
+			"futureld_35": {
+				"playerId": "futureld_35",
+				"seasonNumber": 7,
+				"createdAt": 1765644185006,
+				"name": "t0ti",
+				"nickname": "T0TI",
+				"stats": {
+					"speed": 7,
+					"threePt": 5,
+					"power": 8,
+					"steal": 9,
+					"block": 6,
+					"dunk": 3
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "barney_dinosaur",
+				"teammateData": {
+					"id": "barney_dinosaur",
+					"name": "Barney Dinosaur",
+					"stats": {
+						"speed": 3,
+						"threePt": 2,
+						"dunk": 5,
+						"block": 6,
+						"power": 9,
+						"steal": 2
+					},
+					"skin": "barney",
+					"shortNick": "BARNY"
+				},
+				"wins": 0,
+				"losses": 0,
+				"rep": 0,
+				"level": 1,
+				"repScore": 0
+			},
+			"futureld_36": {
+				"playerId": "futureld_36",
+				"seasonNumber": 7,
+				"createdAt": 1765644185007,
+				"name": "FOOL",
+				"nickname": "THRIL",
+				"stats": {
+					"speed": 7,
+					"threePt": 8,
+					"power": 3,
+					"steal": 4,
+					"block": 4,
+					"dunk": 10
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "air_bud",
+				"teammateData": {
+					"id": "air_bud",
+					"name": "Air Bud",
+					"stats": {
+						"speed": 6,
+						"threePt": 7,
+						"dunk": 3,
+						"block": 2,
+						"power": 3,
+						"steal": 5
+					},
+					"skin": "airbud",
+					"shortNick": "AIRBUD"
+				},
+				"wins": 3,
+				"losses": 0,
+				"rep": 121,
+				"level": 1,
+				"repScore": 369
+			},
+			"futureld_17": {
+				"playerId": "futureld_17",
+				"seasonNumber": 7,
+				"createdAt": 1765644185009,
+				"name": "LLbgD",
+				"nickname": "CHOAD",
+				"stats": {
+					"speed": 8,
+					"threePt": 5,
+					"power": 6,
+					"steal": 4,
+					"block": 4,
+					"dunk": 10
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "donatello_tmnt",
+				"teammateData": {
+					"id": "donatello_tmnt",
+					"name": "Donatello",
+					"stats": {
+						"speed": 5,
+						"threePt": 5,
+						"dunk": 5,
+						"block": 5,
+						"power": 5,
+						"steal": 5
+					},
+					"skin": "donatello",
+					"shortNick": "DONNIE"
+				},
+				"wins": 0,
+				"losses": 0,
+				"rep": -5,
+				"level": 1,
+				"repScore": -15
+			}
+		}
+	},
+	"playoffBrackets": {
+		"3": {
+			"id": "playoff_s3",
+			"seasonNumber": 3,
+			"status": "completed",
+			"bracketSize": 4,
+			"createdAt": 1765175103987,
+			"seeds": [
+				{
+					"seed": 1,
+					"playerId": "futureld_1",
+					"name": "Derdok",
+					"repScore": 8,
+					"isBye": false
+				},
+				{
+					"seed": 2,
+					"playerId": "futureld_35",
+					"name": "t0ti",
+					"repScore": 0,
+					"isBye": false
+				},
+				{
+					"seed": 3,
+					"playerId": "futureld_3",
+					"name": "derpy",
+					"repScore": 0,
+					"isBye": false
+				},
+				{
+					"seed": 4,
+					"playerId": null,
+					"name": "BYE",
+					"repScore": 0,
+					"isBye": true
+				}
+			],
+			"matches": [
+				{
+					"id": "semifinals_1",
+					"round": "semifinals",
+					"roundNumber": 1,
+					"matchNumber": 1,
+					"player1": {
+						"seed": 1,
+						"playerId": "futureld_1",
+						"name": "Derdok",
+						"repScore": 8,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 4,
+						"playerId": null,
+						"name": "BYE",
+						"repScore": 0,
+						"isBye": true
+					},
+					"status": "bye",
+					"winner": {
+						"seed": 1,
+						"playerId": "futureld_1",
+						"name": "Derdok",
+						"repScore": 8,
+						"isBye": false
+					},
+					"loser": {
+						"seed": 4,
+						"playerId": null,
+						"name": "BYE",
+						"repScore": 0,
+						"isBye": true
+					},
+					"score": null,
+					"resolution": "bye",
+					"createdAt": 1765175103987,
+					"softDeadline": 1765434303987,
+					"hardDeadline": 1765779903987,
+					"completedAt": 1765175103987,
+					"winnerId": "futureld_1",
+					"loserId": null
+				},
+				{
+					"id": "semifinals_2",
+					"round": "semifinals",
+					"roundNumber": 1,
+					"matchNumber": 2,
+					"player1": {
+						"seed": 2,
+						"playerId": "futureld_35",
+						"name": "t0ti",
+						"repScore": 0,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 3,
+						"playerId": "futureld_3",
+						"name": "derpy",
+						"repScore": 0,
+						"isBye": false
+					},
+					"status": "completed",
+					"winner": null,
+					"loser": null,
+					"score": null,
+					"resolution": "cpu_sim",
+					"createdAt": 1765175103987,
+					"softDeadline": 1765229103987,
+					"hardDeadline": 1765256103987,
+					"completedAt": 1765472187289,
+					"winnerId": "futureld_3",
+					"loserId": "futureld_35",
+					"boxScore": {
+						"winnerScore": 25,
+						"loserScore": 16,
+						"winnerName": "derpy",
+						"loserName": "t0ti"
+					}
+				},
+				{
+					"id": "finals_1",
+					"round": "finals",
+					"roundNumber": 2,
+					"matchNumber": 1,
+					"player1": {
+						"seed": 1,
+						"playerId": "futureld_1",
+						"name": "Derdok",
+						"repScore": 8,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 3,
+						"playerId": "futureld_3",
+						"name": "derpy",
+						"repScore": 0,
+						"isBye": false
+					},
+					"status": "completed",
+					"winner": {
+						"seed": 3,
+						"playerId": "futureld_3",
+						"name": "derpy",
+						"repScore": 0,
+						"isBye": false
+					},
+					"loser": {
+						"seed": 1,
+						"playerId": "futureld_1",
+						"name": "Derdok",
+						"repScore": 8,
+						"isBye": false
+					},
+					"score": {
+						"winner": 32,
+						"loser": 20
+					},
+					"resolution": "cpu_sim",
+					"createdAt": 1765472425394,
+					"softDeadline": 1765283103987,
+					"hardDeadline": 1765310103987,
+					"completedAt": 1765472504117
+				}
+			],
+			"currentRound": "finals",
+			"roundNumber": 1,
+			"championPlayerId": "futureld_3",
+			"championName": "derpy",
+			"completedAt": 1765472504117
+		},
+		"4": {
+			"id": "playoff_s4",
+			"seasonNumber": 4,
+			"status": "completed",
+			"bracketSize": 4,
+			"createdAt": 1765293563137,
+			"seeds": [
+				{
+					"seed": 1,
+					"playerId": "futureld_36",
+					"name": "FOOL",
+					"repScore": 214,
+					"isBye": false
+				},
+				{
+					"seed": 2,
+					"playerId": "futureld_1",
+					"name": "Derdok",
+					"repScore": 73,
+					"isBye": false
+				},
+				{
+					"seed": 3,
+					"playerId": "futureld_3",
+					"name": "derpy",
+					"repScore": 0,
+					"isBye": false
+				},
+				{
+					"seed": 4,
+					"playerId": "futureld_35",
+					"name": "t0ti",
+					"repScore": 0,
+					"isBye": false
+				}
+			],
+			"matches": [
+				{
+					"id": "semifinals_1",
+					"round": "semifinals",
+					"roundNumber": 1,
+					"matchNumber": 1,
+					"player1": {
+						"seed": 1,
+						"playerId": "futureld_36",
+						"name": "FOOL",
+						"repScore": 214,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 4,
+						"playerId": "futureld_35",
+						"name": "t0ti",
+						"repScore": 0,
+						"isBye": false
+					},
+					"status": "completed",
+					"winner": {
+						"seed": 1,
+						"playerId": "futureld_36",
+						"name": "FOOL",
+						"repScore": 214,
+						"isBye": false
+					},
+					"loser": {
+						"seed": 4,
+						"playerId": "futureld_35",
+						"name": "t0ti",
+						"repScore": 0,
+						"isBye": false
+					},
+					"score": {
+						"winner": 16,
+						"loser": 2
+					},
+					"resolution": "ghost",
+					"createdAt": 1765293563137,
+					"softDeadline": 1765347563137,
+					"hardDeadline": 1765374563137,
+					"completedAt": 1765350504437
+				},
+				{
+					"id": "semifinals_2",
+					"round": "semifinals",
+					"roundNumber": 1,
+					"matchNumber": 2,
+					"player1": {
+						"seed": 2,
+						"playerId": "futureld_1",
+						"name": "Derdok",
+						"repScore": 73,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 3,
+						"playerId": "futureld_3",
+						"name": "derpy",
+						"repScore": 0,
+						"isBye": false
+					},
+					"status": "completed",
+					"winner": {
+						"seed": 3,
+						"playerId": "futureld_3",
+						"name": "derpy",
+						"repScore": 0,
+						"isBye": false
+					},
+					"loser": {
+						"seed": 2,
+						"playerId": "futureld_1",
+						"name": "Derdok",
+						"repScore": 73,
+						"isBye": false
+					},
+					"score": {
+						"winner": 4,
+						"loser": 0
+					},
+					"resolution": "pvp",
+					"createdAt": 1765293563137,
+					"softDeadline": 1765347563137,
+					"hardDeadline": 1765374563137,
+					"completedAt": 1765328015531
+				},
+				{
+					"id": "finals_1",
+					"round": "finals",
+					"roundNumber": 2,
+					"matchNumber": 1,
+					"player1": {
+						"seed": 1,
+						"playerId": "futureld_36",
+						"name": "FOOL",
+						"repScore": 214,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 3,
+						"playerId": "futureld_3",
+						"name": "derpy",
+						"repScore": 0,
+						"isBye": false
+					},
+					"status": "completed",
+					"winner": {
+						"seed": 1,
+						"playerId": "futureld_36",
+						"name": "FOOL",
+						"repScore": 214,
+						"isBye": false
+					},
+					"loser": {
+						"seed": 3,
+						"playerId": "futureld_3",
+						"name": "derpy",
+						"repScore": 0,
+						"isBye": false
+					},
+					"score": {
+						"winner": 15,
+						"loser": 6
+					},
+					"resolution": "ghost",
+					"createdAt": 1765350504437,
+					"softDeadline": 1765401563137,
+					"hardDeadline": 1765428563137,
+					"completedAt": 1765406112735
+				}
+			],
+			"currentRound": "finals",
+			"roundNumber": 2,
+			"championPlayerId": "futureld_36",
+			"championName": "FOOL",
+			"completedAt": 1765406112735
+		},
+		"5": {
+			"id": "playoff_s5",
+			"seasonNumber": 5,
+			"status": "completed",
+			"bracketSize": 4,
+			"createdAt": 1765403946616,
+			"seeds": [
+				{
+					"seed": 1,
+					"playerId": "futureld_36",
+					"name": "FOOL",
+					"repScore": 369,
+					"isBye": false
+				},
+				{
+					"seed": 2,
+					"playerId": "futureld_1",
+					"name": "Derdok",
+					"repScore": 58,
+					"isBye": false
+				},
+				{
+					"seed": 3,
+					"playerId": "futureld_3",
+					"name": "derpy",
+					"repScore": 0,
+					"isBye": false
+				},
+				{
+					"seed": 4,
+					"playerId": "futureld_35",
+					"name": "t0ti",
+					"repScore": 0,
+					"isBye": false
+				}
+			],
+			"matches": [
+				{
+					"id": "semifinals_1",
+					"round": "semifinals",
+					"roundNumber": 1,
+					"matchNumber": 1,
+					"player1": {
+						"seed": 1,
+						"playerId": "futureld_36",
+						"name": "FOOL",
+						"repScore": 369,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 4,
+						"playerId": "futureld_35",
+						"name": "t0ti",
+						"repScore": 0,
+						"isBye": false
+					},
+					"status": "completed",
+					"winner": {
+						"seed": 1,
+						"playerId": "futureld_36",
+						"name": "FOOL",
+						"repScore": 369,
+						"isBye": false
+					},
+					"loser": {
+						"seed": 4,
+						"playerId": "futureld_35",
+						"name": "t0ti",
+						"repScore": 0,
+						"isBye": false
+					},
+					"score": {
+						"winner": 15,
+						"loser": 6
+					},
+					"resolution": "ghost",
+					"createdAt": 1765403946616,
+					"softDeadline": 1765457946616,
+					"hardDeadline": 1765484946616,
+					"completedAt": 1765414629514
+				},
+				{
+					"id": "semifinals_2",
+					"round": "semifinals",
+					"roundNumber": 1,
+					"matchNumber": 2,
+					"player1": {
+						"seed": 2,
+						"playerId": "futureld_1",
+						"name": "Derdok",
+						"repScore": 58,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 3,
+						"playerId": "futureld_3",
+						"name": "derpy",
+						"repScore": 0,
+						"isBye": false
+					},
+					"status": "completed",
+					"winner": {
+						"seed": 2,
+						"playerId": "futureld_1",
+						"name": "Derdok",
+						"repScore": 58,
+						"isBye": false
+					},
+					"loser": {
+						"seed": 3,
+						"playerId": "futureld_3",
+						"name": "derpy",
+						"repScore": 0,
+						"isBye": false
+					},
+					"score": {
+						"winner": 16,
+						"loser": 7
+					},
+					"resolution": "ghost",
+					"createdAt": 1765403946616,
+					"softDeadline": 1765457946616,
+					"hardDeadline": 1765484946616,
+					"completedAt": 1765405899294
+				},
+				{
+					"id": "finals_1",
+					"round": "finals",
+					"roundNumber": 2,
+					"matchNumber": 1,
+					"player1": {
+						"seed": 1,
+						"playerId": "futureld_36",
+						"name": "FOOL",
+						"repScore": 369,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 2,
+						"playerId": "futureld_1",
+						"name": "Derdok",
+						"repScore": 58,
+						"isBye": false
+					},
+					"status": "completed",
+					"winner": {
+						"seed": 2,
+						"playerId": "futureld_1",
+						"name": "Derdok",
+						"repScore": 58,
+						"isBye": false
+					},
+					"loser": {
+						"seed": 1,
+						"playerId": "futureld_36",
+						"name": "FOOL",
+						"repScore": 369,
+						"isBye": false
+					},
+					"score": {
+						"winner": 8,
+						"loser": 7
+					},
+					"resolution": "ghost",
+					"createdAt": 1765414629514,
+					"softDeadline": 1765511946616,
+					"hardDeadline": 1765538946616,
+					"completedAt": 1765423930757
+				}
+			],
+			"currentRound": "finals",
+			"roundNumber": 2,
+			"championPlayerId": "futureld_1",
+			"championName": "Derdok",
+			"completedAt": 1765423930757,
+			"challengeState": {
+				"futureld_1": {
+					"triesUsed": 2,
+					"jordanDefeated": true,
+					"redBullDefeated": false,
+					"victories": []
+				}
+			}
+		},
+		"6": {
+			"id": "playoff_s6",
+			"seasonNumber": 6,
+			"status": "active",
+			"bracketSize": 4,
+			"createdAt": 1765509986629,
+			"seeds": [
+				{
+					"seed": 1,
+					"playerId": "futureld_36",
+					"name": "FOOL",
+					"repScore": 369,
+					"isBye": false
+				},
+				{
+					"seed": 2,
+					"playerId": "futureld_1",
+					"name": "Derdok",
+					"repScore": 210,
+					"isBye": false
+				},
+				{
+					"seed": 3,
+					"playerId": "futureld_3",
+					"name": "derpy",
+					"repScore": 0,
+					"isBye": false
+				},
+				{
+					"seed": 4,
+					"playerId": "futureld_35",
+					"name": "t0ti",
+					"repScore": 0,
+					"isBye": false
+				}
+			],
+			"matches": [
+				{
+					"id": "semifinals_1",
+					"round": "semifinals",
+					"roundNumber": 1,
+					"matchNumber": 1,
+					"player1": {
+						"seed": 1,
+						"playerId": "futureld_36",
+						"name": "FOOL",
+						"repScore": 369,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 4,
+						"playerId": "futureld_35",
+						"name": "t0ti",
+						"repScore": 0,
+						"isBye": false
+					},
+					"status": "completed",
+					"winner": {
+						"seed": 1,
+						"playerId": "futureld_36",
+						"name": "FOOL",
+						"repScore": 369,
+						"isBye": false
+					},
+					"loser": {
+						"seed": 4,
+						"playerId": "futureld_35",
+						"name": "t0ti",
+						"repScore": 0,
+						"isBye": false
+					},
+					"score": {
+						"winner": 28,
+						"loser": 23
+					},
+					"resolution": "cpu_sim",
+					"createdAt": 1765509986629,
+					"softDeadline": 1765563986629,
+					"hardDeadline": 1765590986629,
+					"completedAt": 1765586065705
+				},
+				{
+					"id": "semifinals_2",
+					"round": "semifinals",
+					"roundNumber": 1,
+					"matchNumber": 2,
+					"player1": {
+						"seed": 2,
+						"playerId": "futureld_1",
+						"name": "Derdok",
+						"repScore": 210,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 3,
+						"playerId": "futureld_3",
+						"name": "derpy",
+						"repScore": 0,
+						"isBye": false
+					},
+					"status": "completed",
+					"winner": {
+						"seed": 2,
+						"playerId": "futureld_1",
+						"name": "Derdok",
+						"repScore": 210,
+						"isBye": false
+					},
+					"loser": {
+						"seed": 3,
+						"playerId": "futureld_3",
+						"name": "derpy",
+						"repScore": 0,
+						"isBye": false
+					},
+					"score": {
+						"winner": 15,
+						"loser": 12
+					},
+					"resolution": "ghost",
+					"createdAt": 1765509986629,
+					"softDeadline": 1765563986629,
+					"hardDeadline": 1765590986629,
+					"completedAt": 1765586052278
+				},
+				{
+					"id": "finals_1",
+					"round": "finals",
+					"roundNumber": 2,
+					"matchNumber": 1,
+					"player1": {
+						"seed": 1,
+						"playerId": "futureld_36",
+						"name": "FOOL",
+						"repScore": 369,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 2,
+						"playerId": "futureld_1",
+						"name": "Derdok",
+						"repScore": 210,
+						"isBye": false
+					},
+					"status": "scheduled",
+					"winner": null,
+					"loser": null,
+					"score": null,
+					"resolution": null,
+					"createdAt": 1765586065705,
+					"softDeadline": 1765617986629,
+					"hardDeadline": 1765644986629,
+					"completedAt": null,
+					"scheduling": {
+						"scheduledStartUTC": 1765641600000,
+						"scheduledEndUTC": 1765643400000,
+						"graceEndsUTC": 1765642800000,
+						"scheduledBy": "auto",
+						"pvpWindowEndsUTC": 1765845265705,
+						"deferUsed": {}
+					}
+				}
+			],
+			"currentRound": "finals",
+			"roundNumber": 2,
+			"championPlayerId": null,
+			"championName": null,
+			"completedAt": null
+		},
+		"7": {
+			"id": "playoff_s7",
+			"seasonNumber": 7,
+			"status": "active",
+			"bracketSize": 8,
+			"createdAt": 1765644185010,
+			"seeds": [
+				{
+					"seed": 1,
+					"playerId": "futureld_36",
+					"name": "FOOL",
+					"repScore": 369,
+					"isBye": false
+				},
+				{
+					"seed": 2,
+					"playerId": "futureld_1",
+					"name": "Derdok",
+					"repScore": 226,
+					"isBye": false
+				},
+				{
+					"seed": 3,
+					"playerId": "futureld_35",
+					"name": "t0ti",
+					"repScore": 0,
+					"isBye": false
+				},
+				{
+					"seed": 4,
+					"playerId": "futureld_3",
+					"name": "derpy",
+					"repScore": 0,
+					"isBye": false
+				},
+				{
+					"seed": 5,
+					"playerId": "futureld_17",
+					"name": "LLbgD",
+					"repScore": -15,
+					"isBye": false
+				},
+				{
+					"seed": 6,
+					"playerId": null,
+					"name": "BYE",
+					"repScore": 0,
+					"isBye": true
+				},
+				{
+					"seed": 7,
+					"playerId": null,
+					"name": "BYE",
+					"repScore": 0,
+					"isBye": true
+				},
+				{
+					"seed": 8,
+					"playerId": null,
+					"name": "BYE",
+					"repScore": 0,
+					"isBye": true
+				}
+			],
+			"matches": [
+				{
+					"id": "quarterfinals_1",
+					"round": "quarterfinals",
+					"roundNumber": 1,
+					"matchNumber": 1,
+					"player1": {
+						"seed": 1,
+						"playerId": "futureld_36",
+						"name": "FOOL",
+						"repScore": 369,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 8,
+						"playerId": null,
+						"name": "BYE",
+						"repScore": 0,
+						"isBye": true
+					},
+					"status": "bye",
+					"winner": {
+						"seed": 1,
+						"playerId": "futureld_36",
+						"name": "FOOL",
+						"repScore": 369,
+						"isBye": false
+					},
+					"loser": {
+						"seed": 8,
+						"playerId": null,
+						"name": "BYE",
+						"repScore": 0,
+						"isBye": true
+					},
+					"score": null,
+					"resolution": "bye",
+					"createdAt": 1765644185010,
+					"softDeadline": 1765680185010,
+					"hardDeadline": 1765698185010,
+					"completedAt": 1765644185010
+				},
+				{
+					"id": "quarterfinals_2",
+					"round": "quarterfinals",
+					"roundNumber": 1,
+					"matchNumber": 2,
+					"player1": {
+						"seed": 4,
+						"playerId": "futureld_3",
+						"name": "derpy",
+						"repScore": 0,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 5,
+						"playerId": "futureld_17",
+						"name": "LLbgD",
+						"repScore": -15,
+						"isBye": false
+					},
+					"status": "scheduled",
+					"winner": null,
+					"loser": null,
+					"score": null,
+					"resolution": null,
+					"createdAt": 1765644185010,
+					"softDeadline": 1765680185010,
+					"hardDeadline": 1765698185010,
+					"completedAt": null,
+					"scheduling": {
+						"scheduledStartUTC": 1765648800000,
+						"scheduledEndUTC": 1765650600000,
+						"graceEndsUTC": 1765650000000,
+						"scheduledBy": "auto",
+						"pvpWindowEndsUTC": 1765903385010,
+						"deferUsed": {}
+					}
+				},
+				{
+					"id": "quarterfinals_3",
+					"round": "quarterfinals",
+					"roundNumber": 1,
+					"matchNumber": 3,
+					"player1": {
+						"seed": 3,
+						"playerId": "futureld_35",
+						"name": "t0ti",
+						"repScore": 0,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 6,
+						"playerId": null,
+						"name": "BYE",
+						"repScore": 0,
+						"isBye": true
+					},
+					"status": "bye",
+					"winner": {
+						"seed": 3,
+						"playerId": "futureld_35",
+						"name": "t0ti",
+						"repScore": 0,
+						"isBye": false
+					},
+					"loser": {
+						"seed": 6,
+						"playerId": null,
+						"name": "BYE",
+						"repScore": 0,
+						"isBye": true
+					},
+					"score": null,
+					"resolution": "bye",
+					"createdAt": 1765644185010,
+					"softDeadline": 1765680185010,
+					"hardDeadline": 1765698185010,
+					"completedAt": 1765644185010
+				},
+				{
+					"id": "quarterfinals_4",
+					"round": "quarterfinals",
+					"roundNumber": 1,
+					"matchNumber": 4,
+					"player1": {
+						"seed": 2,
+						"playerId": "futureld_1",
+						"name": "Derdok",
+						"repScore": 226,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 7,
+						"playerId": null,
+						"name": "BYE",
+						"repScore": 0,
+						"isBye": true
+					},
+					"status": "bye",
+					"winner": {
+						"seed": 2,
+						"playerId": "futureld_1",
+						"name": "Derdok",
+						"repScore": 226,
+						"isBye": false
+					},
+					"loser": {
+						"seed": 7,
+						"playerId": null,
+						"name": "BYE",
+						"repScore": 0,
+						"isBye": true
+					},
+					"score": null,
+					"resolution": "bye",
+					"createdAt": 1765644185010,
+					"softDeadline": 1765680185010,
+					"hardDeadline": 1765698185010,
+					"completedAt": 1765644185010
+				}
+			],
+			"currentRound": "quarterfinals",
+			"roundNumber": 1,
+			"championPlayerId": null,
+			"championName": null,
+			"completedAt": null
+		}
+	},
+	"ballerdexNews": {
+		"entries": [
+			{
+				"playerName": "Derdok",
+				"contactName": "Nikola Jokic",
+				"contactTeam": "Denver Nuggets",
+				"timestamp": 1765585603175
+			},
+			{
+				"playerName": "derpy",
+				"contactName": "Penny Hardaway",
+				"contactTeam": "Orlando Magic",
+				"timestamp": 1765692164720
+			}
+		],
+		"lastUpdated": 1765692164723
 	}
 }

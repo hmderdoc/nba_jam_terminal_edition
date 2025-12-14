@@ -5,10 +5,28 @@ Live challenges and presence are **ephemeral** and run against the Synchronet JS
 ## Storage Layers
 - **JSONdb (file-backed, `lib/lorb/util/persist.js`)**  \
   Used for: player records, shared state, long-term stats. **Not** used for live challenges or presence.
-- **JSONClient (network JSON service, scope `lorb`)**  \
-  Used for: presence heartbeats, live challenge buckets, lobby ready/lastPing, and the multiplayer lobby/game sync. **Locks are required** (LOCK_READ/LOCK_WRITE) for presence and challenge paths to avoid JSON service timeouts.
+- **JSONClient (network JSON service, scope `nba_jam`)**  \
+  Used for: presence heartbeats, live challenge buckets, lobby ready/lastPing, and the multiplayer lobby/game sync.
 
-Service config: `localhost:10088`, scope `lorb`, configurable via `LORB.Config.JSON_CLIENT` or `Persist.getServerConfig()`. Helper: `lib/lorb/util/json_client_helper.js` (single shared client, short timeouts/backoff, obeys disable flag).
+Service config: `localhost:10088`, scope `nba_jam`, configurable via `LORB.Config.JSON_CLIENT` or `Persist.getServerConfig()`. Helper: `lib/lorb/util/json_client_helper.js` (single shared client, 2s default timeout, backoff, obeys disable flag).
+
+## Pub/Sub Architecture
+
+Presence and challenge data use a **subscribe + cache** pattern with short-timeout locked writes:
+
+1. **Subscribe on connect**: Client subscribes to challenge/presence paths once
+2. **Locked writes trigger notifications**: Writes use `LOCK_WRITE -> write -> unlock` pattern (500ms timeout) which triggers `send_data_updates()` in json-db.js, notifying all subscribers
+3. **Subscription callbacks update local cache**: The `handleUpdate()` callback processes incoming updates and merges into local cache
+4. **Reads from cache**: `getOnlinePlayers()` and challenge queries read from local cache, not network
+5. **Periodic refresh**: If cache is empty/stale, a short-timeout (1-2s) blocking read refreshes it
+
+**Key insight**: Fire-and-forget writes (`TIMEOUT=-1`) do NOT trigger subscriber notifications. Only writes followed by `LOCK_UNLOCK` trigger `send_data_updates()`.
+
+### Timeout Configuration
+- **Presence writes**: 500ms max (fail fast on contention)
+- **Initial data fetch**: 2s (once on hub entry)
+- **Presence refresh read**: 1s (only when cache is empty)
+- **Default JSONClient timeout**: 2s (down from 30s)
 
 ## Data Shapes
 - **Presence** (`presence.<gid>`)  

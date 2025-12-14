@@ -190,3 +190,72 @@ Event bus payloads stay small and predictable:
 - `ah` entries represent animation hints broadcast by the coordinator. Each hint includes a `type` string, the target player global ID (`target`), a remaining lifetime in frames (`ttl`), and a `meta` object containing animation payload (e.g., `attackerId`, `pushDistance`). Clients resolve the target to a sprite and invoke the corresponding animation helpers immediately (no stateManager staging).
 
 Document any new event payload here so multiplayer serialization and diagnostics can keep pace.
+
+---
+
+### LORB Season Stats (`lib/lorb/util/career-stats.js`)
+
+Player context (`ctx`) now supports per-season statistics in addition to all-time career stats.
+
+**Career Stats (All-Time)**
+
+```js
+ctx.careerStats = {
+    gamesPlayed: <number>,
+    totals: {
+        points: <number>,
+        rebounds: <number>,
+        assists: <number>,
+        steals: <number>,
+        blocks: <number>,
+        turnovers: <number>,
+        fgm: <number>,
+        fga: <number>,
+        tpm: <number>,
+        tpa: <number>,
+        dunks: <number>,
+        injuries: <number>
+    }
+}
+```
+
+**Season Stats (Per-Season)**
+
+```js
+ctx.seasonStats = {
+    [seasonNumber]: {
+        gamesPlayed: <number>,
+        wins: <number>,
+        losses: <number>,
+        totals: { /* same structure as careerStats.totals */ }
+    }
+}
+```
+
+**Records (Single-Game Bests)**
+
+```js
+ctx.records = {
+    [statKey]: {
+        value: <number>,
+        date: <timestamp>,
+        opponent: <string|null>,
+        court: <string|null>
+    }
+}
+
+ctx.seasonRecords = {
+    [seasonNumber]: {
+        [statKey]: { /* same structure as records */ }
+    }
+}
+```
+
+**Key Functions**
+
+- `recordGame(ctx, gameStats, gameInfo)` - Records stats to both career and current season
+- `recordWinLoss(ctx, isWin, seasonNumber?)` - Records win/loss to season stats
+- `getStatsForSeason(ctx, season)` - Returns stats for specific season or "all" for career
+- `getRecordsForSeason(ctx, season)` - Returns records for specific season or "all" for career
+- `getCurrentSeason()` - Returns current season number from SharedState
+- `getPlayerSeasons(ctx)` - Returns array of season numbers player has data for

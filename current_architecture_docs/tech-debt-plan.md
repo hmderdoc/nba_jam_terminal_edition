@@ -49,11 +49,33 @@ Prioritize the following items ahead of feature work. Each section outlines the 
 | Non-blocking violation pauses | | Completed | Shot-clock violations schedule a state-managed pause; game loop stays responsive. |
 | Physics constants unification | | Completed | Collision thresholds + client guard now live in `player-constants.js`; multiplayer coordinator/client consume them. |
 | Shared movement helper | | Completed | `previewMovementCommand()` powers both authority and client prediction; mp_client now consumes it instead of duplicating logic. |
+
 | Sprite globals cleanup | | Not Started |  |
- **Halftime inbound fairness** (Wave 24B): ensure second-half possession flips to the team that opened the game on defense, restore backcourt positioning before inbound animation.
+
+**Halftime inbound fairness** (Wave 24B): ensure second-half possession flips to the team that opened the game on defense, restore backcourt positioning before inbound animation.
 
 Update the Status/Notes columns as work progresses.
 
+---
+
+## LORB Subsystem Audit (December 2025)
+
+Full audit documented in [LORB-AUDIT.md](LORB-AUDIT.md).
+
+### Critical JSONClient/Lock Issues
+
+| Priority | File | Issue | Status |
+|----------|------|-------|--------|
+| **HIGH** | `challenges_pubsub.js` | Lock acquired but unlock in both try/catch | ✅ FIXED |
+| **HIGH** | `challenge-negotiation.js` | `disconnect()` not called in all error paths | TODO |
+| **HIGH** | `playoffs.js` | Bracket modification without transactional safety | TODO |
+
+### Constants Centralization
+
+| Constant | Status |
+|----------|--------|
+| `CHALLENGES.TTL_MS`, `READY_STALE_MS`, etc. | ✅ ADDED to config.js |
+| `PRESENCE.TIMEOUT_MS`, `PING_INTERVAL_MS` | ✅ ADDED to config.js |
 
 ### Notes & Lessons
 

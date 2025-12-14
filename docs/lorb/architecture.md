@@ -5,7 +5,7 @@ This document is the current source of truth for the `lib/lorb` runtime. It repl
 ## Execution Flow
 - Entry: `lib/lorb/lorb.js` loads `boot.js`, then attempts to load or create a character (via `LORB.Persist.load` or `LORB.CharacterCreation.run`).
 - Daily resources: returning players get `LORB.Locations.Hub.initDailyResources(ctx)` before the hub; new players get the same after creation if no `lastPlayedTimestamp` exists. Day boundaries are purely timestamp-based (see `config.js`).
-- Presence: `LORB.Persist.setPresence` heartbeat every 30s while in the hub; cleared on exit. JSONClient operations are lock-protected (LOCK_READ/LOCK_WRITE) to avoid service timeouts.
+- Presence: `LORB.Persist.setPresence` uses locked writes (500ms timeout) to trigger pub/sub notifications; cleared on exit via `clearPresence`. Other players receive presence updates via subscription callbacks, not polling.
 - Main loop: `LORB.Locations.Hub.run(ctx)` drives all navigation (courts, club, gym, shop, crib, tournaments); the hub returns `"reset"` or `"quit"` to control save/cleanup.
 - Save: on normal exit, `LORB.Persist.save(ctx)` persists all non-underscore fields; `_user` is stripped before save and reattached on load.
 
@@ -34,6 +34,15 @@ This document is the current source of truth for the `lib/lorb` runtime. It repl
   - `character_creation.js`: multi-step LoRD-style flow (intro → name → archetype → stat allocation → background → appearance customization with RichView/BinLoader). Seeds starter teammate via `LORB.Util.Contacts.createStarterTeammate`.
   - `battle_adapter.js`: bridges to mock or real engine. Uses `LORB.Engines.NBAJam.runLorbBattle` for simulations; prefers `LORB.Engines.NBAJamReal.runStreetBattle` when available.
   - `events.js`: weighted random events from `lorb_events.ini` (battle/gamble placeholder); `runGamble` is intentionally unimplemented.
+  - `playoffs.js`: **Parallel playoffs system.** Manages end-of-season playoff brackets that run alongside new seasons:
+    - `createPlayerSnapshot(player)`: Freezes a player's stats/attributes at season end for playoff use.
+    - `createBracket(seasonNumber, snapshotMap, eligibleGlobalIds)`: Builds a flexible bracket (2/4/8/16 players) with BYE handling and seeding.
+    - `getPlayerPlayoffStatus(globalId)`: Returns player's current playoff state (upcoming match, bracket status, rewards).
+    - `transitionSeason()`: Ends current season, creates snapshots/bracket, starts new season immediately.
+    - `finalizeMatch(seasonNumber, matchId, result)`: Records match outcomes; supports PvP, ghost, and CPU_SIM resolution modes.
+    - `checkAndResolveDeadlines()`: Auto-resolves matches past soft deadline (ghost) or hard deadline (CPU simulation).
+    - `awardPlayoffPrizes(seasonNumber)`: Distributes rewards to winner/runner-up after bracket completion.
+    - Bracket status lifecycle: `PENDING` → `ACTIVE` → `COMPLETED`, with `ABANDONED` fallback for hard deadline.
 - **Engines:** `engines/nba_jam_mock.js` (authoritative mock with `runLorbBattle`), `engines/nba_jam_adapter.js` (adapts LORB ctx/opponents to `runExternalGame`; also supports AI-vs-AI spectate for betting).
 - **Utilities:**
   - `util/persist.js`: JSON-DB wrapper (shared `server.ini` config). Handles load/save/remove, presence heartbeat (`lorb.presence` namespace, 60s timeout), leaderboards (`listPlayers/getLeaderboard`), online status checks, and **graffiti wall** storage (`lorb.graffiti` namespace via `readGraffiti`/`addGraffiti`). Presence/live ops use LOCK_READ/LOCK_WRITE for JSONClient; there is still no multi-attempt retry/backoff for these writes.
@@ -53,7 +62,13 @@ This document is the current source of truth for the `lib/lorb` runtime. It repl
   - `multiplayer/challenge_service.js`: background poll/maintenance loop (event-timer) that keeps challenge data fresh without blocking UI loops; started/stopped from `lorb.js`.
   - `multiplayer/challenge_lobby.js`: waits for both sides to mark ready (keeps own readiness fresh), bounded by timeouts so hub/menu loops don't hang forever.
   - `multiplayer/challenge_lobby_ui.js`: simple prompts for incoming challenges and waiting screens; invoked from hub and tournaments.
-- **UI:** `ui/view.js` (Frame-based legacy UI wrapper), `ui/stats_view.js` (RichView player card with sprite rendering and fallback), `ui/sprite_preview.js` (minimal preview helper used during creation).
+- **UI:** `ui/view.js` (Frame-based legacy UI wrapper), `ui/stats_view.js` (RichView player card with sprite rendering and fallback), `ui/sprite_preview.js` (minimal preview helper used during creation), `ui/playoff_view.js` (**Playoff bracket and status UI**):
+    - `run(ctx)`: Main entry point; routes to bracket view or match flow based on player status.
+    - `showBracket(ctx, seasonNumber)`: Displays the current bracket with match status, winners, and player highlighting.
+    - `showPlayerStatus(ctx, status)`: Shows the player's current playoff position, upcoming opponent, and rewards info.
+    - `playPlayoffMatch(ctx, status)`: Initiates a playoff match (PvP if opponent online, ghost otherwise).
+    - `getHubStatusLine(ctx)`: Returns formatted status line for hub display (e.g., "PLAYOFF: Round of 8 vs PlayerName").
+    - `hasPlayoffAction(ctx)`: Quick check if player has a pending playoff match.
 - **Locations:** (all prefer RichView, fall back to `LORB.View`)
   - `locations/hub.js`: central menu. Owns day calculation (`calculateGameDay/daysBetween/timeUntilNextDay`), resource refresh (`initDailyResources`), quit/reset flows. Does not call `initDailyResources` internally; expects caller to do so to avoid double-granting.
   - `locations/courts.js`: court selection and game flow. Generates opponents (streetball or NBA via `get_random_opponent`), supports reroll, runs real game via `runExternalGame` when available, otherwise mock simulation. Handles teammates (`LORB.Util.Contacts.getActiveTeammate` fallback to generated streetballer), applies rewards, crew cuts, career stat recording/bonuses, level-up, contact awards on NBA wins. Uses `ctx.dayStats` for session metrics.
@@ -133,6 +148,63 @@ Generated via `scripts/generate-city-art.js` with city-specific colors and icons
 - **Club23**: Uses `LORB.Cities.getClubName()` for dynamic nightclub naming.
 - **Welcome Message**: Shows "Day X in CityName" with team info.
 - **Exit Message**: Farewell uses current city name.
+
+## Parallel Playoffs System
+
+### Overview
+At the end of each 30-day season, the top players are frozen into "snapshots" and seeded into a playoff bracket. The new season starts immediately (Day 1), and the playoffs run in parallel. Players continue their new-season progression while also playing out their playoff matches on their own schedule.
+
+### Key Design Principles
+1. **Parallel execution:** Season N+1 starts immediately when Season N ends. No downtime.
+2. **Frozen snapshots:** Playoff matches use the player's end-of-season stats, not current stats.
+3. **Flexible brackets:** 2, 4, 8, or 16 players depending on eligible pool size.
+4. **Deadline-driven resolution:** Soft deadline (72h) triggers ghost match; hard deadline (168h) triggers CPU simulation.
+5. **Single codepath:** All match resolutions (PvP, ghost, CPU_SIM) flow through `finalizeMatch()`.
+
+### Data Model
+- **Season state** (`lorb.sharedState`): Extended with `currentPlayoffBracket`, `currentPlayoffSnapshots`, and `playoffHistory`.
+- **PlayerSeasonSnapshot**: Frozen copy of player at season end (stats, equipment, teammate, rep, etc.).
+- **PlayoffBracket**: Contains `seasonNumber`, `status`, `createdAt`, `softDeadline`, `hardDeadline`, `rounds` array, `playerSnapshots` map.
+- **PlayoffMatch**: Contains `matchId`, `round`, `position`, `player1Id`, `player2Id` (null for BYE), `winnerId`, `resolvedAt`, `resolution` (PVP/GHOST/CPU_SIM/BYE).
+
+### Status Enums (from `lib/lorb/config.js`)
+- **SEASON_STATUS:** `ACTIVE`, `PLAYOFFS_PENDING`, `PLAYOFFS_ACTIVE`, `COMPLETED`
+- **BRACKET_STATUS:** `PENDING`, `ACTIVE`, `COMPLETED`, `ABANDONED`
+- **MATCH_STATUS:** `PENDING`, `IN_PROGRESS`, `COMPLETED`
+
+### Flow
+1. **Season transition** (`transitionSeason()`): Called when game day exceeds season length (30 days).
+   - Creates snapshots for eligible players (min 3 games, positive rep).
+   - Builds bracket with top N players (2/4/8/16 based on pool size).
+   - Sets deadlines (soft: 72h, hard: 168h from transition).
+   - Resets `seasonStart` for new season.
+2. **Player login check** (`lorb.js`): Calls `checkAndResolveDeadlines()` to auto-resolve expired matches.
+3. **Hub display**: Shows playoff status line if player is in active bracket.
+4. **Match play** (`PlayoffView.run()`): Player initiates match via hub or tournaments.
+   - If opponent online: Attempts live PvP challenge.
+   - If opponent offline: Plays ghost match against snapshot.
+5. **Match finalization** (`finalizeMatch()`): Records result, advances bracket, checks for completion.
+6. **Prize distribution** (`awardPlayoffPrizes()`): Called when bracket completes; awards cash/rep to winner and runner-up.
+
+### Configuration (from `lib/config/game-mode-constants.js`)
+```javascript
+LORB_PLAYOFFS: {
+    SOFT_DEADLINE_HOURS: 72,    // After this, ghost match auto-resolution
+    HARD_DEADLINE_HOURS: 168,   // After this, CPU simulation
+    MIN_GAMES_TO_QUALIFY: 3,
+    MIN_REP_TO_QUALIFY: 0,
+    MAX_BRACKET_SIZE: 16,
+    PRIZE_WINNER_CASH: 5000,
+    PRIZE_WINNER_REP: 500,
+    PRIZE_RUNNER_UP_CASH: 2000,
+    PRIZE_RUNNER_UP_REP: 200
+}
+```
+
+### Integration Points
+- **Hub** (`locations/hub.js`): Displays playoff status line; adds "Playoff Match Ready!" menu option when player has pending match.
+- **Tournaments** (`locations/tournaments.js`): Adds `[O] Playoffs` hotkey to access bracket view from any stats screen.
+- **Entry point** (`lorb.js`): Checks deadlines on login; handles season transition when day > 30.
 
 ## Strengths
 - Clear load order and hard dependency checks in `boot.js` (mock engine enforced).
