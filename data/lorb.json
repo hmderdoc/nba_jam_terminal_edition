@@ -70,17 +70,17 @@
 			"flags": {
 				"hasSeenSportsAgentIntro": true
 			},
-			"xp": 224,
+			"xp": 234,
 			"level": 2,
-			"gamesPlayed": 28,
-			"wins": 22,
+			"gamesPlayed": 29,
+			"wins": 23,
 			"losses": 5,
 			"name": "Derdok",
 			"archetype": "enforcer",
 			"special": "intimidation",
 			"background": "streetball",
-			"cash": 700,
-			"rep": 66,
+			"cash": 781,
+			"rep": 68,
 			"perks": [
 				"blacktop_encounters"
 			],
@@ -228,32 +228,32 @@
 			"joinedTimestamp": 1764831359348,
 			"joinedOnDay": 1,
 			"joinedInCity": "bos",
-			"streetTurns": 15,
+			"streetTurns": 14,
 			"gymSessions": 9,
 			"barActions": 9,
-			"lastPlayedTimestamp": 1765754820479,
+			"lastPlayedTimestamp": 1765755482732,
 			"dayStats": {
-				"gamesPlayed": 0,
-				"wins": 0,
+				"gamesPlayed": 1,
+				"wins": 1,
 				"losses": 0,
-				"cashEarned": 0,
-				"repGained": 0
+				"cashEarned": 81,
+				"repGained": 2
 			},
 			"restUsedToday": false,
 			"careerStats": {
-				"gamesPlayed": 23,
+				"gamesPlayed": 24,
 				"totals": {
-					"points": 261,
-					"rebounds": 38,
+					"points": 269,
+					"rebounds": 40,
 					"assists": 1,
 					"steals": 10,
-					"blocks": 53,
+					"blocks": 54,
 					"turnovers": 3,
-					"fgm": 116,
-					"fga": 162,
+					"fgm": 120,
+					"fga": 167,
 					"tpm": 29,
-					"tpa": 60,
-					"dunks": 87,
+					"tpa": 61,
+					"dunks": 91,
 					"injuries": 0
 				}
 			},
@@ -1299,21 +1299,21 @@
 					}
 				},
 				"9": {
-					"gamesPlayed": 2,
-					"wins": 2,
+					"gamesPlayed": 3,
+					"wins": 3,
 					"losses": 0,
 					"totals": {
-						"points": 12,
-						"rebounds": 2,
+						"points": 20,
+						"rebounds": 4,
 						"assists": 1,
 						"steals": 3,
-						"blocks": 9,
+						"blocks": 10,
 						"turnovers": 0,
-						"fgm": 6,
-						"fga": 11,
+						"fgm": 10,
+						"fga": 16,
 						"tpm": 0,
-						"tpa": 4,
-						"dunks": 6,
+						"tpa": 5,
+						"dunks": 10,
 						"injuries": 0
 					}
 				}
@@ -1469,7 +1469,7 @@
 				}
 			},
 			"_globalId": "futureld_1",
-			"_lastSave": 1765754953743,
+			"_lastSave": 1765755863832,
 			"_bbsId": "FUTURELD",
 			"_bbsName": "futureland.today"
 		},
@@ -6925,8 +6925,14 @@
 				"contactName": "Penny Hardaway",
 				"contactTeam": "Orlando Magic",
 				"timestamp": 1765692164720
+			},
+			{
+				"playerName": "Derdok",
+				"contactName": "Jason Kidd",
+				"contactTeam": "Brooklyn Nets",
+				"timestamp": 1765756051930
 			}
 		],
-		"lastUpdated": 1765692164723
+		"lastUpdated": 1765756051934
 	}
 }
