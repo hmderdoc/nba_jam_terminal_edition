@@ -70,17 +70,17 @@
 			"flags": {
 				"hasSeenSportsAgentIntro": true
 			},
-			"xp": 258,
+			"xp": 270,
 			"level": 3,
-			"gamesPlayed": 31,
-			"wins": 25,
+			"gamesPlayed": 33,
+			"wins": 27,
 			"losses": 5,
 			"name": "Derdok",
 			"archetype": "enforcer",
 			"special": "intimidation",
 			"background": "streetball",
-			"cash": 980,
-			"rep": 72,
+			"cash": 1109,
+			"rep": 84,
 			"perks": [
 				"blacktop_encounters"
 			],
@@ -95,7 +95,7 @@
 			"appearance": {
 				"skin": "lightgray",
 				"eyeColor": "BROWN",
-				"jerseyColor": "RED",
+				"jerseyColor": "CYAN",
 				"jerseyLettering": "WHITE",
 				"jerseyNumber": "3",
 				"nametagFg": "RED",
@@ -203,6 +203,12 @@
 					"type": "nba",
 					"status": "contact",
 					"dateAcquired": 1765756051930
+				},
+				{
+					"id": "blake_griffin",
+					"type": "nba",
+					"status": "contact",
+					"dateAcquired": 1765759324717
 				}
 			],
 			"crew": [
@@ -234,10 +240,10 @@
 			"joinedTimestamp": 1764831359348,
 			"joinedOnDay": 1,
 			"joinedInCity": "bos",
-			"streetTurns": 14,
+			"streetTurns": 13,
 			"gymSessions": 9,
 			"barActions": 9,
-			"lastPlayedTimestamp": 1765758079217,
+			"lastPlayedTimestamp": 1765759787076,
 			"dayStats": {
 				"gamesPlayed": 0,
 				"wins": 0,
@@ -247,27 +253,27 @@
 			},
 			"restUsedToday": false,
 			"careerStats": {
-				"gamesPlayed": 25,
+				"gamesPlayed": 27,
 				"totals": {
-					"points": 282,
-					"rebounds": 43,
+					"points": 312,
+					"rebounds": 48,
 					"assists": 1,
-					"steals": 11,
-					"blocks": 60,
-					"turnovers": 3,
-					"fgm": 126,
-					"fga": 174,
-					"tpm": 30,
-					"tpa": 62,
-					"dunks": 96,
+					"steals": 14,
+					"blocks": 61,
+					"turnovers": 4,
+					"fgm": 134,
+					"fga": 182,
+					"tpm": 34,
+					"tpa": 66,
+					"dunks": 105,
 					"injuries": 0
 				}
 			},
 			"records": {
 				"points": {
-					"value": 19,
-					"date": 1765262268397,
-					"opponent": "Klay Thompson",
+					"value": 20,
+					"date": 1765759324717,
+					"opponent": "Blake Griffin",
 					"court": "Court 6"
 				},
 				"rebounds": {
@@ -1305,21 +1311,21 @@
 					}
 				},
 				"9": {
-					"gamesPlayed": 4,
-					"wins": 5,
+					"gamesPlayed": 6,
+					"wins": 7,
 					"losses": 0,
 					"totals": {
-						"points": 33,
-						"rebounds": 7,
+						"points": 63,
+						"rebounds": 12,
 						"assists": 1,
-						"steals": 4,
-						"blocks": 16,
-						"turnovers": 0,
-						"fgm": 16,
-						"fga": 23,
-						"tpm": 1,
-						"tpa": 6,
-						"dunks": 15,
+						"steals": 7,
+						"blocks": 17,
+						"turnovers": 1,
+						"fgm": 24,
+						"fga": 31,
+						"tpm": 5,
+						"tpa": 10,
+						"dunks": 24,
 						"injuries": 0
 					}
 				}
@@ -1401,9 +1407,9 @@
 				},
 				"9": {
 					"points": {
-						"value": 13,
-						"date": 1765756051930,
-						"opponent": "Jason Kidd",
+						"value": 20,
+						"date": 1765759324717,
+						"opponent": "Blake Griffin",
 						"court": "Court 6"
 					},
 					"rebounds": {
@@ -1431,33 +1437,33 @@
 						"court": "Court 6"
 					},
 					"turnovers": {
-						"value": 0,
-						"date": null,
-						"opponent": null,
-						"court": null
+						"value": 1,
+						"date": 1765759324717,
+						"opponent": "Blake Griffin",
+						"court": "Court 6"
 					},
 					"fgm": {
-						"value": 6,
-						"date": 1765756051930,
-						"opponent": "Jason Kidd",
+						"value": 8,
+						"date": 1765759324717,
+						"opponent": "Blake Griffin",
 						"court": "Court 6"
 					},
 					"fga": {
-						"value": 7,
-						"date": 1765756051930,
-						"opponent": "Jason Kidd",
+						"value": 8,
+						"date": 1765759324717,
+						"opponent": "Blake Griffin",
 						"court": "Court 6"
 					},
 					"tpm": {
-						"value": 1,
-						"date": 1765756051930,
-						"opponent": "Jason Kidd",
+						"value": 4,
+						"date": 1765759324717,
+						"opponent": "Blake Griffin",
 						"court": "Court 6"
 					},
 					"tpa": {
-						"value": 3,
-						"date": 1765748802705,
-						"opponent": "Fresh Mike",
+						"value": 4,
+						"date": 1765759324717,
+						"opponent": "Blake Griffin",
 						"court": "Court 6"
 					},
 					"dunks": {
@@ -1475,7 +1481,7 @@
 				}
 			},
 			"_globalId": "futureld_1",
-			"_lastSave": 1765758328555,
+			"_lastSave": 1765761094164,
 			"_bbsId": "FUTURELD",
 			"_bbsName": "futureland.today"
 		},
@@ -6937,8 +6943,14 @@
 				"contactName": "Jason Kidd",
 				"contactTeam": "Brooklyn Nets",
 				"timestamp": 1765756051930
+			},
+			{
+				"playerName": "Derdok",
+				"contactName": "Blake Griffin",
+				"contactTeam": "Clippers",
+				"timestamp": 1765759324717
 			}
 		],
-		"lastUpdated": 1765756051934
+		"lastUpdated": 1765759324721
 	}
 }
