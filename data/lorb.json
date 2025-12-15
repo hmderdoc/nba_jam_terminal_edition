@@ -72,15 +72,15 @@
 			},
 			"xp": 312,
 			"level": 3,
-			"gamesPlayed": 44,
-			"wins": 32,
+			"gamesPlayed": 45,
+			"wins": 33,
 			"losses": 7,
 			"name": "Derdok",
 			"archetype": "enforcer",
 			"special": "intimidation",
 			"background": "streetball",
-			"cash": 1538,
-			"rep": 141,
+			"cash": 1589,
+			"rep": 192,
 			"perks": [
 				"blacktop_encounters"
 			],
@@ -249,7 +249,7 @@
 			"streetTurns": 15,
 			"gymSessions": 9,
 			"barActions": 9,
-			"lastPlayedTimestamp": 1765769559163,
+			"lastPlayedTimestamp": 1765771120775,
 			"dayStats": {
 				"gamesPlayed": 0,
 				"wins": 0,
@@ -386,8 +386,8 @@
 				"spouseCityId": null
 			},
 			"pvpStats": {
-				"gamesPlayed": 17,
-				"wins": 7,
+				"gamesPlayed": 18,
+				"wins": 8,
 				"losses": 5,
 				"ties": 5,
 				"totals": {
@@ -404,7 +404,7 @@
 					"dunks": 0,
 					"injuries": 0
 				},
-				"currentStreak": 0,
+				"currentStreak": 1,
 				"longestWinStreak": 5,
 				"longestLossStreak": 2
 			},
@@ -1318,7 +1318,7 @@
 				},
 				"9": {
 					"gamesPlayed": 10,
-					"wins": 12,
+					"wins": 13,
 					"losses": 2,
 					"totals": {
 						"points": 114,
@@ -1487,7 +1487,7 @@
 				}
 			},
 			"_globalId": "futureld_1",
-			"_lastSave": 1765769803203,
+			"_lastSave": 1765771284472,
 			"_bbsId": "FUTURELD",
 			"_bbsName": "futureland.today"
 		},
@@ -1994,15 +1994,15 @@
 			},
 			"xp": 0,
 			"level": 1,
-			"gamesPlayed": 9,
+			"gamesPlayed": 10,
 			"wins": 5,
-			"losses": 0,
+			"losses": 1,
 			"name": "FOOL",
 			"archetype": "underdog",
 			"special": "chip_on_shoulder",
 			"background": "streetball",
-			"cash": 552,
-			"rep": 238,
+			"cash": 501,
+			"rep": 227,
 			"perks": [
 				"blacktop_encounters"
 			],
@@ -2066,7 +2066,7 @@
 			"streetTurns": 15,
 			"gymSessions": 9,
 			"barActions": 9,
-			"lastPlayedTimestamp": 1765769568985,
+			"lastPlayedTimestamp": 1765771136219,
 			"dayStats": {
 				"gamesPlayed": 0,
 				"wins": 0,
@@ -2167,9 +2167,9 @@
 			},
 			"restUsedToday": false,
 			"pvpStats": {
-				"gamesPlayed": 8,
+				"gamesPlayed": 9,
 				"wins": 4,
-				"losses": 0,
+				"losses": 1,
 				"ties": 4,
 				"totals": {
 					"points": 0,
@@ -2185,9 +2185,9 @@
 					"dunks": 0,
 					"injuries": 0
 				},
-				"currentStreak": 0,
+				"currentStreak": -1,
 				"longestWinStreak": 2,
-				"longestLossStreak": 0
+				"longestLossStreak": 1
 			},
 			"pvpRecords": {
 				"points": {
@@ -3076,7 +3076,7 @@
 				"9": {
 					"gamesPlayed": 0,
 					"wins": 2,
-					"losses": 0,
+					"losses": 1,
 					"totals": {
 						"points": 0,
 						"rebounds": 0,
@@ -3094,7 +3094,7 @@
 				}
 			},
 			"_globalId": "futureld_36",
-			"_lastSave": 1765769806226,
+			"_lastSave": 1765771287106,
 			"_bbsId": "FUTURELD",
 			"_bbsName": "futureland.today"
 		},
@@ -3265,6 +3265,31 @@
 	},
 	"pvpNews": {
 		"entries": [
+			{
+				"type": "pvp_match",
+				"timestamp": 1765771281188,
+				"gameDay": 7,
+				"city": "det",
+				"winnerName": "Derdok",
+				"loserName": "FOOL",
+				"winnerScore": 3,
+				"loserScore": 0,
+				"isTie": false
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765771275572,
+				"gameDay": 7,
+				"city": "det",
+				"winnerName": "Opponent",
+				"loserName": "FOOL",
+				"winnerScore": 3,
+				"loserScore": 0,
+				"isTie": false,
+				"topScorer": "Kevin Durant",
+				"topScorerPoints": 3,
+				"topScorerTeam": "teamB"
+			},
 			{
 				"type": "pvp_match",
 				"timestamp": 1765769797266,
@@ -3551,43 +3576,9 @@
 				"winnerScore": 10,
 				"loserScore": 6,
 				"isTie": false
-			},
-			{
-				"type": "pvp_match",
-				"timestamp": 1765266840985,
-				"gameDay": 26,
-				"city": "lal",
-				"winnerName": "FOOL",
-				"loserName": "Opponent",
-				"winnerScore": 10,
-				"loserScore": 6,
-				"isTie": false,
-				"topScorer": "FOOL",
-				"topScorerPoints": 10,
-				"topScorerTeam": "teamA",
-				"newRecords": [
-					{
-						"stat": "winMargin",
-						"name": "Win Margin",
-						"abbrev": "MARGIN",
-						"value": 4,
-						"previousRecord": 4
-					}
-				]
-			},
-			{
-				"type": "pvp_match",
-				"timestamp": 1765035008947,
-				"gameDay": 25,
-				"city": "gsw",
-				"winnerName": "Derdok",
-				"loserName": "Beta Tester",
-				"winnerScore": 6,
-				"loserScore": 4,
-				"isTie": false
 			}
 		],
-		"lastUpdated": 1765769797269
+		"lastUpdated": 1765771281191
 	},
 	"graffiti": {
 		"entries": [
