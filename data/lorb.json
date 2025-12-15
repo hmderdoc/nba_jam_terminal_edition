@@ -72,15 +72,15 @@
 			},
 			"xp": 312,
 			"level": 3,
-			"gamesPlayed": 45,
-			"wins": 33,
-			"losses": 7,
+			"gamesPlayed": 53,
+			"wins": 37,
+			"losses": 11,
 			"name": "Derdok",
 			"archetype": "enforcer",
 			"special": "intimidation",
 			"background": "streetball",
 			"cash": 1589,
-			"rep": 192,
+			"rep": 352,
 			"perks": [
 				"blacktop_encounters"
 			],
@@ -249,7 +249,7 @@
 			"streetTurns": 15,
 			"gymSessions": 9,
 			"barActions": 9,
-			"lastPlayedTimestamp": 1765771120775,
+			"lastPlayedTimestamp": 1765786051142,
 			"dayStats": {
 				"gamesPlayed": 0,
 				"wins": 0,
@@ -386,9 +386,9 @@
 				"spouseCityId": null
 			},
 			"pvpStats": {
-				"gamesPlayed": 18,
-				"wins": 8,
-				"losses": 5,
+				"gamesPlayed": 26,
+				"wins": 12,
+				"losses": 9,
 				"ties": 5,
 				"totals": {
 					"points": 0,
@@ -406,7 +406,7 @@
 				},
 				"currentStreak": 1,
 				"longestWinStreak": 5,
-				"longestLossStreak": 2
+				"longestLossStreak": 3
 			},
 			"pvpRecords": {
 				"points": {
@@ -1318,8 +1318,8 @@
 				},
 				"9": {
 					"gamesPlayed": 10,
-					"wins": 13,
-					"losses": 2,
+					"wins": 17,
+					"losses": 6,
 					"totals": {
 						"points": 114,
 						"rebounds": 23,
@@ -1487,7 +1487,7 @@
 				}
 			},
 			"_globalId": "futureld_1",
-			"_lastSave": 1765771284472,
+			"_lastSave": 1765786283209,
 			"_bbsId": "FUTURELD",
 			"_bbsName": "futureland.today"
 		},
@@ -1992,17 +1992,17 @@
 			"flags": {
 				"hasSeenSportsAgentIntro": true
 			},
-			"xp": 0,
-			"level": 1,
-			"gamesPlayed": 10,
-			"wins": 5,
-			"losses": 1,
+			"xp": 100,
+			"level": 2,
+			"gamesPlayed": 21,
+			"wins": 10,
+			"losses": 6,
 			"name": "FOOL",
 			"archetype": "underdog",
 			"special": "chip_on_shoulder",
 			"background": "streetball",
-			"cash": 501,
-			"rep": 227,
+			"cash": 470,
+			"rep": 407,
 			"perks": [
 				"blacktop_encounters"
 			],
@@ -2049,11 +2049,21 @@
 					"isStarter": true,
 					"rivals": [],
 					"intro": "You've been paired with \u0001y\u0001hAir Bud\u0001n, a scrappy \u0001wShooting Guard\u0001n\u000awith a silky jumper. He'll stretch the floor\u000aand knock down open shots while you\u000awork the paint."
+				},
+				{
+					"id": "ben_wallace",
+					"type": "nba",
+					"status": "temp",
+					"dateAcquired": 1765771792273
 				}
 			],
 			"crew": [
 				{
 					"contactId": "air_bud"
+				},
+				{
+					"contactId": "ben_wallace",
+					"slot": 1
 				}
 			],
 			"position": "PF",
@@ -2066,7 +2076,7 @@
 			"streetTurns": 15,
 			"gymSessions": 9,
 			"barActions": 9,
-			"lastPlayedTimestamp": 1765771136219,
+			"lastPlayedTimestamp": 1765786036379,
 			"dayStats": {
 				"gamesPlayed": 0,
 				"wins": 0,
@@ -2075,28 +2085,28 @@
 				"repGained": 0
 			},
 			"careerStats": {
-				"gamesPlayed": 1,
+				"gamesPlayed": 3,
 				"totals": {
-					"points": 10,
-					"rebounds": 2,
+					"points": 30,
+					"rebounds": 3,
 					"assists": 0,
-					"steals": 1,
+					"steals": 2,
 					"blocks": 0,
-					"turnovers": 0,
-					"fgm": 0,
-					"fga": 0,
+					"turnovers": 1,
+					"fgm": 10,
+					"fga": 13,
 					"tpm": 0,
-					"tpa": 0,
-					"dunks": 5,
+					"tpa": 2,
+					"dunks": 15,
 					"injuries": 0
 				}
 			},
 			"records": {
 				"points": {
-					"value": 10,
-					"date": 1765250322675,
-					"opponent": null,
-					"court": null
+					"value": 12,
+					"date": 1765771658880,
+					"opponent": "Ben Wallace",
+					"court": "Dunk District"
 				},
 				"rebounds": {
 					"value": 2,
@@ -2123,22 +2133,22 @@
 					"court": null
 				},
 				"turnovers": {
-					"value": 0,
-					"date": null,
-					"opponent": null,
-					"court": null
+					"value": 1,
+					"date": 1765771792273,
+					"opponent": "Ben Wallace",
+					"court": "The Arc"
 				},
 				"fgm": {
-					"value": 0,
-					"date": null,
-					"opponent": null,
-					"court": null
+					"value": 6,
+					"date": 1765771658880,
+					"opponent": "Ben Wallace",
+					"court": "Dunk District"
 				},
 				"fga": {
-					"value": 0,
-					"date": null,
-					"opponent": null,
-					"court": null
+					"value": 7,
+					"date": 1765771658880,
+					"opponent": "Ben Wallace",
+					"court": "Dunk District"
 				},
 				"tpm": {
 					"value": 0,
@@ -2147,16 +2157,16 @@
 					"court": null
 				},
 				"tpa": {
-					"value": 0,
-					"date": null,
-					"opponent": null,
-					"court": null
+					"value": 1,
+					"date": 1765771658880,
+					"opponent": "Ben Wallace",
+					"court": "Dunk District"
 				},
 				"dunks": {
-					"value": 5,
-					"date": 1765250322675,
-					"opponent": null,
-					"court": null
+					"value": 6,
+					"date": 1765771658880,
+					"opponent": "Ben Wallace",
+					"court": "Dunk District"
 				},
 				"injuries": {
 					"value": 0,
@@ -2167,10 +2177,10 @@
 			},
 			"restUsedToday": false,
 			"pvpStats": {
-				"gamesPlayed": 9,
-				"wins": 4,
-				"losses": 1,
-				"ties": 4,
+				"gamesPlayed": 18,
+				"wins": 8,
+				"losses": 5,
+				"ties": 5,
 				"totals": {
 					"points": 0,
 					"rebounds": 0,
@@ -2187,7 +2197,7 @@
 				},
 				"currentStreak": -1,
 				"longestWinStreak": 2,
-				"longestLossStreak": 1
+				"longestLossStreak": 3
 			},
 			"pvpRecords": {
 				"points": {
@@ -3074,27 +3084,104 @@
 			"dailyBetting": null,
 			"seasonStats": {
 				"9": {
-					"gamesPlayed": 0,
-					"wins": 2,
-					"losses": 1,
+					"gamesPlayed": 2,
+					"wins": 7,
+					"losses": 6,
 					"totals": {
-						"points": 0,
-						"rebounds": 0,
+						"points": 20,
+						"rebounds": 1,
 						"assists": 0,
-						"steals": 0,
+						"steals": 1,
 						"blocks": 0,
-						"turnovers": 0,
-						"fgm": 0,
-						"fga": 0,
+						"turnovers": 1,
+						"fgm": 10,
+						"fga": 13,
 						"tpm": 0,
-						"tpa": 0,
-						"dunks": 0,
+						"tpa": 2,
+						"dunks": 10,
 						"injuries": 0
 					}
 				}
 			},
+			"seasonRecords": {
+				"9": {
+					"points": {
+						"value": 12,
+						"date": 1765771658880,
+						"opponent": "Ben Wallace",
+						"court": "Dunk District"
+					},
+					"rebounds": {
+						"value": 1,
+						"date": 1765771792273,
+						"opponent": "Ben Wallace",
+						"court": "The Arc"
+					},
+					"assists": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					},
+					"steals": {
+						"value": 1,
+						"date": 1765771658880,
+						"opponent": "Ben Wallace",
+						"court": "Dunk District"
+					},
+					"blocks": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					},
+					"turnovers": {
+						"value": 1,
+						"date": 1765771792273,
+						"opponent": "Ben Wallace",
+						"court": "The Arc"
+					},
+					"fgm": {
+						"value": 6,
+						"date": 1765771658880,
+						"opponent": "Ben Wallace",
+						"court": "Dunk District"
+					},
+					"fga": {
+						"value": 7,
+						"date": 1765771658880,
+						"opponent": "Ben Wallace",
+						"court": "Dunk District"
+					},
+					"tpm": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					},
+					"tpa": {
+						"value": 1,
+						"date": 1765771658880,
+						"opponent": "Ben Wallace",
+						"court": "Dunk District"
+					},
+					"dunks": {
+						"value": 6,
+						"date": 1765771658880,
+						"opponent": "Ben Wallace",
+						"court": "Dunk District"
+					},
+					"injuries": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					}
+				}
+			},
+			"attributePoints": 2,
 			"_globalId": "futureld_36",
-			"_lastSave": 1765771287106,
+			"_lastSave": 1765786279476,
 			"_bbsId": "FUTURELD",
 			"_bbsName": "futureland.today"
 		},
@@ -3267,6 +3354,228 @@
 		"entries": [
 			{
 				"type": "pvp_match",
+				"timestamp": 1765786254529,
+				"gameDay": 11,
+				"city": "atl",
+				"winnerName": "Derdok",
+				"loserName": "FOOL",
+				"winnerScore": 3,
+				"loserScore": 0,
+				"isTie": false
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765786254480,
+				"gameDay": 11,
+				"city": "atl",
+				"winnerName": "Derdok",
+				"loserName": "Opponent",
+				"winnerScore": 3,
+				"loserScore": 0,
+				"isTie": false,
+				"topScorer": "Kevin Durant",
+				"topScorerPoints": 3,
+				"topScorerTeam": "teamA"
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765784208502,
+				"gameDay": 10,
+				"city": "ind",
+				"winnerName": "FOOL",
+				"loserName": "Derdok",
+				"winnerScore": 6,
+				"loserScore": 5,
+				"isTie": false
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765784208397,
+				"gameDay": 10,
+				"city": "ind",
+				"winnerName": "FOOL",
+				"loserName": "Opponent",
+				"winnerScore": 6,
+				"loserScore": 5,
+				"isTie": false,
+				"topScorer": "FOOL",
+				"topScorerPoints": 6,
+				"topScorerTeam": "teamA"
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765783627106,
+				"gameDay": 10,
+				"city": "ind",
+				"winnerName": "Derdok",
+				"loserName": "FOOL",
+				"winnerScore": 6,
+				"loserScore": 2,
+				"isTie": false
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765783627011,
+				"gameDay": 10,
+				"city": "ind",
+				"winnerName": "Derdok",
+				"loserName": "Opponent",
+				"winnerScore": 6,
+				"loserScore": 2,
+				"isTie": false,
+				"topScorer": "Kevin Durant",
+				"topScorerPoints": 6,
+				"topScorerTeam": "teamA"
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765782619495,
+				"gameDay": 10,
+				"city": "ind",
+				"winnerName": "Derdok",
+				"loserName": "FOOL",
+				"winnerScore": 5,
+				"loserScore": 0,
+				"isTie": false
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765782619383,
+				"gameDay": 10,
+				"city": "ind",
+				"winnerName": "Derdok",
+				"loserName": "Opponent",
+				"winnerScore": 5,
+				"loserScore": 0,
+				"isTie": false
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765782105318,
+				"gameDay": 10,
+				"city": "ind",
+				"winnerName": "Derdok",
+				"loserName": "FOOL",
+				"winnerScore": 4,
+				"loserScore": 0,
+				"isTie": false
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765782105250,
+				"gameDay": 10,
+				"city": "ind",
+				"winnerName": "Derdok",
+				"loserName": "Opponent",
+				"winnerScore": 4,
+				"loserScore": 0,
+				"isTie": false,
+				"topScorer": "Sonic",
+				"topScorerPoints": 2,
+				"topScorerTeam": "teamA"
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765780213184,
+				"gameDay": 9,
+				"city": "mil",
+				"winnerName": "FOOL",
+				"loserName": "Derdok",
+				"winnerScore": 7,
+				"loserScore": 4,
+				"isTie": false
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765780213078,
+				"gameDay": 9,
+				"city": "mil",
+				"winnerName": "FOOL",
+				"loserName": "Opponent",
+				"winnerScore": 7,
+				"loserScore": 4,
+				"isTie": false,
+				"topScorer": "Kevin Durant",
+				"topScorerPoints": 4,
+				"topScorerTeam": "teamB"
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765774008569,
+				"gameDay": 8,
+				"city": "chi",
+				"winnerName": "FOOL",
+				"loserName": "Derdok",
+				"winnerScore": 2,
+				"loserScore": 0,
+				"isTie": false
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765774008460,
+				"gameDay": 8,
+				"city": "chi",
+				"winnerName": "FOOL",
+				"loserName": "Opponent",
+				"winnerScore": 2,
+				"loserScore": 0,
+				"isTie": false,
+				"topScorer": "Ben Wallace",
+				"topScorerPoints": 2,
+				"topScorerTeam": "teamA"
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765772930637,
+				"gameDay": 7,
+				"city": "det",
+				"winnerName": "FOOL",
+				"loserName": "Derdok",
+				"winnerScore": 5,
+				"loserScore": 5,
+				"isTie": true
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765772927966,
+				"gameDay": 7,
+				"city": "det",
+				"winnerName": "Opponent",
+				"loserName": "FOOL",
+				"winnerScore": 5,
+				"loserScore": 5,
+				"isTie": true,
+				"topScorer": "Kevin Durant",
+				"topScorerPoints": 5,
+				"topScorerTeam": "teamB"
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765772670492,
+				"gameDay": 7,
+				"city": "det",
+				"winnerName": "FOOL",
+				"loserName": "Opponent",
+				"winnerScore": 3,
+				"loserScore": 0,
+				"isTie": false,
+				"topScorer": "Air Bud",
+				"topScorerPoints": 3,
+				"topScorerTeam": "teamA"
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1765772665308,
+				"gameDay": 7,
+				"city": "det",
+				"winnerName": "FOOL",
+				"loserName": "Derdok",
+				"winnerScore": 3,
+				"loserScore": 0,
+				"isTie": false
+			},
+			{
+				"type": "pvp_match",
 				"timestamp": 1765771281188,
 				"gameDay": 7,
 				"city": "det",
@@ -3359,226 +3668,9 @@
 				"winnerScore": 0,
 				"loserScore": 0,
 				"isTie": true
-			},
-			{
-				"type": "pvp_match",
-				"timestamp": 1765768138335,
-				"gameDay": 6,
-				"city": "cle",
-				"winnerName": "Opponent",
-				"loserName": "FOOL",
-				"winnerScore": 0,
-				"loserScore": 0,
-				"isTie": true
-			},
-			{
-				"type": "pvp_match",
-				"timestamp": 1765766212105,
-				"gameDay": 5,
-				"city": "tor",
-				"winnerName": "Derdok",
-				"loserName": "FOOL",
-				"winnerScore": 4,
-				"loserScore": 2,
-				"isTie": false
-			},
-			{
-				"type": "pvp_match",
-				"timestamp": 1765766212019,
-				"gameDay": 5,
-				"city": "tor",
-				"winnerName": "Opponent",
-				"loserName": "FOOL",
-				"winnerScore": 4,
-				"loserScore": 2,
-				"isTie": false,
-				"topScorer": "Kevin Durant",
-				"topScorerPoints": 4,
-				"topScorerTeam": "teamB"
-			},
-			{
-				"type": "pvp_match",
-				"timestamp": 1765765661694,
-				"gameDay": 5,
-				"city": "tor",
-				"winnerName": "Opponent",
-				"loserName": "FOOL",
-				"winnerScore": 0,
-				"loserScore": 0,
-				"isTie": true
-			},
-			{
-				"type": "pvp_match",
-				"timestamp": 1765765659025,
-				"gameDay": 5,
-				"city": "tor",
-				"winnerName": "FOOL",
-				"loserName": "Derdok",
-				"winnerScore": 0,
-				"loserScore": 0,
-				"isTie": true
-			},
-			{
-				"type": "pvp_match",
-				"timestamp": 1765765233735,
-				"gameDay": 5,
-				"city": "tor",
-				"winnerName": "FOOL",
-				"loserName": "Derdok",
-				"winnerScore": 0,
-				"loserScore": 0,
-				"isTie": true
-			},
-			{
-				"type": "pvp_match",
-				"timestamp": 1765765231712,
-				"gameDay": 5,
-				"city": "tor",
-				"winnerName": "Opponent",
-				"loserName": "FOOL",
-				"winnerScore": 0,
-				"loserScore": 0,
-				"isTie": true
-			},
-			{
-				"type": "pvp_match",
-				"timestamp": 1765763842054,
-				"gameDay": 5,
-				"city": "tor",
-				"winnerName": "FOOL",
-				"loserName": "Derdok",
-				"winnerScore": 5,
-				"loserScore": 0,
-				"isTie": false,
-				"newRecords": [
-					{
-						"stat": "winMargin",
-						"name": "Win Margin",
-						"abbrev": "MARGIN",
-						"value": 5,
-						"previousRecord": 5
-					}
-				]
-			},
-			{
-				"type": "pvp_match",
-				"timestamp": 1765763841984,
-				"gameDay": 5,
-				"city": "tor",
-				"winnerName": "Opponent",
-				"loserName": "Derdok",
-				"winnerScore": 5,
-				"loserScore": 0,
-				"isTie": false,
-				"topScorer": "Air Bud",
-				"topScorerPoints": 5,
-				"topScorerTeam": "teamB"
-			},
-			{
-				"type": "red_bull_loss",
-				"timestamp": 1765661357460,
-				"playerName": "Derdok",
-				"playerId": "futureld_1",
-				"seasonNumber": 5,
-				"playerScore": 24,
-				"bossScore": 27
-			},
-			{
-				"type": "pvp_match",
-				"timestamp": 1765434673480,
-				"gameDay": 9,
-				"city": "mil",
-				"winnerName": "Derdok",
-				"loserName": "FOOL",
-				"winnerScore": 7,
-				"loserScore": 2,
-				"isTie": false
-			},
-			{
-				"type": "pvp_match",
-				"timestamp": 1765434673362,
-				"gameDay": 9,
-				"city": "mil",
-				"winnerName": "Derdok",
-				"loserName": "Opponent",
-				"winnerScore": 7,
-				"loserScore": 2,
-				"isTie": false,
-				"topScorer": "Michael Jordan",
-				"topScorerPoints": 5,
-				"topScorerTeam": "teamA"
-			},
-			{
-				"type": "pvp_match",
-				"timestamp": 1765328015641,
-				"gameDay": 10,
-				"city": "ind",
-				"winnerName": "derpy",
-				"loserName": "Derdok",
-				"winnerScore": 4,
-				"loserScore": 0,
-				"isTie": false
-			},
-			{
-				"type": "pvp_match",
-				"timestamp": 1765293829509,
-				"gameDay": 1,
-				"city": "bos",
-				"winnerName": "FOOL",
-				"loserName": "Derdok",
-				"winnerScore": 3,
-				"loserScore": 0,
-				"isTie": false
-			},
-			{
-				"type": "pvp_match",
-				"timestamp": 1765293829407,
-				"gameDay": 1,
-				"city": "bos",
-				"winnerName": "FOOL",
-				"loserName": "Opponent",
-				"winnerScore": 3,
-				"loserScore": 0,
-				"isTie": false,
-				"topScorer": "Air Bud",
-				"topScorerPoints": 3,
-				"topScorerTeam": "teamA"
-			},
-			{
-				"type": "pvp_match",
-				"timestamp": 1765267456533,
-				"gameDay": 26,
-				"city": "lal",
-				"winnerName": "Derdok",
-				"loserName": "FOOL",
-				"winnerScore": 0,
-				"loserScore": 0,
-				"isTie": true
-			},
-			{
-				"type": "pvp_match",
-				"timestamp": 1765267449413,
-				"gameDay": 26,
-				"city": "lal",
-				"winnerName": "Opponent",
-				"loserName": "Derdok",
-				"winnerScore": 0,
-				"loserScore": 0,
-				"isTie": true
-			},
-			{
-				"type": "pvp_match",
-				"timestamp": 1765266841090,
-				"gameDay": 26,
-				"city": "lal",
-				"winnerName": "FOOL",
-				"loserName": "Derdok",
-				"winnerScore": 10,
-				"loserScore": 6,
-				"isTie": false
 			}
 		],
-		"lastUpdated": 1765771281191
+		"lastUpdated": 1765786254534
 	},
 	"graffiti": {
 		"entries": [
@@ -5535,8 +5627,14 @@
 				"contactName": "Tyrese Maxey",
 				"contactTeam": "76ers",
 				"timestamp": 1765762032888
+			},
+			{
+				"playerName": "FOOL",
+				"contactName": "Ben Wallace",
+				"contactTeam": "Pistons",
+				"timestamp": 1765771792278
 			}
 		],
-		"lastUpdated": 1765762032894
+		"lastUpdated": 1765771792281
 	}
 }
