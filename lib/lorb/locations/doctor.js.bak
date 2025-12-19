@@ -1,0 +1,1076 @@
+/**
+ * doctor.js - Doctor Visit Location for LORB
+ * 
+ * Handles Phase 2 of the pregnancy system: the discovery/ultrasound scene.
+ * Features:
+ * - Initial reveal with varied ailments (not directly saying "pregnant")
+ * - Doc Vitale character with Dick Vitale catchphrases
+ * - Baby sprite preview (dynamic player sprite)
+ * - Timed narrative delivery with suspense
+ * - Name THEN decide support (not reverse)
+ */
+
+var _doctorRichView = null;
+try {
+    load("/sbbs/xtrn/nba_jam/lib/ui/rich-view.js");
+    _doctorRichView = RichView;
+} catch (e) {
+    log(LOG_WARNING, "[DOCTOR] Failed to load RichView: " + e);
+}
+
+// Load BinLoader for .bin art files
+if (typeof BinLoader === "undefined") {
+    try {
+        load("/sbbs/xtrn/nba_jam/lib/utils/bin-loader.js");
+    } catch (e) {
+        log(LOG_WARNING, "[DOCTOR] Failed to load bin-loader.js: " + e);
+    }
+}
+
+// Ensure sprite system is loaded
+if (typeof ensureSpriteSystem === "undefined") {
+    try {
+        load("/sbbs/xtrn/nba_jam/lib/core/sprite-init.js");
+    } catch (e) {
+        log(LOG_WARNING, "[DOCTOR] Failed to load sprite-init.js: " + e);
+    }
+}
+
+(function() {
+    // NOTE: Do not use "use strict" - Synchronet color codes use octal-like \1 escapes
+    
+    var RichView = _doctorRichView;
+    
+    // Art paths
+    var ART_DOC_VITALE = "/sbbs/xtrn/nba_jam/assets/lorb/doc_vitale.bin";
+    var ART_WIDTH = 40;
+    var ART_HEIGHT = 20;
+    
+    // Sprite constants
+    var SPRITES_DIR = "/sbbs/xtrn/nba_jam/sprites/";
+    var SPRITE_WIDTH = 5;
+    var SPRITE_HEIGHT = 4;
+    
+    // ========== AILMENT VARIETY ==========
+    
+    var AILMENTS = [
+        {
+            complaint: "feeling really tired lately",
+            detail: "Can't keep food down in the mornings..."
+        },
+        {
+            complaint: "been getting dizzy spells",
+            detail: "And these weird cravings at 3am..."
+        },
+        {
+            complaint: "not feeling like herself",
+            detail: "Says her body feels... different."
+        },
+        {
+            complaint: "feeling nauseous all the time",
+            detail: "Especially in the morning. Every morning."
+        },
+        {
+            complaint: "having mood swings",
+            detail: "And she's been crying at commercials..."
+        }
+    ];
+    
+    // ========== DOC VITALE CATCHPHRASES ==========
+    
+    var DOC_VITALE_INTRO = [
+        "\1h\1c\"Alright baby, let's see what we got here!\"\1n",
+        "\1h\1c\"This is awesome baby, AWESOME WITH A CAPITAL A!\"\1n",
+        "\1h\1c\"Let me tell you something, this is special!\"\1n",
+        "\1h\1c\"Oh baby! We got a DIAPER DANDY in the making!\"\1n"
+    ];
+    
+    var DOC_VITALE_SCAN = [
+        "\"Let's fire up the ultrasound baby!\"",
+        "\"Ohhhhh baby, look at that!\"",
+        "\"This is UNBELIEVABLE!\"",
+        "\"You see that right there? That's a future superstar!\""
+    ];
+    
+    var DOC_VITALE_STATS = [
+        "\"These are PTP'er numbers baby! Prime Time Player!\"",
+        "\"Look at those genetics! SPECTACULAR!\"",
+        "\"This kid's got IT baby, the whole package!\"",
+        "\"You're looking at a future DIAPER DANDY right there!\""
+    ];
+    
+    var DOC_VITALE_TWINS = [
+        "\"Wait a minute... WAIT A MINUTE!\"",
+        "\"OH BABY! IT'S A DOUBLE DIAPER DANDY!\"",
+        "\"TWO! Count 'em, TWO Diaper Dandies coming your way!\"",
+        "\"This is UNBELIEVABLE! A twofer! AWESOME BABY!\""
+    ];
+    
+    var DOC_VITALE_TRIPLETS = [
+        "\"Hold on... hold on... HOLD THE PHONE!\"",
+        "\"OH MY GOODNESS! THREE! THREE HEARTBEATS!\"",
+        "\"TRIPLETS BABY! THIS IS MADNESS! MARCH MADNESS!\"",
+        "\"I've never seen anything like this! THREE DIAPER DANDIES!\""
+    ];
+    
+    var DOC_VITALE_BIRTH = [
+        "\"IT'S TIME BABY! THE MOMENT OF TRUTH!\"",
+        "\"This is what it's all about baby!\"",
+        "\"GET YOUR DIAPERS READY!\""
+    ];
+    
+    // ========== UTILITY FUNCTIONS ==========
+    
+    /**
+     * Get config value with fallback
+     */
+    function getConfig(key, fallback) {
+        if (LORB.Config && LORB.Config.BABY_BALLERS && typeof LORB.Config.BABY_BALLERS[key] !== "undefined") {
+            return LORB.Config.BABY_BALLERS[key];
+        }
+        return fallback;
+    }
+    
+    /**
+     * Replace {npcName} placeholder in text
+     */
+    function formatText(text, vars) {
+        if (!text) return "";
+        for (var key in vars) {
+            if (vars.hasOwnProperty(key)) {
+                text = text.replace(new RegExp("\\{" + key + "\\}", "g"), vars[key]);
+            }
+        }
+        return text;
+    }
+    
+    /**
+     * Pick random from array
+     */
+    function pick(arr) {
+        return arr[Math.floor(Math.random() * arr.length)];
+    }
+    
+    /**
+     * Display narrative lines with timed pacing
+     */
+    function showNarrative(view, lines, vars, pauseMs) {
+        pauseMs = pauseMs || 800;
+        
+        for (var i = 0; i < lines.length; i++) {
+            var line = formatText(lines[i], vars);
+            if (line === "") {
+                view.blank();
+            } else {
+                view.line(line);
+            }
+            view.render();
+            mswait(pauseMs);
+        }
+    }
+    
+    /**
+     * Pad string to the right
+     */
+    function padRight(str, len) {
+        str = String(str || "");
+        while (str.length < len) str += " ";
+        return str;
+    }
+    
+    /**
+     * Get word for baby count
+     */
+    function getCountWord(count) {
+        if (count === 2) return "TWINS";
+        if (count === 3) return "TRIPLETS";
+        return "";
+    }
+    
+    // ========== BABY SPRITE PREVIEW ==========
+    
+    /**
+     * Draw a dynamic baby sprite preview (5x4 player sprite)
+     * Based on appearance system from crib
+     */
+    function drawBabySpritePreview(view, appearance) {
+        if (!ensureSpriteSystem || !ensureSpriteSystem()) return false;
+        
+        var artFrame = view.getZone("art");
+        if (!artFrame) return false;
+        
+        try {
+            var skin = appearance.skin || "brown";
+            var spriteBase = "player-" + skin;
+            var jersey = appearance.jerseyColor || "WHITE";
+            var jerseyNum = appearance.jerseyNumber || 0;
+            
+            // Calculate positioning (center the 5x4 sprite in the 40x20 art zone)
+            var spriteX = 18;  // Center horizontally: (40 - 5) / 2 ≈ 18
+            var spriteY = 8;   // Position vertically: middle-ish
+            
+            // Create sprite container
+            var containerFrame = new Frame(spriteX, spriteY, SPRITE_WIDTH, SPRITE_HEIGHT, BG_BLACK, artFrame);
+            containerFrame.open();
+            
+            // Create sprite
+            var oldExecDir = js.exec_dir;
+            js.exec_dir = "/sbbs/xtrn/nba_jam/";
+            
+            var sprite = new Sprite.Aerial(
+                spriteBase,
+                containerFrame,
+                0,
+                0,
+                "s",
+                "normal"
+            );
+            
+            js.exec_dir = oldExecDir;
+            
+            // Apply jersey if available
+            if (typeof applyUniformMask === "function") {
+                var jerseyBg = BG_BLUE;  // Default
+                var accentFg = WHITE;
+                
+                // Try to match jersey color string to BG constant
+                if (jersey && typeof window !== "undefined") {
+                    var bgConst = window["BG_" + jersey.toUpperCase()];
+                    if (typeof bgConst === "number") {
+                        jerseyBg = bgConst;
+                    }
+                }
+                
+                var jerseyConfig = {
+                    jerseyBg: jerseyBg,
+                    accentFg: accentFg,
+                    jerseyNumber: String(jerseyNum)
+                };
+                
+                applyUniformMask(sprite, jerseyConfig);
+            }
+            
+            if (typeof scrubSpriteTransparency === "function") {
+                scrubSpriteTransparency(sprite);
+            }
+            
+            // Blit sprite into container
+            if (sprite.frame) {
+                for (var sy = 0; sy < SPRITE_HEIGHT; sy++) {
+                    for (var sx = 0; sx < SPRITE_WIDTH; sx++) {
+                        var cell = sprite.frame.getData(sx, sy, false);
+                        if (!cell) continue;
+                        var ch = cell.ch;
+                        var attr = cell.attr;
+                        if (!ch || ch === '\0') ch = ' ';
+                        if (attr === undefined || attr === null) attr = BG_BLACK;
+                        containerFrame.gotoxy(sx, sy);
+                        containerFrame.putmsg(ch, attr);
+                    }
+                }
+                sprite.frame.close();
+            }
+            
+            view._spriteContainer = containerFrame;
+            
+            // Draw baby info below sprite
+            artFrame.gotoxy(12, spriteY + SPRITE_HEIGHT + 2);
+            artFrame.putmsg("\1h\1c★ BABY PREVIEW ★\1n");
+            artFrame.gotoxy(14, spriteY + SPRITE_HEIGHT + 4);
+            artFrame.putmsg("\1wSkin: \1c" + skin + "\1n");
+            artFrame.gotoxy(13, spriteY + SPRITE_HEIGHT + 5);
+            artFrame.putmsg("\1wJersey: \1c#" + jerseyNum + " " + jersey + "\1n");
+            
+            return true;
+        } catch (e) {
+            log(LOG_WARNING, "[DOCTOR] Failed to create baby sprite: " + e);
+            return false;
+        }
+    }
+    
+    /**
+     * Clean up sprite resources
+     */
+    function cleanupSprite(view) {
+        if (view._spriteContainer) {
+            try {
+                view._spriteContainer.close();
+            } catch (e) {}
+            view._spriteContainer = null;
+        }
+    }
+    
+    // ========== PREVIEW GENERATION ==========
+    
+    /**
+     * Project what the baby will look like (stats, appearance, cost)
+     */
+    function projectBaby(ctx, pregnancy, isMonogamous) {
+        var BabyBallers = LORB.Data.BabyBallers;
+        
+        // Generate projected stats
+        var projectedStats = BabyBallers.generateBabyStats(ctx.baseStats || {}, isMonogamous);
+        
+        // Generate projected appearance
+        var projectedAppearance = BabyBallers.rollBabyAppearance(ctx.appearance || {});
+        
+        // Calculate cost per baby (pass ctx and motherName for wedlock check)
+        var costPerBaby = BabyBallers.calculateChildSupportCost(projectedStats, ctx, pregnancy.npcName);
+        var totalCost = costPerBaby * (pregnancy.count || 1);
+        var lumpSumPrice = BabyBallers.calculateLumpSumPrice(totalCost);
+        
+        return {
+            stats: projectedStats,
+            appearance: projectedAppearance,
+            costPerBaby: costPerBaby,
+            totalCost: totalCost,
+            lumpSumPrice: lumpSumPrice,
+            count: pregnancy.count || 1,
+            isMonogamous: isMonogamous,
+            isWedlock: costPerBaby === 0  // Flag for UI display
+        };
+    }
+    
+    /**
+     * Draw baby stats preview with ANSI bars
+     */
+    function drawStatsPreview(view, projection) {
+        var stats = projection.stats;
+        var STAT_NAMES = ["speed", "threePt", "dunk", "power", "steal", "block"];
+        var STAT_DISPLAY = {
+            speed: "SPD",
+            threePt: "3PT",
+            dunk: "DNK",
+            power: "PWR",
+            steal: "STL",
+            block: "BLK"
+        };
+        
+        view.line("\1h\1c=== BABY SCANS ===\1n");
+        view.blank();
+        
+        // Stats with ANSI bars
+        for (var i = 0; i < STAT_NAMES.length; i++) {
+            var statName = STAT_NAMES[i];
+            var statVal = stats[statName] || 1;
+            var displayName = STAT_DISPLAY[statName] || statName.toUpperCase();
+            
+            // Build bar: filled blocks for value, empty for remainder
+            var bar = "";
+            for (var j = 0; j < statVal; j++) bar += "\xDB";  // Full block
+            for (var k = statVal; k < 10; k++) bar += "\xB0";  // Light shade
+            
+            // Color code based on value
+            var statColor = statVal >= 8 ? "\1h\1g" : (statVal >= 6 ? "\1g" : (statVal >= 4 ? "\1y" : "\1r"));
+            
+            view.line("\1c" + padRight(displayName, 4) + " \1n" + statColor + bar + " \1h\1w" + statVal + "\1n");
+        }
+        
+        view.blank();
+        
+        // Monogamy bonus
+        if (projection.isMonogamous) {
+            view.line("\1h\1g\xFE MONOGAMY BONUS (+2 all)\1n");
+            view.blank();
+        }
+        
+        var totalStats = 0;
+        for (var s in stats) {
+            if (stats.hasOwnProperty(s)) {
+                totalStats += stats[s] || 0;
+            }
+        }
+        view.line("\1wTotal: \1h\1c" + totalStats + " \1n\1wpts\1n");
+    }
+    
+    /**
+     * Draw cost breakdown
+     */
+    function drawCostBreakdown(view, projection, ctx) {
+        view.blank();
+        view.line("\1h\1y=== CHILD SUPPORT ===\1n");
+        view.blank();
+        
+        // Check for wedlock exemption
+        if (projection.isWedlock) {
+            view.line("\1h\1g\xFE BORN IN WEDLOCK\1n");
+            view.line("\1gNo support required!\1n");
+            view.blank();
+            view.line("\1wYour cash: \1h\1y$" + (ctx.cash || 0) + "\1n");
+            return;
+        }
+        
+        if (projection.count > 1) {
+            view.line("Count: \1h\1c" + projection.count + "\1n");
+            view.line("Per baby: \1y$" + projection.costPerBaby + "\1n");
+        }
+        
+        view.line("\1wTotal: \1h\1y$" + projection.totalCost + "\1n");
+        view.line("\1wLump sum: \1h\1g$" + projection.lumpSumPrice + " \1n\1g(-25%)\1n");
+        view.blank();
+        view.line("\1wYour cash: \1h\1y$" + (ctx.cash || 0) + "\1n");
+    }
+    
+    /**
+     * Draw appearance preview (ASCII baby sprite representation)
+     */
+
+    
+    // ========== PAYMENT OPTIONS FLOW ==========
+    
+    /**
+     * Present payment options and handle choice
+     */
+    function presentPaymentOptions(view, ctx, projection, vars) {
+        var canLumpSum = (ctx.cash || 0) >= projection.lumpSumPrice;
+        
+        view.clearZone("content");
+        view.setContentZone("content");
+        view.setCursorY(0);
+        
+        view.line("\1h\1y=== WHAT DO YOU DO? ===\1n");
+        view.blank();
+        
+        var menuItems = [
+            {
+                text: "Accept & Set Up Payments",
+                value: "installment",
+                hotkey: "1"
+            },
+            {
+                text: canLumpSum 
+                    ? "Pay Lump Sum ($" + projection.lumpSumPrice + ")"
+                    : "\1w(Need $" + projection.lumpSumPrice + " for lump sum)\1n",
+                value: canLumpSum ? "lump_sum" : null,
+                hotkey: "2",
+                disabled: !canLumpSum
+            },
+            {
+                text: "Bill Me Later",
+                value: "bill_me",
+                hotkey: "3"
+            },
+            {
+                text: "\1rWalk Away (Abandon)\1n",
+                value: "abandon",
+                hotkey: "4"
+            }
+        ];
+        
+        view.blank();
+        
+        var choice = view.menu(menuItems, { y: 4 });
+        
+        // Show explanation for choice
+        if (choice && PAYMENT_OPTION_LINES[choice]) {
+            view.clearZone("content");
+            view.setContentZone("content");
+            view.setCursorY(0);
+            showNarrative(view, PAYMENT_OPTION_LINES[choice], vars, 600);
+            view.blank();
+            view.line("\1h\1wPress any key to confirm...\1n");
+            view.render();
+            console.getkey();
+        }
+        
+        return choice || "bill_me";  // Default to bill_me if cancelled
+    }
+    
+    // ========== MAIN DOCTOR VISIT FLOW ==========
+    
+    /**
+     * Run the doctor visit scene for a Phase 1 pregnancy
+     * 
+     * @param {Object} ctx - Player context
+     * @param {Object} pregnancy - The pregnancy object from ctx.pregnancies
+     * @returns {Object} Result { choice, babies, projection }
+     */
+    function runDoctorVisit(ctx, pregnancy) {
+        if (!RichView) {
+            return runLegacyDoctorVisit(ctx, pregnancy);
+        }
+        
+        // Get city theme for styling
+        var city = null;
+        if (LORB.Cities && LORB.Cities.getToday) {
+            city = LORB.Cities.getToday();
+        }
+        var cityTheme = (LORB.Cities && LORB.Cities.getCityTheme && city) 
+            ? LORB.Cities.getCityTheme(city) 
+            : "lorb";
+        
+        var view = new RichView({
+            zones: [
+                { name: "header", x: 1, y: 1, width: 80, height: 4 },
+                { name: "art", x: 1, y: 5, width: 40, height: 20 },
+                { name: "content", x: 41, y: 5, width: 40, height: 20 }
+            ],
+            theme: cityTheme
+        });
+        
+        // Template variables
+        var vars = {
+            npcName: pregnancy.npcName || "Someone"
+        };
+        
+        // Check if this is a monogamous situation
+        var isMonogamous = checkMonogamy(ctx, pregnancy.npcId);
+        
+        // Project baby stats/appearance/cost
+        var projection = projectBaby(ctx, pregnancy, isMonogamous);
+        
+        // Store projection in pregnancy for later use
+        pregnancy.projectedStats = projection.stats;
+        pregnancy.projectedAppearance = projection.appearance;
+        pregnancy.projectedCost = projection.totalCost;
+        
+        // === INTRO SCENE ===
+        
+        // Draw header
+        var headerFrame = view.getZone("header");
+        if (headerFrame) {
+            headerFrame.clear();
+            headerFrame.gotoxy(30, 2);
+            headerFrame.putmsg("\1h\1m=== THE CLINIC ===\1n");
+        }
+        
+        // Initial art (can be blank or placeholder)
+        drawAppearancePreview(view.getZone("art"), projection);
+        
+        view.setContentZone("content");
+        view.setCursorY(0);
+        
+        showNarrative(view, INTRO_LINES, vars, 1000);
+        
+        view.blank();
+        view.line("\1h\1wPress any key to continue...\1n");
+        view.render();
+        console.getkey();
+        
+        // === ULTRASOUND DISCOVERY ===
+        
+        view.clearZone("content");
+        view.setContentZone("content");
+        view.setCursorY(0);
+        
+        // Show discovery lines based on count
+        var discoveryLines = DISCOVERY_LINES_SINGLE;
+        if (pregnancy.count === 2) discoveryLines = DISCOVERY_LINES_TWINS;
+        if (pregnancy.count >= 3) discoveryLines = DISCOVERY_LINES_TRIPLETS;
+        
+        showNarrative(view, discoveryLines, vars, 800);
+        
+        view.blank();
+        view.line("\1h\1wPress any key...\1n");
+        view.render();
+        console.getkey();
+        
+        // === STATS PREVIEW ===
+        
+        view.clearZone("content");
+        view.setContentZone("content");
+        view.setCursorY(0);
+        
+        drawStatsPreview(view, projection);
+        drawCostBreakdown(view, projection, ctx);
+        
+        view.render();
+        mswait(1500);
+        
+        view.line("\1h\1wPress any key...\1n");
+        view.render();
+        console.getkey();
+        
+        // === PAYMENT OPTIONS ===
+        
+        var choice = presentPaymentOptions(view, ctx, projection, vars);
+        
+        // Store choice in pregnancy
+        pregnancy.paymentChoice = choice;
+        
+        // Process the choice
+        var result = processPaymentChoice(ctx, pregnancy, projection, choice);
+        
+        // === RESULT SCENE ===
+        
+        view.clearZone("content");
+        view.setContentZone("content");
+        view.setCursorY(0);
+        
+        showNarrative(view, RESULT_LINES[choice], vars, 800);
+        
+        // Show alignment change
+        if (result.alignmentChange !== 0) {
+            view.blank();
+            var alignColor = result.alignmentChange > 0 ? "\1g" : "\1r";
+            view.line(alignColor + "Alignment: " + (result.alignmentChange > 0 ? "+" : "") + result.alignmentChange + "\1n");
+        }
+        
+        // If lump sum, show cash deduction
+        if (choice === "lump_sum") {
+            view.line("\1y-$" + projection.lumpSumPrice + " cash\1n");
+        }
+        
+        view.blank();
+        view.line("\1h\1wPress any key to continue...\1n");
+        view.render();
+        console.getkey();
+        
+        view.close();
+        
+        // Immediately proceed to birth event (Phase 1 → Phase 3 in one visit)
+        pregnancy.phase = 2; // Mark discovered
+        pregnancy.discoveredOnDay = LORB.SharedState ? LORB.SharedState.getGameDay() : 1;
+        
+        // Create the babies now with naming prompt
+        var babies = runBirthEvent(ctx, pregnancy);
+        
+        // Show birth announcement
+        if (babies && babies.length > 0) {
+            showBirthAnnouncement(ctx, babies);
+        }
+        
+        // Clean up pregnancy record
+        if (LORB.Data && LORB.Data.Romance && LORB.Data.Romance.removeCompletedPregnancy) {
+            LORB.Data.Romance.removeCompletedPregnancy(ctx, pregnancy.npcId);
+        }
+        
+        return {
+            choice: choice,
+            projection: projection,
+            result: result,
+            babies: babies
+        };
+    }
+    
+    /**
+     * Check if player has been monogamous (only one partner with children)
+     */
+    function checkMonogamy(ctx, currentNpcId) {
+        if (!ctx.babyMamas || ctx.babyMamas.length === 0) {
+            // First baby = monogamous
+            return true;
+        }
+        
+        // Check if all existing baby mamas are the same person
+        for (var i = 0; i < ctx.babyMamas.length; i++) {
+            if (ctx.babyMamas[i].id !== currentNpcId) {
+                // Different baby mama exists = not monogamous
+                return false;
+            }
+        }
+        
+        return true;  // All babies with same partner
+    }
+    
+    /**
+     * Process the payment choice
+     */
+    function processPaymentChoice(ctx, pregnancy, projection, choice) {
+        var result = {
+            alignmentChange: 0,
+            cashChange: 0,
+            supportSetup: null
+        };
+        
+        // Initialize alignment if not present
+        if (typeof ctx.alignment === "undefined") {
+            ctx.alignment = 0;
+        }
+        
+        switch (choice) {
+            case "abandon":
+                // Big negative alignment hit
+                var abandonPenalty = getConfig("ALIGNMENT_ABANDON", -25);
+                ctx.alignment += abandonPenalty;
+                result.alignmentChange = abandonPenalty;
+                
+                // Mark pregnancy for later random event (adoption by NPC)
+                pregnancy.abandoned = true;
+                break;
+                
+            case "installment":
+                // Neutral/slight positive - accepting responsibility
+                var installmentBonus = getConfig("ALIGNMENT_NURTURE", 10) / 2;  // Half bonus
+                ctx.alignment += Math.floor(installmentBonus);
+                result.alignmentChange = Math.floor(installmentBonus);
+                break;
+                
+            case "lump_sum":
+                // Positive alignment - stepping up fully
+                var lumpBonus = getConfig("ALIGNMENT_LUMP_SUM", 15);
+                ctx.alignment += lumpBonus;
+                result.alignmentChange = lumpBonus;
+                
+                // Deduct cash
+                ctx.cash = (ctx.cash || 0) - projection.lumpSumPrice;
+                result.cashChange = -projection.lumpSumPrice;
+                
+                // Mark as pre-paid
+                pregnancy.prepaid = true;
+                pregnancy.prepaidAmount = projection.lumpSumPrice;
+                break;
+                
+            case "bill_me":
+            default:
+                // No immediate impact, balance will accrue
+                break;
+        }
+        
+        // Cap alignment
+        ctx.alignment = Math.max(-100, Math.min(100, ctx.alignment));
+        
+        return result;
+    }
+    
+    /**
+     * Legacy fallback (no RichView)
+     */
+    function runLegacyDoctorVisit(ctx, pregnancy) {
+        LORB.View.init();
+        LORB.View.clear();
+        LORB.View.header("THE CLINIC");
+        LORB.View.line("");
+        LORB.View.line(pregnancy.npcName + " found you.");
+        LORB.View.line("\"I'm pregnant.\"");
+        LORB.View.line("");
+        
+        var isMonogamous = checkMonogamy(ctx, pregnancy.npcId);
+        var projection = projectBaby(ctx, pregnancy, isMonogamous);
+        
+        // Store projection
+        pregnancy.projectedStats = projection.stats;
+        pregnancy.projectedAppearance = projection.appearance;
+        pregnancy.projectedCost = projection.totalCost;
+        
+        LORB.View.line("Child support cost: $" + projection.totalCost);
+        LORB.View.line("Lump sum discount: $" + projection.lumpSumPrice);
+        LORB.View.line("Your cash: $" + (ctx.cash || 0));
+        LORB.View.line("");
+        LORB.View.line("[1] Accept payments  [2] Lump sum  [3] Bill me  [4] Walk away");
+        
+        var choiceMap = { "1": "installment", "2": "lump_sum", "3": "bill_me", "4": "abandon" };
+        var key = LORB.View.prompt("Choice: ");
+        var choice = choiceMap[key] || "bill_me";
+        
+        if (choice === "lump_sum" && (ctx.cash || 0) < projection.lumpSumPrice) {
+            LORB.View.warn("Not enough cash for lump sum.");
+            choice = "bill_me";
+        }
+        
+        pregnancy.paymentChoice = choice;
+        processPaymentChoice(ctx, pregnancy, projection, choice);
+        
+        pregnancy.phase = 2;
+        pregnancy.discoveredOnDay = LORB.SharedState ? LORB.SharedState.getGameDay() : 1;
+        
+        LORB.View.line("");
+        LORB.View.line("Press any key...");
+        console.getkey();
+        
+        // Immediately proceed to birth event (Phase 1 → Phase 3 in one visit)
+        var babies = runBirthEvent(ctx, pregnancy);
+        
+        // Show birth announcement (legacy version)
+        if (babies && babies.length > 0) {
+            LORB.View.clear();
+            LORB.View.header("IT'S A BABY!");
+            LORB.View.line("");
+            for (var i = 0; i < babies.length; i++) {
+                LORB.View.line("Welcome " + babies[i].name + " (" + babies[i].nickname + ")!");
+            }
+            LORB.View.line("");
+            LORB.View.line("Press any key...");
+            console.getkey();
+        }
+        
+        // Clean up pregnancy record
+        if (LORB.Data && LORB.Data.Romance && LORB.Data.Romance.removeCompletedPregnancy) {
+            LORB.Data.Romance.removeCompletedPregnancy(ctx, pregnancy.npcId);
+        }
+        
+        return {
+            choice: choice,
+            projection: projection,
+            babies: babies
+        };
+    }
+    
+    /**
+     * Run the birth event for a Phase 2 pregnancy
+     * Creates the actual baby baller(s)
+     * 
+     * @param {Object} ctx - Player context
+     * @param {Object} pregnancy - The pregnancy object (phase 2)
+     * @returns {Array} Array of created baby ballers
+     */
+    function runBirthEvent(ctx, pregnancy) {
+        var babies = [];
+        var BabyBallers = LORB.Data.BabyBallers;
+        var count = pregnancy.count || 1;
+        
+        // Prompt for baby names
+        var babyNames = promptForBabyNames(ctx, pregnancy, count);
+        
+        // Create each baby
+        for (var i = 0; i < count; i++) {
+            // Determine if support was prepaid
+            var isPrepaid = pregnancy.prepaid || false;
+            
+            var baby = BabyBallers.createBabyBaller(
+                ctx,
+                pregnancy.npcId,
+                pregnancy.npcName,
+                pregnancy.projectedStats ? true : checkMonogamy(ctx, pregnancy.npcId),
+                pregnancy.projectedStats,
+                pregnancy.projectedAppearance,
+                babyNames[i]  // Pass custom name
+            );
+            
+            // If prepaid, mark as paid off
+            if (isPrepaid) {
+                baby.childSupport.balance = 0;
+                baby.childSupport.isPaidOff = true;
+            }
+            
+            // If abandoned, set parenting mode and make them a nemesis immediately
+            if (pregnancy.abandoned) {
+                baby.parentingMode = "abandon";
+                baby.relationship = -50;  // Nemesis threshold
+                baby.isNemesis = true;  // Immediately become nemesis
+                
+                // Mark child support as abandoned (not an active balance)
+                baby.childSupport.isAbandoned = true;
+                baby.childSupport.abandonedAmount = baby.childSupport.totalOwed;  // Track what was owed for records
+                baby.childSupport.balance = 0;  // No active balance
+                baby.childSupport.isPaidOff = false;  // Not "paid off", it's abandoned
+            }
+            
+            // Add to context
+            BabyBallers.addBabyToContext(ctx, baby);
+            
+            // Add to world registry for other players
+            BabyBallers.addToWorldBabyBallers(baby, ctx);
+            
+            babies.push(baby);
+        }
+        
+        // Ensure baby mama record exists
+        var babyMama = BabyBallers.ensureBabyMama(
+            ctx,
+            pregnancy.npcId,
+            pregnancy.npcName,
+            pregnancy.cityId,
+            babies[0].id
+        );
+        
+        // Add all children to baby mama
+        for (var j = 1; j < babies.length; j++) {
+            if (babyMama.childrenIds.indexOf(babies[j].id) === -1) {
+                babyMama.childrenIds.push(babies[j].id);
+            }
+        }
+        
+        // Calculate total support for baby mama
+        babyMama.childSupport.totalOwed = BabyBallers.calculateBabyMamaBalance(ctx, pregnancy.npcId);
+        babyMama.childSupport.balance = babyMama.childSupport.totalOwed;
+        
+        // Update parenting stats
+        BabyBallers.updateParentingStats(ctx);
+        
+        // Mark pregnancy as complete (phase 3)
+        pregnancy.phase = 3;
+        pregnancy.bornOnDay = LORB.SharedState ? LORB.SharedState.getGameDay() : 1;
+        
+        return babies;
+    }
+    
+    /**
+     * Prompt player to name their baby(s)
+     * @returns {Array<Object>} Array of {firstName, nickname} for each baby
+     */
+    function promptForBabyNames(ctx, pregnancy, count) {
+        var names = [];
+        var BabyBallers = LORB.Data.BabyBallers;
+        
+        if (!RichView) {
+            // Legacy fallback - just use auto-generated names
+            for (var i = 0; i < count; i++) {
+                names.push(null); // null = auto-generate in createBabyBaller
+            }
+            return names;
+        }
+        
+        var view = new RichView({
+            zones: [
+                { name: "header", x: 1, y: 1, width: 80, height: 4 },
+                { name: "content", x: 1, y: 5, width: 80, height: 20 }
+            ],
+            theme: "lorb"
+        });
+        
+        // Header
+        var headerFrame = view.getZone("header");
+        if (headerFrame) {
+            headerFrame.clear();
+            headerFrame.gotoxy(25, 2);
+            headerFrame.putmsg("\1h\1c=== NAME YOUR BABY BALLER ===\1n");
+        }
+        
+        view.setContentZone("content");
+        
+        for (var i = 0; i < count; i++) {
+            view.clearZone("content");
+            view.setCursorY(0);
+            
+            var babyNum = count > 1 ? " #" + (i + 1) : "";
+            view.line("\1h\1wIt's time to name your baby baller" + babyNum + "!\1n");
+            view.blank();
+            view.line("This name will appear when they challenge you");
+            view.line("in streetball matches.");
+            view.blank();
+            view.blank();
+            
+            view.line("\1h\1yEnter first name (or press ENTER for auto-generate):\1n");
+            view.render();
+            
+            var firstName = console.getstr("", 15, K_EDIT | K_AUTODEL);
+            if (!firstName || firstName.trim() === "") {
+                // Auto-generate using existing logic
+                names.push(null);
+            } else {
+                // Use custom name
+                firstName = firstName.trim();
+                
+                view.blank();
+                view.line("\1h\1yEnter nickname/streetball name (or ENTER to auto-generate):\1n");
+                view.line("\1n\1w(Examples: LIL " + firstName.toUpperCase() + ", MINI " + firstName.toUpperCase() + ", JR)\1n");
+                view.render();
+                
+                var nickname = console.getstr("", 20, K_EDIT | K_AUTODEL);
+                if (!nickname || nickname.trim() === "") {
+                    // Auto-generate nickname
+                    nickname = BabyBallers.generateNickname(firstName, ctx.nickname);
+                } else {
+                    nickname = nickname.trim().toUpperCase();
+                }
+                
+                names.push({
+                    firstName: firstName,
+                    nickname: nickname
+                });
+            }
+        }
+        
+        view.close();
+        return names;
+    }
+    
+    /**
+     * Show the birth announcement scene
+     */
+    function showBirthAnnouncement(ctx, babies) {
+        if (!RichView || !babies || babies.length === 0) {
+            // Legacy fallback
+            LORB.View.init();
+            LORB.View.clear();
+            LORB.View.header("IT'S A BABY!");
+            LORB.View.line("");
+            for (var i = 0; i < babies.length; i++) {
+                LORB.View.line("Welcome " + babies[i].name + " (" + babies[i].nickname + ")!");
+            }
+            LORB.View.line("");
+            LORB.View.line("Press any key...");
+            console.getkey();
+            return;
+        }
+        
+        var view = new RichView({
+            zones: [
+                { name: "header", x: 1, y: 1, width: 80, height: 4 },
+                { name: "art", x: 1, y: 5, width: 40, height: 20 },
+                { name: "content", x: 41, y: 5, width: 40, height: 20 }
+            ],
+            theme: "lorb"
+        });
+        
+        // Header
+        var headerFrame = view.getZone("header");
+        if (headerFrame) {
+            headerFrame.clear();
+            var title = babies.length > 1 ? "IT'S " + getCountWord(babies.length) + "!" : "IT'S A BABY!";
+            var padding = Math.floor((80 - title.length) / 2);
+            headerFrame.gotoxy(padding, 2);
+            headerFrame.putmsg("\1h\1m" + title + "\1n");
+        }
+        
+        // Art: baby sprite(s)
+        var artFrame = view.getZone("art");
+        if (artFrame) {
+            artFrame.clear();
+            // Draw simple celebration
+            artFrame.gotoxy(15, 8);
+            artFrame.putmsg("\1h\1y★ ★ ★ ★ ★\1n");
+            artFrame.gotoxy(12, 10);
+            artFrame.putmsg("\1h\1m♥ BABY BALLER ♥\1n");
+            artFrame.gotoxy(15, 12);
+            artFrame.putmsg("\1h\1y★ ★ ★ ★ ★\1n");
+        }
+        
+        view.setContentZone("content");
+        view.setCursorY(0);
+        
+        for (var i = 0; i < babies.length; i++) {
+            var baby = babies[i];
+            view.line("\1h\1cWelcome to the world!\1n");
+            view.blank();
+            view.line("\1wName: \1h\1y" + baby.name + "\1n");
+            view.line("\1wNickname: \1c" + baby.nickname + "\1n");
+            view.line("\1wMother: \1m" + baby.motherName + "\1n");
+            view.blank();
+            
+            // Stats summary
+            var totalStats = LORB.Data.BabyBallers.calculateTotalStats(baby.stats);
+            view.line("\1wTotal Stats: \1h\1c" + totalStats + "\1n");
+            view.line("\1wStarting Court: \1g" + LORB.Data.BabyBallers.getCourtTierName(1) + "\1n");
+            view.blank();
+            
+            // Support status
+            if (baby.childSupport.isPaidOff) {
+                view.line("\1gChild Support: PAID IN FULL\1n");
+            } else {
+                view.line("\1yChild Support: $" + baby.childSupport.balance + " owed\1n");
+            }
+            
+            if (babies.length > 1 && i < babies.length - 1) {
+                view.blank();
+                view.line("\1h\1w--- AND ---\1n");
+                view.blank();
+            }
+        }
+        
+        view.blank();
+        view.line("\1h\1wPress any key to continue...\1n");
+        view.render();
+        console.getkey();
+        
+        view.close();
+    }
+    
+    // ========== EXPORT ==========
+    
+    if (typeof LORB === "undefined") {
+        throw new Error("LORB namespace not defined - load boot.js first");
+    }
+    
+    if (!LORB.Locations) LORB.Locations = {};
+    
+    LORB.Locations.Doctor = {
+        runDoctorVisit: runDoctorVisit,
+        runBirthEvent: runBirthEvent,
+        showBirthAnnouncement: showBirthAnnouncement,
+        projectBaby: projectBaby,
+        checkMonogamy: checkMonogamy
+    };
+    
+})();

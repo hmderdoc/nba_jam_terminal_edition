@@ -104,17 +104,46 @@ load("sbbsdefs.js");
     function handlePregnancyReveal(ctx, pregnancy, currentCity) {
         if (!pregnancy) return false;
         
-        // Mark as discovered immediately (prevents re-reveal)
-        var gameDay = 1;
-        if (LORB.SharedState && LORB.SharedState.getGameDay) {
-            gameDay = LORB.SharedState.getGameDay();
-        }
-        pregnancy.discoveredOnDay = gameDay;
-        pregnancy.phase = 2;  // Move to Phase 2 (revealed)
+        LORB.View.clear();
+        LORB.View.header("UNEXPECTED NEWS");
+        LORB.View.line("");
+        LORB.View.line("\1h\1mAs you arrive in " + (currentCity ? currentCity.cityName : "the city") + "...\1n");
+        LORB.View.line("");
+        LORB.View.line("Your phone buzzes. It's \1c" + pregnancy.npcName + "\1n.");
+        LORB.View.line("");
+        LORB.View.line("\1h\1m\"We need to talk. I'm pregnant.\"\1n");
+        LORB.View.line("");
         
-        // Run complete doctor flow (ailment reveal → Doc Vitale → ultrasound → stats → birth)
-        if (LORB.Locations && LORB.Locations.Doctor && LORB.Locations.Doctor.runDoctorVisit) {
-            LORB.Locations.Doctor.runDoctorVisit(ctx, pregnancy);
+        if (pregnancy.count > 1) {
+            var countWord = pregnancy.count === 2 ? "twins" : "triplets";
+            LORB.View.line("\1h\1y(It's " + countWord + "!)\1n");
+            LORB.View.line("");
+        }
+        
+        LORB.View.line("\1wShe wants you to visit the doctor with her.\1n");
+        LORB.View.line("");
+        LORB.View.line("\1h\1y[D] \1wVisit the Doctor now\1n");
+        LORB.View.line("\1h\1y[H] \1wProceed to Hub (deal with this later)\1n");
+        LORB.View.line("");
+        
+        var key = console.getkey().toUpperCase();
+        
+        if (key === "D") {
+            // Run doctor visit immediately
+            if (LORB.Locations && LORB.Locations.Doctor && LORB.Locations.Doctor.runDoctorVisit) {
+                LORB.Locations.Doctor.runDoctorVisit(ctx, pregnancy);
+            }
+        } else {
+            // Player chose to proceed to hub
+            LORB.View.line("");
+            LORB.View.line("\1r" + pregnancy.npcName + " looks disappointed.\1n");
+            LORB.View.line("\1y\"Don't forget about this. I need you.\"\1n");
+            LORB.View.line("");
+            LORB.View.line("\1h\1kPress any key...\1n");
+            console.getkey();
+            
+            // Note: pregnancy stays at phase 1, will be prompted again later
+            // Could add neglect/alignment penalty here for skipping
         }
         
         return true;
@@ -170,129 +199,69 @@ load("sbbsdefs.js");
         
         // Get city color for display
         var cityColor = LORB.Cities.getTeamColorCode(currentCity);
-        var previousCity = LORB.Util.BusArt.getPreviousCity(currentGameDay);
         
-        // Create RichView for welcome screen
-        var welcomeView = new RichView({
-            zones: [
-                { name: "header", x: 1, y: 1, width: 80, height: 4 },
-                { name: "art", x: 1, y: 5, width: 40, height: 20 },
-                { name: "content", x: 41, y: 5, width: 40, height: 20 }
-            ],
-            theme: "lorb"
-        });
-        
-        // Render Figlet banner in header
-        var headerFrame = welcomeView.getZone("header");
-        if (LORB.Util && LORB.Util.FigletBanner && LORB.Util.FigletBanner.renderToFrame) {
-            LORB.Util.FigletBanner.renderToFrame(headerFrame, "WELCOME BACK", CYAN | HIGH);
-        } else {
-            headerFrame.gotoxy(2, 2);
-            headerFrame.putmsg("\1h\1c=== WELCOME BACK ===\1n");
-        }
-        
-        // Render bus art with dynamic route sign
-        var artFrame = welcomeView.getZone("art");
-        LORB.Util.BusArt.render(artFrame, {
-            origin: previousCity,
-            destination: currentCity
-        });
-        
-        // Show welcome info in content zone
-        welcomeView.setContentZone("content");
-        welcomeView.setCursorY(0);
-        welcomeView.line("\1cWelcome back, \1h" + (ctx.name || ctx.userHandle) + "\1n\1c.\1n");
-        welcomeView.line("");
-        welcomeView.line("Today is " + cityColor + "Day " + currentGameDay + "/" + seasonLength + "\1n");
-        welcomeView.line("in " + cityColor + currentCity.cityName + "\1n.");
-        welcomeView.line("\1wThe " + currentCity.teamName + " are in town.\1n");
+        LORB.View.clear();
+        LORB.View.header("LEGEND OF THE RED BULL");
+        LORB.View.line("");
+        LORB.View.line("\1cWelcome back, \1h" + (ctx.name || ctx.userHandle) + "\1n\1c.\1n");
+        LORB.View.line("");
+        LORB.View.line("Today is " + cityColor + "Day " + currentGameDay + "/" + seasonLength + "\1n in " + cityColor + currentCity.cityName + "\1n.");
+        LORB.View.line("\1n\1wThe " + currentCity.teamName + " are in town.\1n");
         
         // Show banked days info if applicable
         if (ctx._daysPassed && ctx._daysPassed > 0) {
-            welcomeView.line("");
+            LORB.View.line("");
             if (ctx._effectiveDays === ctx._daysPassed) {
-                welcomeView.line("\1y" + ctx._daysPassed + " day(s) passed\1n");
-                welcomeView.line("\1yResources refreshed!\1n");
+                LORB.View.line("\1y" + ctx._daysPassed + " day(s) have passed - resources refreshed!\1n");
             } else {
-                welcomeView.line("\1y" + ctx._daysPassed + " day(s) passed,\1n");
-                welcomeView.line("\1y" + ctx._effectiveDays + " banked.\1n");
+                LORB.View.line("\1y" + ctx._daysPassed + " day(s) passed, " + ctx._effectiveDays + " banked.\1n");
             }
             // Clear the temp flags after showing
             delete ctx._daysPassed;
             delete ctx._effectiveDays;
         }
         
-        welcomeView.line("");
-        welcomeView.line("Record: \1g" + (ctx.wins || 0) + "W\1n - \1r" + (ctx.losses || 0) + "L\1n");
-        welcomeView.line("Rep: \1c" + (ctx.rep || 0) + "\1n  |  Cash: \1y$" + (ctx.cash || 0) + "\1n");
+        LORB.View.line("");
+        LORB.View.line("Record: \1g" + (ctx.wins || 0) + "W\1n - \1r" + (ctx.losses || 0) + "L\1n");
+        LORB.View.line("Rep: \1c" + (ctx.rep || 0) + "\1n  |  Cash: \1y$" + (ctx.cash || 0) + "\1n");
         
         // Show PvP stats summary if they have any games
         if (ctx.pvpStats && ctx.pvpStats.gamesPlayed > 0) {
             var pvps = ctx.pvpStats;
-            welcomeView.line("");
-            welcomeView.line("\1h\1mPvP:\1n " + pvps.wins + "W-" + pvps.losses + "L" + 
+            LORB.View.line("");
+            LORB.View.line("\1h\1mPvP:\1n " + pvps.wins + "W-" + pvps.losses + "L" + 
                           (pvps.ties > 0 ? "-" + pvps.ties + "T" : "") +
                           (pvps.currentStreak > 0 ? " \1g(" + pvps.currentStreak + " streak)\1n" : 
                            pvps.currentStreak < 0 ? " \1r(" + Math.abs(pvps.currentStreak) + " L streak)\1n" : ""));
         }
         
-        welcomeView.line("");
-        welcomeView.line("\1h\1kPress any key...\1n");
-        
-        welcomeView.render();
+        LORB.View.line("");
+        LORB.View.line("\1h\1kPress any key...\1n");
         console.getkey();
-        welcomeView.close();
         
-        // Show recent PvP news as separate RichView (if any news exists)
+        // Show recent PvP news as separate view (if any news exists)
         if (LORB.Util && LORB.Util.PvpStats) {
             var recentNews = LORB.Util.PvpStats.getNews(5);  // Get last 5 news items
             if (recentNews && recentNews.length > 0) {
-                // Create RichView with art on left, content on right
-                var newsView = new RichView({
-                    zones: [
-                        { name: "header", x: 1, y: 1, width: 80, height: 4 },
-                        { name: "art", x: 1, y: 5, width: 40, height: 20 },
-                        { name: "content", x: 41, y: 5, width: 40, height: 20 }
-                    ],
-                    art: {
-                        art: "assets/lorb/baller_alert.bin"
-                    },
-                    theme: "lorb"
-                });
-                
-                // Render Figlet banner in header
-                var headerFrame = newsView.getZone("header");
-                if (LORB.Util && LORB.Util.FigletBanner && LORB.Util.FigletBanner.renderToFrame) {
-                    LORB.Util.FigletBanner.renderToFrame(headerFrame, "BALLER ALERT", YELLOW | HIGH);
-                } else {
-                    headerFrame.gotoxy(2, 2);
-                    headerFrame.putmsg("\1h\1y=== BALLER ALERT ===\1n");
-                }
-                
-                // Show news in content zone
-                newsView.setContentZone("content");
-                newsView.setCursorY(0);
-                newsView.line("\1h\1w--- RECENT PVP ACTION ---\1n");
-                newsView.line("");
-                
+                LORB.View.clear();
+                LORB.View.header("DAILY NEWS");
+                LORB.View.line("");
+                LORB.View.line("\1h\1w--- RECENT PVP ACTION ---\1n");
+                LORB.View.line("");
                 for (var ni = 0; ni < recentNews.length; ni++) {
                     var headline = LORB.Util.PvpStats.formatNewsHeadline(recentNews[ni]);
+                    // Split headline if it has newlines
                     var headlineLines = headline.split("\n");
                     for (var hl = 0; hl < headlineLines.length; hl++) {
-                        newsView.line(headlineLines[hl]);
+                        LORB.View.line(headlineLines[hl]);
                     }
                     if (ni < recentNews.length - 1) {
-                        newsView.line("");
+                        LORB.View.line("");  // Spacing between news items
                     }
                 }
-                
-                newsView.line("");
-                newsView.line("\1wPress any key to enter\1n");
-                newsView.line("\1w" + currentCity.cityName + "...\1n");
-                
-                newsView.render();
+                LORB.View.line("");
+                LORB.View.line("\1wPress any key to enter " + currentCity.cityName + "...\1n");
                 console.getkey();
-                newsView.close();
             }
         }
     }
@@ -428,17 +397,6 @@ load("sbbsdefs.js");
         LORB.Locations.SportsAgent.show(ctx);
     }
 
-    // ========== SPOUSE CAUGHT WITH WRONG COMPANION CHECK ==========
-    // Check if spouse sees player arriving with someone other than spouse
-    // This happens when entering spouse's home city with a different companion
-    var currentCity = LORB.Cities ? LORB.Cities.getToday() : null;
-    if (currentCity && LORB.Data && LORB.Data.SpouseEvents) {
-        var spouseEvent = LORB.Data.SpouseEvents.checkWrongCompanionEvent(ctx, currentCity);
-        if (spouseEvent) {
-            LORB.Data.SpouseEvents.showEvent(spouseEvent, ctx);
-        }
-    }
-    
     // ========== COMPANION PREGNANCY REVEAL CHECK ==========
     // Check if a traveling companion pregnancy should be revealed
     // This happens BEFORE entering the hub when:
@@ -448,21 +406,13 @@ load("sbbsdefs.js");
     var pregnancyRevealHandled = false;
     if (LORB.Data && LORB.Data.Companion && LORB.Data.Companion.checkForPregnancyReveal) {
         var gameDay = LORB.SharedState ? LORB.SharedState.getGameDay() : 1;
+        var currentCity = LORB.Cities ? LORB.Cities.getToday() : null;
         var cityId = currentCity ? currentCity.id : null;
         
         var pendingReveal = LORB.Data.Companion.checkForPregnancyReveal(ctx, cityId, gameDay);
         
         if (pendingReveal) {
             pregnancyRevealHandled = handlePregnancyReveal(ctx, pendingReveal, currentCity);
-        }
-    }
-    
-    // If no pregnancy reveal, show Doc Vitale birth news in RichView
-    if (!pregnancyRevealHandled && LORB.Data && LORB.Data.BabyBallers && LORB.Data.BabyBallers.getBirthNews &&
-        LORB.Locations && LORB.Locations.Doctor && LORB.Locations.Doctor.showBirthNews) {
-        var birthNews = LORB.Data.BabyBallers.getBirthNews(5);
-        if (birthNews && birthNews.length > 0) {
-            LORB.Locations.Doctor.showBirthNews(birthNews);
         }
     }
 
