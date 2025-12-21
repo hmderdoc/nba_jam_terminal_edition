@@ -437,7 +437,6 @@ function drawIcon(buffer, width, x, y, iconType, colors) {
 function writeBuffer(filename, buffer) {
     var f = new File(filename);
     if (!f.open("wb")) {
-        log(LOG_ERR, "Failed to open " + filename + " for writing");
         return false;
     }
     
@@ -446,7 +445,6 @@ function writeBuffer(filename, buffer) {
     }
     
     f.close();
-    log(LOG_INFO, "Wrote " + filename);
     return true;
 }
 
@@ -454,19 +452,16 @@ function writeBuffer(filename, buffer) {
  * Main
  */
 function main() {
-    log(LOG_INFO, "=== City Art Generator ===");
     
     // Load cities
     var f = new File(CITIES_JSON);
     if (!f.open("r")) {
-        log(LOG_ERR, "Failed to open cities.json");
         return 1;
     }
     
     var cities = JSON.parse(f.read());
     f.close();
     
-    log(LOG_INFO, "Loaded " + cities.length + " cities");
     
     // Create default files first
     var defaultBannerBuffer = createBuffer(BANNER_W, BANNER_H);
@@ -495,10 +490,8 @@ function main() {
         var detailFile = OUTPUT_DIR + city.id + "_detail.bin";
         writeBuffer(detailFile, detailBuffer);
         
-        log(LOG_INFO, "Generated art for: " + city.cityName);
     }
     
-    log(LOG_INFO, "=== Done! ===");
     return 0;
 }
 

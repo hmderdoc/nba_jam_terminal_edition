@@ -17,9 +17,6 @@ if (!loadResult.success) {
 }
 
 var multiplayerEnabled = loadResult.multiplayerEnabled;
-if (!multiplayerEnabled) {
-    log(LOG_INFO, "NBA JAM: Running in single-player mode (multiplayer not available)");
-}
 
 function initFrames(systems) {
     if (typeof console !== 'undefined' && typeof console.clear === 'function') {
@@ -966,7 +963,6 @@ function main() {
                 var sprite = map[gid];
                 for (var i = 0; i < spriteValues.length; i++) {
                     if (spriteValues[i] === sprite) {
-                        log(LOG_ERR, "NBA JAM: DUPLICATE SPRITE IN MAP! GlobalID " + gid + " maps to same sprite as another player");
                         duplicateFound = true;
                     }
                 }
@@ -974,7 +970,6 @@ function main() {
             }
         }
 
-        log(LOG_DEBUG, "NBA JAM: Sprite map created - " + debugInfo.join(", "));
 
         return map;
     }

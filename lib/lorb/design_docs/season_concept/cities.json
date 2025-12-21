@@ -8,6 +8,7 @@
     "bannerBin": "bos_banner.bin",
     "detailBin": "bos_detail.bin",
     "nightclubName": "The Shamrock Social",
+    "mallName": "Faneuil Hall Marketplace",
     "buffs": {
       "three": 1,
       "repMultiplier": 1.05
@@ -41,6 +42,7 @@
     "bannerBin": "nyk_banner.bin",
     "detailBin": "nyk_detail.bin",
     "nightclubName": "Empire After Hours",
+    "mallName": "Manhattan Mall",
     "buffs": {
       "repMultiplier": 1.1
     },
@@ -73,6 +75,7 @@
     "bannerBin": "bkn_banner.bin",
     "detailBin": "bkn_detail.bin",
     "nightclubName": "Bridge & Beats",
+    "mallName": "Atlantic Terminal Mall",
     "buffs": {
       "steal": 1
     },
@@ -105,6 +108,7 @@
     "bannerBin": "phi_banner.bin",
     "detailBin": "phi_detail.bin",
     "nightclubName": "The Process Lounge",
+    "mallName": "King of Prussia",
     "buffs": {
       "power": 1
     },
@@ -137,6 +141,7 @@
     "bannerBin": "tor_banner.bin",
     "detailBin": "tor_detail.bin",
     "nightclubName": "Northern Lights Club",
+    "mallName": "Eaton Centre",
     "buffs": {
       "stamina": 1
     },
@@ -169,6 +174,7 @@
     "bannerBin": "cle_banner.bin",
     "detailBin": "cle_detail.bin",
     "nightclubName": "Lake Effect Lounge",
+    "mallName": "Tower City Center",
     "buffs": {
       "block": 1
     },
@@ -201,6 +207,7 @@
     "bannerBin": "det_banner.bin",
     "detailBin": "det_detail.bin",
     "nightclubName": "Motor City Groove",
+    "mallName": "Somerset Collection",
     "buffs": {
       "power": 1,
       "foulTolerance": 1
@@ -234,6 +241,7 @@
     "bannerBin": "chi_banner.bin",
     "detailBin": "chi_detail.bin",
     "nightclubName": "The Madhouse Lounge",
+    "mallName": "Water Tower Place",
     "buffs": {
       "dunk": 1
     },
@@ -266,6 +274,7 @@
     "bannerBin": "mil_banner.bin",
     "detailBin": "mil_detail.bin",
     "nightclubName": "Cream City After Dark",
+    "mallName": "Mayfair Mall",
     "buffs": {
       "stamina": 1
     },
@@ -298,6 +307,7 @@
     "bannerBin": "ind_banner.bin",
     "detailBin": "ind_detail.bin",
     "nightclubName": "Hoosier House",
+    "mallName": "Circle Centre Mall",
     "buffs": {
       "three": 1
     },
@@ -330,6 +340,7 @@
     "bannerBin": "atl_banner.bin",
     "detailBin": "atl_detail.bin",
     "nightclubName": "Peachtree Nights",
+    "mallName": "Lenox Square",
     "buffs": {
       "speed": 1
     },
@@ -362,6 +373,7 @@
     "bannerBin": "cha_banner.bin",
     "detailBin": "cha_detail.bin",
     "nightclubName": "Buzz City Social",
+    "mallName": "SouthPark Mall",
     "buffs": {
       "steal": 1
     },
@@ -394,6 +406,7 @@
     "bannerBin": "mia_banner.bin",
     "detailBin": "mia_detail.bin",
     "nightclubName": "Club Heatwave",
+    "mallName": "Aventura Mall",
     "buffs": {
       "dunk": 1,
       "repMultiplier": 1.05
@@ -427,6 +440,7 @@
     "bannerBin": "orl_banner.bin",
     "detailBin": "orl_detail.bin",
     "nightclubName": "Illusion Lounge",
+    "mallName": "Florida Mall",
     "buffs": {
       "steal": 1,
       "luck": 1
@@ -460,6 +474,7 @@
     "bannerBin": "was_banner.bin",
     "detailBin": "was_detail.bin",
     "nightclubName": "Capital After Dark",
+    "mallName": "Tysons Corner",
     "buffs": {
       "repMultiplier": 1.05
     },
@@ -492,6 +507,7 @@
     "bannerBin": "mem_banner.bin",
     "detailBin": "mem_detail.bin",
     "nightclubName": "Beale Street Blues Bar",
+    "mallName": "Wolfchase Galleria",
     "buffs": {
       "power": 1,
       "stamina": 1
@@ -525,6 +541,7 @@
     "bannerBin": "nop_banner.bin",
     "detailBin": "nop_detail.bin",
     "nightclubName": "Bayou Bounce Club",
+    "mallName": "Riverwalk Marketplace",
     "buffs": {
       "cashMultiplier": 1.1
     },
@@ -557,6 +574,7 @@
     "bannerBin": "hou_banner.bin",
     "detailBin": "hou_detail.bin",
     "nightclubName": "Space City Lounge",
+    "mallName": "The Galleria",
     "buffs": {
       "three": 1
     },
@@ -589,6 +607,7 @@
     "bannerBin": "sas_banner.bin",
     "detailBin": "sas_detail.bin",
     "nightclubName": "Riverwalk Retreat",
+    "mallName": "North Star Mall",
     "buffs": {
       "fundamentals": 1
     },
@@ -621,6 +640,7 @@
     "bannerBin": "dal_banner.bin",
     "detailBin": "dal_detail.bin",
     "nightclubName": "Big D Skyline Club",
+    "mallName": "NorthPark Center",
     "buffs": {
       "three": 1,
       "repMultiplier": 1.05
@@ -654,6 +674,7 @@
     "bannerBin": "den_banner.bin",
     "detailBin": "den_detail.bin",
     "nightclubName": "Altitude 5280",
+    "mallName": "Cherry Creek Mall",
     "buffs": {
       "stamina": 1,
       "dunk": 1
@@ -687,6 +708,7 @@
     "bannerBin": "uta_banner.bin",
     "detailBin": "uta_detail.bin",
     "nightclubName": "Wasatch Night Session",
+    "mallName": "City Creek Center",
     "buffs": {
       "defense": 1
     },
@@ -719,6 +741,7 @@
     "bannerBin": "phx_banner.bin",
     "detailBin": "phx_detail.bin",
     "nightclubName": "Club Sunburn",
+    "mallName": "Scottsdale Fashion Square",
     "buffs": {
       "speed": 1,
       "stamina": 1
@@ -752,6 +775,7 @@
     "bannerBin": "sac_banner.bin",
     "detailBin": "sac_detail.bin",
     "nightclubName": "River City Rhythm",
+    "mallName": "Arden Fair Mall",
     "buffs": {
       "repMultiplier": 1.05
     },
@@ -784,6 +808,7 @@
     "bannerBin": "gsw_banner.bin",
     "detailBin": "gsw_detail.bin",
     "nightclubName": "Bay Area Splash Lounge",
+    "mallName": "Westfield Centre",
     "buffs": {
       "three": 1,
       "repMultiplier": 1.1
@@ -817,6 +842,7 @@
     "bannerBin": "lal_banner.bin",
     "detailBin": "lal_detail.bin",
     "nightclubName": "Hollywood Skyline",
+    "mallName": "The Grove",
     "buffs": {
       "repMultiplier": 1.15
     },
@@ -849,6 +875,7 @@
     "bannerBin": "lac_banner.bin",
     "detailBin": "lac_detail.bin",
     "nightclubName": "Lob City After Hours",
+    "mallName": "Beverly Center",
     "buffs": {
       "dunk": 1
     },
@@ -881,6 +908,7 @@
     "bannerBin": "por_banner.bin",
     "detailBin": "por_detail.bin",
     "nightclubName": "Rip City Underground",
+    "mallName": "Pioneer Place",
     "buffs": {
       "clutch": 1
     },
@@ -913,6 +941,7 @@
     "bannerBin": "min_banner.bin",
     "detailBin": "min_detail.bin",
     "nightclubName": "Twin Cities Chill",
+    "mallName": "Mall of America",
     "buffs": {
       "stamina": 1,
       "defense": 1
@@ -946,6 +975,7 @@
     "bannerBin": "okc_banner.bin",
     "detailBin": "okc_detail.bin",
     "nightclubName": "Thunder Roadhouse",
+    "mallName": "Penn Square Mall",
     "buffs": {
       "speed": 1,
       "repMultiplier": 1.05
