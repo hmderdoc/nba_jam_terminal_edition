@@ -29,8 +29,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Historic shooting city; minor bonus to 3-point oriented builds.",
-    "mascots": ["Patriots", "Red Sox", "Bruins", "Revolution"]
+    "notes": "Historic shooting city; minor bonus to 3-point oriented builds."
   },
   {
     "id": "nyk",
@@ -61,8 +60,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Bright lights, big stage; reputation gains slightly boosted.",
-    "mascots": ["Giants", "Yankees", "Rangers", "Jets"]
+    "notes": "Bright lights, big stage; reputation gains slightly boosted."
   },
   {
     "id": "bkn",
@@ -93,8 +91,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Streetball vibe; crafty perimeter defenders feel at home.",
-    "mascots": ["Cyclones", "Nets", "Liberty", "Islanders"]
+    "notes": "Streetball vibe; crafty perimeter defenders feel at home."
   },
   {
     "id": "phi",
@@ -125,8 +122,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Physical play and toughness get a small power bump.",
-    "mascots": ["Eagles", "Phillies", "Flyers", "Union"]
+    "notes": "Physical play and toughness get a small power bump."
   },
   {
     "id": "tor",
@@ -157,8 +153,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Cold weather conditioning; tiny stamina bonus.",
-    "mascots": ["Blue Jays", "Maple Leafs", "Argonauts", "Raptors"]
+    "notes": "Cold weather conditioning; tiny stamina bonus."
   },
   {
     "id": "cle",
@@ -189,8 +184,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Gritty interior play; small block bonus.",
-    "mascots": ["Browns", "Guardians", "Cavaliers", "Monsters"]
+    "notes": "Gritty interior play; small block bonus."
   },
   {
     "id": "det",
@@ -222,8 +216,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Bad Boys energy; encourages physical frontcourt play.",
-    "mascots": ["Lions", "Tigers", "Red Wings", "Wolverines"]
+    "notes": "Bad Boys energy; encourages physical frontcourt play."
   },
   {
     "id": "chi",
@@ -254,8 +247,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Air-obsessed city; slight dunk and rim-attack emphasis.",
-    "mascots": ["Bears", "Cubs", "Blackhawks", "White Sox"]
+    "notes": "Air-obsessed city; slight dunk and rim-attack emphasis."
   },
   {
     "id": "mil",
@@ -286,8 +278,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Blue-collar grind culture; minor stamina bump.",
-    "mascots": ["Brewers", "Packers", "Badgers", "Admirals"]
+    "notes": "Blue-collar grind culture; minor stamina bump."
   },
   {
     "id": "ind",
@@ -318,8 +309,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Heartland shooters; small 3-point bonus.",
-    "mascots": ["Colts", "Pacers", "Hoosiers", "Fever"]
+    "notes": "Heartland shooters; small 3-point bonus."
   },
   {
     "id": "atl",
@@ -350,8 +340,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Up-tempo, flashy guards get a tiny speed bump.",
-    "mascots": ["Falcons", "Braves", "United", "Dream"]
+    "notes": "Up-tempo, flashy guards get a tiny speed bump."
   },
   {
     "id": "cha",
@@ -382,8 +371,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Scrappy guards and wings; small steal bonus.",
-    "mascots": ["Panthers", "Knights", "Checkers", "Hurricanes"]
+    "notes": "Scrappy guards and wings; small steal bonus."
   },
   {
     "id": "mia",
@@ -415,8 +403,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Party central; spectacular plays and highlight dunks rewarded.",
-    "mascots": ["Dolphins", "Marlins", "Panthers", "Inter"]
+    "notes": "Party central; spectacular plays and highlight dunks rewarded."
   },
   {
     "id": "orl",
@@ -448,8 +435,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Theme-park magic; slightly swingy event luck.",
-    "mascots": ["Lions", "Solar Bears", "Pride", "Apollos"]
+    "notes": "Theme-park magic; slightly swingy event luck."
   },
   {
     "id": "was",
@@ -480,8 +466,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Politics and media; reputation swings a bit stronger.",
-    "mascots": ["Commanders", "Nationals", "Capitals", "Mystics"]
+    "notes": "Politics and media; reputation swings a bit stronger."
   },
   {
     "id": "mem",
@@ -513,8 +498,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Grit-and-grind city; physical and resilient players benefit.",
-    "mascots": ["Grizzlies", "Redbirds", "Tigers", "Express"]
+    "notes": "Grit-and-grind city; physical and resilient players benefit."
   },
   {
     "id": "nop",
@@ -545,8 +529,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Party economy; cash rewards slightly increased.",
-    "mascots": ["Saints", "Baby Cakes", "Pelicans", "Jesters"]
+    "notes": "Party economy; cash rewards slightly increased."
   },
   {
     "id": "hou",
@@ -577,8 +560,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Analytics and threes; shooters get small 3-point bump.",
-    "mascots": ["Texans", "Astros", "Dynamo", "Dash"]
+    "notes": "Analytics and threes; shooters get small 3-point bump."
   },
   {
     "id": "sas",
@@ -609,8 +591,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Disciplined play; boosts balanced, low-turnover styles.",
-    "mascots": ["Spurs", "Missions", "Brahmas", "FC"]
+    "notes": "Disciplined play; boosts balanced, low-turnover styles."
   },
   {
     "id": "dal",
@@ -642,8 +623,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Scoring fireworks; prolific scorers and gunners benefit.",
-    "mascots": ["Cowboys", "Rangers", "Stars", "FC"]
+    "notes": "Scoring fireworks; prolific scorers and gunners benefit."
   },
   {
     "id": "den",
@@ -675,8 +655,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Thin air; jumping and conditioning both get a small lift.",
-    "mascots": ["Broncos", "Rockies", "Avalanche", "Rapids"]
+    "notes": "Thin air; jumping and conditioning both get a small lift."
   },
   {
     "id": "uta",
@@ -707,8 +686,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Team defense emphasis; minor defensive synergy bonus.",
-    "mascots": ["Real Salt Lake", "Grizzlies", "Bees", "Roadrunners"]
+    "notes": "Team defense emphasis; minor defensive synergy bonus."
   },
   {
     "id": "phx",
@@ -740,8 +718,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Run-and-gun heritage; pace-friendly bonuses.",
-    "mascots": ["Cardinals", "Diamondbacks", "Coyotes", "Mercury"]
+    "notes": "Run-and-gun heritage; pace-friendly bonuses."
   },
   {
     "id": "sac",
@@ -772,8 +749,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Underdog narrative; strong performances stand out more.",
-    "mascots": ["Kings", "River Cats", "Republic", "Gold"]
+    "notes": "Underdog narrative; strong performances stand out more."
   },
   {
     "id": "gsw",
@@ -805,8 +781,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Splash culture; elite shooters and flashy play get a boost.",
-    "mascots": ["49ers", "Giants", "Sharks", "Earthquakes"]
+    "notes": "Splash culture; elite shooters and flashy play get a boost."
   },
   {
     "id": "lal",
@@ -837,8 +812,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Brightest spotlight; reputation swings strongest here.",
-    "mascots": ["Rams", "Dodgers", "Kings", "Galaxy"]
+    "notes": "Brightest spotlight; reputation swings strongest here."
   },
   {
     "id": "lac",
@@ -869,8 +843,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "High-flying alley-oop energy.",
-    "mascots": ["Chargers", "Angels", "Ducks", "LAFC"]
+    "notes": "High-flying alley-oop energy."
   },
   {
     "id": "por",
@@ -901,8 +874,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Dame Time spirit; clutch performances slightly boosted.",
-    "mascots": ["Timbers", "Thorns", "Winterhawks", "Pilots"]
+    "notes": "Dame Time spirit; clutch performances slightly boosted."
   },
   {
     "id": "min",
@@ -934,8 +906,7 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Cold grind; defense and endurance get a bump.",
-    "mascots": ["Vikings", "Twins", "Wild", "Lynx"]
+    "notes": "Cold grind; defense and endurance get a bump."
   },
   {
     "id": "okc",
@@ -967,7 +938,6 @@
         "rarity": "rare"
       }
     ],
-    "notes": "Fast, energetic playstyle gets a boost.",
-    "mascots": ["Thunder", "Dodgers", "Energy", "Blue"]
+    "notes": "Fast, energetic playstyle gets a boost."
   }
 ]
