@@ -1,8 +1,8 @@
 {
 	"sharedState": {
-		"seasonStart": 1766168791789,
-		"seasonNumber": 24,
-		"lastUpdated": 1766213388939,
+		"seasonStart": 1766368796451,
+		"seasonNumber": 25,
+		"lastUpdated": 1766368796451,
 		"seasonChampions": [
 			{
 				"seasonNumber": 1,
@@ -164,6 +164,13 @@
 				"championId": null,
 				"defeatedOnDay": 31,
 				"timestamp": 1766197591789
+			},
+			{
+				"seasonNumber": 24,
+				"championName": "Season 24 End",
+				"championId": null,
+				"defeatedOnDay": 56,
+				"timestamp": 1766368796451
 			}
 		]
 	},
@@ -351,10 +358,10 @@
 			"joinedTimestamp": 1764831359348,
 			"joinedOnDay": 1,
 			"joinedInCity": "bos",
-			"streetTurns": 13,
+			"streetTurns": 15,
 			"gymSessions": 9,
 			"barActions": 9,
-			"lastPlayedTimestamp": 1766213547728,
+			"lastPlayedTimestamp": 1766368796666,
 			"dayStats": {
 				"gamesPlayed": 0,
 				"wins": 0,
@@ -2738,7 +2745,7 @@
 			"lastSpouseRetaliationDay": 1,
 			"nemesisCooldown": {},
 			"_globalId": "futureld_1",
-			"_lastSave": 1766213581078,
+			"_lastSave": 1766369610067,
 			"_bbsId": "FUTURELD",
 			"_bbsName": "futureland.today"
 		},
@@ -4918,7 +4925,7 @@
 				"losses": 0,
 				"appearance": {
 					"skin": "lightgray",
-					"jerseyColor": "ORANGE",
+					"jerseyColor": "BROWN",
 					"jerseyNumber": "15"
 				},
 				"createdAt": 1766079470334,
@@ -7714,6 +7721,112 @@
 				"rep": 409,
 				"level": 2,
 				"repScore": 1249
+			}
+		},
+		"24": {
+			"futureld_1": {
+				"playerId": "futureld_1",
+				"seasonNumber": 24,
+				"createdAt": 1766368796432,
+				"name": "Derdok",
+				"nickname": "DERDOK",
+				"stats": {
+					"speed": 10,
+					"threePt": 10,
+					"power": 10,
+					"steal": 10,
+					"block": 10,
+					"dunk": 10
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "kevin_durant",
+				"teammateData": {
+					"id": "kevin_durant",
+					"stats": {}
+				},
+				"wins": 42,
+				"losses": 14,
+				"rep": 297,
+				"level": 3,
+				"repScore": 975
+			},
+			"futureld_3": {
+				"playerId": "futureld_3",
+				"seasonNumber": 24,
+				"createdAt": 1766368796435,
+				"name": "derpy",
+				"nickname": "DERPY",
+				"stats": {
+					"speed": 9,
+					"threePt": 9,
+					"power": 7,
+					"steal": 5,
+					"block": 5,
+					"dunk": 6
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "shrek_ogre",
+				"teammateData": {
+					"id": "shrek_ogre",
+					"name": "Shrek",
+					"stats": {
+						"speed": 4,
+						"threePt": 2,
+						"dunk": 6,
+						"block": 5,
+						"power": 8,
+						"steal": 3
+					},
+					"skin": "shrek",
+					"shortNick": "SHREK"
+				},
+				"wins": 1,
+				"losses": 7,
+				"rep": 2,
+				"level": 1,
+				"repScore": 8
+			},
+			"futureld_36": {
+				"playerId": "futureld_36",
+				"seasonNumber": 24,
+				"createdAt": 1766368796439,
+				"name": "FOOL",
+				"nickname": "THRIL",
+				"stats": {
+					"speed": 7,
+					"threePt": 8,
+					"power": 3,
+					"steal": 4,
+					"block": 4,
+					"dunk": 10
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "air_bud",
+				"teammateData": {
+					"id": "air_bud",
+					"name": "Air Bud",
+					"stats": {
+						"speed": 6,
+						"threePt": 7,
+						"dunk": 3,
+						"block": 2,
+						"power": 3,
+						"steal": 5
+					},
+					"skin": "airbud",
+					"shortNick": "AIRBUD"
+				},
+				"wins": 11,
+				"losses": 11,
+				"rep": 352,
+				"level": 2,
+				"repScore": 1078
 			}
 		}
 	},
@@ -10589,6 +10702,128 @@
 						"graceEndsUTC": 1766247600000,
 						"scheduledBy": "auto",
 						"pvpWindowEndsUTC": 1766456791781,
+						"deferUsed": {}
+					}
+				}
+			],
+			"currentRound": "semifinals",
+			"roundNumber": 1,
+			"championPlayerId": null,
+			"championName": null,
+			"completedAt": null
+		},
+		"24": {
+			"id": "playoff_s24",
+			"seasonNumber": 24,
+			"status": "active",
+			"bracketSize": 4,
+			"createdAt": 1766368796442,
+			"seeds": [
+				{
+					"seed": 1,
+					"playerId": "futureld_36",
+					"name": "FOOL",
+					"repScore": 1078,
+					"isBye": false
+				},
+				{
+					"seed": 2,
+					"playerId": "futureld_1",
+					"name": "Derdok",
+					"repScore": 975,
+					"isBye": false
+				},
+				{
+					"seed": 3,
+					"playerId": "futureld_3",
+					"name": "derpy",
+					"repScore": 8,
+					"isBye": false
+				},
+				{
+					"seed": 4,
+					"playerId": null,
+					"name": "BYE",
+					"repScore": 0,
+					"isBye": true
+				}
+			],
+			"matches": [
+				{
+					"id": "semifinals_1",
+					"round": "semifinals",
+					"roundNumber": 1,
+					"matchNumber": 1,
+					"player1": {
+						"seed": 1,
+						"playerId": "futureld_36",
+						"name": "FOOL",
+						"repScore": 1078,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 4,
+						"playerId": null,
+						"name": "BYE",
+						"repScore": 0,
+						"isBye": true
+					},
+					"status": "bye",
+					"winner": {
+						"seed": 1,
+						"playerId": "futureld_36",
+						"name": "FOOL",
+						"repScore": 1078,
+						"isBye": false
+					},
+					"loser": {
+						"seed": 4,
+						"playerId": null,
+						"name": "BYE",
+						"repScore": 0,
+						"isBye": true
+					},
+					"score": null,
+					"resolution": "bye",
+					"createdAt": 1766368796443,
+					"softDeadline": 1766422796442,
+					"hardDeadline": 1766449796442,
+					"completedAt": 1766368796443
+				},
+				{
+					"id": "semifinals_2",
+					"round": "semifinals",
+					"roundNumber": 1,
+					"matchNumber": 2,
+					"player1": {
+						"seed": 2,
+						"playerId": "futureld_1",
+						"name": "Derdok",
+						"repScore": 975,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 3,
+						"playerId": "futureld_3",
+						"name": "derpy",
+						"repScore": 8,
+						"isBye": false
+					},
+					"status": "scheduled",
+					"winner": null,
+					"loser": null,
+					"score": null,
+					"resolution": null,
+					"createdAt": 1766368796443,
+					"softDeadline": 1766422796442,
+					"hardDeadline": 1766449796442,
+					"completedAt": null,
+					"scheduling": {
+						"scheduledStartUTC": 1766448000000,
+						"scheduledEndUTC": 1766449800000,
+						"graceEndsUTC": 1766449200000,
+						"scheduledBy": "auto",
+						"pvpWindowEndsUTC": 1766627996443,
 						"deferUsed": {}
 					}
 				}
