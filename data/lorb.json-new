@@ -1,0 +1,1981 @@
+{
+	"sharedState": {
+		"seasonStart": 1766425438684,
+		"seasonNumber": 4,
+		"lastUpdated": 1766425438684,
+		"seasonChampions": [
+			{
+				"seasonNumber": 1,
+				"championName": "Season 1 End",
+				"championId": null,
+				"defeatedOnDay": 30,
+				"timestamp": 1766356158455
+			},
+			{
+				"seasonNumber": 2,
+				"championName": "Season Reset",
+				"championId": null,
+				"defeatedOnDay": 1,
+				"timestamp": 1766356161873
+			},
+			{
+				"seasonNumber": 3,
+				"championName": "Season 3 End",
+				"championId": null,
+				"defeatedOnDay": 36,
+				"timestamp": 1766425438684
+			}
+		]
+	},
+	"players": {
+		"futureld_3": {
+			"seed": 1021604335,
+			"userHandle": "Beta Tester",
+			"dayTurns": 5,
+			"flags": {
+				"hasSeenSportsAgentIntro": true
+			},
+			"xp": 0,
+			"level": 1,
+			"gamesPlayed": 1,
+			"wins": 1,
+			"losses": 0,
+			"name": "betaT",
+			"archetype": "enforcer",
+			"special": "intimidation",
+			"background": "juco",
+			"cash": 826,
+			"rep": 50,
+			"perks": [
+				"xp_bonus_15"
+			],
+			"stats": {
+				"speed": 9,
+				"threePt": 4,
+				"power": 6,
+				"steal": 4,
+				"block": 6,
+				"dunk": 9
+			},
+			"appearance": {
+				"skin": "brown",
+				"eyeColor": "LIGHTGRAY",
+				"jerseyColor": "RED",
+				"jerseyLettering": "WHITE",
+				"jerseyNumber": "14",
+				"nametagFg": "WHITE",
+				"nametagBg": "BLACK",
+				"nametagHiFg": "BLACK",
+				"nametagHiBg": "LIGHTGRAY"
+			},
+			"nickname": "betaT",
+			"contacts": [
+				{
+					"id": "sonic_hedgehog",
+					"type": "legend",
+					"name": "Sonic",
+					"team": "Green Hill Zone",
+					"position": "PG",
+					"positionName": "Point Guard",
+					"status": "signed",
+					"signCost": 0,
+					"cutPercent": 10,
+					"tier": "rookie",
+					"stats": {
+						"speed": 10,
+						"threePt": 5,
+						"dunk": 2,
+						"block": 2,
+						"power": 2,
+						"steal": 7
+					},
+					"skin": "sonic",
+					"jersey": 1,
+					"shortNick": "SONIC",
+					"dateAcquired": 1766251781182,
+					"isStarter": true,
+					"rivals": [],
+					"intro": "You've been paired with \u0001c\u0001hSonic\u0001n, a lightning-fast \u0001wPoint Guard\u0001n\u000awho'll handle tempo and rack up steals.\u000aHe'll push the pace and find you\u000afor easy buckets in the paint."
+				}
+			],
+			"crew": [
+				{
+					"contactId": "sonic_hedgehog"
+				}
+			],
+			"position": "C",
+			"positionName": "Center",
+			"positionCategory": "Center",
+			"activeTeammate": "sonic_hedgehog",
+			"joinedTimestamp": 1766251795885,
+			"joinedOnDay": 1,
+			"joinedInCity": "bos",
+			"streetTurns": 15,
+			"gymSessions": 9,
+			"barActions": 9,
+			"lastPlayedTimestamp": 1766385599888,
+			"dayStats": {
+				"gamesPlayed": 0,
+				"wins": 0,
+				"losses": 0,
+				"cashEarned": 0,
+				"repGained": 0
+			},
+			"pregnancies": [],
+			"restUsedToday": false,
+			"defeatedNemesisToday": [],
+			"nemesisCooldown": {},
+			"dailyBetting": null,
+			"skipCounters": {},
+			"pvpStats": {
+				"gamesPlayed": 1,
+				"wins": 1,
+				"losses": 0,
+				"ties": 0,
+				"totals": {
+					"points": 0,
+					"rebounds": 0,
+					"assists": 0,
+					"steals": 0,
+					"blocks": 0,
+					"turnovers": 0,
+					"fgm": 0,
+					"fga": 0,
+					"tpm": 0,
+					"tpa": 0,
+					"dunks": 0,
+					"injuries": 0
+				},
+				"currentStreak": 1,
+				"longestWinStreak": 1,
+				"longestLossStreak": 0
+			},
+			"pvpRecords": {
+				"points": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"rebounds": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"assists": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"steals": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"blocks": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"turnovers": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"fgm": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"fga": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"tpm": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"tpa": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"dunks": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"injuries": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"winMargin": {
+					"value": 5,
+					"date": 1766357179829,
+					"opponent": "Opponent",
+					"score": "5-0"
+				}
+			},
+			"seasonStats": {
+				"3": {
+					"gamesPlayed": 0,
+					"wins": 1,
+					"losses": 0,
+					"totals": {
+						"points": 0,
+						"rebounds": 0,
+						"assists": 0,
+						"steals": 0,
+						"blocks": 0,
+						"turnovers": 0,
+						"fgm": 0,
+						"fga": 0,
+						"tpm": 0,
+						"tpa": 0,
+						"dunks": 0,
+						"injuries": 0
+					}
+				}
+			},
+			"_globalId": "futureld_3",
+			"_lastSave": 1766385660260,
+			"_bbsId": "FUTURELD",
+			"_bbsName": "futureland.today"
+		},
+		"futureld_1": {
+			"seed": 1073718558,
+			"userHandle": "Hm Derdoc",
+			"dayTurns": 5,
+			"flags": {
+				"hasSeenSportsAgentIntro": true
+			},
+			"xp": 181,
+			"level": 2,
+			"gamesPlayed": 8,
+			"wins": 8,
+			"losses": 1,
+			"name": "mow",
+			"archetype": "slasher",
+			"special": "momentum",
+			"background": "streetball",
+			"cash": 2891,
+			"rep": 78,
+			"perks": [
+				"blacktop_encounters"
+			],
+			"stats": {
+				"speed": 10,
+				"threePt": 8,
+				"power": 4,
+				"steal": 4,
+				"block": 4,
+				"dunk": 9
+			},
+			"appearance": {
+				"skin": "magenta",
+				"eyeColor": "LIGHTBLUE",
+				"jerseyColor": "CYAN",
+				"jerseyLettering": "LIGHTRED",
+				"jerseyNumber": "42",
+				"nametagFg": "WHITE",
+				"nametagBg": "BLACK",
+				"nametagHiFg": "BLACK",
+				"nametagHiBg": "LIGHTGRAY"
+			},
+			"nickname": "mMoWw",
+			"contacts": [
+				{
+					"id": "donatello_tmnt",
+					"type": "legend",
+					"name": "Donatello",
+					"team": "Ninja Turtles",
+					"position": "SF",
+					"positionName": "Small Forward",
+					"status": "signed",
+					"signCost": 0,
+					"cutPercent": 10,
+					"tier": "rookie",
+					"stats": {
+						"speed": 5,
+						"threePt": 5,
+						"dunk": 5,
+						"block": 5,
+						"power": 5,
+						"steal": 5
+					},
+					"skin": "donatello",
+					"jersey": 4,
+					"shortNick": "DONNIE",
+					"dateAcquired": 1766303042167,
+					"isStarter": true,
+					"rivals": [],
+					"intro": "You've been paired with \u0001m\u0001hDonatello\u0001n, a balanced \u0001wSmall Forward\u0001n\u000awith the mind of a scientist and the reach of a bo staff.\u000aTogether you'll form a versatile wing duo\u000athat can attack from anywhere."
+				},
+				{
+					"id": "tracy_mcgrady",
+					"type": "nba",
+					"status": "contact",
+					"dateAcquired": 1766473477577
+				},
+				{
+					"id": "penny_hardaway",
+					"type": "nba",
+					"status": "contact",
+					"dateAcquired": 1766473717122
+				},
+				{
+					"id": "dwight_howard",
+					"type": "nba",
+					"status": "contact",
+					"dateAcquired": 1766474148871
+				},
+				{
+					"id": "dominique_wilkins",
+					"type": "nba",
+					"status": "contact",
+					"dateAcquired": 1766474279135
+				}
+			],
+			"crew": [
+				{
+					"contactId": "donatello_tmnt"
+				}
+			],
+			"position": "SF",
+			"positionName": "Small Forward",
+			"positionCategory": "Forward",
+			"activeTeammate": "donatello_tmnt",
+			"joinedTimestamp": 1766303062759,
+			"joinedOnDay": 15,
+			"joinedInCity": "was",
+			"streetTurns": 15,
+			"gymSessions": 9,
+			"barActions": 9,
+			"lastPlayedTimestamp": 1766527622737,
+			"dayStats": {
+				"gamesPlayed": 0,
+				"wins": 0,
+				"losses": 0,
+				"cashEarned": 0,
+				"repGained": 0
+			},
+			"pregnancies": [],
+			"skipCounters": {},
+			"defeatedNemesisToday": [],
+			"restUsedToday": false,
+			"nemesisCooldown": {},
+			"seasonStats": {
+				"1": {
+					"gamesPlayed": 1,
+					"wins": 1,
+					"losses": 0,
+					"totals": {
+						"points": 12,
+						"rebounds": 4,
+						"assists": 0,
+						"steals": 0,
+						"blocks": 3,
+						"turnovers": 0,
+						"fgm": 6,
+						"fga": 8,
+						"tpm": 0,
+						"tpa": 0,
+						"dunks": 6,
+						"injuries": 0
+					}
+				},
+				"3": {
+					"gamesPlayed": 0,
+					"wins": 1,
+					"losses": 1,
+					"totals": {
+						"points": 0,
+						"rebounds": 0,
+						"assists": 0,
+						"steals": 0,
+						"blocks": 0,
+						"turnovers": 0,
+						"fgm": 0,
+						"fga": 0,
+						"tpm": 0,
+						"tpa": 0,
+						"dunks": 0,
+						"injuries": 0
+					}
+				},
+				"4": {
+					"gamesPlayed": 7,
+					"wins": 7,
+					"losses": 0,
+					"totals": {
+						"points": 92,
+						"rebounds": 22,
+						"assists": 0,
+						"steals": 3,
+						"blocks": 31,
+						"turnovers": 1,
+						"fgm": 44,
+						"fga": 54,
+						"tpm": 4,
+						"tpa": 6,
+						"dunks": 40,
+						"injuries": 0
+					}
+				}
+			},
+			"careerStats": {
+				"gamesPlayed": 8,
+				"totals": {
+					"points": 104,
+					"rebounds": 26,
+					"assists": 0,
+					"steals": 3,
+					"blocks": 34,
+					"turnovers": 1,
+					"fgm": 50,
+					"fga": 62,
+					"tpm": 4,
+					"tpa": 6,
+					"dunks": 46,
+					"injuries": 0
+				}
+			},
+			"records": {
+				"points": {
+					"value": 23,
+					"date": 1766474506897,
+					"opponent": "JV Jimmy",
+					"court": "High School"
+				},
+				"rebounds": {
+					"value": 6,
+					"date": 1766474506897,
+					"opponent": "JV Jimmy",
+					"court": "High School"
+				},
+				"assists": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				},
+				"steals": {
+					"value": 2,
+					"date": 1766473717122,
+					"opponent": "Penny Hardaway",
+					"court": "High School"
+				},
+				"blocks": {
+					"value": 8,
+					"date": 1766467672701,
+					"opponent": "Senior Sam",
+					"court": "High School"
+				},
+				"turnovers": {
+					"value": 1,
+					"date": 1766473717122,
+					"opponent": "Penny Hardaway",
+					"court": "High School"
+				},
+				"fgm": {
+					"value": 11,
+					"date": 1766474506897,
+					"opponent": "JV Jimmy",
+					"court": "High School"
+				},
+				"fga": {
+					"value": 14,
+					"date": 1766473717122,
+					"opponent": "Penny Hardaway",
+					"court": "High School"
+				},
+				"tpm": {
+					"value": 2,
+					"date": 1766473717122,
+					"opponent": "Penny Hardaway",
+					"court": "High School"
+				},
+				"tpa": {
+					"value": 2,
+					"date": 1766473717122,
+					"opponent": "Penny Hardaway",
+					"court": "High School"
+				},
+				"dunks": {
+					"value": 10,
+					"date": 1766474506897,
+					"opponent": "JV Jimmy",
+					"court": "High School"
+				},
+				"injuries": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"court": null
+				}
+			},
+			"seasonRecords": {
+				"1": {
+					"points": {
+						"value": 12,
+						"date": 1766349666571,
+						"opponent": "Recess Ronnie",
+						"court": "Middle School"
+					},
+					"rebounds": {
+						"value": 4,
+						"date": 1766349666571,
+						"opponent": "Recess Ronnie",
+						"court": "Middle School"
+					},
+					"assists": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					},
+					"steals": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					},
+					"blocks": {
+						"value": 3,
+						"date": 1766349666571,
+						"opponent": "Recess Ronnie",
+						"court": "Middle School"
+					},
+					"turnovers": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					},
+					"fgm": {
+						"value": 6,
+						"date": 1766349666571,
+						"opponent": "Recess Ronnie",
+						"court": "Middle School"
+					},
+					"fga": {
+						"value": 8,
+						"date": 1766349666571,
+						"opponent": "Recess Ronnie",
+						"court": "Middle School"
+					},
+					"tpm": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					},
+					"tpa": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					},
+					"dunks": {
+						"value": 6,
+						"date": 1766349666571,
+						"opponent": "Recess Ronnie",
+						"court": "Middle School"
+					},
+					"injuries": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					}
+				},
+				"4": {
+					"points": {
+						"value": 23,
+						"date": 1766474506897,
+						"opponent": "JV Jimmy",
+						"court": "High School"
+					},
+					"rebounds": {
+						"value": 6,
+						"date": 1766474506897,
+						"opponent": "JV Jimmy",
+						"court": "High School"
+					},
+					"assists": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					},
+					"steals": {
+						"value": 2,
+						"date": 1766473717122,
+						"opponent": "Penny Hardaway",
+						"court": "High School"
+					},
+					"blocks": {
+						"value": 8,
+						"date": 1766467672701,
+						"opponent": "Senior Sam",
+						"court": "High School"
+					},
+					"turnovers": {
+						"value": 1,
+						"date": 1766473717122,
+						"opponent": "Penny Hardaway",
+						"court": "High School"
+					},
+					"fgm": {
+						"value": 11,
+						"date": 1766474506897,
+						"opponent": "JV Jimmy",
+						"court": "High School"
+					},
+					"fga": {
+						"value": 14,
+						"date": 1766473717122,
+						"opponent": "Penny Hardaway",
+						"court": "High School"
+					},
+					"tpm": {
+						"value": 2,
+						"date": 1766473717122,
+						"opponent": "Penny Hardaway",
+						"court": "High School"
+					},
+					"tpa": {
+						"value": 2,
+						"date": 1766473717122,
+						"opponent": "Penny Hardaway",
+						"court": "High School"
+					},
+					"dunks": {
+						"value": 10,
+						"date": 1766474506897,
+						"opponent": "JV Jimmy",
+						"court": "High School"
+					},
+					"injuries": {
+						"value": 0,
+						"date": null,
+						"opponent": null,
+						"court": null
+					}
+				}
+			},
+			"winStreak": 0,
+			"romance": {
+				"dailyFlirtCount": 0,
+				"lastFlirtDay": 27,
+				"relationships": {
+					"Jill Scott": {
+						"affection": 11,
+						"status": "acquaintance",
+						"cityId": "phi",
+						"lastInteractionDay": 4
+					},
+					"Eve": {
+						"affection": 0,
+						"status": "stranger",
+						"cityId": null,
+						"lastInteractionDay": 0
+					},
+					"Pink": {
+						"affection": 0,
+						"status": "stranger",
+						"cityId": null,
+						"lastInteractionDay": 0
+					},
+					"Hailee Steinfeld": {
+						"affection": 0,
+						"status": "stranger",
+						"cityId": null,
+						"lastInteractionDay": 0
+					},
+					"Billie Eilish": {
+						"affection": 0,
+						"status": "stranger",
+						"cityId": null,
+						"lastInteractionDay": 0
+					},
+					"Dua Lipa": {
+						"affection": 0,
+						"status": "stranger",
+						"cityId": null,
+						"lastInteractionDay": 0
+					}
+				},
+				"spouseName": null,
+				"spouseCityId": null
+			},
+			"pvpStats": {
+				"gamesPlayed": 2,
+				"wins": 1,
+				"losses": 1,
+				"ties": 0,
+				"totals": {
+					"points": 0,
+					"rebounds": 0,
+					"assists": 0,
+					"steals": 0,
+					"blocks": 0,
+					"turnovers": 0,
+					"fgm": 0,
+					"fga": 0,
+					"tpm": 0,
+					"tpa": 0,
+					"dunks": 0,
+					"injuries": 0
+				},
+				"currentStreak": 1,
+				"longestWinStreak": 1,
+				"longestLossStreak": 1
+			},
+			"pvpRecords": {
+				"points": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"rebounds": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"assists": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"steals": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"blocks": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"turnovers": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"fgm": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"fga": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"tpm": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"tpa": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"dunks": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"injuries": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"winMargin": {
+					"value": 2,
+					"date": 1766376061901,
+					"opponent": "Opponent",
+					"score": "4-2"
+				}
+			},
+			"inventory": {
+				"sneakers": [
+					"high_tops",
+					"rim_grinders"
+				]
+			},
+			"equipment": {
+				"feet": "rim_grinders"
+			},
+			"travelingCompanion": {
+				"npcId": "Jill Scott",
+				"npcName": "Jill Scott",
+				"flightPurchasedDay": 26,
+				"datesThisDay": 0,
+				"lastDateDay": null
+			},
+			"money": 4099,
+			"babyBallers": [
+				{
+					"id": "baby_mjgj7jil_s5d3d",
+					"name": "alpha",
+					"nickname": "alfa",
+					"motherId": "Jill Scott",
+					"motherName": "Jill Scott",
+					"bornOnDay": 12,
+					"seasonBorn": 3,
+					"bornAtMs": 1766370197901,
+					"stats": {
+						"speed": 2,
+						"threePt": 2,
+						"dunk": 2,
+						"block": 1,
+						"power": 1,
+						"steal": 1
+					},
+					"level": 1,
+					"xp": 0,
+					"rep": 0,
+					"wins": 0,
+					"losses": 0,
+					"childSupport": {
+						"totalOwed": 2900,
+						"balance": 0,
+						"isPaidOff": true,
+						"dueDate": 22,
+						"isOverdue": false,
+						"overdueDay": 22
+					},
+					"relationship": -20,
+					"isNemesis": false,
+					"adoptiveFatherId": null,
+					"adoptiveFatherName": null,
+					"appearance": {
+						"skin": "magenta",
+						"eyeColor": "GREEN",
+						"jerseyColor": "BLACK",
+						"jerseyLettering": "LIGHTGRAY",
+						"jerseyNumber": "60"
+					},
+					"parentingMode": "nurture",
+					"monogamyBonus": false,
+					"currentCourt": 1,
+					"canChallenge": true,
+					"lastMatchDay": 0,
+					"streetballEarnings": 0,
+					"earningsToSupport": 0,
+					"originalParentId": "Hm Derdoc",
+					"parentId": "futureld_1"
+				},
+				{
+					"id": "baby_mjgjg8q6_ymzvj",
+					"name": "beta",
+					"nickname": "betta",
+					"motherId": "Jill Scott",
+					"motherName": "Jill Scott",
+					"bornOnDay": 21,
+					"seasonBorn": 3,
+					"bornAtMs": 1766370603822,
+					"stats": {
+						"speed": 2,
+						"threePt": 3,
+						"dunk": 2,
+						"block": 2,
+						"power": 3,
+						"steal": 2
+					},
+					"level": 1,
+					"xp": 0,
+					"rep": 0,
+					"wins": 0,
+					"losses": 0,
+					"childSupport": {
+						"totalOwed": 3400,
+						"balance": 3400,
+						"isPaidOff": false,
+						"dueDate": 31,
+						"isOverdue": false,
+						"overdueDay": null
+					},
+					"relationship": 75,
+					"isNemesis": false,
+					"adoptiveFatherId": null,
+					"adoptiveFatherName": null,
+					"appearance": {
+						"skin": "magenta",
+						"eyeColor": "GREEN",
+						"jerseyColor": "CYAN",
+						"jerseyLettering": "DARKGRAY",
+						"jerseyNumber": "84"
+					},
+					"parentingMode": "nurture",
+					"monogamyBonus": false,
+					"currentCourt": 1,
+					"canChallenge": true,
+					"lastMatchDay": 0,
+					"streetballEarnings": 0,
+					"earningsToSupport": 0,
+					"originalParentId": "Hm Derdoc",
+					"parentId": "futureld_1"
+				}
+			],
+			"parentingStats": {
+				"totalChildren": 2,
+				"independentChildren": 1,
+				"dependentChildren": 1,
+				"abandonedChildren": 0,
+				"nemesisChildren": 0,
+				"totalSupportPaid": 2175,
+				"totalSupportOwed": 3400,
+				"childrenDefeated": 0,
+				"defeatedByChildren": 0,
+				"nemesisMatchWins": 0,
+				"nemesisMatchLosses": 0
+			},
+			"babyMamas": [
+				{
+					"id": "Jill Scott",
+					"name": "Jill Scott",
+					"cityId": "phi",
+					"relationship": 35,
+					"childrenIds": [
+						"baby_mjgj7jil_s5d3d",
+						"baby_mjgjg8q6_ymzvj"
+					],
+					"childSupport": {
+						"totalOwed": 0,
+						"paidTotal": 2175,
+						"balance": 3400
+					},
+					"isNemesis": false,
+					"lastEventDay": 0
+				}
+			],
+			"alignment": -33,
+			"alignmentHistory": [
+				{
+					"action": "child_support_overdue",
+					"change": -30,
+					"newValue": -30,
+					"timestamp": 1766375426829
+				},
+				{
+					"action": "overdue_daily_decay",
+					"change": -2,
+					"newValue": -32,
+					"timestamp": 1766375854672
+				},
+				{
+					"action": "overdue_daily_decay",
+					"change": -2,
+					"newValue": -34,
+					"timestamp": 1766376151218
+				},
+				{
+					"action": "overdue_daily_decay",
+					"change": -2,
+					"newValue": -36,
+					"timestamp": 1766377427795
+				},
+				{
+					"action": "overdue_daily_decay",
+					"change": -2,
+					"newValue": -38,
+					"timestamp": 1766379445315
+				},
+				{
+					"action": "overdue_daily_decay",
+					"change": -2,
+					"newValue": -40,
+					"timestamp": 1766379508928
+				},
+				{
+					"action": "overdue_daily_decay",
+					"change": -2,
+					"newValue": -42,
+					"timestamp": 1766381671346
+				},
+				{
+					"action": "overdue_daily_decay",
+					"change": -2,
+					"newValue": -44,
+					"timestamp": 1766383465515
+				},
+				{
+					"action": "overdue_daily_decay",
+					"change": -2,
+					"newValue": -46,
+					"timestamp": 1766385407463
+				},
+				{
+					"action": "overdue_daily_decay",
+					"change": -2,
+					"newValue": -48,
+					"timestamp": 1766387897582
+				},
+				{
+					"action": "lump_sum_payment",
+					"change": 15,
+					"newValue": -33,
+					"timestamp": 1766387986857
+				}
+			],
+			"attributePoints": 2,
+			"dailyBetting": null,
+			"_globalId": "futureld_1",
+			"_lastSave": 1766528950718,
+			"_bbsId": "FUTURELD",
+			"_bbsName": "futureland.today"
+		},
+		"futureld_49": {
+			"seed": 1115920574,
+			"userHandle": "Baldilocks",
+			"dayTurns": 5,
+			"flags": {
+				"hasSeenSportsAgentIntro": true
+			},
+			"xp": 0,
+			"level": 1,
+			"gamesPlayed": 0,
+			"wins": 0,
+			"losses": 0,
+			"name": "Baldero",
+			"archetype": "playmaker",
+			"special": "hype_assist",
+			"background": "streetball",
+			"cash": 700,
+			"rep": 5,
+			"perks": [
+				"blacktop_encounters"
+			],
+			"stats": {
+				"speed": 6,
+				"threePt": 4,
+				"power": 4,
+				"steal": 6,
+				"block": 4,
+				"dunk": 4
+			},
+			"appearance": {
+				"skin": "brown",
+				"eyeColor": "LIGHTGRAY",
+				"jerseyColor": "RED",
+				"jerseyLettering": "WHITE",
+				"jerseyNumber": "61"
+			},
+			"nickname": "Balde",
+			"contacts": [
+				{
+					"id": "barney_dinosaur",
+					"type": "legend",
+					"name": "Barney Dinosaur",
+					"team": "Legends",
+					"position": "C",
+					"positionName": "Center",
+					"status": "signed",
+					"signCost": 0,
+					"cutPercent": 10,
+					"tier": "rookie",
+					"stats": {
+						"speed": 3,
+						"threePt": 2,
+						"dunk": 5,
+						"block": 6,
+						"power": 9,
+						"steal": 2
+					},
+					"skin": "barney",
+					"jersey": 1,
+					"shortNick": "BARNY",
+					"dateAcquired": 1766349933227,
+					"isStarter": true,
+					"rivals": [],
+					"intro": "You've been paired with \u0001m\u0001hBarney\u0001n, a lumbering \u0001wCenter\u0001n\u000awho dominates the paint with sheer power.\u000aHe'll grab boards and protect the rim\u000awhile you orchestrate from the perimeter."
+				}
+			],
+			"crew": [
+				{
+					"contactId": "barney_dinosaur"
+				}
+			],
+			"position": "PG",
+			"positionName": "Point Guard",
+			"positionCategory": "Guard",
+			"activeTeammate": "barney_dinosaur",
+			"joinedTimestamp": 1766493747477,
+			"joinedOnDay": 19,
+			"joinedInCity": "sas",
+			"streetTurns": 5,
+			"gymSessions": 3,
+			"barActions": 3,
+			"lastPlayedTimestamp": 1766493747477,
+			"dayStats": {
+				"gamesPlayed": 0,
+				"wins": 0,
+				"losses": 0,
+				"cashEarned": 0,
+				"repGained": 0
+			},
+			"pregnancies": [],
+			"skipCounters": {},
+			"defeatedNemesisToday": [],
+			"_globalId": "futureld_49",
+			"_lastSave": 1766493855713,
+			"_bbsId": "FUTURELD",
+			"_bbsName": "futureland.today"
+		},
+		"futureld_36": {
+			"seed": 1117188132,
+			"userHandle": "HM Derdok",
+			"dayTurns": 5,
+			"flags": {
+				"hasSeenSportsAgentIntro": true
+			},
+			"xp": 0,
+			"level": 1,
+			"gamesPlayed": 1,
+			"wins": 0,
+			"losses": 1,
+			"name": "HM Derdok",
+			"archetype": "playmaker",
+			"special": "hype_assist",
+			"background": "streetball",
+			"cash": 649,
+			"rep": 0,
+			"perks": [
+				"blacktop_encounters"
+			],
+			"stats": {
+				"speed": 9,
+				"threePt": 6,
+				"power": 4,
+				"steal": 6,
+				"block": 4,
+				"dunk": 10
+			},
+			"appearance": {
+				"skin": "brown",
+				"eyeColor": "LIGHTGRAY",
+				"jerseyColor": "RED",
+				"jerseyLettering": "WHITE",
+				"jerseyNumber": "44"
+			},
+			"nickname": "HM",
+			"contacts": [
+				{
+					"id": "barney_dinosaur",
+					"type": "legend",
+					"name": "Barney Dinosaur",
+					"team": "Legends",
+					"position": "C",
+					"positionName": "Center",
+					"status": "signed",
+					"signCost": 0,
+					"cutPercent": 10,
+					"tier": "rookie",
+					"stats": {
+						"speed": 3,
+						"threePt": 2,
+						"dunk": 5,
+						"block": 6,
+						"power": 9,
+						"steal": 2
+					},
+					"skin": "barney",
+					"jersey": 1,
+					"shortNick": "BARNY",
+					"dateAcquired": 1766351303700,
+					"isStarter": true,
+					"rivals": [],
+					"intro": "You've been paired with \u0001m\u0001hBarney\u0001n, a lumbering \u0001wCenter\u0001n\u000awho dominates the paint with sheer power.\u000aHe'll grab boards and protect the rim\u000awhile you orchestrate from the perimeter."
+				}
+			],
+			"crew": [
+				{
+					"contactId": "barney_dinosaur"
+				}
+			],
+			"position": "PG",
+			"positionName": "Point Guard",
+			"positionCategory": "Guard",
+			"activeTeammate": "barney_dinosaur",
+			"joinedTimestamp": 1766351311298,
+			"joinedOnDay": 28,
+			"joinedInCity": "por",
+			"streetTurns": 15,
+			"gymSessions": 9,
+			"barActions": 9,
+			"lastPlayedTimestamp": 1766385576266,
+			"dayStats": {
+				"gamesPlayed": 0,
+				"wins": 0,
+				"losses": 0,
+				"cashEarned": 0,
+				"repGained": 0
+			},
+			"pregnancies": [],
+			"restUsedToday": false,
+			"defeatedNemesisToday": [],
+			"nemesisCooldown": {},
+			"pvpStats": {
+				"gamesPlayed": 1,
+				"wins": 0,
+				"losses": 1,
+				"ties": 0,
+				"totals": {
+					"points": 0,
+					"rebounds": 0,
+					"assists": 0,
+					"steals": 0,
+					"blocks": 0,
+					"turnovers": 0,
+					"fgm": 0,
+					"fga": 0,
+					"tpm": 0,
+					"tpa": 0,
+					"dunks": 0,
+					"injuries": 0
+				},
+				"currentStreak": -1,
+				"longestWinStreak": 0,
+				"longestLossStreak": 1
+			},
+			"pvpRecords": {
+				"points": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"rebounds": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"assists": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"steals": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"blocks": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"turnovers": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"fgm": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"fga": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"tpm": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"tpa": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"dunks": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"injuries": {
+					"value": 0,
+					"date": null,
+					"opponent": null
+				},
+				"winMargin": {
+					"value": 0,
+					"date": null,
+					"opponent": null,
+					"score": null
+				}
+			},
+			"seasonStats": {
+				"3": {
+					"gamesPlayed": 0,
+					"wins": 0,
+					"losses": 1,
+					"totals": {
+						"points": 0,
+						"rebounds": 0,
+						"assists": 0,
+						"steals": 0,
+						"blocks": 0,
+						"turnovers": 0,
+						"fgm": 0,
+						"fga": 0,
+						"tpm": 0,
+						"tpa": 0,
+						"dunks": 0,
+						"injuries": 0
+					}
+				}
+			},
+			"_globalId": "futureld_36",
+			"_lastSave": 1766385648989,
+			"_bbsId": "FUTURELD",
+			"_bbsName": "futureland.today"
+		},
+		"futureld_4": {
+			"seed": 1145210920,
+			"userHandle": "Charles",
+			"dayTurns": 5,
+			"flags": {
+				"hasSeenSportsAgentIntro": true
+			},
+			"xp": 0,
+			"level": 1,
+			"gamesPlayed": 0,
+			"wins": 0,
+			"losses": 0,
+			"name": "Charles",
+			"archetype": "playmaker",
+			"special": "hype_assist",
+			"background": "streetball",
+			"cash": 700,
+			"rep": 5,
+			"perks": [
+				"blacktop_encounters"
+			],
+			"stats": {
+				"speed": 10,
+				"threePt": 10,
+				"power": 4,
+				"steal": 6,
+				"block": 4,
+				"dunk": 5
+			},
+			"appearance": {
+				"skin": "lightgray",
+				"eyeColor": "LIGHTGRAY",
+				"jerseyColor": "RED",
+				"jerseyLettering": "WHITE",
+				"jerseyNumber": "28"
+			},
+			"nickname": "Charl",
+			"contacts": [
+				{
+					"id": "barney_dinosaur",
+					"type": "legend",
+					"name": "Barney Dinosaur",
+					"team": "Legends",
+					"position": "C",
+					"positionName": "Center",
+					"status": "signed",
+					"signCost": 0,
+					"cutPercent": 10,
+					"tier": "rookie",
+					"stats": {
+						"speed": 3,
+						"threePt": 2,
+						"dunk": 5,
+						"block": 6,
+						"power": 9,
+						"steal": 2
+					},
+					"skin": "barney",
+					"jersey": 1,
+					"shortNick": "BARNY",
+					"dateAcquired": 1766379668572,
+					"isStarter": true,
+					"rivals": [],
+					"intro": "You've been paired with \u0001m\u0001hBarney\u0001n, a lumbering \u0001wCenter\u0001n\u000awho dominates the paint with sheer power.\u000aHe'll grab boards and protect the rim\u000awhile you orchestrate from the perimeter."
+				}
+			],
+			"crew": [
+				{
+					"contactId": "barney_dinosaur"
+				}
+			],
+			"position": "PG",
+			"positionName": "Point Guard",
+			"positionCategory": "Guard",
+			"activeTeammate": "barney_dinosaur",
+			"joinedTimestamp": 1766379671714,
+			"joinedOnDay": 23,
+			"joinedInCity": "phx",
+			"streetTurns": 10,
+			"gymSessions": 6,
+			"barActions": 6,
+			"lastPlayedTimestamp": 1766385560541,
+			"dayStats": {
+				"gamesPlayed": 0,
+				"wins": 0,
+				"losses": 0,
+				"cashEarned": 0,
+				"repGained": 0
+			},
+			"pregnancies": [],
+			"restUsedToday": false,
+			"defeatedNemesisToday": [],
+			"nemesisCooldown": {},
+			"_globalId": "futureld_4",
+			"_lastSave": 1766385677671,
+			"_bbsId": "FUTURELD",
+			"_bbsName": "futureland.today"
+		},
+		"futureld_17": {
+			"seed": 1151510038,
+			"userHandle": "Larry Lagomorph",
+			"dayTurns": 5,
+			"flags": {
+				"hasSeenSportsAgentIntro": true
+			},
+			"xp": 0,
+			"level": 1,
+			"gamesPlayed": 0,
+			"wins": 0,
+			"losses": 0,
+			"name": "Larry Lagomorph",
+			"archetype": "slasher",
+			"special": "momentum",
+			"background": "streetball",
+			"cash": 700,
+			"rep": 5,
+			"perks": [
+				"blacktop_encounters"
+			],
+			"stats": {
+				"speed": 10,
+				"threePt": 6,
+				"power": 4,
+				"steal": 4,
+				"block": 4,
+				"dunk": 10
+			},
+			"appearance": {
+				"skin": "lightgray",
+				"eyeColor": "LIGHTBLUE",
+				"jerseyColor": "GREEN",
+				"jerseyLettering": "BLACK",
+				"jerseyNumber": "28"
+			},
+			"nickname": "poopy",
+			"contacts": [
+				{
+					"id": "donatello_tmnt",
+					"type": "legend",
+					"name": "Donatello",
+					"team": "Ninja Turtles",
+					"position": "SF",
+					"positionName": "Small Forward",
+					"status": "signed",
+					"signCost": 0,
+					"cutPercent": 10,
+					"tier": "rookie",
+					"stats": {
+						"speed": 5,
+						"threePt": 5,
+						"dunk": 5,
+						"block": 5,
+						"power": 5,
+						"steal": 5
+					},
+					"skin": "donatello",
+					"jersey": 4,
+					"shortNick": "DONNIE",
+					"dateAcquired": 1766381821310,
+					"isStarter": true,
+					"rivals": [],
+					"intro": "You've been paired with \u0001m\u0001hDonatello\u0001n, a balanced \u0001wSmall Forward\u0001n\u000awith the mind of a scientist and the reach of a bo staff.\u000aTogether you'll form a versatile wing duo\u000athat can attack from anywhere."
+				}
+			],
+			"crew": [
+				{
+					"contactId": "donatello_tmnt"
+				}
+			],
+			"position": "SF",
+			"positionName": "Small Forward",
+			"positionCategory": "Forward",
+			"activeTeammate": "donatello_tmnt",
+			"joinedTimestamp": 1766381825746,
+			"joinedOnDay": 24,
+			"joinedInCity": "sac",
+			"streetTurns": 10,
+			"gymSessions": 6,
+			"barActions": 6,
+			"lastPlayedTimestamp": 1766385381699,
+			"dayStats": {
+				"gamesPlayed": 0,
+				"wins": 0,
+				"losses": 0,
+				"cashEarned": 0,
+				"repGained": 0
+			},
+			"pregnancies": [],
+			"restUsedToday": false,
+			"defeatedNemesisToday": [],
+			"nemesisCooldown": {},
+			"_globalId": "futureld_17",
+			"_lastSave": 1766385652869,
+			"_bbsId": "FUTURELD",
+			"_bbsName": "futureland.today"
+		}
+	},
+	"seasonSnapshots": {
+		"1": {
+			"futureld_1": {
+				"playerId": "futureld_1",
+				"seasonNumber": 1,
+				"createdAt": 1766356158454,
+				"name": "mow",
+				"nickname": "mMoWw",
+				"stats": {
+					"speed": 10,
+					"threePt": 8,
+					"power": 4,
+					"steal": 4,
+					"block": 4,
+					"dunk": 9
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "donatello_tmnt",
+				"teammateData": {
+					"id": "donatello_tmnt",
+					"name": "Donatello",
+					"stats": {
+						"speed": 5,
+						"threePt": 5,
+						"dunk": 5,
+						"block": 5,
+						"power": 5,
+						"steal": 5
+					},
+					"skin": "donatello",
+					"shortNick": "DONNIE"
+				},
+				"wins": 1,
+				"losses": 0,
+				"rep": 7,
+				"level": 1,
+				"repScore": 23
+			}
+		},
+		"3": {
+			"futureld_3": {
+				"playerId": "futureld_3",
+				"seasonNumber": 3,
+				"createdAt": 1766425438679,
+				"name": "betaT",
+				"nickname": "betaT",
+				"stats": {
+					"speed": 9,
+					"threePt": 4,
+					"power": 6,
+					"steal": 4,
+					"block": 6,
+					"dunk": 9
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "sonic_hedgehog",
+				"teammateData": {
+					"id": "sonic_hedgehog",
+					"name": "Sonic",
+					"stats": {
+						"speed": 10,
+						"threePt": 5,
+						"dunk": 2,
+						"block": 2,
+						"power": 2,
+						"steal": 7
+					},
+					"skin": "sonic",
+					"shortNick": "SONIC"
+				},
+				"wins": 1,
+				"losses": 0,
+				"rep": 50,
+				"level": 1,
+				"repScore": 152
+			},
+			"futureld_1": {
+				"playerId": "futureld_1",
+				"seasonNumber": 3,
+				"createdAt": 1766425438680,
+				"name": "mow",
+				"nickname": "mMoWw",
+				"stats": {
+					"speed": 10,
+					"threePt": 8,
+					"power": 4,
+					"steal": 4,
+					"block": 4,
+					"dunk": 9
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "donatello_tmnt",
+				"teammateData": {
+					"id": "donatello_tmnt",
+					"name": "Donatello",
+					"stats": {
+						"speed": 5,
+						"threePt": 5,
+						"dunk": 5,
+						"block": 5,
+						"power": 5,
+						"steal": 5
+					},
+					"skin": "donatello",
+					"shortNick": "DONNIE"
+				},
+				"wins": 1,
+				"losses": 1,
+				"rep": 47,
+				"level": 1,
+				"repScore": 143
+			},
+			"futureld_36": {
+				"playerId": "futureld_36",
+				"seasonNumber": 3,
+				"createdAt": 1766425438681,
+				"name": "HM Derdok",
+				"nickname": "HM",
+				"stats": {
+					"speed": 9,
+					"threePt": 6,
+					"power": 4,
+					"steal": 6,
+					"block": 4,
+					"dunk": 10
+				},
+				"equipment": {},
+				"perks": [],
+				"meta": null,
+				"activeTeammate": "barney_dinosaur",
+				"teammateData": {
+					"id": "barney_dinosaur",
+					"name": "Barney Dinosaur",
+					"stats": {
+						"speed": 3,
+						"threePt": 2,
+						"dunk": 5,
+						"block": 6,
+						"power": 9,
+						"steal": 2
+					},
+					"skin": "barney",
+					"shortNick": "BARNY"
+				},
+				"wins": 0,
+				"losses": 1,
+				"rep": 0,
+				"level": 1,
+				"repScore": 0
+			}
+		}
+	},
+	"lorb": {
+		"sharedState": {
+			"seasonStart": 1766356158455,
+			"seasonNumber": 2,
+			"lastUpdated": 1766356158455,
+			"seasonChampions": [
+				{
+					"seasonNumber": 1,
+					"championName": "Season 1 End",
+					"championId": null,
+					"defeatedOnDay": 30,
+					"timestamp": 1766356158455
+				}
+			],
+			"hallOfFame": [
+				{
+					"seasonNumber": 2,
+					"championId": "Baldero",
+					"championName": "Baldero",
+					"defeatedJordan": false,
+					"timestamp": 1766356161870,
+					"date": "2025-12-21T22:29:21.870Z"
+				}
+			]
+		}
+	},
+	"pvpNews": {
+		"entries": [
+			{
+				"type": "pvp_match",
+				"timestamp": 1766357179834,
+				"gameDay": 1,
+				"city": "bos",
+				"winnerName": "betaT",
+				"loserName": "Opponent",
+				"winnerScore": 5,
+				"loserScore": 0,
+				"isTie": false,
+				"topScorer": "Sonic",
+				"topScorerPoints": 5,
+				"topScorerTeam": "teamA",
+				"newRecords": [
+					{
+						"stat": "winMargin",
+						"name": "Win Margin",
+						"abbrev": "MARGIN",
+						"value": 5,
+						"previousRecord": 5
+					}
+				]
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1766357179970,
+				"gameDay": 1,
+				"city": "bos",
+				"winnerName": "betaT",
+				"loserName": "mow",
+				"winnerScore": 5,
+				"loserScore": 0,
+				"isTie": false
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1766376061906,
+				"gameDay": 22,
+				"city": "uta",
+				"winnerName": "mow",
+				"loserName": "Opponent",
+				"winnerScore": 4,
+				"loserScore": 2,
+				"isTie": false,
+				"topScorer": "Donatello",
+				"topScorerPoints": 4,
+				"topScorerTeam": "teamA",
+				"newRecords": [
+					{
+						"stat": "winMargin",
+						"name": "Win Margin",
+						"abbrev": "MARGIN",
+						"value": 2,
+						"previousRecord": 2
+					}
+				]
+			},
+			{
+				"type": "pvp_match",
+				"timestamp": 1766376061979,
+				"gameDay": 22,
+				"city": "uta",
+				"winnerName": "mow",
+				"loserName": "HM Derdok",
+				"winnerScore": 4,
+				"loserScore": 2,
+				"isTie": false
+			}
+		],
+		"lastUpdated": 1766376061980
+	},
+	"birthNews": {
+		"entries": [
+			{
+				"timestamp": 1766370603824,
+				"babyId": "baby_mjgjg8q6_ymzvj",
+				"babyName": "beta",
+				"nickname": "betta",
+				"mother": "Jill Scott",
+				"court": "Middle School",
+				"parentName": "mow",
+				"parentId": "futureld_1",
+				"bornOnDay": 21,
+				"seasonBorn": 3,
+				"status": "born",
+				"extra": null
+			},
+			{
+				"timestamp": 1766370197903,
+				"babyId": "baby_mjgj7jil_s5d3d",
+				"babyName": "alpha",
+				"nickname": "alfa",
+				"mother": "Jill Scott",
+				"court": "Middle School",
+				"parentName": "mow",
+				"parentId": "futureld_1",
+				"bornOnDay": 12,
+				"seasonBorn": 3,
+				"status": "born",
+				"extra": null
+			}
+		],
+		"lastUpdated": 1766370603824
+	},
+	"playoffBrackets": {
+		"3": {
+			"id": "playoff_s3",
+			"seasonNumber": 3,
+			"status": "active",
+			"bracketSize": 4,
+			"createdAt": 1766425438682,
+			"seeds": [
+				{
+					"seed": 1,
+					"playerId": "futureld_3",
+					"name": "betaT",
+					"repScore": 152,
+					"isBye": false
+				},
+				{
+					"seed": 2,
+					"playerId": "futureld_1",
+					"name": "mow",
+					"repScore": 143,
+					"isBye": false
+				},
+				{
+					"seed": 3,
+					"playerId": "futureld_36",
+					"name": "HM Derdok",
+					"repScore": 0,
+					"isBye": false
+				},
+				{
+					"seed": 4,
+					"playerId": null,
+					"name": "BYE",
+					"repScore": 0,
+					"isBye": true
+				}
+			],
+			"matches": [
+				{
+					"id": "semifinals_1",
+					"round": "semifinals",
+					"roundNumber": 1,
+					"matchNumber": 1,
+					"player1": {
+						"seed": 1,
+						"playerId": "futureld_3",
+						"name": "betaT",
+						"repScore": 152,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 4,
+						"playerId": null,
+						"name": "BYE",
+						"repScore": 0,
+						"isBye": true
+					},
+					"status": "bye",
+					"winner": {
+						"seed": 1,
+						"playerId": "futureld_3",
+						"name": "betaT",
+						"repScore": 152,
+						"isBye": false
+					},
+					"loser": {
+						"seed": 4,
+						"playerId": null,
+						"name": "BYE",
+						"repScore": 0,
+						"isBye": true
+					},
+					"score": null,
+					"resolution": "bye",
+					"createdAt": 1766425438682,
+					"softDeadline": 1766479438682,
+					"hardDeadline": 1766506438682,
+					"completedAt": 1766425438682
+				},
+				{
+					"id": "semifinals_2",
+					"round": "semifinals",
+					"roundNumber": 1,
+					"matchNumber": 2,
+					"player1": {
+						"seed": 2,
+						"playerId": "futureld_1",
+						"name": "mow",
+						"repScore": 143,
+						"isBye": false
+					},
+					"player2": {
+						"seed": 3,
+						"playerId": "futureld_36",
+						"name": "HM Derdok",
+						"repScore": 0,
+						"isBye": false
+					},
+					"status": "scheduled",
+					"winner": null,
+					"loser": null,
+					"score": null,
+					"resolution": null,
+					"createdAt": 1766425438682,
+					"softDeadline": 1766479438682,
+					"hardDeadline": 1766506438682,
+					"completedAt": null,
+					"scheduling": {
+						"scheduledStartUTC": 1766448000000,
+						"scheduledEndUTC": 1766449800000,
+						"graceEndsUTC": 1766449200000,
+						"scheduledBy": "auto",
+						"pvpWindowEndsUTC": 1766684638682,
+						"deferUsed": {}
+					}
+				}
+			],
+			"currentRound": "semifinals",
+			"roundNumber": 1,
+			"championPlayerId": null,
+			"championName": null,
+			"completedAt": null
+		}
+	},
+	"ballerdexNews": {
+		"entries": [
+			{
+				"playerName": "mow",
+				"contactName": "Tracy McGrady",
+				"contactTeam": "Rockets",
+				"timestamp": 1766473477577
+			},
+			{
+				"playerName": "mow",
+				"contactName": "Penny Hardaway",
+				"contactTeam": "Magic",
+				"timestamp": 1766473717122
+			},
+			{
+				"playerName": "mow",
+				"contactName": "Dwight Howard",
+				"contactTeam": "Magic",
+				"timestamp": 1766474148871
+			},
+			{
+				"playerName": "mow",
+				"contactName": "Dominique Wilkins",
+				"contactTeam": "Hawks",
+				"timestamp": 1766474279135
+			}
+		],
+		"lastUpdated": 1766474279137
+	}
+}
