@@ -2,6 +2,9 @@
 
 A faithful recreation of NBA JAM for Synchronet BBS terminals, featuring authentic arcade gameplay with terminal-based graphics, multiplayer support, and AI opponents.
 
+Connect your BBS:
+
+`?rlogin futureland.today:4513 -t xtrn=NBA_JAM`
 ## Overview
 
 NBA JAM Terminal Edition brings the classic arcade basketball experience to your BBS. Play solo against CPU opponents, watch AI vs AI demo matches, or compete against other users in real-time multiplayer games over the BBS network.

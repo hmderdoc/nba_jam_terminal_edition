@@ -76,12 +76,18 @@ This document is the current source of truth for the `lib/lorb` runtime. It repl
   - `locations/gym.js`: stat training with per-session costs scaling by current stat; limited by `ctx.gymSessions` and cash. Shows equipped buffs for context.
   - `locations/shop.js`: gear/consumables. Sneakers apply persistent mods while equipped (`equipment.feet`); drinks apply temp buffs to `ctx.tempBuffs`. `getEffectiveStats` used by UI and courts to show buffs.
   - `locations/crib.js`: home menu for contacts/crew/appearance/stats. Supports character reset (calls `LORB.Persist.remove` and flags `_deleted`). Crew/rolodex operations rely on `LORB.Util.Contacts`. Appearance editor mirrors character creation options.
-  - `locations/tournaments.js`: leaderboard/ghost-match lobby. Pulls `LORB.Persist.listPlayers` and `getOnlinePlayers`, computes league leaders/records from persisted `careerStats` and `records`, and lets users view other player cards (`LORB.UI.StatsView.showForPlayer`). Ghost match wagering uses up to 10% of opponent's balance. **Ghost matches now run through the real game engine** (`runExternalGame`) when available:
-    - Player team built from `ctxToPlayer(ctx)` + active teammate via `getMyTeammate(ctx)`
-    - Ghost team built from `ghostOpponentToPlayer(opponent)` + opponent's teammate via `getGhostTeammate(opponent)`
-    - Falls back to mock 50/50 simulation if engine unavailable
-    - Career stats recorded via `LORB.Util.CareerStats.recordGame` on completion
-    - Player can quit mid-match (wager refunded, no stat changes)
+  - `locations/tournaments.js`: leaderboard/ghost-match lobby. Pulls `LORB.Persist.listPlayers` and `getOnlinePlayers`, computes league leaders/records from persisted `careerStats` and `records`, and lets users view other player cards (`LORB.UI.StatsView.showForPlayer`). **Ghost matches use court-tier based stakes** (mirroring Hit the Streets mechanics) instead of arbitrary wagers:
+    - Uses courts from `GHOST_MATCH.COURTS` config (middle_school, high_school, aau, college, nba) with escalating cashBase/repBase/difficulty
+    - Available courts limited by **both players' rep** (can only challenge on courts both have unlocked)
+    - Opponent must have minimum cash for the court tier (`GHOST_MATCH.MIN_OPPONENT_CASH`)
+    - Costs 1 street turn (same as Hit the Streets)
+    - Winner gains court's cashReward; loser's balance is debited via `LORB.Persist.updatePlayerBalance`
+    - **Ghost matches run through the real game engine** (`runExternalGame`) when available:
+      - Player team built from `ctxToPlayer(ctx)` + active teammate via `getMyTeammate(ctx)`
+      - Ghost team built from `ghostOpponentToPlayer(opponent)` + opponent's teammate via `getGhostTeammate(opponent)`
+      - Falls back to mock 50/50 simulation if engine unavailable
+      - Career stats recorded via `LORB.Util.CareerStats.recordGame` on completion
+      - Player can quit mid-match (no stat changes)
 
 ## Integration Points
 - **Real game dependency:** Rich game flow requires `runExternalGame` (from the main NBA Jam runtime). Courts and adapter fall back to mock simulation if absent; presence of `BinLoader`, `RichView`, and sprite utils gates richer UI paths.
