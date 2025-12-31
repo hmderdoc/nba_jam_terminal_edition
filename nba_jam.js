@@ -187,6 +187,12 @@ function gameLoop(systems) {
             ballFrame.top();
         }
 
+        // Wave 24: Apply clock speed multiplier to gameplay timing (for betting sims)
+        // This makes sprites move faster and AI react faster, not just the clock
+        var clockMultiplier = stateManager.get("clockSpeedMultiplier") || 1;
+        var effectiveFrameDelay = Math.max(1, Math.floor(tempo.frameDelayMs / clockMultiplier));
+        var effectiveAiInterval = Math.max(1, Math.floor(tempo.aiIntervalMs / clockMultiplier));
+
         // Configure for single-player mode
         var config = {
             isAuthority: true, // SP is always authoritative
@@ -194,8 +200,8 @@ function gameLoop(systems) {
                 var key = console.inkey(K_NONE, 5);
                 if (key) handleInput(key, systems);
             },
-            aiInterval: tempo.aiIntervalMs, // Throttled AI for performance
-            frameDelay: tempo.frameDelayMs  // Variable frame rate
+            aiInterval: effectiveAiInterval, // Throttled AI for performance (scaled by clockMultiplier)
+            frameDelay: effectiveFrameDelay  // Variable frame rate (scaled by clockMultiplier)
         };
 
         if (systems.jumpBallSystem && typeof systems.jumpBallSystem.startOpeningTipoff === "function") {

@@ -1,3 +1,4 @@
 {
-    "chat.agent.maxRequests": 250
+    "chat.agent.maxRequests": 250,
+    "workbench.colorTheme": "Tinacious Design"
 }
