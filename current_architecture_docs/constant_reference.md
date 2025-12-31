@@ -162,6 +162,28 @@ Centralizes AI difficulty scaling for LORB (Legend of the Red Bull) and other ex
 
 ---
 
+### `lib/lorb/config.js` – STREETBALL_STATS_BY_TIER
+
+Defines per-tier stat ranges for procedurally generated streetball opponents.
+
+| Tier | Court Name | Min Stat | Max Stat | Weakness Range |
+| --- | --- | --- | --- | --- |
+| 1 | Middle School | 2 | 5 | 1–2 |
+| 2 | High School | 3 | 7 | 1–3 |
+| 3 | AAU Circuit | 4 | 8 | 1–4 |
+| 4 | College | 5 | 9 | 1–5 |
+| 5 | The League | 6 | 10 | 1–6 |
+
+**Mechanics:**
+- Each of the 6 stats (speed, 3point, dunk, power, steal, block) rolls independently within `[min, max]`.
+- One random stat is designated as the "weakness" and re-rolled in `[1, min]` instead.
+- Lower stats at lower tiers naturally cause AI to avoid low-percentage shots (e.g., a 3-rated shooter won't fire from half-court).
+
+**Consumers:**
+- `lib/lorb/locations/courts.js` – `generateStreetballOpponent()` reads `LORB.Config.STREETBALL_STATS_BY_TIER[difficulty]`.
+
+---
+
 ### Adding New Constants
 
 1. Pick the module by category:

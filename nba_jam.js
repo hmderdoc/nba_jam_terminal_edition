@@ -1177,6 +1177,15 @@ function main() {
     cleanupScoreFrames();
     if (typeof scoreFrame !== "undefined" && scoreFrame) scoreFrame.close();
     if (typeof announcerFrame !== "undefined" && announcerFrame) announcerFrame.close();
+    
+    // Cleanup JSONClient singleton (unsubscribes all, disconnects)
+    if (typeof NBA_JAM !== "undefined" && NBA_JAM.JsonClient && NBA_JAM.JsonClient.disconnect) {
+        try {
+            NBA_JAM.JsonClient.disconnect();
+        } catch (e) {
+            // Ignore disconnect errors during cleanup
+        }
+    }
 }
 
 // Wrap main() with error handler for automatic error logging

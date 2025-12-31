@@ -466,3 +466,60 @@ The fix is not just "add timeouts" - it's a fundamental architectural change:
 This matches how `json-chat.js` uses `json-client.js` and is the intended design pattern for the Synchronet JSON service.
 
 The changes are significant but well-defined. The data integrity issue (exit-only saves) is separate and should also be addressed but is lower priority than fixing the blocking.
+
+---
+
+## Appendix: JSONClient Singleton Factory (Wave 24)
+
+**Date Added:** January 2025  
+**Files:** `lib/utils/json-client-factory.js`
+
+### Problem: Multiple JSONClient Instances
+
+Prior to Wave 24, multiple parts of the codebase created their own JSONClient instances:
+- `lib/lorb/util/json_client_helper.js` - LORB's existing helper
+- `lib/multiplayer/mp_lobby_v2.js` - Multiplayer lobby v2
+- `lib/multiplayer/mp_lobby.js` - Legacy multiplayer lobby
+- `lib/lorb/multiplayer/lorb_multiplayer_launcher.js` - LORB match launcher
+
+This caused:
+1. Multiple socket connections to the same server
+2. Risk of orphaned connections if cleanup was missed
+3. Inconsistent timeout/backoff configuration across consumers
+
+### Solution: Unified Singleton Factory
+
+A new singleton factory at `lib/utils/json-client-factory.js` provides:
+
+```javascript
+// Get shared client (creates on first call)
+var client = NBA_JAM.JsonClient.get();
+
+// Configure before first use (optional)
+NBA_JAM.JsonClient.configure({ addr: "localhost", port: 10088 });
+
+// Track subscriptions for cleanup
+NBA_JAM.JsonClient.trackSubscription("nba_jam", "challenges.bucket_123");
+
+// Disconnect and cleanup all subscriptions
+NBA_JAM.JsonClient.disconnect();
+```
+
+### Benefits
+- **Single connection**: All consumers share one JSONClient instance
+- **Guaranteed cleanup**: `disconnect()` unsubscribes all tracked paths, then closes socket
+- **Consistent settings**: Fire-and-forget mode (`TIMEOUT=-1`) by default
+- **Backoff handling**: Failed connections trigger exponential backoff, shared across consumers
+- **Graceful fallback**: Consumers that can't access the factory still work (create their own client)
+
+### Integration Points
+- **Load order**: Factory loaded in `module-loader.js` after `helpers.js`, before multiplayer/LORB
+- **Exit cleanup**: `nba_jam.js` calls `NBA_JAM.JsonClient.disconnect()` in cleanup section
+- **LORB delegation**: `json_client_helper.js` delegates to factory when available
+
+### Scope Responsibility
+The factory manages **connection only**. Callers are responsible for:
+- Choosing the appropriate scope (`"nba_jam"` vs `"chat"`)
+- Locking semantics per operation
+- Subscription management via `trackSubscription()`/`untrackSubscription()`
+
